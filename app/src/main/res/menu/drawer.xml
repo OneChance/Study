@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/info_team_name"
+            android:icon="@drawable/ic_dashboard"
+            android:title="" />
+
+        <item
+            android:id="@+id/info_money"
+            android:icon="@drawable/ic_event"
+            android:title="" />
+
+        <item
+            android:id="@+id/info_fans"
+            android:icon="@drawable/ic_forum"
+            android:title="" />
+    </group>
+</menu>

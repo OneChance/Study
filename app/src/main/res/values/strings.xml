@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- 登陆 -->
+    <string name="scan_emp_no">扫描员工号</string>
+
+    <string name="app_name">Study</string>
+    <string name="zb_tab_name">粘棒</string>
+    <string name="pb_tab_name">配棒</string>
+    <string name="tj_tab_name">脱胶</string>
+    <string name="fx_tab_name">分选</string>
+
+    <string name="action_settings">设置</string>
+    <string name="station">工位</string>
+
+    <string name="wait_scan">请扫描......</string>
+    <string name="pb_scan_station">扫描工位</string>
+
+    <string name="btn_scan_product">扫描产品</string>
+
+    <string name="product_delete">删除</string>
+    <string name="product_save">保存</string>
+    <string name="dialog_dismiss">关闭</string>
+
+    <!--配棒-->
+    <string name="th_brick_id">BrickID</string>
+    <string name="th_length">长度</string>
+
+    <!--脱胶-->
+    <string name="th_weight">重量</string>
+    <string name="th_valid_length">有效长度</string>
+    <string name="th_bbc">崩边长</string>
+    <string name="th_piece_reason">碎片原因</string>
+    <string name="th_num_weight">重量/数量</string>
+
+    <!--分选-->
+    <string name="th_num">数量</string>
+</resources>

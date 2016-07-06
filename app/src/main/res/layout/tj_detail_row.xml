@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dividers"
+        android:clickable="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tj_piece_reason"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:text="1"
+            app:layout_widthPercent="50%"></TextView>
+
+        <TextView
+            android:id="@+id/tj_num_weight"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:layout_toRightOf="@+id/tj_piece_reason"
+            android:text="2"
+            app:layout_widthPercent="50%"></TextView>
+
+    </android.support.percent.PercentRelativeLayout>
+</FrameLayout>
