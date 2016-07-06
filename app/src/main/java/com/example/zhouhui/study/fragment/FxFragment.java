@@ -1,7 +1,5 @@
 package com.example.zhouhui.study.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.zhouhui.study.IScanReceiver;
+import com.example.zhouhui.study.MyApplication;
 import com.example.zhouhui.study.R;
 import com.example.zhouhui.study.adapter.FxDetailListAdapter;
 import com.example.zhouhui.study.adapter.FxListAdapter;
@@ -27,13 +27,11 @@ import java.util.Random;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class FxFragment extends BaseTagFragment implements FxListAdapter.ButtonCallbacks {
+public class FxFragment extends BaseTagFragment implements FxListAdapter.ButtonCallbacks,IScanReceiver {
 
     public FxFragment() {
         this.tabNameId = R.string.fx_tab_name;
     }
-
-    public final int SCAN_CODE_PRODUCT = 1;
 
     @InjectView(R.id.fx_scan_product)
     Button scanProduct;
@@ -48,6 +46,7 @@ public class FxFragment extends BaseTagFragment implements FxListAdapter.ButtonC
 
     List<FxProduct> list;
     FxListAdapter dataAdapter;
+    IScanReceiver receiver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,11 +56,12 @@ public class FxFragment extends BaseTagFragment implements FxListAdapter.ButtonC
         ButterKnife.inject(this, view);
 
         activity = getActivity();
+        receiver = this;
 
         scanProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MyApplication.scanUtil.send(receiver, 0);
             }
         });
 
@@ -89,44 +89,39 @@ public class FxFragment extends BaseTagFragment implements FxListAdapter.ButtonC
         return view;
     }
 
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString("result");
+    public void receive(String res,int scanCode) {
 
-            brick.setText(scanResult);
+        brick.setText(res);
+        DBHelper.getInstance(activity).deleteAll(FxProduct.class);
+        list.clear();
 
-            DBHelper.getInstance(activity).deleteAll(FxProduct.class);
-            list.clear();
+        //取产品信息
+        FxProduct p = new FxProduct();
+        Random r = new Random();
+        p.setBrickId(r.nextInt() + "");
+        p.setLength(r.nextInt() + "");
+        p.setWeight(r.nextInt() + "");
+        p.setValidLength(r.nextInt() + "");
+        p.setBbc(r.nextInt() + "");
+        p.setNum(r.nextInt() + "");
 
-            //取产品信息
-            FxProduct p = new FxProduct();
-            Random r = new Random();
-            p.setBrickId(r.nextInt() + "");
-            p.setLength(r.nextInt() + "");
-            p.setWeight(r.nextInt() + "");
-            p.setValidLength(r.nextInt() + "");
-            p.setBbc(r.nextInt() + "");
-            p.setNum(r.nextInt() + "");
+        FxDetail d1 = new FxDetail();
+        d1.setPieceReason(r.nextInt() + "");
+        d1.setWeightNum(r.nextInt() + "");
+        FxDetail d2 = new FxDetail();
+        d2.setPieceReason(r.nextInt() + "");
+        d2.setWeightNum(r.nextInt() + "");
 
-            FxDetail d1 = new FxDetail();
-            d1.setPieceReason(r.nextInt() + "");
-            d1.setWeightNum(r.nextInt() + "");
-            FxDetail d2 = new FxDetail();
-            d2.setPieceReason(r.nextInt() + "");
-            d2.setWeightNum(r.nextInt() + "");
+        List<FxDetail> dList = new ArrayList<>();
+        dList.add(d1);
+        dList.add(d2);
 
-            List<FxDetail> dList = new ArrayList<>();
-            dList.add(d1);
-            dList.add(d2);
+        p.setdList(dList);
 
-            p.setdList(dList);
-
-            list.add(p);
-            dataAdapter.notifyDataSetChanged();
-        }
+        list.add(p);
+        dataAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -172,4 +167,5 @@ public class FxFragment extends BaseTagFragment implements FxListAdapter.ButtonC
     public void numChange(int position, String val) {
         list.get(position).setNum(val);
     }
+
 }

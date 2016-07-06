@@ -20,10 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile files('libs/lite-orm-1.9.1.jar')
-    testCompile 'junit:junit:4.12'
-    compile files('libs/nineoldandroids-2.4.0.jar')
     compile 'com.android.support:percent:22.2.0'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'com.android.support:appcompat-v7:22.1.0'

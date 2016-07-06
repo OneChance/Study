@@ -1,17 +1,18 @@
 package com.example.zhouhui.study.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.zhouhui.study.IScanReceiver;
+import com.example.zhouhui.study.MyApplication;
 import com.example.zhouhui.study.R;
 import com.example.zhouhui.study.adapter.PbListAdapter;
 import com.example.zhouhui.study.db.DBHelper;
@@ -24,7 +25,7 @@ import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonCallbacks {
+public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonCallbacks,IScanReceiver{
 
     public PbFragment() {
         this.tabNameId = R.string.pb_tab_name;
@@ -43,11 +44,11 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     RecyclerView listView;
     @InjectView(R.id.pb_save)
     Button save;
-
-    FragmentActivity activity;
-
     List<PbProduct> list;
     PbListAdapter dataAdapter;
+    FragmentActivity activity;
+    IScanReceiver receiver;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,18 +58,19 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         ButterKnife.inject(this, view);
 
         activity = getActivity();
+        receiver = this;
 
         scanStation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MyApplication.scanUtil.send(receiver, SCAN_CODE_STATION);
             }
         });
 
         scanProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MyApplication.scanUtil.send(receiver, SCAN_CODE_PRODUCT);
             }
         });
 
@@ -79,7 +81,10 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             }
         });
 
-        list = new ArrayList<>();
+        if(list==null){
+            list = new ArrayList<>();
+        }
+
         List<PbProduct> plist = DBHelper.getInstance(activity).query(PbProduct.class);
         if (plist.size() > 0) {
             list = plist;
@@ -96,31 +101,25 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString("result");
-
-            if (requestCode == SCAN_CODE_STATION) {
-                station.setText(scanResult);
-            } else if (requestCode == SCAN_CODE_PRODUCT) {
-                //取产品信息
-                PbProduct p = new PbProduct();
-                p.setBrickId("13424234234");
-                p.setLength("11232131235");
-                list.add(p);
-                dataAdapter.notifyDataSetChanged();
-            }
-        }
-    }
-
-    @Override
     public void removePosition(int position) {
         PbProduct p = list.get(position);
         if (p.getId() != 0) {
             DBHelper.getInstance(activity).delete(p);
         }
         dataAdapter.removePosition(position);
+    }
+
+    @Override
+    public void receive(String res,int scanCode) {
+        if (scanCode == SCAN_CODE_STATION) {
+            station.setText(res);
+        } else if (scanCode == SCAN_CODE_PRODUCT) {
+            //取产品信息
+            PbProduct p = new PbProduct();
+            p.setBrickId("13424234234");
+            p.setLength("11232131235");
+            list.add(p);
+            dataAdapter.notifyDataSetChanged();
+        }
     }
 }

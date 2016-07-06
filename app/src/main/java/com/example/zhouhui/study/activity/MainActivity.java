@@ -1,6 +1,7 @@
 package com.example.zhouhui.study.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -15,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.zhouhui.study.R;
 import com.example.zhouhui.study.fragment.BaseTagFragment;
@@ -66,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+
+        Intent loginDataIntent = getIntent();
+        String identity = loginDataIntent.getStringExtra("identity");
+        TextView loginUser = (TextView)findViewById(R.id.loginUser);
+        loginUser.setText(identity);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -75,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
-                        Log.d("xxxxx","--------------");
                         return true;
                     }
                 });
