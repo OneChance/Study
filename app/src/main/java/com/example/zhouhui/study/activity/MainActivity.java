@@ -1,6 +1,5 @@
 package com.example.zhouhui.study.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,10 +13,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zhouhui.study.R;
 import com.example.zhouhui.study.fragment.BaseTagFragment;
@@ -30,23 +30,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private static FragmentManager fragmentManager;
     private static ZbFragment zbFragment;
     private static PbFragment pbFragment;
     private static TjFragment tjFragment;
     private static FxFragment fxFragment;
-    private static Context context;
     private Toolbar toolbar;
     private DrawerLayout mDrawerLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainpage);
-        context = this;
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
