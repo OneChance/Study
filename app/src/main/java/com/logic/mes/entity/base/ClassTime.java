@@ -4,7 +4,7 @@ import com.litesuits.orm.db.annotation.Table;
 
 import java.io.Serializable;
 
-@Table("produce_def")
+@Table("class_time")
 public class ClassTime implements Serializable {
 
     private Long id =0l;
