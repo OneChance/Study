@@ -30,7 +30,7 @@ import butterknife.InjectView;
 public class TjFragment extends BaseTagFragment implements TjListAdapter.ButtonCallbacks {
 
     public TjFragment() {
-        this.tabNameId = R.string.tj_tab_name;
+        this.tagNameId = R.string.tj_tab_name;
     }
 
     public final int SCAN_CODE_PRODUCT = 1;

@@ -30,7 +30,7 @@ import butterknife.InjectView;
 public class FxFragment extends BaseTagFragment implements FxListAdapter.ButtonCallbacks,IScanReceiver {
 
     public FxFragment() {
-        this.tabNameId = R.string.fx_tab_name;
+        this.tagNameId = R.string.fx_tab_name;
     }
 
     @InjectView(R.id.fx_scan_product)

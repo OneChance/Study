@@ -27,7 +27,7 @@ import butterknife.InjectView;
 public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonCallbacks,IScanReceiver{
 
     public PbFragment() {
-        this.tabNameId = R.string.pb_tab_name;
+        this.tagNameId = R.string.pb_tab_name;
     }
 
     public final int SCAN_CODE_STATION = 0;

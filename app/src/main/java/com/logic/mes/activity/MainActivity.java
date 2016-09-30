@@ -17,7 +17,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.logic.mes.R;
-import com.logic.mes.entity.base.UserData;
+import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.fragment.BaseTagFragment;
 import com.logic.mes.presenter.main.IMain;
 import com.logic.mes.presenter.main.MainPresenter;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements IMain{
 
     private static FragmentManager fragmentManager;
 
-    UserData userData;
+    UserInfo userInfo;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
     @InjectView(R.id.drawer_layout)
@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements IMain{
         ButterKnife.inject(this);
 
         Bundle bundle=this.getIntent().getExtras();
-        userData= (UserData)bundle.getSerializable("userData");
-        loginUser.setText(userData.getUserName());
+        userInfo = (UserInfo)bundle.getSerializable("userInfo");
+        loginUser.setText(userInfo.getUser().getEmpName());
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements IMain{
 
         fragmentManager = getSupportFragmentManager();
         mainPresenter = new MainPresenter(this);
-        mainPresenter.getAuthTags(userData);
+        mainPresenter.getAuthTags(userInfo);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
@@ -103,7 +103,9 @@ public class MainActivity extends AppCompatActivity implements IMain{
     public void setTags(List<BaseTagFragment> tags) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(fragmentManager);
         for (BaseTagFragment tag : tags) {
-            adapter.addFrag(tag, getResources().getText(tag.tabNameId).toString());
+            if(tag.tagNameId>0){
+                adapter.addFrag(tag, getResources().getText(tag.tagNameId).toString());
+            }
         }
         viewPager.setAdapter(adapter);
     }

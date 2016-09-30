@@ -1,7 +1,7 @@
 package com.logic.mes.net;
 
 
-import com.logic.mes.entity.base.UserData;
+import com.logic.mes.entity.base.UserInfoResult;
 
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -11,8 +11,8 @@ import rx.Observable;
 
 public interface IServices {
     @FormUrlEncoded
-    @POST("nba/account/login/?device=app")
-    public Observable<UserData> Login(@Field("userCode") String userCode);
+    @POST("/mes/intface/userlogon/")
+    public Observable<UserInfoResult> Login(@Field("code") String userCode);
 
     @GET("/nba/game/myteam/?device=app&ask=players")
     public Observable<Object> getTeamPlayers();
