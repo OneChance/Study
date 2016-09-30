@@ -1,4 +1,4 @@
-package com.logic.mes.entity;
+package com.logic.mes.entity.process;
 
 
 import com.litesuits.orm.db.annotation.PrimaryKey;

@@ -2,6 +2,7 @@ package com.logic.mes;
 
 import android.app.Application;
 import android.content.Context;
+import android.widget.Toast;
 
 public class MyApplication extends Application {
     private static Context context;
@@ -18,5 +19,9 @@ public class MyApplication extends Application {
     public void onTerminate() {
         scanUtil.release();
         super.onTerminate();
+    }
+
+    public static void toast(String msg){
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 }

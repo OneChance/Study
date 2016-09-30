@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.logic.mes.R;
-import com.logic.mes.entity.TjProduct;
+import com.logic.mes.entity.process.TjProduct;
 
 import java.util.List;
 

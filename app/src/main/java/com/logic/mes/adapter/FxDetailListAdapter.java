@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.logic.mes.R;
-import com.logic.mes.entity.FxDetail;
+import com.logic.mes.entity.process.FxDetail;
 
 import java.util.List;
 

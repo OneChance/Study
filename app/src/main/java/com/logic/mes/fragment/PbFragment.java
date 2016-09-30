@@ -15,7 +15,7 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.adapter.PbListAdapter;
 import com.logic.mes.db.DBHelper;
-import com.logic.mes.entity.PbProduct;
+import com.logic.mes.entity.process.PbProduct;
 
 import java.util.ArrayList;
 import java.util.List;

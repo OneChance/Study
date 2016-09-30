@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.logic.mes.R;
-import com.logic.mes.entity.PbProduct;
+import com.logic.mes.entity.process.PbProduct;
 
 import java.util.List;
 

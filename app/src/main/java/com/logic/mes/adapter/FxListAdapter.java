@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.logic.mes.R;
-import com.logic.mes.entity.FxProduct;
+import com.logic.mes.entity.process.FxProduct;
 
 import java.util.List;
 

@@ -17,8 +17,8 @@ import com.logic.mes.adapter.TjDetailListAdapter;
 import com.logic.mes.adapter.TjListAdapter;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.dialog.MaterialDialog;
-import com.logic.mes.entity.TjDetail;
-import com.logic.mes.entity.TjProduct;
+import com.logic.mes.entity.process.TjDetail;
+import com.logic.mes.entity.process.TjProduct;
 
 import java.util.ArrayList;
 import java.util.List;

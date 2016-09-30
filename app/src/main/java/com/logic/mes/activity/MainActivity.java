@@ -1,6 +1,5 @@
 package com.logic.mes.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -18,32 +17,46 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.logic.mes.R;
+import com.logic.mes.entity.base.UserData;
 import com.logic.mes.fragment.BaseTagFragment;
-import com.logic.mes.fragment.FxFragment;
-import com.logic.mes.fragment.PbFragment;
-import com.logic.mes.fragment.TjFragment;
-import com.logic.mes.fragment.ZbFragment;
+import com.logic.mes.presenter.main.IMain;
+import com.logic.mes.presenter.main.MainPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity{
+
+public class MainActivity extends AppCompatActivity implements IMain{
 
     private static FragmentManager fragmentManager;
-    private static ZbFragment zbFragment;
-    private static PbFragment pbFragment;
-    private static TjFragment tjFragment;
-    private static FxFragment fxFragment;
-    private Toolbar toolbar;
-    private DrawerLayout mDrawerLayout;
+
+    UserData userData;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+    @InjectView(R.id.main_viewpager)
+    ViewPager viewPager;
+    @InjectView(R.id.nav_view)
+    NavigationView navigationView;
+    @InjectView(R.id.main_tabs)
+    TabLayout tabLayout;
+    @InjectView(R.id.loginUser)
+    TextView loginUser;
+    MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainpage);
+        ButterKnife.inject(this);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Bundle bundle=this.getIntent().getExtras();
+        userData= (UserData)bundle.getSerializable("userData");
+        loginUser.setText(userData.getUserName());
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -51,25 +64,15 @@ public class MainActivity extends AppCompatActivity{
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
 
         fragmentManager = getSupportFragmentManager();
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.main_viewpager);
-        setupViewPager(viewPager);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tabs);
+        mainPresenter = new MainPresenter(this);
+        mainPresenter.getAuthTags(userData);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
-
-        Intent loginDataIntent = getIntent();
-        String identity = loginDataIntent.getStringExtra("identity");
-        TextView loginUser = (TextView)findViewById(R.id.loginUser);
-        loginUser.setText(identity);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
@@ -96,29 +99,12 @@ public class MainActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    public List<BaseTagFragment> getAuthTab() {
-        zbFragment = new ZbFragment();
-        pbFragment = new PbFragment();
-        tjFragment = new TjFragment();
-        fxFragment = new FxFragment();
-        List<BaseTagFragment> tabs = new ArrayList<>();
-        tabs.add(pbFragment);
-        tabs.add(zbFragment);
-        tabs.add(tjFragment);
-        tabs.add(fxFragment);
-        return tabs;
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-
-        //根据权限设置Tab
-        List<BaseTagFragment> tabs = getAuthTab();
+    @Override
+    public void setTags(List<BaseTagFragment> tags) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(fragmentManager);
-
-        for (BaseTagFragment tab : tabs) {
-            adapter.addFrag(tab, getResources().getText(tab.tabNameId).toString());
+        for (BaseTagFragment tag : tags) {
+            adapter.addFrag(tag, getResources().getText(tag.tabNameId).toString());
         }
-
         viewPager.setAdapter(adapter);
     }
 

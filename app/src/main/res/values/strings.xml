@@ -1,6 +1,7 @@
 <resources>
 
     <!-- 登陆 -->
+    <string name="login_error">登陆异常</string>
     <string name="scan_emp_no">扫描员工号</string>
 
     <string name="app_name">Study</string>

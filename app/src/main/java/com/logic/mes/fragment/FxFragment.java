@@ -17,8 +17,8 @@ import com.logic.mes.adapter.FxDetailListAdapter;
 import com.logic.mes.adapter.FxListAdapter;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.dialog.MaterialDialog;
-import com.logic.mes.entity.FxDetail;
-import com.logic.mes.entity.FxProduct;
+import com.logic.mes.entity.process.FxDetail;
+import com.logic.mes.entity.process.FxProduct;
 
 import java.util.ArrayList;
 import java.util.List;
