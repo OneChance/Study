@@ -61,4 +61,5 @@
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:background">@color/card_background</item>
     </style>
+
 </resources>

@@ -15,6 +15,7 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.adapter.PbListAdapter;
 import com.logic.mes.db.DBHelper;
+import com.logic.mes.entity.base.TableSet;
 import com.logic.mes.entity.process.PbProduct;
 
 import java.util.ArrayList;
@@ -33,20 +34,28 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     public final int SCAN_CODE_STATION = 0;
     public final int SCAN_CODE_PRODUCT = 1;
 
-    @InjectView(R.id.pb_scan_station)
-    Button scanStation;
+    @InjectView(R.id.pb_b_mtype)
+    Button scanMType;
     @InjectView(R.id.pb_scan_product)
     Button scanProduct;
-    @InjectView(R.id.pb_station)
-    TextView station;
+    @InjectView(R.id.pb_v_mtype)
+    TextView mType;
     @InjectView(R.id.pb_product_list)
     RecyclerView listView;
     @InjectView(R.id.pb_save)
     Button save;
+
+    @InjectView(R.id.pb_b_submit)
+    Button submit;
+    @InjectView(R.id.pb_b_clear)
+    Button clear;
+
     List<PbProduct> list;
     PbListAdapter dataAdapter;
     FragmentActivity activity;
     IScanReceiver receiver;
+
+    List<TableSet> tableSet;
 
 
     @Override
@@ -59,17 +68,23 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         activity = getActivity();
         receiver = this;
 
-        scanStation.setOnClickListener(new View.OnClickListener() {
+        scanMType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication.scanUtil.send(receiver, SCAN_CODE_STATION);
+                //MyApplication.scanUtil.send(receiver, SCAN_CODE_STATION);
+                receiver.receive("721",SCAN_CODE_STATION);
             }
         });
 
         scanProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyApplication.scanUtil.send(receiver, SCAN_CODE_PRODUCT);
+                if(mType.getText().toString().equals("请扫描......")){
+                    MyApplication.toast("请先扫描机型");
+                }else{
+                    //MyApplication.scanUtil.send(receiver, SCAN_CODE_PRODUCT);
+                    receiver.receive("",SCAN_CODE_PRODUCT);
+                }
             }
         });
 
@@ -77,6 +92,31 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             @Override
             public void onClick(View v) {
                 DBHelper.getInstance(activity).save(list);
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mType.getText().toString().equals("请扫描......")){
+                    MyApplication.toast("请先扫描机型");
+                }else{
+                    String stations = getStations();
+                    if(!stations.equals("")){
+                        //提交数据
+                    }else{
+                        MyApplication.toast("机型工位关系数据不匹配");
+                    }
+                }
+            }
+        });
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mType.setText("请扫描......");
+                list.clear();
+                dataAdapter.notifyDataSetChanged();
             }
         });
 
@@ -111,14 +151,44 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     @Override
     public void receive(String res,int scanCode) {
         if (scanCode == SCAN_CODE_STATION) {
-            station.setText(res);
+            mType.setText(res);
         } else if (scanCode == SCAN_CODE_PRODUCT) {
             //取产品信息
             PbProduct p = new PbProduct();
-            p.setBrickId("13424234234");
-            p.setLength("11232131235");
+            p.setBrickId("13-4242-3423-4");
+            p.setLength("12.3");
+            p.setStation("");
             list.add(p);
+
+            String stations = getStations();
+            if(!stations.equals("")){
+                String[] stationArray = stations.split(",");
+                for(int i=0;i<list.size();i++){
+                    list.get(i).setStation(stationArray[i]);
+                }
+            }
+
+            dataAdapter.notifyItemChanged(1);
             dataAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void getTableSet(){
+        if(tableSet==null){
+            tableSet =  DBHelper.getInstance(activity).query(TableSet.class);
+        }
+    }
+
+    public String getStations(){
+        String stations = "";
+        getTableSet();
+        for(TableSet ts:tableSet){
+            if(ts.getTypeCode().equals(mType.getText().toString())){
+                if(ts.getDataSet().split(",").length==list.size()){
+                    stations = ts.getDataSet();
+                }
+            }
+        }
+        return stations;
     }
 }

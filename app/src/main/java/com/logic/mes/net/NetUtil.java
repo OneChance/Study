@@ -6,6 +6,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -22,6 +23,8 @@ public class NetUtil {
         if (services == null) {
 
             OkHttpClient client = new OkHttpClient();
+
+            client.setConnectTimeout(NetConfig.CONNECT_TIMEOUT,TimeUnit.SECONDS);
 
             client.interceptors().add(new Interceptor() {
 
@@ -49,7 +52,7 @@ public class NetUtil {
 
 
             Retrofit restAdapter = new Retrofit.Builder()
-                    .baseUrl(URLs.BASE_URL)
+                    .baseUrl(NetConfig.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

@@ -3,7 +3,6 @@ package com.logic.mes.observer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.logic.mes.R;
@@ -21,7 +20,6 @@ public class LoginObserver implements Observer<UserInfoResult> {
 
     public Context context;
 
-
     public LoginObserver(Context context) {
         this.context = context;
     }
@@ -33,9 +31,8 @@ public class LoginObserver implements Observer<UserInfoResult> {
 
     @Override
     public void onError(Throwable e) {
-        Log.d("-----------------","error");
-        e.printStackTrace();
         dbLogin();
+        e.printStackTrace();
     }
 
 

@@ -26,18 +26,26 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/pb_v_station"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:text=""
+            app:layout_widthPercent="20%"></TextView>
+
+        <TextView
             android:id="@+id/pb_brick_id"
             style="@style/font_value"
             android:layout_width="0dp"
-            android:text="1"
-            app:layout_widthPercent="50%"></TextView>
+            android:text=""
+            android:layout_toRightOf="@+id/pb_v_station"
+            app:layout_widthPercent="60%"></TextView>
 
         <TextView
             android:id="@+id/pb_length"
             style="@style/font_value"
             android:layout_width="0dp"
             android:layout_toRightOf="@+id/pb_brick_id"
-            android:text="2"
-            app:layout_widthPercent="50%"></TextView>
+            android:text=""
+            app:layout_widthPercent="20%"></TextView>
     </android.support.percent.PercentRelativeLayout>
 </FrameLayout>

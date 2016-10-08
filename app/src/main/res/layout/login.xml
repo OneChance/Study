@@ -11,4 +11,28 @@
         android:layout_height="wrap_content"
         android:text="@string/scan_emp_no" />
 
+    <LinearLayout
+        android:id="@+id/loading"
+        android:visibility="invisible"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="正在登录"
+            android:textColor="#283593"
+            android:textSize="20sp" />
+    </LinearLayout>
+
 </LinearLayout>

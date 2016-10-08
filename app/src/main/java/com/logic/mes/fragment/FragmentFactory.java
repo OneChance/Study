@@ -8,6 +8,7 @@ import java.util.List;
 
 public class FragmentFactory {
 
+    private static PbjFragment pbjFragment;
     private static ZbFragment zbFragment;
     private static PbFragment pbFragment;
     private static TjFragment tjFragment;
@@ -26,8 +27,9 @@ public class FragmentFactory {
     public static BaseTagFragment createFragment(int pid){
 
         switch (pid){
-            case 4:return (zbFragment==null?zbFragment = new ZbFragment():zbFragment);
+            case 2:return (pbjFragment==null?pbjFragment = new PbjFragment():pbjFragment);
             case 3:return (pbFragment==null?pbFragment = new PbFragment():pbFragment);
+            case 4:return (zbFragment==null?zbFragment = new ZbFragment():zbFragment);
             case 7:return (tjFragment==null?tjFragment = new TjFragment():tjFragment);
             case 11:return (fxFragment==null?fxFragment = new FxFragment():fxFragment);
             default:return new BaseTagFragment();

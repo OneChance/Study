@@ -13,6 +13,7 @@ public class PbProduct {
 
     private String brickId;
     private String length;
+    private String station;
 
     public String getBrickId() {
         return brickId;
@@ -36,5 +37,13 @@ public class PbProduct {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getStation() {
+        return station;
+    }
+
+    public void setStation(String station) {
+        this.station = station;
     }
 }

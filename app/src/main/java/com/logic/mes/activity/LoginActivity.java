@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.R;
@@ -21,6 +22,14 @@ public class LoginActivity extends Activity implements IScanReceiver{
     Button scanBarCodeButton;
     IScanReceiver receiver;
     LoginObserver loginObserver;
+    @InjectView(R.id.loading)
+    LinearLayout loading;
+
+    @Override
+    protected void onResume() {
+        loading.setVisibility(View.INVISIBLE);
+        super.onResume();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +53,7 @@ public class LoginActivity extends Activity implements IScanReceiver{
 
     @Override
     public void receive(String scanResult,int scanCode) {
+        loading.setVisibility(View.VISIBLE);
         NetUtil.SetObserverCommonAction(NetUtil.getServices().Login(scanResult))
                 .subscribe(loginObserver);
     }
