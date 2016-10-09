@@ -10,6 +10,7 @@ import com.logic.mes.activity.MainActivity;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.base.UserInfoResult;
+import com.logic.mes.update.UpdateAppUtils;
 
 import java.util.List;
 
@@ -19,9 +20,11 @@ import rx.Observer;
 public class LoginObserver implements Observer<UserInfoResult> {
 
     public Context context;
+    public IUpdate iUpdate;
 
-    public LoginObserver(Context context) {
+    public LoginObserver(Context context,IUpdate iUpdate) {
         this.context = context;
+        this.iUpdate = iUpdate;
     }
 
     @Override
@@ -49,12 +52,23 @@ public class LoginObserver implements Observer<UserInfoResult> {
     }
 
     public void toMain(UserInfo userInfo){
-        Intent intent = new Intent();
-        intent.setClass(context, MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("userInfo", userInfo);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
+
+        if(false){
+            iUpdate.updateStart();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    UpdateAppUtils.downloadApk(context,"url");
+                }
+            }).start();
+        }else{
+            Intent intent = new Intent();
+            intent.setClass(context, MainActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("userInfo", userInfo);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+        }
     }
 
     public void dbLogin(){
@@ -64,5 +78,9 @@ public class LoginObserver implements Observer<UserInfoResult> {
         }else{
             Toast.makeText(context, R.string.login_error, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public interface IUpdate{
+        void updateStart();
     }
 }

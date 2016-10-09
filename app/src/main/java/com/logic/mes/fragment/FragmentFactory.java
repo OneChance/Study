@@ -9,10 +9,12 @@ import java.util.List;
 public class FragmentFactory {
 
     private static PbjFragment pbjFragment;
-    private static ZbFragment zbFragment;
+    //private static ZbFragment zbFragment;
     private static PbFragment pbFragment;
-    private static TjFragment tjFragment;
+    //private static TjFragment tjFragment;
     private static FxFragment fxFragment;
+    private static YbFragment ybFragment;
+    private static QxFragment qxFragment;
 
     public static List<BaseTagFragment> getFragmentsByProcesses(List<ProduceDef> produceDefs){
         List<BaseTagFragment> tags = new ArrayList<>();
@@ -29,8 +31,8 @@ public class FragmentFactory {
         switch (pid){
             case 2:return (pbjFragment==null?pbjFragment = new PbjFragment():pbjFragment);
             case 3:return (pbFragment==null?pbFragment = new PbFragment():pbFragment);
-            case 4:return (zbFragment==null?zbFragment = new ZbFragment():zbFragment);
-            case 7:return (tjFragment==null?tjFragment = new TjFragment():tjFragment);
+            case 6:return (ybFragment==null?ybFragment = new YbFragment():ybFragment);
+            case 9:return (qxFragment==null?qxFragment = new QxFragment():qxFragment);
             case 11:return (fxFragment==null?fxFragment = new FxFragment():fxFragment);
             default:return new BaseTagFragment();
         }

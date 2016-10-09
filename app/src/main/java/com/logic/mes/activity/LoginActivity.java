@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.R;
@@ -15,7 +16,7 @@ import com.logic.mes.observer.LoginObserver;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class LoginActivity extends Activity implements IScanReceiver{
+public class LoginActivity extends Activity implements IScanReceiver,LoginObserver.IUpdate {
 
     private Context context;
     @InjectView(R.id.btn_scan_barcode)
@@ -24,6 +25,8 @@ public class LoginActivity extends Activity implements IScanReceiver{
     LoginObserver loginObserver;
     @InjectView(R.id.loading)
     LinearLayout loading;
+    @InjectView(R.id.loading_text)
+    TextView loadingText;
 
     @Override
     protected void onResume() {
@@ -37,7 +40,7 @@ public class LoginActivity extends Activity implements IScanReceiver{
         setContentView(R.layout.login);
         context = this;
         receiver = this;
-        loginObserver = new LoginObserver(context);
+        loginObserver = new LoginObserver(context,this);
 
         ButterKnife.inject(this);
 
@@ -56,5 +59,11 @@ public class LoginActivity extends Activity implements IScanReceiver{
         loading.setVisibility(View.VISIBLE);
         NetUtil.SetObserverCommonAction(NetUtil.getServices().Login(scanResult))
                 .subscribe(loginObserver);
+    }
+
+    @Override
+    public void updateStart() {
+        scanBarCodeButton.setClickable(false);
+        loadingText.setText("正在下载更新程序......");
     }
 }

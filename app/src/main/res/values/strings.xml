@@ -6,8 +6,9 @@
 
     <string name="app_name">Study</string>
     <string name="pbj_tab_name">配棒检</string>
-    <string name="zb_tab_name">粘棒</string>
     <string name="pb_tab_name">配棒</string>
+    <string name="yb_tab_name">验棒</string>
+    <string name="qx_tab_name">清洗</string>
     <string name="tj_tab_name">脱胶</string>
     <string name="fx_tab_name">分选</string>
 
@@ -16,12 +17,16 @@
     <string name="brick_id">BrickId</string>
 
     <string name="wait_scan">请扫描......</string>
-
-
+    <string name="mtype_scan_first">请先扫描机型</string>
+    <string name="mtype_not_match">机型工位关系数据不匹配</string>
+    <string name="brickid_scan_first">请先扫描晶砖编号</string>
     <string name="btn_scan_product">扫描产品</string>
+    <string name="l_jzbh">晶砖编号</string>
+
 
     <string name="product_delete">删除</string>
     <string name="product_save">保存</string>
+    <string name="product_save_success">保存成功</string>
     <string name="dialog_dismiss">关闭</string>
 
     <!--配棒-->
@@ -53,4 +58,29 @@
     <string name="pbj_l_dj">倒角</string>
     <string name="pbj_b_quali">合格</string>
     <string name="pbj_b_unquali">不合格</string>
+
+    <!--验棒-->
+    <string name="yb_l_spyy">碎片原因</string>
+    <string name="yb_l_sl">数量</string>
+    <string name="yb_l_yzd">硬质点</string>
+    <string name="yb_l_hbp">厚薄片</string>
+    <string name="yb_l_zb">撞棒</string>
+    <string name="yb_l_dp">掉片</string>
+    <string name="yb_l_kxs">卡线碎</string>
+    <string name="yb_l_lds">亮点碎</string>
+    <string name="yb_l_zqbb">整齐崩边</string>
+    <string name="yb_b_submit">提交</string>
+    <string name="yb_b_clear">清空</string>
+
+    <!--清洗-->
+    <string name="qx_l_llcps">理论出片数</string>
+    <string name="qx_l_sjps">实际片数</string>
+    <string name="qx_l_hs">盒数</string>
+    <string name="qx_l_ps">片数</string>
+    <string name="qx_l_bb">崩边</string>
+    <string name="qx_l_yp">样片</string>
+    <string name="qx_l_jjqxs">胶胶清洗碎</string>
+    <string name="qx_l_qxsbs">清洗设备碎</string>
+    <string name="qx_l_qt">其他</string>
+    <string name="qx_l_zj">总计</string>
 </resources>

@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements IMain{
     public void setTags(List<BaseTagFragment> tags) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(fragmentManager);
         for (BaseTagFragment tag : tags) {
+            Log.d("----------",""+tag.tagNameId);
             if(tag.tagNameId>0){
                 adapter.addFrag(tag, getResources().getText(tag.tagNameId).toString());
             }

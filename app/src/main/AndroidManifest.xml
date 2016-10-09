@@ -3,6 +3,7 @@
     package="com.logic.mes">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name="com.logic.mes.MyApplication"
@@ -29,6 +30,12 @@
                 <category android:name="android.intent.category.default" />
             </intent-filter>
         </activity>
+
+        <receiver android:name="com.logic.mes.update.InstallReceiver">
+            <intent-filter>
+                <action android:enabled="true" android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

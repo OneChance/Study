@@ -10,7 +10,7 @@ import com.logic.mes.R;
 public class ZbFragment extends BaseTagFragment {
 
     public ZbFragment() {
-        this.tagNameId = R.string.zb_tab_name;
+        this.tagNameId = R.string.yb_tab_name;
     }
 
     @Override

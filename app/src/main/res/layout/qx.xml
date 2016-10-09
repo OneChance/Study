@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:text="@string/l_jzbh"
+            android:textColor="#3f51b5"
+            android:textSize="15sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/qx_v_jzbh_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:text="@string/wait_scan"></TextView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/yb_scan_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_scan_product" />
+
+        <Button
+            android:id="@+id/yb_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_save" />
+    </LinearLayout>
+
+
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dividers"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <ScrollView
+            android:id="@+id/qx_scroll_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            app:layout_heightPercent="85%">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical">
+
+                <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/qx_l_station"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/station"
+                        app:layout_widthPercent="50%"></TextView>
+
+
+                    <TextView
+                        android:id="@+id/qx_l_jzbh"
+                        style="@style/font_value"
+                        android:layout_width="0dp"
+                        android:layout_toRightOf="@+id/qx_l_station"
+                        android:layout_weight="1"
+                        android:text="@string/l_jzbh"
+                        app:layout_widthPercent="50%"></TextView>
+                </android.support.percent.PercentRelativeLayout>
+
+
+                <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/qx_v_station"
+                        style="@style/font_value"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text=""
+                        app:layout_widthPercent="50%"></TextView>
+
+
+                    <TextView
+                        android:id="@+id/qx_v_jzbh"
+                        style="@style/font_value"
+                        android:layout_width="0dp"
+                        android:layout_toRightOf="@+id/qx_v_station"
+                        android:layout_weight="1"
+                        android:text=""
+                        app:layout_widthPercent="50%"></TextView>
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/qx_l_llcps"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_llcps"
+                        app:layout_widthPercent="50%"></TextView>
+
+                    <TextView
+                        android:id="@+id/qx_l_sjps"
+                        style="@style/font_value"
+                        android:layout_width="0dp"
+                        android:layout_toRightOf="@+id/qx_l_llcps"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_sjps"
+                        app:layout_widthPercent="50%"></TextView>
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/qx_v_llcps"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:text=""
+                        app:layout_widthPercent="50%"></TextView>
+
+                    <LinearLayout
+                        android:id="@+id/qx_v_sjcps_wrapper"
+                        style="@style/edit_text_wrapper"
+                        android:layout_toRightOf="@+id/qx_v_llcps"
+                        app:layout_widthPercent="50%">
+
+                        <EditText
+                            android:id="@+id/qx_v_sjcps"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="#283593"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></EditText>
+                    </LinearLayout>
+
+                </android.support.percent.PercentRelativeLayout>
+
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/qx_l_hs"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_hs"
+                        app:layout_widthPercent="25%"></TextView>
+
+                    <LinearLayout
+                        android:id="@+id/qx_v_hs_wrapper"
+                        style="@style/edit_text_wrapper"
+                        android:layout_toRightOf="@+id/qx_l_hs"
+                        app:layout_widthPercent="25%">
+
+                        <EditText
+                            android:id="@+id/qx_v_hs"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="#283593"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></EditText>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/qx_l_ps"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_toRightOf="@+id/qx_v_hs_wrapper"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_ps"
+                        app:layout_widthPercent="25%"></TextView>
+
+                    <LinearLayout
+                        android:id="@+id/qx_v_ps_wrapper"
+                        style="@style/edit_text_wrapper"
+                        android:layout_toRightOf="@+id/qx_l_ps"
+                        app:layout_widthPercent="25%">
+
+                        <EditText
+                            android:id="@+id/qx_v_ps"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="#283593"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></EditText>
+                    </LinearLayout>
+                </android.support.percent.PercentRelativeLayout>
+
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/qx_l_bb"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_bb"
+                        app:layout_widthPercent="25%"></TextView>
+
+                    <LinearLayout
+                        android:id="@+id/qx_v_bb_wrapper"
+                        style="@style/edit_text_wrapper"
+                        android:layout_toRightOf="@+id/qx_l_bb"
+                        app:layout_widthPercent="25%">
+
+                        <EditText
+                            android:id="@+id/qx_v_bb"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="#283593"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></EditText>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/qx_l_yp"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_toRightOf="@+id/qx_v_bb_wrapper"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_yp"
+                        app:layout_widthPercent="25%"></TextView>
+
+                    <LinearLayout
+                        android:id="@+id/qx_v_yp_wrapper"
+                        style="@style/edit_text_wrapper"
+                        android:layout_toRightOf="@+id/qx_l_yp"
+                        app:layout_widthPercent="25%">
+
+                        <EditText
+                            android:id="@+id/qx_v_yp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="#283593"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></EditText>
+                    </LinearLayout>
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/qx_l_jjqxs"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_jjqxs"
+                        app:layout_widthPercent="50%"></TextView>
+
+                    <TextView
+                        android:id="@+id/qx_l_sbqxs"
+                        style="@style/font_value"
+                        android:layout_width="0dp"
+                        android:layout_toRightOf="@+id/qx_l_jjqxs"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_qxsbs"
+                        app:layout_widthPercent="50%"></TextView>
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/qx_v_jjqxs_wrapper"
+                        style="@style/edit_text_wrapper"
+                        app:layout_widthPercent="50%">
+
+                        <EditText
+                            android:id="@+id/qx_v_jjqxs"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="#283593"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></EditText>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/qx_v_sbqxs_wrapper"
+                        style="@style/edit_text_wrapper"
+                        android:layout_toRightOf="@+id/qx_v_jjqxs_wrapper"
+                        app:layout_widthPercent="50%">
+
+                        <EditText
+                            android:id="@+id/qx_v_sbqxs"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="#283593"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></EditText>
+                    </LinearLayout>
+                </android.support.percent.PercentRelativeLayout>
+
+
+                <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/qx_l_qt"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_qt"
+                        app:layout_widthPercent="50%"></TextView>
+
+                    <LinearLayout
+                        android:id="@+id/qx_v_qt_wrapper"
+                        style="@style/edit_text_wrapper"
+                        android:layout_toRightOf="@+id/qx_l_qt"
+                        app:layout_widthPercent="50%">
+
+                        <EditText
+                            android:id="@+id/qx_v_qt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="#283593"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></EditText>
+                    </LinearLayout>
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/qx_l_zj"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_zj"
+                        app:layout_widthPercent="50%"></TextView>
+
+
+                    <TextView
+                        android:id="@+id/qx_v_zj"
+                        style="@style/font_title"
+                        android:layout_width="0dp"
+                        android:layout_toRightOf="@+id/qx_l_zj"
+                        android:layout_weight="1"
+                        android:text="0"
+                        app:layout_widthPercent="50%"></TextView>
+                </android.support.percent.PercentRelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/qx_scroll_content"
+            android:layout_weight="1"
+            android:background="@color/list_background"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_heightPercent="15%">
+
+            <Button
+                android:id="@+id/qx_b_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yb_b_submit" />
+
+            <Button
+                android:id="@+id/qx_b_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yb_b_clear" />
+        </LinearLayout>
+
+    </android.support.percent.PercentRelativeLayout>
+</LinearLayout>

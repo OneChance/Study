@@ -79,8 +79,8 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         scanProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mType.getText().toString().equals("请扫描......")){
-                    MyApplication.toast("请先扫描机型");
+                if(mType.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))){
+                    MyApplication.toast(R.string.mtype_scan_first);
                 }else{
                     //MyApplication.scanUtil.send(receiver, SCAN_CODE_PRODUCT);
                     receiver.receive("",SCAN_CODE_PRODUCT);
@@ -98,14 +98,14 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mType.getText().toString().equals("请扫描......")){
-                    MyApplication.toast("请先扫描机型");
+                if(mType.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))){
+                    MyApplication.toast(R.string.mtype_scan_first);
                 }else{
                     String stations = getStations();
                     if(!stations.equals("")){
                         //提交数据
                     }else{
-                        MyApplication.toast("机型工位关系数据不匹配");
+                        MyApplication.toast(R.string.mtype_not_match);
                     }
                 }
             }
@@ -114,7 +114,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mType.setText("请扫描......");
+                mType.setText(MyApplication.getResString(R.string.wait_scan));
                 list.clear();
                 dataAdapter.notifyDataSetChanged();
             }
