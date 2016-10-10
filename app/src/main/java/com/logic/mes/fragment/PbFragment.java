@@ -91,7 +91,9 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DBHelper.getInstance(activity).delete(PbProduct.class);
                 DBHelper.getInstance(activity).save(list);
+                MyApplication.toast(R.string.product_save_success);
             }
         });
 

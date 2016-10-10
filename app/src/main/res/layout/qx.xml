@@ -87,15 +87,15 @@
                         android:text="@string/station"
                         app:layout_widthPercent="50%"></TextView>
 
-
                     <TextView
-                        android:id="@+id/qx_l_jzbh"
+                        android:id="@+id/qx_v_station"
                         style="@style/font_value"
                         android:layout_width="0dp"
                         android:layout_toRightOf="@+id/qx_l_station"
                         android:layout_weight="1"
-                        android:text="@string/l_jzbh"
+                        android:text=""
                         app:layout_widthPercent="50%"></TextView>
+
                 </android.support.percent.PercentRelativeLayout>
 
 
@@ -108,19 +108,18 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/qx_v_station"
+                        android:id="@+id/qx_l_jzbh"
                         style="@style/font_value"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:text=""
+                        android:text="@string/l_jzbh"
                         app:layout_widthPercent="50%"></TextView>
-
 
                     <TextView
                         android:id="@+id/qx_v_jzbh"
                         style="@style/font_value"
                         android:layout_width="0dp"
-                        android:layout_toRightOf="@+id/qx_v_station"
+                        android:layout_toRightOf="@+id/qx_l_jzbh"
                         android:layout_weight="1"
                         android:text=""
                         app:layout_widthPercent="50%"></TextView>
@@ -146,12 +145,12 @@
                         app:layout_widthPercent="50%"></TextView>
 
                     <TextView
-                        android:id="@+id/qx_l_sjps"
-                        style="@style/font_value"
+                        android:id="@+id/qx_v_llcps"
+                        style="@style/font_title"
                         android:layout_width="0dp"
                         android:layout_toRightOf="@+id/qx_l_llcps"
                         android:layout_weight="1"
-                        android:text="@string/qx_l_sjps"
+                        android:text=""
                         app:layout_widthPercent="50%"></TextView>
 
                 </android.support.percent.PercentRelativeLayout>
@@ -164,20 +163,17 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/qx_v_llcps"
-                        style="@style/font_title"
+                        android:id="@+id/qx_l_sjps"
+                        style="@style/font_value"
                         android:layout_width="0dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
                         android:layout_weight="1"
-                        android:text=""
+                        android:text="@string/qx_l_sjps"
                         app:layout_widthPercent="50%"></TextView>
 
                     <LinearLayout
                         android:id="@+id/qx_v_sjcps_wrapper"
                         style="@style/edit_text_wrapper"
-                        android:layout_toRightOf="@+id/qx_v_llcps"
+                        android:layout_toRightOf="@+id/qx_l_sjps"
                         app:layout_widthPercent="50%">
 
                         <EditText
@@ -209,13 +205,13 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/qx_l_hs"
-                        app:layout_widthPercent="25%"></TextView>
+                        app:layout_widthPercent="50%"></TextView>
 
                     <LinearLayout
                         android:id="@+id/qx_v_hs_wrapper"
                         style="@style/edit_text_wrapper"
                         android:layout_toRightOf="@+id/qx_l_hs"
-                        app:layout_widthPercent="25%">
+                        app:layout_widthPercent="50%">
 
                         <EditText
                             android:id="@+id/qx_v_hs"
@@ -230,20 +226,29 @@
                             android:textStyle="bold"></EditText>
                     </LinearLayout>
 
+
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/qx_l_ps"
                         style="@style/font_title"
                         android:layout_width="0dp"
-                        android:layout_toRightOf="@+id/qx_v_hs_wrapper"
                         android:layout_weight="1"
                         android:text="@string/qx_l_ps"
-                        app:layout_widthPercent="25%"></TextView>
+                        app:layout_widthPercent="50%"></TextView>
 
                     <LinearLayout
                         android:id="@+id/qx_v_ps_wrapper"
                         style="@style/edit_text_wrapper"
                         android:layout_toRightOf="@+id/qx_l_ps"
-                        app:layout_widthPercent="25%">
+                        app:layout_widthPercent="50%">
 
                         <EditText
                             android:id="@+id/qx_v_ps"
@@ -259,7 +264,6 @@
                     </LinearLayout>
                 </android.support.percent.PercentRelativeLayout>
 
-
                 <android.support.percent.PercentRelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -273,13 +277,13 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/qx_l_bb"
-                        app:layout_widthPercent="25%"></TextView>
+                        app:layout_widthPercent="50%"></TextView>
 
                     <LinearLayout
                         android:id="@+id/qx_v_bb_wrapper"
                         style="@style/edit_text_wrapper"
                         android:layout_toRightOf="@+id/qx_l_bb"
-                        app:layout_widthPercent="25%">
+                        app:layout_widthPercent="50%">
 
                         <EditText
                             android:id="@+id/qx_v_bb"
@@ -294,20 +298,29 @@
                             android:textStyle="bold"></EditText>
                     </LinearLayout>
 
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
                     <TextView
                         android:id="@+id/qx_l_yp"
                         style="@style/font_title"
                         android:layout_width="0dp"
-                        android:layout_toRightOf="@+id/qx_v_bb_wrapper"
                         android:layout_weight="1"
                         android:text="@string/qx_l_yp"
-                        app:layout_widthPercent="25%"></TextView>
+                        app:layout_widthPercent="50%"></TextView>
 
                     <LinearLayout
                         android:id="@+id/qx_v_yp_wrapper"
                         style="@style/edit_text_wrapper"
                         android:layout_toRightOf="@+id/qx_l_yp"
-                        app:layout_widthPercent="25%">
+                        app:layout_widthPercent="50%">
 
                         <EditText
                             android:id="@+id/qx_v_yp"
@@ -342,27 +355,9 @@
                         android:text="@string/qx_l_jjqxs"
                         app:layout_widthPercent="50%"></TextView>
 
-                    <TextView
-                        android:id="@+id/qx_l_sbqxs"
-                        style="@style/font_value"
-                        android:layout_width="0dp"
-                        android:layout_toRightOf="@+id/qx_l_jjqxs"
-                        android:layout_weight="1"
-                        android:text="@string/qx_l_qxsbs"
-                        app:layout_widthPercent="50%"></TextView>
-
-
-                </android.support.percent.PercentRelativeLayout>
-
-                <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/dividers"
-                    android:gravity="center"
-                    android:orientation="horizontal">
 
                     <LinearLayout
+                        android:layout_toRightOf="@+id/qx_l_jjqxs"
                         android:id="@+id/qx_v_jjqxs_wrapper"
                         style="@style/edit_text_wrapper"
                         app:layout_widthPercent="50%">
@@ -380,10 +375,29 @@
                             android:textStyle="bold"></EditText>
                     </LinearLayout>
 
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/qx_l_sbqxs"
+                        style="@style/font_value"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/qx_l_qxsbs"
+                        app:layout_widthPercent="50%"></TextView>
+
+
                     <LinearLayout
                         android:id="@+id/qx_v_sbqxs_wrapper"
                         style="@style/edit_text_wrapper"
-                        android:layout_toRightOf="@+id/qx_v_jjqxs_wrapper"
+                        android:layout_toRightOf="@+id/qx_l_sbqxs"
                         app:layout_widthPercent="50%">
 
                         <EditText

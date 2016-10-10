@@ -162,7 +162,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver{
         qx.setYp("");
         qx.setJjqxs("");
         qx.setSbqxs("");
-        qx.setZj("");
+        qx.setZj("0");
         qx.setQt("");
         setPbjValue(qx);
     }
@@ -171,15 +171,15 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver{
         jzbhHead.setText(qx.getJzbh());
         jzbh.setText(qx.getJzbh());
         station.setText(qx.getStation());
-        llcps.setText("");
-        sjcps.setText("");
-        hs.setText("");
-        ps.setText("");
-        bb.setText("");
-        yp.setText("");
-        jjqxs.setText("");
-        sbqxs.setText("");
-        zj.setText("0");
-        qt.setText("");
+        llcps.setText(qx.getLlcps());
+        sjcps.setText(qx.getSjcps());
+        hs.setText(qx.getHs());
+        ps.setText(qx.getPs());
+        bb.setText(qx.getBb());
+        yp.setText(qx.getYp());
+        jjqxs.setText(qx.getJjqxs());
+        sbqxs.setText(qx.getSbqxs());
+        zj.setText(qx.getZj());
+        qt.setText(qx.getQt());
     }
 }

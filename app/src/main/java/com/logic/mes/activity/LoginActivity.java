@@ -30,6 +30,7 @@ public class LoginActivity extends Activity implements IScanReceiver,LoginObserv
 
     @Override
     protected void onResume() {
+        scanBarCodeButton.setClickable(true);
         loading.setVisibility(View.INVISIBLE);
         super.onResume();
     }
@@ -48,6 +49,7 @@ public class LoginActivity extends Activity implements IScanReceiver,LoginObserv
             @Override
             public void onClick(View v) {
                 //开启扫描
+                scanBarCodeButton.setClickable(false);
                 //MyApplication.scanUtil.send(receiver, 0);
                 receive("555",0);
             }
@@ -65,5 +67,10 @@ public class LoginActivity extends Activity implements IScanReceiver,LoginObserv
     public void updateStart() {
         scanBarCodeButton.setClickable(false);
         loadingText.setText("正在下载更新程序......");
+    }
+
+    @Override
+    public void loginButtonRecover() {
+        scanBarCodeButton.setClickable(true);
     }
 }

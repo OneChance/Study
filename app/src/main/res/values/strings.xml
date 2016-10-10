@@ -9,6 +9,9 @@
     <string name="pb_tab_name">配棒</string>
     <string name="yb_tab_name">验棒</string>
     <string name="qx_tab_name">清洗</string>
+    <string name="qgsfh_tab_name">切割碎复核</string>
+    <string name="zx_tab_name">装箱</string>
+
     <string name="tj_tab_name">脱胶</string>
     <string name="fx_tab_name">分选</string>
 
@@ -83,4 +86,27 @@
     <string name="qx_l_qxsbs">清洗设备碎</string>
     <string name="qx_l_qt">其他</string>
     <string name="qx_l_zj">总计</string>
+
+    <!--切割碎复核-->
+    <string name="qgsfh_l_spyy">碎片原因</string>
+    <string name="qgsfh_l_sl">数量</string>
+    <string name="qgsfh_l_yzd">硬质点</string>
+    <string name="qgsfh_l_hbp">厚薄片</string>
+    <string name="qgsfh_l_zb">撞棒</string>
+    <string name="qgsfh_l_dp">掉片</string>
+    <string name="qgsfh_l_kxs">卡线碎</string>
+    <string name="qgsfh_l_lds">亮点碎</string>
+    <string name="qgsfh_l_zqbb">整齐崩边</string>
+    <string name="qgsfh_b_submit">提交</string>
+    <string name="qgsfh_b_clear">清空</string>
+
+    <!--装箱-->
+    <string name="zx_b_scan_xz">扫描箱子</string>
+    <string name="zx_b_scan_hz">扫描盒子</string>
+    <string name="zx_b_l_xh">箱号</string>
+    <string name="zx_b_l_hh">盒号</string>
+    <string name="zx_b_submit">提交</string>
+    <string name="zx_b_clear">清空</string>
+    <string name="xz_scan_first">请先扫描箱子</string>
+    <string name="hz_scan_need">请扫描盒子</string>
 </resources>

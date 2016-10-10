@@ -76,11 +76,13 @@ public class LoginObserver implements Observer<UserInfoResult> {
         if(list!=null&&list.size()>0){
             toMain(list.get(0));
         }else{
+            iUpdate.loginButtonRecover();
             Toast.makeText(context, R.string.login_error, Toast.LENGTH_SHORT).show();
         }
     }
 
     public interface IUpdate{
         void updateStart();
+        void loginButtonRecover();
     }
 }
