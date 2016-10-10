@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/zt_delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="1dp"
+        android:background="@android:color/holo_red_light"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/product_delete"
+        android:textColor="@android:color/white" />
+
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dividers"
+        android:clickable="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/zt_v_th"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:text=""
+            app:layout_widthPercent="50%"></TextView>
+
+        <TextView
+            android:id="@+id/zt_v_xh"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:text=""
+            android:layout_toRightOf="@+id/zt_v_th"
+            app:layout_widthPercent="50%"></TextView>
+
+    </android.support.percent.PercentRelativeLayout>
+</FrameLayout>

@@ -11,6 +11,7 @@
     <string name="qx_tab_name">清洗</string>
     <string name="qgsfh_tab_name">切割碎复核</string>
     <string name="zx_tab_name">装箱</string>
+    <string name="zt_tab_name">装托</string>
 
     <string name="tj_tab_name">脱胶</string>
     <string name="fx_tab_name">分选</string>
@@ -109,4 +110,14 @@
     <string name="zx_b_clear">清空</string>
     <string name="xz_scan_first">请先扫描箱子</string>
     <string name="hz_scan_need">请扫描盒子</string>
+
+    <!--装托-->
+    <string name="zt_b_scan_xz">扫描箱子</string>
+    <string name="zt_b_scan_th">扫描托号</string>
+    <string name="zt_b_l_xh">箱号</string>
+    <string name="zt_b_l_th">托号</string>
+    <string name="zt_b_submit">提交</string>
+    <string name="zt_b_clear">清空</string>
+    <string name="th_scan_first">请先扫描托号</string>
+    <string name="xz_scan_need">请扫描箱子</string>
 </resources>
