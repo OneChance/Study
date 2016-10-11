@@ -12,9 +12,8 @@
     <string name="qgsfh_tab_name">切割碎复核</string>
     <string name="zx_tab_name">装箱</string>
     <string name="zt_tab_name">装托</string>
-
-    <string name="tj_tab_name">脱胶</string>
-    <string name="fx_tab_name">分选</string>
+    <string name="rk_tab_name">入库</string>
+    <string name="ck_tab_name">出库</string>
 
     <string name="action_settings">设置</string>
     <string name="station">工位</string>
@@ -41,16 +40,6 @@
     <string name="pb_l_station">工位</string>
     <string name="pb_b_submit">提交</string>
     <string name="pb_b_clear">清空</string>
-
-    <!--脱胶-->
-    <string name="th_weight">重量</string>
-    <string name="th_valid_length">有效长度</string>
-    <string name="th_bbc">崩边长</string>
-    <string name="th_piece_reason">碎片原因</string>
-    <string name="th_num_weight">重量/数量</string>
-
-    <!--分选-->
-    <string name="th_num">数量</string>
 
     <!--配棒检-->
     <string name="pbj_l_code">条码</string>
@@ -114,10 +103,31 @@
     <!--装托-->
     <string name="zt_b_scan_xz">扫描箱子</string>
     <string name="zt_b_scan_th">扫描托号</string>
-    <string name="zt_b_l_xh">箱号</string>
-    <string name="zt_b_l_th">托号</string>
+    <string name="zt_l_xh">箱号</string>
+    <string name="zt_l_th">托号</string>
     <string name="zt_b_submit">提交</string>
     <string name="zt_b_clear">清空</string>
     <string name="th_scan_first">请先扫描托号</string>
     <string name="xz_scan_need">请扫描箱子</string>
+
+    <!--入库-->
+    <string name="rk_b_scan_tm">扫描条码</string>
+    <string name="rk_l_tm">条码</string>
+    <string name="rk_l_lb">类别</string>
+    <string name="rk_l_sl">数量</string>
+    <string name="rk_l_jzrq">记账日期</string>
+    <string name="rk_l_hj">合计</string>
+    <string name="rk_b_submit">提交</string>
+    <string name="rk_b_clear">清空</string>
+    <string name="tm_scan_first">请扫描条码</string>
+
+    <!--入库-->
+    <string name="ck_b_scan_tm">扫描条码</string>
+    <string name="ck_l_tm">条码</string>
+    <string name="ck_l_lb">类别</string>
+    <string name="ck_l_sl">数量</string>
+    <string name="ck_l_jzrq">记账日期</string>
+    <string name="ck_l_hj">合计</string>
+    <string name="ck_b_submit">提交</string>
+    <string name="ck_b_clear">清空</string>
 </resources>

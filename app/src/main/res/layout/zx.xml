@@ -96,13 +96,13 @@
             android:id="@+id/zx_b_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pb_b_submit" />
+            android:text="@string/zx_b_submit" />
 
         <Button
             android:id="@+id/zx_b_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pb_b_clear" />
+            android:text="@string/zx_b_clear" />
     </LinearLayout>
 
 </LinearLayout>

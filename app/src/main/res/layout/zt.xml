@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10sp"
-            android:text="@string/zt_b_l_th"
+            android:text="@string/zt_l_th"
             android:textColor="#3f51b5"
             android:textSize="15sp"
             android:textStyle="bold"></TextView>
@@ -64,7 +64,7 @@
             style="@style/font_title"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="@string/zt_b_l_th"
+            android:text="@string/zt_l_th"
             app:layout_widthPercent="50%"></TextView>
 
         <TextView
@@ -72,7 +72,7 @@
             style="@style/font_title"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="@string/zt_b_l_xh"
+            android:text="@string/zt_l_xh"
             android:layout_toRightOf="@+id/zt_b_l_th"
             app:layout_widthPercent="50%"></TextView>
 
@@ -96,13 +96,13 @@
             android:id="@+id/zt_b_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pb_b_submit" />
+            android:text="@string/zt_b_submit" />
 
         <Button
             android:id="@+id/zt_b_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pb_b_clear" />
+            android:text="@string/zt_b_clear" />
     </LinearLayout>
 
 </LinearLayout>
