@@ -1,10 +1,15 @@
 <resources>
 
     <!-- 登陆 -->
-    <string name="login_error">登陆异常</string>
+    <string name="login_error">登录异常</string>
+    <string name="login">登录</string>
+    <string name="need_emp_no">请输入员工号</string>
     <string name="scan_emp_no">扫描员工号</string>
-
+    <string name="emp_no">员工号</string>
     <string name="app_name">MES</string>
+    <string name="login_out">退出</string>
+
+
     <string name="pbj_tab_name">配棒检</string>
     <string name="pb_tab_name">配棒</string>
     <string name="yb_tab_name">验棒</string>
@@ -14,7 +19,6 @@
     <string name="zt_tab_name">装托</string>
     <string name="rk_tab_name">入库</string>
     <string name="ck_tab_name">出库</string>
-
     <string name="action_settings">设置</string>
     <string name="station">工位</string>
     <string name="brick_id">BrickId</string>

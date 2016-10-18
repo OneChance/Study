@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/emp_no"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:hint="@string/emp_no"
+        android:textSize="18sp"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelText="@string/emp_no"
+        app:met_floatingLabelTextSize="14dp"
+        app:met_singleLineEllipsis="true" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="@string/login" />
 
     <Button
         android:id="@+id/btn_scan_barcode"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="@string/scan_emp_no" />
 
     <LinearLayout
         android:id="@+id/loading"
-        android:visibility="invisible"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <ProgressBar
             android:id="@+id/progressBar"

@@ -1,19 +1,16 @@
 package com.logic.mes.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -37,37 +34,31 @@ public class MainActivity extends AppCompatActivity implements IMain{
     UserInfo userInfo;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
     @InjectView(R.id.main_viewpager)
     ViewPager viewPager;
-    @InjectView(R.id.nav_view)
-    NavigationView navigationView;
     @InjectView(R.id.main_tabs)
     TabLayout tabLayout;
-    @InjectView(R.id.loginUser)
+    @InjectView(R.id.login_user)
     TextView loginUser;
+    @InjectView(R.id.emp_no)
+    TextView empNo;
+    @InjectView(R.id.btn_login_out)
+    TextView bLoginOut;
     MainPresenter mainPresenter;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainpage);
         ButterKnife.inject(this);
-
+        context = this;
         Bundle bundle=this.getIntent().getExtras();
         userInfo = (UserInfo)bundle.getSerializable("userInfo");
         loginUser.setText(userInfo.getUser().getEmpName());
+        empNo.setText("["+userInfo.getUser().getEmpCode()+"]");
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-
-        final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
-
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
 
         fragmentManager = getSupportFragmentManager();
         mainPresenter = new MainPresenter(this);
@@ -75,36 +66,22 @@ public class MainActivity extends AppCompatActivity implements IMain{
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
+        bLoginOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-    }
-
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
-                });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void setTags(List<BaseTagFragment> tags) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(fragmentManager);
         for (BaseTagFragment tag : tags) {
-            Log.d("----------",""+tag.tagNameId);
             if(tag.tagNameId>0){
                 adapter.addFrag(tag, getResources().getText(tag.tagNameId).toString());
             }
