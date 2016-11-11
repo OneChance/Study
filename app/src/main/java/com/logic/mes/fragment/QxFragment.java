@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
@@ -19,6 +20,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+import static com.logic.mes.R.layout.qx;
 
 public class QxFragment extends BaseTagFragment implements IScanReceiver{
 
@@ -65,7 +68,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.qx, container, false);
+        View view = inflater.inflate(qx, container, false);
 
         ButterKnife.inject(this, view);
 
@@ -75,8 +78,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver{
         scanProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //MyApplication.scanUtil.send(receiver, 0);
-                receiver.receive("12345",0);
+                MyApplication.getScanUtil().send(receiver, 0);
             }
         });
 
@@ -146,6 +148,15 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver{
             setPbjValue(qx);
         }
 
+        EditTextUtil.setNoKeyboard(sjcps);
+        EditTextUtil.setNoKeyboard(hs);
+        EditTextUtil.setNoKeyboard(ps);
+        EditTextUtil.setNoKeyboard(bb);
+        EditTextUtil.setNoKeyboard(yp);
+        EditTextUtil.setNoKeyboard(jjqxs);
+        EditTextUtil.setNoKeyboard(sbqxs);
+        EditTextUtil.setNoKeyboard(qt);
+
         return view;
     }
 
@@ -165,6 +176,11 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver{
         qx.setZj("0");
         qx.setQt("");
         setPbjValue(qx);
+    }
+
+    @Override
+    public void error() {
+
     }
 
     public void setPbjValue(QxProduct qx){

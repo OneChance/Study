@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
@@ -19,6 +20,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+import static com.logic.mes.R.layout.yb;
 
 public class YbFragment extends BaseTagFragment implements IScanReceiver{
 
@@ -57,7 +60,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.yb, container, false);
+        View view = inflater.inflate(yb, container, false);
 
         ButterKnife.inject(this, view);
 
@@ -67,8 +70,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver{
         scanProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //MyApplication.scanUtil.send(receiver, 0);
-                receiver.receive("12345",0);
+                MyApplication.getScanUtil().send(receiver, 0);
             }
         });
 
@@ -129,6 +131,16 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver{
             setPbjValue(yb);
         }
 
+
+        EditTextUtil.setNoKeyboard(yzd);
+        EditTextUtil.setNoKeyboard(hbp);
+        EditTextUtil.setNoKeyboard(zb);
+        EditTextUtil.setNoKeyboard(dp);
+        EditTextUtil.setNoKeyboard(kxs);
+        EditTextUtil.setNoKeyboard(lds);
+        EditTextUtil.setNoKeyboard(zqbb);
+
+
         return view;
     }
 
@@ -144,6 +156,11 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver{
         yb.setLds("");
         yb.setZqbb("");
         setPbjValue(yb);
+    }
+
+    @Override
+    public void error() {
+
     }
 
     public void setPbjValue(YbProduct yb){

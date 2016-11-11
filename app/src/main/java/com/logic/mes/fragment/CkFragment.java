@@ -88,7 +88,7 @@ public class CkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         scanTm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //MyApplication.scanUtil.send(receiver, SCAN_CODE_STATION);
+                MyApplication.getScanUtil().send(receiver, 0);
                 receiver.receive("721-123-123", 0);
             }
         });
@@ -173,5 +173,10 @@ public class CkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         p.setSl("10");
         list.add(p);
         dataAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void error() {
+
     }
 }

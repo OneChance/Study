@@ -1,5 +1,6 @@
 package com.logic.mes.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import butterknife.InjectView;
 public class MainActivity extends AppCompatActivity implements IMain{
 
     private static FragmentManager fragmentManager;
-
+    Activity activity;
     UserInfo userInfo;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements IMain{
         setContentView(R.layout.mainpage);
         ButterKnife.inject(this);
         context = this;
+        activity = this;
         Bundle bundle=this.getIntent().getExtras();
         userInfo = (UserInfo)bundle.getSerializable("userInfo");
         loginUser.setText(userInfo.getUser().getEmpName());
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements IMain{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, LoginActivity.class);
                 context.startActivity(intent);
             }
         });

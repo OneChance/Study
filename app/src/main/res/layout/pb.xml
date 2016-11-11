@@ -74,7 +74,7 @@
             android:layout_weight="1"
             android:text="@string/th_brick_id"
             android:layout_toRightOf="@+id/pb_l_station"
-            app:layout_widthPercent="60%"></TextView>
+            app:layout_widthPercent="55%"></TextView>
 
         <TextView
             android:id="@+id/pb_length"
@@ -83,7 +83,7 @@
             android:layout_toRightOf="@+id/pb_brick_id"
             android:layout_weight="1"
             android:text="@string/th_length"
-            app:layout_widthPercent="20%"></TextView>
+            app:layout_widthPercent="25%"></TextView>
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -91,13 +91,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:layout_weight="0.75" />
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginBottom="80dp"
         android:orientation="horizontal">
 
         <Button

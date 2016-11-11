@@ -1,11 +1,13 @@
 package com.logic.mes.entity.base;
+import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
+import com.litesuits.orm.db.enums.AssignType;
 
 import java.io.Serializable;
 
 @Table("produce_def")
 public class ProduceDef implements Serializable{
-
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
     private String producename;
     private String  producecode;

@@ -6,8 +6,20 @@
     <string name="need_emp_no">请输入员工号</string>
     <string name="scan_emp_no">扫描员工号</string>
     <string name="emp_no">员工号</string>
+    <string name="emp_info_error">员工号</string>
     <string name="app_name">MES</string>
     <string name="login_out">退出</string>
+    <string name="config_server">配置服务器</string>
+    <string name="server_config">服务器信息配置</string>
+    <string name="server_ip">服务器地址</string>
+    <string name="server_port">端口</string>
+    <string name="config_dismiss">关闭</string>
+    <string name="config_save">保存</string>
+    <string name="time_error">设备时间与服务器时间偏差较大,请设置设备当前时间</string>
+    <string name="submit_error">提交失败</string>
+    <string name="server_config_error">服务器信息配置有误</string>
+    <string name="submit_data_error">提交数据有误</string>
+    <string name="server_error">与服务器通信异常</string>
 
 
     <string name="pbj_tab_name">配棒检</string>
@@ -34,7 +46,6 @@
     <string name="product_delete">删除</string>
     <string name="product_save">保存</string>
     <string name="product_save_success">保存成功</string>
-    <string name="dialog_dismiss">关闭</string>
 
     <!--配棒-->
     <string name="pb_l_mtype">机型</string>

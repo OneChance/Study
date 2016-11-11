@@ -68,8 +68,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
         scanTh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //MyApplication.scanUtil.send(receiver, SCAN_CODE_STATION);
-                receiver.receive("2222",SCAN_CODE_TH);
+                MyApplication.getScanUtil().send(receiver, SCAN_CODE_TH);
             }
         });
 
@@ -79,8 +78,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
                 if(thHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))){
                     MyApplication.toast(R.string.th_scan_first);
                 }else{
-                    //MyApplication.scanUtil.send(receiver, SCAN_CODE_PRODUCT);
-                    receiver.receive("241-234234-25435-123",SCAN_CODE_XZ);
+                    MyApplication.getScanUtil().send(receiver, SCAN_CODE_XZ);
                 }
             }
         });
@@ -161,5 +159,10 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
             list.add(p);
             dataAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void error() {
+
     }
 }

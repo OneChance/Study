@@ -1,19 +1,30 @@
 package com.logic.mes;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class MyApplication extends Application {
     private static Context context;
     public static ScanUtil scanUtil;
-    public static String VERSION = "1.0.0";
+    public static Integer VERSION = 1;
+    private static List<Activity> mList = new LinkedList();
 
     @Override
     public void onCreate() {
         context = getApplicationContext();
-        scanUtil = new ScanUtil(context);
         super.onCreate();
+    }
+
+    public static ScanUtil getScanUtil(){
+        if(scanUtil==null){
+            scanUtil = new ScanUtil(context);
+        }
+        return scanUtil;
     }
 
     @Override
@@ -32,5 +43,22 @@ public class MyApplication extends Application {
 
     public static String getResString(int resId){
         return context.getResources().getString(resId);
+    }
+
+    public static void addActivity(Activity activity) {
+        mList.add(activity);
+    }
+
+    public static void exit() {
+        try {
+            for (Activity activity : mList) {
+                if (activity != null)
+                    activity.finish();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            System.exit(0);
+        }
     }
 }

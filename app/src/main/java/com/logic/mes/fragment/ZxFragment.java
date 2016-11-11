@@ -24,7 +24,7 @@ import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonCallbacks,IScanReceiver{
+public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonCallbacks, IScanReceiver {
 
     public ZxFragment() {
         this.tagNameId = R.string.zx_tab_name;
@@ -68,19 +68,17 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         scanXz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //MyApplication.scanUtil.send(receiver, SCAN_CODE_STATION);
-                receiver.receive("721",SCAN_CODE_XZ);
+                MyApplication.getScanUtil().send(receiver, SCAN_CODE_XZ);
             }
         });
 
         scanHz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))){
+                if (xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
                     MyApplication.toast(R.string.xz_scan_first);
-                }else{
-                    //MyApplication.scanUtil.send(receiver, SCAN_CODE_PRODUCT);
-                    receiver.receive("1234",SCAN_CODE_HZ);
+                } else {
+                    MyApplication.getScanUtil().send(receiver, SCAN_CODE_HZ);
                 }
             }
         });
@@ -88,11 +86,11 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(list.size()>0){
+                if (list.size() > 0) {
                     DBHelper.getInstance(activity).delete(ZxProduct.class);
                     DBHelper.getInstance(activity).save(list);
                     MyApplication.toast(R.string.product_save_success);
-                }else{
+                } else {
                     MyApplication.toast(R.string.hz_scan_need);
                 }
             }
@@ -101,11 +99,11 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))){
+                if (xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
                     MyApplication.toast(R.string.xz_scan_first);
-                }else if(list.size()==0){
+                } else if (list.size() == 0) {
                     MyApplication.toast(R.string.hz_scan_need);
-                }else{
+                } else {
 
                 }
             }
@@ -120,7 +118,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
             }
         });
 
-        if(list==null){
+        if (list == null) {
             list = new ArrayList<>();
         }
 
@@ -150,7 +148,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     }
 
     @Override
-    public void receive(String res,int scanCode) {
+    public void receive(String res, int scanCode) {
         if (scanCode == SCAN_CODE_XZ) {
             xhHead.setText(res);
         } else if (scanCode == SCAN_CODE_HZ) {
@@ -161,5 +159,10 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
             list.add(p);
             dataAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void error() {
+
     }
 }

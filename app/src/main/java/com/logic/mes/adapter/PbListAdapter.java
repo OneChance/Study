@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.logic.mes.R;
-import com.logic.mes.entity.process.PbProduct;
+import com.logic.mes.entity.process.PbDetail;
 
 import java.util.List;
 
@@ -22,14 +22,14 @@ import butterknife.InjectView;
 public class PbListAdapter extends RecyclerView.Adapter<PbListAdapter.ViewHolder> {
 
     private Context context;
-    private List<PbProduct> list;
+    private List<PbDetail> list;
     private final ButtonCallbacks callbacks;
 
     public interface ButtonCallbacks {
         void removePosition(int position);
     }
 
-    public PbListAdapter(Context context, List<PbProduct> list, ButtonCallbacks callbacks) {
+    public PbListAdapter(Context context, List<PbDetail> list, ButtonCallbacks callbacks) {
         this.list = list;
         this.context = context;
         this.callbacks = callbacks;
@@ -45,7 +45,7 @@ public class PbListAdapter extends RecyclerView.Adapter<PbListAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final PbProduct p = list.get(position);
+        final PbDetail p = list.get(position);
         holder.brickId.setText(p.getBrickId());
         holder.length.setText(p.getLength());
         holder.station.setText(p.getStation());

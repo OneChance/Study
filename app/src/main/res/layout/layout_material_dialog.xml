@@ -80,7 +80,7 @@
                     style="@style/ActionButton"
                     android:background="@color/list_background"
                     android:stateListAnimator="@null"
-                    android:textColor="#ff239ff2"
+                    android:textColor="#3f51b5"
                     tools:text="OK" />
             </LinearLayout>
 

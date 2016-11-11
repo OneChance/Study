@@ -1,13 +1,15 @@
 package com.logic.mes.entity.base;
 
+import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
+import com.litesuits.orm.db.enums.AssignType;
 
 import java.io.Serializable;
 
 @Table("class_time")
 public class ClassTime implements Serializable {
-
-    private Long id =0l;
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
+    private Long id;
     private Long orgid =0l;
     private Integer class1 =0;
     private String start1 ="";

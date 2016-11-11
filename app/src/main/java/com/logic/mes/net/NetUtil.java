@@ -1,5 +1,7 @@
 package com.logic.mes.net;
 
+import android.util.Log;
+
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -18,45 +20,60 @@ import rx.schedulers.Schedulers;
 
 public class NetUtil {
     private static IServices services;
+    private static OkHttpClient client;
+    private static Retrofit restAdapter;
 
-    public static IServices getServices() {
-        if (services == null) {
+    public static IServices getServices(boolean rebuild) {
 
-            OkHttpClient client = new OkHttpClient();
+        if (services == null || rebuild) {
 
-            client.setConnectTimeout(NetConfig.CONNECT_TIMEOUT,TimeUnit.SECONDS);
+            if (services == null) {
+                client = new OkHttpClient();
+                client.setConnectTimeout(NetConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS);
+                client.interceptors().add(new Interceptor() {
 
-            client.interceptors().add(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
 
-                @Override
-                public Response intercept(Chain chain) throws IOException {
+                        Request.Builder builder = chain.request()
+                                .newBuilder();
 
-                    Request.Builder builder = chain.request()
-                            .newBuilder();
+                        if (Session.SessionId != null && !Session.SessionId.equals("")) {
+                            builder = builder.addHeader("Cookie", Session.SessionId);
+                        }
 
-                    if (Session.SessionId != null && !Session.SessionId.equals("")) {
-                        builder = builder.addHeader("Cookie", Session.SessionId);
+                        Request request = builder.build();
+
+                        Log.d("------------", request.urlString());
+
+                        Response response = chain.proceed(request);
+
+                        if (Session.SessionId != null && Session.SessionId.equals("")) {
+                            Session.SessionId = response.header("Set-Cookie");
+                        }
+
+                        return response;
                     }
+                });
+            }
 
-                    Request request = builder.build();
+            if (rebuild) {
 
-                    Response response = chain.proceed(request);
-
-                    if (Session.SessionId != null && Session.SessionId.equals("")) {
-                        Session.SessionId = response.header("Set-Cookie");
-                    }
-
-                    return response;
+                if (NetConfig.IP.equals("")) {
+                    NetConfig.IP = "127.0.0.1";
                 }
-            });
 
+                if (NetConfig.PORT.equals("")) {
+                    NetConfig.PORT = "8080";
+                }
 
-            Retrofit restAdapter = new Retrofit.Builder()
-                    .baseUrl(NetConfig.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(client)
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .build();
+                restAdapter = new Retrofit.Builder()
+                        .baseUrl("http://" + NetConfig.IP + ":" + NetConfig.PORT + "/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .client(client)
+                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                        .build();
+            }
 
             services = restAdapter.create(IServices.class);
         }
@@ -69,4 +86,6 @@ public class NetUtil {
         return observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+
 }

@@ -2,21 +2,24 @@ package com.logic.mes.net;
 
 
 import com.logic.mes.entity.base.UserInfoResult;
+import com.logic.mes.entity.server.ProcessSubmit;
+import com.logic.mes.entity.server.ServerResult;
 
+import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
-import retrofit.http.GET;
 import retrofit.http.POST;
 import rx.Observable;
 
 public interface IServices {
     @FormUrlEncoded
-    @POST("/mes/intface/userlogon/")
+    @POST("intface/userlogon/")
     public Observable<UserInfoResult> Login(@Field("code") String userCode);
 
-    @GET("/nba/game/myteam/?device=app&ask=players")
-    public Observable<Object> getTeamPlayers();
+    @FormUrlEncoded
+    @POST("intface/getbrick/")
+    public Observable<ServerResult> getBrickInfo(@Field("brickId") String brickId);
 
-    @GET("/nba/game/myteam/?device=app&ask=teamInfo")
-    public Observable<Object> getTeamInfo();
+    @POST("intface/bricksubmit/")
+    public Observable<ServerResult> brickSubmit(@Body ProcessSubmit data);
 }

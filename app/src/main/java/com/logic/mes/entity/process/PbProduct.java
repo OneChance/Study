@@ -1,35 +1,27 @@
 package com.logic.mes.entity.process;
 
 
+import com.litesuits.orm.db.annotation.MapCollection;
+import com.litesuits.orm.db.annotation.Mapping;
 import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
+import com.litesuits.orm.db.enums.Relation;
+import com.logic.mes.entity.server.ItemCol;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table("pb")
-public class PbProduct {
-
+public class PbProduct extends ProcessBase {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
+    @ItemCol(col = "jx")
+    private String jx;
 
-    private String brickId;
-    private String length;
-    private String station;
-
-    public String getBrickId() {
-        return brickId;
-    }
-
-    public void setBrickId(String brickId) {
-        this.brickId = brickId;
-    }
-
-    public String getLength() {
-        return length;
-    }
-
-    public void setLength(String length) {
-        this.length = length;
-    }
+    @Mapping(Relation.OneToMany)
+    @MapCollection(ArrayList.class)
+    private List<PbDetail> detailList;
 
     public int getId() {
         return id;
@@ -39,11 +31,19 @@ public class PbProduct {
         this.id = id;
     }
 
-    public String getStation() {
-        return station;
+    public String getJx() {
+        return jx;
     }
 
-    public void setStation(String station) {
-        this.station = station;
+    public void setJx(String jx) {
+        this.jx = jx;
+    }
+
+    public List<PbDetail> getDetailList() {
+        return detailList;
+    }
+
+    public void setDetailList(List<PbDetail> detailList) {
+        this.detailList = detailList;
     }
 }

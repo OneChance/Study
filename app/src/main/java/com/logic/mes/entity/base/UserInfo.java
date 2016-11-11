@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Table("user_data")
-public class UserInfo implements Serializable{
+public class UserInfo implements Serializable {
 
     private int id;
 
@@ -32,6 +32,9 @@ public class UserInfo implements Serializable{
     @Mapping(Relation.OneToMany)
     @MapCollection(ArrayList.class)
     List<TableSet> tableSet;
+
+    @Mapping(Relation.OneToOne)
+    AppInfo appInfo;
 
 
     public int getId() {
@@ -80,5 +83,13 @@ public class UserInfo implements Serializable{
 
     public void setTableSet(List<TableSet> tableSet) {
         this.tableSet = tableSet;
+    }
+
+    public AppInfo getAppInfo() {
+        return appInfo;
+    }
+
+    public void setAppInfo(AppInfo appInfo) {
+        this.appInfo = appInfo;
     }
 }

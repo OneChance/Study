@@ -14,7 +14,10 @@
         android:theme="@style/AppTheme">
         
         <activity
+            android:launchMode="singleTask"
             android:name="com.logic.mes.activity.LoginActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:configChanges="keyboardHidden"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +26,7 @@
         </activity>
 
         <activity
+            android:launchMode="singleTask"
             android:name="com.logic.mes.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>

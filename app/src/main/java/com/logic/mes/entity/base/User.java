@@ -1,11 +1,14 @@
 package com.logic.mes.entity.base;
 
+import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
+import com.litesuits.orm.db.enums.AssignType;
 
 import java.io.Serializable;
 
 @Table("user")
 public class User implements Serializable{
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
     private Long id;
     private String empCode;
     private String empName;
