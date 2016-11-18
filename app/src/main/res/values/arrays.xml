@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pb">
+        <item>扫描机型</item>
+        <item>扫描产品</item>
+    </string-array>
+
+    <string-array name="zx">
+        <item>扫描箱子</item>
+        <item>扫描盒子</item>
+    </string-array>
+
+    <string-array name="zt">
+        <item>扫描拖号</item>
+        <item>扫描箱子</item>
+    </string-array>
+</resources>

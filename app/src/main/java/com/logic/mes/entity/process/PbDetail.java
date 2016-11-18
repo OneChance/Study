@@ -5,12 +5,14 @@ import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
 import com.logic.mes.entity.server.ItemCol;
+import com.logic.mes.entity.server.ItemKey;
 
 @Table("pb_detail")
 public class PbDetail {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
 
+    @ItemKey()
     private String brickId;
     private String length;
     @ItemCol(col="gw")

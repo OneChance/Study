@@ -28,24 +28,6 @@
             android:text="@string/wait_scan"></TextView>
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/ck_b_scan_tm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ck_b_scan_tm" />
-
-        <Button
-            android:id="@+id/ck_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/product_save" />
-    </LinearLayout>
-
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -73,19 +55,6 @@
                 android:layout_height="match_parent"
                 android:text=""
                 android:background="@drawable/abc_edit_text_material"/>
-
-            <!--
-            <EditText
-                android:id="@+id/ck_v_jzrq"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text=""
-                android:textColor="#283593"
-                android:textSize="15sp"
-                android:inputType="date"
-                android:textStyle="bold"></EditText>-->
         </LinearLayout>
     </android.support.percent.PercentRelativeLayout>
 
@@ -167,6 +136,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ck_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_save" />
 
         <Button
             android:id="@+id/ck_b_submit"

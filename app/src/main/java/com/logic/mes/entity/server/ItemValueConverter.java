@@ -23,7 +23,7 @@ public class ItemValueConverter {
 
             List<Object> detail = null;
 
-            String brickId = "";
+            String itemKey = "";
 
             for (Field field : c.getDeclaredFields()) {
 
@@ -43,8 +43,8 @@ public class ItemValueConverter {
                         headkV = headkV + "," + spliter + field.getAnnotation(ItemCol.class).col() + "=" + getMethod.invoke(data);
                     }
 
-                    if (field.getName().equals("brickId")) {
-                        brickId = getMethod.invoke(data).toString();
+                    if (field.getAnnotation(ItemKey.class) != null) {
+                        itemKey = getMethod.invoke(data).toString();
                     }
                 }
             }
@@ -55,7 +55,7 @@ public class ItemValueConverter {
 
             if (detail == null) {
                 ProcessItem item = new ProcessItem();
-                item.setItemKey(brickId);
+                item.setItemKey(itemKey);
                 item.setItemValue(headkV);
                 items.add(item);
             } else {
@@ -77,17 +77,21 @@ public class ItemValueConverter {
                             itemKV = itemKV + "," + spliter + field.getAnnotation(ItemCol.class).col() + "=" + getMethod.invoke(o);
                         }
 
-                        if (field.getName().equals("brickId")) {
-                            brickId = getMethod.invoke(o).toString();
+                        if (field.getAnnotation(ItemKey.class) != null) {
+                            itemKey = getMethod.invoke(o).toString();
                         }
                     }
-                    itemKV = itemKV + "," + spliter + headkV;
+
+                    if (!headkV.equals("")) {
+                        itemKV = itemKV + "," + spliter + headkV;
+                    }
+
 
                     if (itemKV.startsWith(",")) {
                         itemKV = itemKV.substring(2);
                     }
 
-                    item.setItemKey(brickId);
+                    item.setItemKey(itemKey);
                     item.setItemValue(itemKV);
                     items.add(item);
                 }

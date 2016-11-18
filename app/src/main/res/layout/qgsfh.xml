@@ -26,25 +26,6 @@
             android:text="@string/wait_scan"></TextView>
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/qgsfh_scan_product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_scan_product" />
-
-        <Button
-            android:id="@+id/qgsfh_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/product_save" />
-    </LinearLayout>
-
     <ScrollView
         android:id="@+id/qx_scroll_content"
         android:layout_width="match_parent"
@@ -346,6 +327,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/qgsfh_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_save" />
 
         <Button
             android:id="@+id/qgsfh_b_submit"

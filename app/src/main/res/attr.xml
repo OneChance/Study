@@ -23,7 +23,7 @@
         <attr name="met_maxCharacters" format="integer" />
         <!-- Whether to show the bottom ellipsis in singleLine mode -->
         <attr name="met_singleLineEllipsis" format="boolean" />
-        <!-- Reserved bottom text lines count, no matter if there is some helper/error text. -->
+        <!-- Reserved bottom text lines count, no matter if there is some helper/scanError text. -->
         <attr name="met_minBottomTextLines" format="integer" />
         <!-- Helper text at the bottom -->
         <attr name="met_helperText" format="string" />

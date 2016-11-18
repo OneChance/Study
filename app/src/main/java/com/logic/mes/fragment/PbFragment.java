@@ -18,7 +18,6 @@ import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.base.TableSet;
 import com.logic.mes.entity.process.PbDetail;
 import com.logic.mes.entity.process.PbProduct;
-import com.logic.mes.entity.server.BrickInfo;
 import com.logic.mes.entity.server.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
@@ -39,15 +38,17 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         this.tagNameId = R.string.pb_tab_name;
     }
 
-    public final int SCAN_CODE_STATION = 0;
+    public final int SCAN_CODE_MTYPE = 0;
     public final int SCAN_CODE_PRODUCT = 1;
 
-    @InjectView(R.id.pb_b_mtype)
+    @InjectView(R.id.pb_b_scan_mtype)
     Button scanMType;
-    @InjectView(R.id.pb_scan_product)
-    Button scanProduct;
+    @InjectView(R.id.pb_b_scan_brick)
+    Button scanBrick;
     @InjectView(R.id.pb_v_mtype)
     TextView mType;
+    @InjectView(R.id.pb_v_brick)
+    TextView brick;
     @InjectView(R.id.pb_product_list)
     RecyclerView listView;
     @InjectView(R.id.pb_save)
@@ -66,6 +67,11 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
     List<TableSet> tableSet;
 
+    @Override
+    public void setReceiver() {
+        receiver = this;
+        MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_MTYPE);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,23 +82,25 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
         activity = getActivity();
         receiver = this;
-        serverObserver = new ServerObserver(this);
+        serverObserver = new ServerObserver(this, "pb", activity);
         submitResultReceiver = this;
 
         scanMType.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                MyApplication.getScanUtil().send(receiver, SCAN_CODE_STATION);
+            public void onClick(View view) {
+                mType.setText(R.string.wait_scan);
+                MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_MTYPE);
             }
         });
 
-        scanProduct.setOnClickListener(new View.OnClickListener() {
+        scanBrick.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (mType.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
                     MyApplication.toast(R.string.mtype_scan_first);
                 } else {
-                    MyApplication.getScanUtil().send(receiver, SCAN_CODE_PRODUCT);
+                    brick.setText(R.string.wait_scan);
+                    MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
                 }
             }
         });
@@ -127,10 +135,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mType.setText(MyApplication.getResString(R.string.wait_scan));
-                pb.setJx("");
-                pb.getDetailList().clear();
-                dataAdapter.notifyDataSetChanged();
+                clear();
             }
         });
 
@@ -168,29 +173,25 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     }
 
     @Override
-    public void receive(String res, int scanCode) {
-        if (scanCode == SCAN_CODE_STATION) {
+    public void scanReceive(String res, int scanCode) {
+        if (scanCode == SCAN_CODE_MTYPE) {
             pb.setJx(res);
             mType.setText(res);
         } else if (scanCode == SCAN_CODE_PRODUCT) {
             //取产品信息
+            brick.setText(res);
             NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res))
                     .subscribe(serverObserver);
         }
     }
 
     @Override
-    public void getData(ServerResult res) {
+    public void serverData(ServerResult res) {
 
-        List<BrickInfo> brickInfos = res.getDatas();
-        if (brickInfos.size() > 0) {
-
-            BrickInfo brickInfo = brickInfos.get(0);
-
-
+        if (!checkExist(res.getVal("ej_BrickID"))) {
             PbDetail p = new PbDetail();
-            p.setBrickId(brickInfo.getBrickId().toString());
-            p.setLength(brickInfo.getYxbc().toString());
+            p.setBrickId(res.getVal("ej_BrickID"));
+            p.setLength(res.getVal("pbj_yxbc"));
             p.setStation("");
             pb.getDetailList().add(p);
 
@@ -204,14 +205,29 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
             dataAdapter.notifyItemChanged(1);
             dataAdapter.notifyDataSetChanged();
+
         } else {
-            MyApplication.toast("无数据!");
+            MyApplication.toast(R.string.duplicate_data);
         }
     }
 
     @Override
-    public void error() {
+    public void clear() {
+        mType.setText(R.string.wait_scan);
+        pb.getDetailList().clear();
+        dataAdapter.notifyDataSetChanged();
+        MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_MTYPE);
+        DBHelper.getInstance(activity).delete(PbProduct.class);
+    }
 
+    @Override
+    public void serverError() {
+
+    }
+
+    @Override
+    public void scanError() {
+        MyApplication.toast(R.string.server_error);
     }
 
     public void getTableSet() {
@@ -235,7 +251,17 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     @Override
     public void submitOk() {
-        pb.getDetailList().clear();
-        dataAdapter.notifyDataSetChanged();
+        clear();
+    }
+
+    public boolean checkExist(String code) {
+
+        for (PbDetail d : pb.getDetailList()) {
+            if (d.getBrickId().equals(code)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

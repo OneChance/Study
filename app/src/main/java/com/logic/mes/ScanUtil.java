@@ -5,8 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Handler;
-import android.os.Message;
 
 public class ScanUtil {
     IntentFilter mFilter;
@@ -15,16 +13,6 @@ public class ScanUtil {
     IScanReceiver receiver;
     int scanCode;
     Context context;
-
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.arg1 == -1) {
-                receiver.error();
-            }
-        }
-    };
-
 
     public ScanUtil(Context context) {
         this.context = context;
@@ -37,31 +25,18 @@ public class ScanUtil {
                 final String scanStatus = intent.getStringExtra("EXTRA_SCAN_STATE");
 
                 if ("ok".equals(scanStatus)) {
-                    receiver.receive(scanResult, scanCode);
+                    receiver.scanReceive(scanResult, scanCode);
                 } else {
-                    receiver.error();
+                    receiver.scanError();
                 }
             }
         };
         context.registerReceiver(mReceiver, mFilter);
     }
 
-    public void send(final IScanReceiver receiver, int scanCode) {
+    public void setReceiver(final IScanReceiver receiver, int scanCode) {
         this.scanCode = scanCode;
         this.receiver = receiver;
-        context.sendBroadcast(intent);
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(6000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Message msg = handler.obtainMessage();
-                msg.arg1 = -1;
-                handler.sendMessage(msg);
-            }
-        }).start();
     }
 
     public void release() {

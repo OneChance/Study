@@ -4,14 +4,19 @@ package com.logic.mes.entity.process;
 import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
+import com.logic.mes.entity.server.ItemCol;
 
 @Table("rk_detail")
 public class RkDetail {
 
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
+
+    @ItemCol(col = "lb")
     private String lb;
+    @ItemCol(col = "tm")
     private String tm;
+    @ItemCol(col = "sl")
     private String sl;
 
     public int getId() {

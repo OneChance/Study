@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 public class EditTextUtil {
-    public static void setNoKeyboard(final EditText editText){
+    public static void setNoKeyboard(final EditText editText) {
         editText.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -30,5 +30,10 @@ public class EditTextUtil {
                 return true;
             }
         });
+    }
+
+    public static void setTextEnd(EditText et, String content) {
+        et.setText(content);
+        Selection.setSelection(et.getText(), content.length());
     }
 }

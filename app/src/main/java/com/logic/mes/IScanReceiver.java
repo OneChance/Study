@@ -1,6 +1,7 @@
 package com.logic.mes;
 
 public interface IScanReceiver {
-    void receive(String res,int scanCode);
-    void error();
+    void scanReceive(String res, int scanCode);
+
+    void scanError();
 }

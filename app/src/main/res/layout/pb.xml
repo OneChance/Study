@@ -5,51 +5,87 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <LinearLayout
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/pb_l_mtype"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="10sp"
             android:text="@string/pb_l_mtype"
             android:textColor="#3f51b5"
             android:textSize="15sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"
+            app:layout_widthPercent="25%"></TextView>
 
         <TextView
             android:id="@+id/pb_v_mtype"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/pb_l_mtype"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
             android:padding="10sp"
-            android:text="@string/wait_scan"></TextView>
-    </LinearLayout>
+            android:text="@string/wait_scan"
+            app:layout_widthPercent="50%"></TextView>
+
+        <Button
+            android:id="@+id/pb_b_scan_mtype"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/pb_v_mtype"
+            android:layout_weight="1"
+            android:text="@string/pb_b_mtype"
+            app:layout_widthPercent="25%" />
+    </android.support.percent.PercentRelativeLayout>
 
 
-    <LinearLayout
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/pb_b_mtype"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pb_b_mtype" />
+
+        <TextView
+            android:id="@+id/pb_l_brick"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="@string/th_brick_id"
+            android:textColor="#3f51b5"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_widthPercent="25%"></TextView>
+
+        <TextView
+            android:id="@+id/pb_v_brick"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/pb_l_brick"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="10sp"
+            android:text="@string/wait_scan"
+            app:layout_widthPercent="50%"></TextView>
 
         <Button
-            android:id="@+id/pb_scan_product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_scan_product" />
+            android:id="@+id/pb_b_scan_brick"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/pb_v_brick"
+            android:layout_weight="1"
+            android:text="@string/pb_b_brick"
+            app:layout_widthPercent="25%" />
+    </android.support.percent.PercentRelativeLayout>
 
-        <Button
-            android:id="@+id/pb_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/product_save" />
-    </LinearLayout>
 
     <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -71,9 +107,9 @@
             android:id="@+id/pb_brick_id"
             style="@style/font_title"
             android:layout_width="0dp"
+            android:layout_toRightOf="@+id/pb_l_station"
             android:layout_weight="1"
             android:text="@string/th_brick_id"
-            android:layout_toRightOf="@+id/pb_l_station"
             app:layout_widthPercent="55%"></TextView>
 
         <TextView
@@ -90,14 +126,20 @@
         android:id="@+id/pb_product_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:clipToPadding="false" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/pb_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_save" />
 
         <Button
             android:id="@+id/pb_b_submit"

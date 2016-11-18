@@ -30,8 +30,6 @@ import butterknife.InjectView;
 public class LoginActivity extends Activity implements IScanReceiver, LoginObserver.IUpdate {
 
     private Context context;
-    @InjectView(R.id.btn_scan_barcode)
-    Button scanBarCodeButton;
     @InjectView(R.id.btn_login)
     Button bLogin;
     @InjectView(R.id.emp_no)
@@ -54,6 +52,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
     protected void onResume() {
         loginAble();
         loading.setVisibility(View.INVISIBLE);
+        MyApplication.getScanUtil().setReceiver(receiver, 0);
         super.onResume();
     }
 
@@ -76,15 +75,6 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
             }
         }
 
-        scanBarCodeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //扫描登陆
-                loginDisable();
-                MyApplication.getScanUtil().send(receiver, 0);
-            }
-        });
-
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +83,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
                     MyApplication.toast(R.string.need_emp_no);
                 } else {
                     loginDisable();
-                    receive(empNo.getText().toString(), 0);
+                    scanReceive(empNo.getText().toString(), 0);
                 }
             }
         });
@@ -137,24 +127,23 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
         builder = new GsonBuilder();
         gson = builder.create();
 
+        MyApplication.getScanUtil().setReceiver(receiver, 0);
+
         EditTextUtil.setNoKeyboard(empNo);
 
         MyApplication.addActivity(this);
     }
 
     public void loginAble() {
-        scanBarCodeButton.setClickable(true);
         bLogin.setClickable(true);
     }
 
     public void loginDisable() {
-        scanBarCodeButton.setClickable(false);
         bLogin.setClickable(false);
     }
 
-
     @Override
-    public void receive(String scanResult, int scanCode) {
+    public void scanReceive(String scanResult, int scanCode) {
         loading.setVisibility(View.VISIBLE);
         LoginObserver.currentInputCode = scanResult;
         NetUtil.SetObserverCommonAction(NetUtil.getServices(true).Login(scanResult))
@@ -162,7 +151,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
     }
 
     @Override
-    public void error() {
+    public void scanError() {
         loginButtonRecover();
     }
 
@@ -176,5 +165,10 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
     public void loginButtonRecover() {
         loginAble();
         loading.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        MyApplication.exit();
     }
 }

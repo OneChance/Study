@@ -16,7 +16,6 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.process.PbjProduct;
-import com.logic.mes.entity.server.BrickInfo;
 import com.logic.mes.entity.server.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
@@ -35,8 +34,6 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         this.tagNameId = R.string.pbj_tab_name;
     }
 
-    @InjectView(R.id.pbj_scan_product)
-    Button scanProduct;
     @InjectView(R.id.pbj_save)
     Button save;
     @InjectView(R.id.pbj_b_quali)
@@ -67,6 +64,12 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
 
     @Override
+    public void setReceiver() {
+        receiver = this;
+        MyApplication.getScanUtil().setReceiver(receiver, 0);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(pbj, container, false);
@@ -78,14 +81,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         submitResultReceiver = this;
         context = getActivity();
 
-        serverObserver = new ServerObserver(this);
-
-        scanProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyApplication.getScanUtil().send(receiver, 0);
-            }
-        });
+        serverObserver = new ServerObserver(this, "pbj", activity);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,12 +119,12 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
             PbjProduct pbj = plist.get(0);
             brickId.setText(pbj.getBrickId());
             codeValue.setText(pbj.getBrickId());
-            bbValue.setText(pbj.getBbValue());
-            zcbcValue.setText(pbj.getZcbcValue());
-            zdbcValue.setText(pbj.getZdbcValue());
-            yxbcValue.setText(pbj.getYxbcValue());
-            sizeValue.setText(pbj.getSizeValue());
-            djValue.setText(pbj.getDjValue());
+            EditTextUtil.setTextEnd(bbValue, pbj.getBbValue());
+            EditTextUtil.setTextEnd(zcbcValue, pbj.getZcbcValue());
+            EditTextUtil.setTextEnd(zdbcValue, pbj.getZdbcValue());
+            EditTextUtil.setTextEnd(yxbcValue, pbj.getYxbcValue());
+            EditTextUtil.setTextEnd(sizeValue, pbj.getSizeValue());
+            EditTextUtil.setTextEnd(djValue, pbj.getDjValue());
         }
 
         EditTextUtil.setNoKeyboard(bbValue);
@@ -141,37 +137,32 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         return view;
     }
 
+
     @Override
-    public void receive(String res, int scanCode) {
+    public void scanReceive(String res, int scanCode) {
+        brickId.setText(res);
         NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res))
                 .subscribe(serverObserver);
     }
 
     @Override
-    public void error() {
-
+    public void scanError() {
+        MyApplication.toast(R.string.server_error);
     }
 
     @Override
-    public void getData(ServerResult res) {
-        List<BrickInfo> brickInfos = res.getDatas();
-        if (brickInfos.size() > 0) {
-            BrickInfo brickInfo = brickInfos.get(0);
-            brickId.setText(brickInfo.getBrickId().toString());
-            codeValue.setText(brickInfo.getBrickId().toString());
-            bbValue.setText(brickInfo.getBb().toString());
-            zcbcValue.setText(brickInfo.getZccd().toString());
-            zdbcValue.setText(brickInfo.getZdcd().toString());
-            yxbcValue.setText(brickInfo.getYxbc().toString());
-            sizeValue.setText(brickInfo.getJzcc().toString());
-            djValue.setText(brickInfo.getDj().toString());
-        } else {
-            MyApplication.toast("无数据!");
-        }
+    public void serverData(ServerResult res) {
+        codeValue.setText(res.getVal("ej_BrickID"));
+        EditTextUtil.setTextEnd(bbValue, res.getVal("pbj_bb"));
+        EditTextUtil.setTextEnd(zcbcValue, res.getVal("ej_zccd"));
+        EditTextUtil.setTextEnd(zdbcValue, res.getVal("ej_zdcd"));
+        EditTextUtil.setTextEnd(yxbcValue, res.getVal("pbj_yxbc"));
+        EditTextUtil.setTextEnd(sizeValue, res.getVal("ej_jzcc"));
+        EditTextUtil.setTextEnd(djValue, res.getVal("pbj_dj"));
     }
 
     @Override
-    public void submitOk() {
+    public void clear() {
         brickId.setText(R.string.wait_scan);
         codeValue.setText("");
         bbValue.setText("");
@@ -180,6 +171,16 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         yxbcValue.setText("");
         sizeValue.setText("");
         djValue.setText("");
+    }
+
+    @Override
+    public void serverError() {
+
+    }
+
+    @Override
+    public void submitOk() {
+        clear();
     }
 
     public PbjProduct createBean(String sfhg) {

@@ -15,6 +15,10 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.process.YbProduct;
+import com.logic.mes.entity.server.ProcessUtil;
+import com.logic.mes.entity.server.ServerResult;
+import com.logic.mes.net.NetUtil;
+import com.logic.mes.observer.ServerObserver;
 
 import java.util.List;
 
@@ -23,14 +27,12 @@ import butterknife.InjectView;
 
 import static com.logic.mes.R.layout.yb;
 
-public class YbFragment extends BaseTagFragment implements IScanReceiver{
+public class YbFragment extends BaseTagFragment implements IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
 
     public YbFragment() {
         this.tagNameId = R.string.yb_tab_name;
     }
 
-    @InjectView(R.id.yb_scan_product)
-    Button scanProduct;
     @InjectView(R.id.yb_save)
     Button save;
     @InjectView(R.id.yb_v_jzbh)
@@ -56,6 +58,15 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver{
 
     FragmentActivity activity;
     IScanReceiver receiver;
+    ProcessUtil.SubmitResultReceiver submitResultReceiver;
+    ServerObserver serverObserver;
+
+    @Override
+    public void setReceiver() {
+        receiver = this;
+        MyApplication.getScanUtil().setReceiver(receiver, 0);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,34 +77,21 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver{
 
         activity = getActivity();
         receiver = this;
-
-        scanProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyApplication.getScanUtil().send(receiver, 0);
-            }
-        });
+        submitResultReceiver = this;
+        serverObserver = new ServerObserver(this, "yb", activity);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))){
+                if (jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
                     MyApplication.toast(R.string.brickid_scan_first);
-                }else{
+                } else {
                     //先清空表
                     DBHelper.getInstance(activity).delete(YbProduct.class);
-
-                    YbProduct yb = new YbProduct();
-                    yb.setJzbh(jzbh.getText().toString());
-                    yb.setYzd(yzd.getText().toString());
-                    yb.setHbp(hbp.getText().toString());
-                    yb.setZb(zb.getText().toString());
-                    yb.setDp(dp.getText().toString());
-                    yb.setKxs(kxs.getText().toString());
-                    yb.setLds(lds.getText().toString());
-                    yb.setZqbb(zqbb.getText().toString());
+                    YbProduct yb = createYb();
                     DBHelper.getInstance(activity).save(yb);
+
                     MyApplication.toast(R.string.product_save_success);
                 }
             }
@@ -102,11 +100,11 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver{
         bSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))){
+                if (jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
                     MyApplication.toast(R.string.brickid_scan_first);
-                }else{
-                    //保存成功后删除数据库数据
-                    DBHelper.getInstance(activity).delete(YbProduct.class);
+                } else {
+                    YbProduct yb = createYb();
+                    new ProcessUtil(activity).submit(submitResultReceiver, yb);
                 }
             }
         });
@@ -114,14 +112,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver{
         bClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jzbh.setText(R.string.wait_scan);
-                yzd.setText("");
-                hbp.setText("");
-                zb.setText("");
-                dp.setText("");
-                kxs.setText("");
-                lds.setText("");
-                zqbb.setText("");
+                clear();
             }
         });
 
@@ -131,7 +122,6 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver{
             setPbjValue(yb);
         }
 
-
         EditTextUtil.setNoKeyboard(yzd);
         EditTextUtil.setNoKeyboard(hbp);
         EditTextUtil.setNoKeyboard(zb);
@@ -140,37 +130,77 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver{
         EditTextUtil.setNoKeyboard(lds);
         EditTextUtil.setNoKeyboard(zqbb);
 
-
         return view;
     }
 
     @Override
-    public void receive(String res,int scanCode) {
-        YbProduct yb = new YbProduct();
-        yb.setJzbh("8888");
-        yb.setYzd("");
-        yb.setHbp("");
-        yb.setZb("");
-        yb.setDp("");
-        yb.setKxs("");
-        yb.setLds("");
-        yb.setZqbb("");
-        setPbjValue(yb);
+    public void scanReceive(String res, int scanCode) {
+        jzbh.setText(res);
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res))
+                .subscribe(serverObserver);
     }
 
     @Override
-    public void error() {
-
+    public void serverData(ServerResult res) {
+        EditTextUtil.setTextEnd(yzd, res.getVal("yb_yzd"));
+        EditTextUtil.setTextEnd(hbp, res.getVal("yb_hbp"));
+        EditTextUtil.setTextEnd(zb, res.getVal("yb_zb"));
+        EditTextUtil.setTextEnd(dp, res.getVal("yb_dp"));
+        EditTextUtil.setTextEnd(kxs, res.getVal("yb_kxs"));
+        EditTextUtil.setTextEnd(lds, res.getVal("yb_lds"));
+        EditTextUtil.setTextEnd(zqbb, res.getVal("yb_zqbb"));
     }
 
-    public void setPbjValue(YbProduct yb){
-        jzbh.setText(yb.getJzbh());
-        yzd.setText(yb.getYzd());
-        hbp.setText(yb.getHbp());
-        zb.setText(yb.getZb());
-        dp.setText(yb.getDp());
-        kxs.setText(yb.getKxs());
-        lds.setText(yb.getLds());
-        zqbb.setText(yb.getZqbb());
+    @Override
+    public void scanError() {
+        MyApplication.toast(R.string.server_error);
+    }
+
+    public void setPbjValue(YbProduct yb) {
+        jzbh.setText(yb.getBrickId());
+        EditTextUtil.setTextEnd(yzd, yb.getYzd());
+        EditTextUtil.setTextEnd(hbp, yb.getHbp());
+        EditTextUtil.setTextEnd(zb, yb.getZb());
+        EditTextUtil.setTextEnd(dp, yb.getDp());
+        EditTextUtil.setTextEnd(kxs, yb.getKxs());
+        EditTextUtil.setTextEnd(lds, yb.getLds());
+        EditTextUtil.setTextEnd(zqbb, yb.getZqbb());
+    }
+
+    @Override
+    public void submitOk() {
+        clear();
+    }
+
+    public YbProduct createYb() {
+        YbProduct yb = new YbProduct();
+        yb.setBrickId(jzbh.getText().toString());
+        yb.setYzd(yzd.getText().toString());
+        yb.setHbp(hbp.getText().toString());
+        yb.setZb(zb.getText().toString());
+        yb.setDp(dp.getText().toString());
+        yb.setKxs(kxs.getText().toString());
+        yb.setLds(lds.getText().toString());
+        yb.setZqbb(zqbb.getText().toString());
+        yb.setCode("yb");
+        return yb;
+    }
+
+    @Override
+    public void clear() {
+        jzbh.setText(R.string.wait_scan);
+        yzd.setText("");
+        hbp.setText("");
+        zb.setText("");
+        dp.setText("");
+        kxs.setText("");
+        lds.setText("");
+        zqbb.setText("");
+        DBHelper.getInstance(activity).delete(YbProduct.class);
+    }
+
+    @Override
+    public void serverError() {
+
     }
 }

@@ -26,12 +26,6 @@
         android:text="@string/login" />
 
     <Button
-        android:id="@+id/btn_scan_barcode"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="@string/scan_emp_no" />
-
-    <Button
         android:id="@+id/btn_config_server"
         android:layout_width="250dp"
         android:layout_height="wrap_content"

@@ -22,4 +22,8 @@ public interface IServices {
 
     @POST("intface/bricksubmit/")
     public Observable<ServerResult> brickSubmit(@Body ProcessSubmit data);
+
+    @FormUrlEncoded
+    @POST("intface/getbagdata/")
+    public Observable<ServerResult> getBagData(@Field("objCode") String objCode);
 }

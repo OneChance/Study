@@ -3,7 +3,7 @@
     package="com.logic.mes">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.logic.mes.MyApplication"
@@ -12,13 +12,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        
+
         <activity
-            android:launchMode="singleTask"
             android:name="com.logic.mes.activity.LoginActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:configChanges="keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,7 +25,6 @@
         </activity>
 
         <activity
-            android:launchMode="singleTask"
             android:name="com.logic.mes.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -37,7 +35,9 @@
 
         <receiver android:name="com.logic.mes.update.InstallReceiver">
             <intent-filter>
-                <action android:enabled="true" android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action
+                    android:name="android.intent.action.DOWNLOAD_COMPLETE"
+                    android:enabled="true" />
             </intent-filter>
         </receiver>
     </application>

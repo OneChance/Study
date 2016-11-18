@@ -4,20 +4,30 @@ package com.logic.mes.entity.process;
 import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
+import com.logic.mes.entity.server.ItemCol;
+import com.logic.mes.entity.server.ItemKey;
 
 @Table("yb")
-public class YbProduct {
+public class YbProduct extends ProcessBase {
 
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
 
-    private String jzbh;
+    @ItemKey()
+    private String brickId;
+    @ItemCol(col = "yzd")
     private String yzd;
+    @ItemCol(col = "hbp")
     private String hbp;
+    @ItemCol(col = "zb")
     private String zb;
+    @ItemCol(col = "dp")
     private String dp;
+    @ItemCol(col = "kxs")
     private String kxs;
+    @ItemCol(col = "lds")
     private String lds;
+    @ItemCol(col = "zqbb")
     private String zqbb;
 
     public int getId() {
@@ -84,11 +94,11 @@ public class YbProduct {
         this.zqbb = zqbb;
     }
 
-    public String getJzbh() {
-        return jzbh;
+    public String getBrickId() {
+        return brickId;
     }
 
-    public void setJzbh(String jzbh) {
-        this.jzbh = jzbh;
+    public void setBrickId(String brickId) {
+        this.brickId = brickId;
     }
 }

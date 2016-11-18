@@ -31,7 +31,7 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
 
     public void submit(SubmitResultReceiver receiver, ProcessBase processData) {
         this.processData = processData;
-        serverObserver = new ServerObserver(serverDataReceiver);
+        serverObserver = new ServerObserver(serverDataReceiver, "", null);
         this.submitResultReceiver = receiver;
 
 
@@ -43,7 +43,7 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
 
             processSubmit.setUserCode(user.getEmpCode());
             processSubmit.setUserOrg(user.getOrgid_mes().toString());
-            processSubmit.setUserName(user.getUserName());
+            processSubmit.setUserName(user.getEmpName());
 
             String now = sdf.format(new Date());
 
@@ -71,20 +71,28 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
     }
 
     @Override
-    public void getData(ServerResult res) {
+    public void serverData(ServerResult res) {
         if (res != null) {
             if (res.getCode().equals("0")) {
+                MyApplication.toast(R.string.submit_ok);
                 DBHelper.getInstance(context).delete(processData.getClass());
                 submitResultReceiver.submitOk();
             } else {
-                MyApplication.toast(R.string.submit_error);
-                this.error();
+                if (res.getInfo() != null && !res.getInfo().equals("")) {
+                    MyApplication.toast(res.getInfo());
+                }
+                this.serverError();
             }
         }
     }
 
     @Override
-    public void error() {
+    public void clear() {
+
+    }
+
+    @Override
+    public void serverError() {
         //保存这个工序数据
         DBHelper.getInstance(context).delete(processData.getClass());
         DBHelper.getInstance(context).save(processData);

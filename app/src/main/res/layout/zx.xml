@@ -5,51 +5,86 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <LinearLayout
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/zx_xh_head"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="10sp"
             android:text="@string/zx_b_l_xh"
             android:textColor="#3f51b5"
             android:textSize="15sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"
+            app:layout_widthPercent="25%"></TextView>
 
         <TextView
-            android:id="@+id/zx_v_xh_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/zx_xh_v"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/zx_xh_head"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
             android:padding="10sp"
-            android:text="@string/wait_scan"></TextView>
-    </LinearLayout>
+            android:text="@string/wait_scan"
+            app:layout_widthPercent="50%"></TextView>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
         <Button
             android:id="@+id/zx_b_scan_xz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/zx_b_scan_xz" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/zx_xh_v"
+            android:layout_weight="1"
+            android:text="@string/zx_b_scan_xz"
+            app:layout_widthPercent="25%" />
+    </android.support.percent.PercentRelativeLayout>
+
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/zx_hh_head"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="@string/zx_b_l_hh"
+            android:textColor="#3f51b5"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_widthPercent="25%"></TextView>
+
+        <TextView
+            android:id="@+id/zx_hh_v"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/zx_hh_head"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="10sp"
+            android:text="@string/wait_scan"
+            app:layout_widthPercent="50%"></TextView>
 
         <Button
             android:id="@+id/zx_b_scan_hz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/zx_b_scan_hz" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/zx_hh_v"
+            android:layout_weight="1"
+            android:text="@string/zx_b_scan_hz"
+            app:layout_widthPercent="25%" />
+    </android.support.percent.PercentRelativeLayout>
 
-        <Button
-            android:id="@+id/zx_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/product_save" />
-    </LinearLayout>
 
     <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -60,21 +95,21 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/zx_b_l_xh"
+            android:id="@+id/zx_l_xh"
             style="@style/font_title"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/zx_b_l_xh"
-            app:layout_widthPercent="40%"></TextView>
+            app:layout_widthPercent="50%"></TextView>
 
         <TextView
             android:id="@+id/zx_b_l_hh"
             style="@style/font_title"
             android:layout_width="0dp"
+            android:layout_toRightOf="@+id/zx_l_xh"
             android:layout_weight="1"
             android:text="@string/zx_b_l_hh"
-            android:layout_toRightOf="@+id/zx_b_l_xh"
-            app:layout_widthPercent="60%"></TextView>
+            app:layout_widthPercent="50%"></TextView>
 
     </android.support.percent.PercentRelativeLayout>
 
@@ -82,14 +117,20 @@
         android:id="@+id/zx_product_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:clipToPadding="false" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/zx_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_save" />
 
         <Button
             android:id="@+id/zx_b_submit"

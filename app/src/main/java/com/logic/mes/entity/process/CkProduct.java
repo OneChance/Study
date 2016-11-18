@@ -7,22 +7,28 @@ import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
 import com.litesuits.orm.db.enums.Relation;
+import com.logic.mes.entity.server.ItemCol;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Table("ck")
-public class CkProduct {
+public class CkProduct extends ProcessBase {
 
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
 
+    @ItemCol(col = "jzrq")
     private String jzrq;
     private String hj;
 
     @Mapping(Relation.OneToMany)
     @MapCollection(ArrayList.class)
-    private List<RkDetail> dList;
+    private List<CkDetail> detailList;
+
+    public CkProduct() {
+        detailList = new ArrayList<>();
+    }
 
     public int getId() {
         return id;
@@ -48,11 +54,11 @@ public class CkProduct {
         this.hj = hj;
     }
 
-    public List<RkDetail> getdList() {
-        return dList;
+    public List<CkDetail> getDetailList() {
+        return detailList;
     }
 
-    public void setdList(List<RkDetail> dList) {
-        this.dList = dList;
+    public void setDetailList(List<CkDetail> detailList) {
+        this.detailList = detailList;
     }
 }

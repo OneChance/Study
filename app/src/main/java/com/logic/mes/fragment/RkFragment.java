@@ -19,8 +19,12 @@ import com.logic.mes.adapter.RkListAdapter;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.process.RkDetail;
 import com.logic.mes.entity.process.RkProduct;
+import com.logic.mes.entity.server.ProcessUtil;
+import com.logic.mes.entity.server.ServerResult;
+import com.logic.mes.net.NetUtil;
+import com.logic.mes.observer.ServerObserver;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -28,14 +32,12 @@ import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonCallbacks, IScanReceiver {
+public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
 
     public RkFragment() {
         this.tagNameId = R.string.rk_tab_name;
     }
 
-    @InjectView(R.id.rk_b_scan_tm)
-    Button scanTm;
     @InjectView(R.id.rk_v_tm_head)
     TextView tmHead;
     @InjectView(R.id.rk_product_list)
@@ -53,11 +55,19 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
     Button clear;
 
     RkProduct product;
-    List<RkDetail> list;
     RkListAdapter dataAdapter;
     FragmentActivity activity;
     IScanReceiver receiver;
     Calendar c;
+
+    ProcessUtil.SubmitResultReceiver submitResultReceiver;
+    ServerObserver serverObserver;
+
+    @Override
+    public void setReceiver() {
+        receiver = this;
+        MyApplication.getScanUtil().setReceiver(receiver, 0);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,6 +76,8 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         ButterKnife.inject(this, view);
         activity = getActivity();
         receiver = this;
+        submitResultReceiver = this;
+        serverObserver = new ServerObserver(this, "rk", activity);
 
         if (c == null) {
             c = Calendar.getInstance();
@@ -77,29 +89,19 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
                 new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        jzrq.setText(year+"-"+(month+1)+"-"+day);
+                        jzrq.setText(year + "-" + (month + 1) + "-" + day);
+                        product.setJzrq(jzrq.getText().toString());
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c
                         .get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
-
-        scanTm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyApplication.getScanUtil().send(receiver, 0);
-            }
-        });
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (list.size() > 0) {
+                if (product.getDetailList().size() > 0) {
                     DBHelper.getInstance(activity).delete(RkProduct.class);
-                    product.setJzrq(jzrq.getText().toString());
-                    product.setHj(hj.getText().toString());
-                    product.setdList(list);
                     DBHelper.getInstance(activity).save(product);
                     MyApplication.toast(R.string.product_save_success);
                 } else {
@@ -111,10 +113,13 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (list.size() == 0) {
+                if (product.getDetailList().size() == 0) {
                     MyApplication.toast(R.string.tm_scan_first);
+                } else if (jzrq.getText().equals("")) {
+                    MyApplication.toast(R.string.jzrq_need);
                 } else {
-
+                    product.setCode("rk");
+                    new ProcessUtil(activity).submit(submitResultReceiver, product);
                 }
             }
         });
@@ -122,11 +127,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tmHead.setText(MyApplication.getResString(R.string.wait_scan));
-                jzrq.setText("");
-                hj.setText("");
-                list.clear();
-                dataAdapter.notifyDataSetChanged();
+                clear();
             }
         });
 
@@ -134,30 +135,28 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
             product = new RkProduct();
         }
 
-        if (list == null) {
-            list = new ArrayList<>();
-        }
-
         List<RkProduct> plist = DBHelper.getInstance(activity).query(RkProduct.class);
         if (plist.size() > 0) {
-            jzrq.setText(plist.get(0).getJzrq());
-            hj.setText(plist.get(0).getHj());
-            list = plist.get(0).getdList();
+            product = plist.get(0);
+            jzrq.setText(product.getJzrq());
+            hj.setText(product.getHj());
         }
 
-        dataAdapter = new RkListAdapter(getActivity(), list, this);
+        dataAdapter = new RkListAdapter(getActivity(), product.getDetailList(), this);
         SwipeOpenItemTouchHelper helper = new SwipeOpenItemTouchHelper(new SwipeOpenItemTouchHelper.SimpleCallback(SwipeOpenItemTouchHelper.START | SwipeOpenItemTouchHelper.END));
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listView.setAdapter(dataAdapter);
         helper.attachToRecyclerView(listView);
         helper.setCloseOnAction(false);
 
+        MyApplication.getScanUtil().setReceiver(receiver, 0);
+
         return view;
     }
 
     @Override
     public void removePosition(int position) {
-        RkDetail p = list.get(position);
+        RkDetail p = product.getDetailList().get(position);
         if (p.getId() != 0) {
             DBHelper.getInstance(activity).delete(p);
         }
@@ -165,17 +164,66 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
     }
 
     @Override
-    public void receive(String res, int scanCode) {
-        RkDetail p = new RkDetail();
-        p.setLb("盒");
-        p.setTm("241-234234-25435-123");
-        p.setSl("10");
-        list.add(p);
-        dataAdapter.notifyDataSetChanged();
+    public void scanReceive(String res, int scanCode) {
+        tmHead.setText(res);
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBagData(res))
+                .subscribe(serverObserver);
     }
 
     @Override
-    public void error() {
+    public void scanError() {
+        MyApplication.toast(R.string.server_error);
+    }
 
+    @Override
+    public void submitOk() {
+        clear();
+    }
+
+    @Override
+    public void serverData(ServerResult res) {
+
+        if (!checkExist(res.getVal("objCode"))) {
+            RkDetail p = new RkDetail();
+            p.setLb(res.getVal("objType"));
+            p.setTm(res.getVal("objCode"));
+            p.setSl(res.getVal("pieces"));
+            product.getDetailList().add(p);
+
+            int hjInt = hj.getText().equals("") ? 0 : Integer.parseInt(hj.getText().toString());
+            hjInt = new BigDecimal(hjInt).add(new BigDecimal(p.getSl())).intValue();
+            hj.setText(hjInt + "");
+            product.setHj(hjInt + "");
+
+            dataAdapter.notifyDataSetChanged();
+        } else {
+            MyApplication.toast(R.string.duplicate_data);
+        }
+    }
+
+    @Override
+    public void clear() {
+        tmHead.setText(MyApplication.getResString(R.string.wait_scan));
+        jzrq.setText("");
+        hj.setText("");
+        product.getDetailList().clear();
+        dataAdapter.notifyDataSetChanged();
+        DBHelper.getInstance(activity).delete(RkProduct.class);
+    }
+
+    @Override
+    public void serverError() {
+
+    }
+
+    public boolean checkExist(String code) {
+
+        for (RkDetail d : product.getDetailList()) {
+            if (d.getTm().equals(code)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

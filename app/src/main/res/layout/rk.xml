@@ -28,24 +28,6 @@
             android:text="@string/wait_scan"></TextView>
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/rk_b_scan_tm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rk_b_scan_tm" />
-
-        <Button
-            android:id="@+id/rk_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/product_save" />
-    </LinearLayout>
-
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -167,6 +149,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/rk_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_save" />
 
         <Button
             android:id="@+id/rk_b_submit"

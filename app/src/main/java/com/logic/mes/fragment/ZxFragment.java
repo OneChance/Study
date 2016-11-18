@@ -15,16 +15,17 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.adapter.ZxListAdapter;
 import com.logic.mes.db.DBHelper;
+import com.logic.mes.entity.process.ZxHead;
 import com.logic.mes.entity.process.ZxProduct;
+import com.logic.mes.entity.server.ProcessUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonCallbacks, IScanReceiver {
+public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver {
 
     public ZxFragment() {
         this.tagNameId = R.string.zx_tab_name;
@@ -33,27 +34,38 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     public final int SCAN_CODE_XZ = 0;
     public final int SCAN_CODE_HZ = 1;
 
-    @InjectView(R.id.zx_b_scan_xz)
-    Button scanXz;
-    @InjectView(R.id.zx_b_scan_hz)
-    Button scanHz;
-    @InjectView(R.id.zx_v_xh_head)
+    @InjectView(R.id.zx_xh_v)
     TextView xhHead;
+    @InjectView(R.id.zx_hh_v)
+    TextView hhHead;
+
     @InjectView(R.id.zx_product_list)
     RecyclerView listView;
     @InjectView(R.id.zx_save)
     Button save;
+
+    @InjectView(R.id.zx_b_scan_xz)
+    Button scanXz;
+    @InjectView(R.id.zx_b_scan_hz)
+    Button scanHz;
 
     @InjectView(R.id.zx_b_submit)
     Button submit;
     @InjectView(R.id.zx_b_clear)
     Button clear;
 
-    List<ZxProduct> list;
+    ZxHead zx;
     ZxListAdapter dataAdapter;
     FragmentActivity activity;
     IScanReceiver receiver;
+    ProcessUtil.SubmitResultReceiver submitResultReceiver;
 
+    @Override
+    public void setReceiver() {
+        receiver = this;
+        submitResultReceiver = this;
+        MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_XZ);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,18 +79,20 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
 
         scanXz.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                MyApplication.getScanUtil().send(receiver, SCAN_CODE_XZ);
+            public void onClick(View view) {
+                xhHead.setText(R.string.wait_scan);
+                MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_XZ);
             }
         });
 
         scanHz.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
                     MyApplication.toast(R.string.xz_scan_first);
                 } else {
-                    MyApplication.getScanUtil().send(receiver, SCAN_CODE_HZ);
+                    hhHead.setText(R.string.wait_scan);
+                    MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_HZ);
                 }
             }
         });
@@ -86,9 +100,9 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (list.size() > 0) {
-                    DBHelper.getInstance(activity).delete(ZxProduct.class);
-                    DBHelper.getInstance(activity).save(list);
+                if (zx.getDetailList().size() > 0) {
+                    DBHelper.getInstance(activity).delete(ZxHead.class);
+                    DBHelper.getInstance(activity).save(zx);
                     MyApplication.toast(R.string.product_save_success);
                 } else {
                     MyApplication.toast(R.string.hz_scan_need);
@@ -101,10 +115,11 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
             public void onClick(View v) {
                 if (xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
                     MyApplication.toast(R.string.xz_scan_first);
-                } else if (list.size() == 0) {
+                } else if (zx.getDetailList().size() == 0) {
                     MyApplication.toast(R.string.hz_scan_need);
                 } else {
-
+                    zx.setCode("zx");
+                    new ProcessUtil(activity).submit(submitResultReceiver, zx);
                 }
             }
         });
@@ -112,23 +127,23 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                xhHead.setText(MyApplication.getResString(R.string.wait_scan));
-                list.clear();
-                dataAdapter.notifyDataSetChanged();
+                clear();
             }
         });
 
-        if (list == null) {
-            list = new ArrayList<>();
+        if (zx == null) {
+            zx = new ZxHead();
         }
 
-        List<ZxProduct> plist = DBHelper.getInstance(activity).query(ZxProduct.class);
+        List<ZxHead> plist = DBHelper.getInstance(activity).query(ZxHead.class);
         if (plist.size() > 0) {
-            list = plist;
-            xhHead.setText(plist.get(0).getXh());
+            zx = plist.get(0);
+            if (zx.getDetailList() != null && zx.getDetailList().size() > 0) {
+                xhHead.setText(zx.getDetailList().get(0).getXh());
+            }
         }
 
-        dataAdapter = new ZxListAdapter(getActivity(), list, this);
+        dataAdapter = new ZxListAdapter(getActivity(), zx.getDetailList(), this);
         SwipeOpenItemTouchHelper helper = new SwipeOpenItemTouchHelper(new SwipeOpenItemTouchHelper.SimpleCallback(SwipeOpenItemTouchHelper.START | SwipeOpenItemTouchHelper.END));
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listView.setAdapter(dataAdapter);
@@ -140,7 +155,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
 
     @Override
     public void removePosition(int position) {
-        ZxProduct p = list.get(position);
+        ZxProduct p = zx.getDetailList().get(position);
         if (p.getId() != 0) {
             DBHelper.getInstance(activity).delete(p);
         }
@@ -148,21 +163,39 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     }
 
     @Override
-    public void receive(String res, int scanCode) {
+    public void scanReceive(String res, int scanCode) {
         if (scanCode == SCAN_CODE_XZ) {
             xhHead.setText(res);
         } else if (scanCode == SCAN_CODE_HZ) {
-            //取产品信息
+            hhHead.setText(res);
             ZxProduct p = new ZxProduct();
-            p.setXh("1234");
-            p.setHh("241-234234-25435-123");
-            list.add(p);
+            p.setXh(xhHead.getText().toString());
+            p.setHh(res);
+            if (zx.getDetailList().size() < 4) {
+                zx.getDetailList().add(p);
+            } else {
+                MyApplication.toast(R.string.zx_size_full_4);
+            }
+
             dataAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
-    public void error() {
+    public void scanError() {
 
+    }
+
+    @Override
+    public void submitOk() {
+        clear();
+    }
+
+    public void clear() {
+        xhHead.setText(R.string.wait_scan);
+        hhHead.setText(R.string.wait_scan);
+        zx.getDetailList().clear();
+        dataAdapter.notifyDataSetChanged();
+        DBHelper.getInstance(activity).delete(ZxHead.class);
     }
 }

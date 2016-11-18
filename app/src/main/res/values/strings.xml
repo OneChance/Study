@@ -20,6 +20,14 @@
     <string name="server_config_error">服务器信息配置有误</string>
     <string name="submit_data_error">提交数据有误</string>
     <string name="server_error">与服务器通信异常</string>
+    <string name="submit_ok">提交成功</string>
+    <string name="no_data">无数据</string>
+    <string name="switch_down">扫描类型已切换</string>
+    <string name="process_submited">该工序已于%1$s提交过,是否重新提交数据</string>
+    <string name="no">否</string>
+    <string name="yes">是</string>
+    <string name="notice">注意</string>
+    <string name="duplicate_data">条目重复</string>
 
 
     <string name="pbj_tab_name">配棒检</string>
@@ -52,6 +60,7 @@
     <string name="th_brick_id">BrickID</string>
     <string name="th_length">有效长度</string>
     <string name="pb_b_mtype">扫描机型</string>
+    <string name="pb_b_brick">扫描晶砖</string>
     <string name="pb_l_station">工位</string>
     <string name="pb_b_submit">提交</string>
     <string name="pb_b_clear">清空</string>
@@ -87,7 +96,7 @@
     <string name="qx_l_ps">片数</string>
     <string name="qx_l_bb">崩边</string>
     <string name="qx_l_yp">样片</string>
-    <string name="qx_l_jjqxs">胶胶清洗碎</string>
+    <string name="qx_l_jjqxs">脱胶清洗碎</string>
     <string name="qx_l_qxsbs">清洗设备碎</string>
     <string name="qx_l_qt">其他</string>
     <string name="qx_l_zj">总计</string>
@@ -114,6 +123,7 @@
     <string name="zx_b_clear">清空</string>
     <string name="xz_scan_first">请先扫描箱子</string>
     <string name="hz_scan_need">请扫描盒子</string>
+    <string name="zx_size_full_4">一箱不能超过4盒</string>
 
     <!--装托-->
     <string name="zt_b_scan_xz">扫描箱子</string>
@@ -135,6 +145,7 @@
     <string name="rk_b_submit">提交</string>
     <string name="rk_b_clear">清空</string>
     <string name="tm_scan_first">请扫描条码</string>
+    <string name="jzrq_need">请填写记账日期</string>
 
     <!--入库-->
     <string name="ck_b_scan_tm">扫描条码</string>
