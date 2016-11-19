@@ -49,3 +49,7 @@ Temporary Items
 /.idea
 /.gradle
 /zxing
+*.iml
+local.properties
+mes.iml
+app/build.gradle

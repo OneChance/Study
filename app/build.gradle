@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        mes {
+            storeFile file('D:/Work/android/projects/key/_mes.jks')
+            keyAlias 'logicmes'
+            keyPassword 'mes2016logic'
+            storePassword 'mes2016logic'
+        }
+    }
     compileSdkVersion 22
     buildToolsVersion '23.0.0'
-
     defaultConfig {
         applicationId "com.logic.mes"
         minSdkVersion 16
