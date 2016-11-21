@@ -8,9 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
@@ -43,10 +40,6 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
     @InjectView(R.id.btn_config_server)
     Button config;
     LoginActivity activity;
-
-
-    private Gson gson;
-    private GsonBuilder builder;
 
     @Override
     protected void onResume() {
@@ -124,13 +117,8 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
             }
         });
 
-        builder = new GsonBuilder();
-        gson = builder.create();
-
         MyApplication.getScanUtil().setReceiver(receiver, 0);
-
         EditTextUtil.setNoKeyboard(empNo);
-
         MyApplication.addActivity(this);
     }
 
@@ -158,7 +146,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
     @Override
     public void updateStart() {
         loginAble();
-        loadingText.setText("正在下载更新程序......");
+        loadingText.setText(R.string.app_downloading);
     }
 
     @Override

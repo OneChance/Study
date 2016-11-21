@@ -38,7 +38,7 @@
             android:layout_width="0dp"
             android:text=""
             android:layout_toRightOf="@+id/pb_v_station"
-            app:layout_widthPercent="55%"></TextView>
+            app:layout_widthPercent="40%"></TextView>
 
         <TextView
             android:id="@+id/pb_length"
@@ -46,6 +46,13 @@
             android:layout_width="0dp"
             android:layout_toRightOf="@+id/pb_brick_id"
             android:text=""
-            app:layout_widthPercent="25%"></TextView>
+            app:layout_widthPercent="20%"></TextView>
+        <TextView
+                android:id="@+id/pb_level"
+                style="@style/font_value"
+                android:layout_width="0dp"
+                android:layout_toRightOf="@+id/pb_length"
+                android:text=""
+                app:layout_widthPercent="20%"></TextView>
     </android.support.percent.PercentRelativeLayout>
 </FrameLayout>

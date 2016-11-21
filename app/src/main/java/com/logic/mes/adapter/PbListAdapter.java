@@ -49,6 +49,7 @@ public class PbListAdapter extends RecyclerView.Adapter<PbListAdapter.ViewHolder
         holder.brickId.setText(p.getBrickId());
         holder.length.setText(p.getLength());
         holder.station.setText(p.getStation());
+        holder.level.setText(p.getLevel());
     }
 
     @Override
@@ -71,6 +72,8 @@ public class PbListAdapter extends RecyclerView.Adapter<PbListAdapter.ViewHolder
         public TextView brickId;
         @InjectView(R.id.pb_length)
         public TextView length;
+        @InjectView(R.id.pb_level)
+        public TextView level;
         @InjectView(R.id.pb_v_station)
         public TextView station;
         @InjectView(R.id.pb_delete_button)

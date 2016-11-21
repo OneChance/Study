@@ -15,6 +15,7 @@ public class PbDetail {
     @ItemKey()
     private String brickId;
     private String length;
+    private String level;
     @ItemCol(col="gw")
     private String station;
 
@@ -48,5 +49,13 @@ public class PbDetail {
 
     public void setStation(String station) {
         this.station = station;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

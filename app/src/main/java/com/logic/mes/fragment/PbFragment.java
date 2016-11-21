@@ -192,6 +192,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             PbDetail p = new PbDetail();
             p.setBrickId(res.getVal("ej_BrickID"));
             p.setLength(res.getVal("pbj_yxbc"));
+            p.setLevel(res.getVal("pbj_jzdj"));
             p.setStation("");
             pb.getDetailList().add(p);
 

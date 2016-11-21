@@ -51,6 +51,9 @@ public class MyApplication extends Application {
 
     public static void exit() {
         try {
+
+            scanUtil.release();
+
             for (Activity activity : mList) {
                 if (activity != null)
                     activity.finish();

@@ -110,7 +110,7 @@
             android:layout_toRightOf="@+id/pb_l_station"
             android:layout_weight="1"
             android:text="@string/th_brick_id"
-            app:layout_widthPercent="55%"></TextView>
+            app:layout_widthPercent="40%"></TextView>
 
         <TextView
             android:id="@+id/pb_length"
@@ -119,7 +119,15 @@
             android:layout_toRightOf="@+id/pb_brick_id"
             android:layout_weight="1"
             android:text="@string/th_length"
-            app:layout_widthPercent="25%"></TextView>
+            app:layout_widthPercent="20%"></TextView>
+        <TextView
+                android:id="@+id/pb_level"
+                style="@style/font_title"
+                android:layout_width="0dp"
+                android:layout_toRightOf="@+id/pb_length"
+                android:layout_weight="1"
+                android:text="@string/th_level"
+                app:layout_widthPercent="20%"></TextView>
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.v7.widget.RecyclerView

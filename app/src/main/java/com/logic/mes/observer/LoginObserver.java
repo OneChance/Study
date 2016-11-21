@@ -52,14 +52,14 @@ public class LoginObserver implements Observer<UserInfoResult> {
         }
     }
 
-    public void toMain(UserInfo userInfo) {
+    public void toMain(final UserInfo userInfo) {
 
         if (userInfo.getAppInfo().getAndroidVersion() > MyApplication.VERSION) {
             iUpdate.updateStart();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    UpdateAppUtils.downloadApk(context, "url");
+                    UpdateAppUtils.downloadApk(context, userInfo.getAppInfo().getAndroidUrl());
                 }
             }).start();
         } else {
