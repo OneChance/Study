@@ -11,6 +11,11 @@ public class ItemValueConverter {
 
     static char spliter = 30;
 
+    /***
+     *
+     * @param data 将提交数据转换为服务器规定的格式
+     * @return
+     */
     public static List<ProcessItem> convert(ProcessBase data) {
         List<ProcessItem> items = new ArrayList<>();
 

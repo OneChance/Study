@@ -36,6 +36,13 @@ public class UserInfo implements Serializable {
     @Mapping(Relation.OneToOne)
     AppInfo appInfo;
 
+    @Mapping(Relation.OneToOne)
+    SysConfig sysConfig;
+
+    @Mapping(Relation.OneToMany)
+    @MapCollection(ArrayList.class)
+    List<TableType> tableType;
+
 
     public int getId() {
         return id;
@@ -91,5 +98,21 @@ public class UserInfo implements Serializable {
 
     public void setAppInfo(AppInfo appInfo) {
         this.appInfo = appInfo;
+    }
+
+    public SysConfig getSysConfig() {
+        return sysConfig;
+    }
+
+    public void setSysConfig(SysConfig sysConfig) {
+        this.sysConfig = sysConfig;
+    }
+
+    public List<TableType> getTableType() {
+        return tableType;
+    }
+
+    public void setTableType(List<TableType> tableType) {
+        this.tableType = tableType;
     }
 }

@@ -32,6 +32,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:padding="10sp"
+            android:textSize="13sp"
             android:text="@string/wait_scan"
             app:layout_widthPercent="50%"></TextView>
 
@@ -72,6 +73,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:padding="10sp"
+            android:textSize="13sp"
             android:text="@string/wait_scan"
             app:layout_widthPercent="50%"></TextView>
 

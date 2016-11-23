@@ -4,6 +4,7 @@ package com.logic.mes;
 import android.text.InputType;
 import android.text.Selection;
 import android.text.Spannable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;

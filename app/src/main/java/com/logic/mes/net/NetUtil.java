@@ -2,6 +2,7 @@ package com.logic.mes.net;
 
 import android.util.Log;
 
+import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -9,7 +10,6 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
@@ -35,22 +35,14 @@ public class NetUtil {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
 
-                        Request.Builder builder = chain.request()
-                                .newBuilder();
+                        Request request = chain.request();
+                        request = request.newBuilder()
+                                .cacheControl(com.squareup.okhttp.CacheControl.FORCE_NETWORK)
+                                .build();
 
-                        if (Session.SessionId != null && !Session.SessionId.equals("")) {
-                            builder = builder.addHeader("Cookie", Session.SessionId);
-                        }
-
-                        Request request = builder.build();
-
-                        Log.d("------------", request.urlString());
+                        //Log.d("mes", request.urlString());
 
                         Response response = chain.proceed(request);
-
-                        if (Session.SessionId != null && Session.SessionId.equals("")) {
-                            Session.SessionId = response.header("Set-Cookie");
-                        }
 
                         return response;
                     }

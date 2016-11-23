@@ -40,7 +40,7 @@ public class ServerResult {
             if (afterValue != null && !afterValue.equals("")) {
                 return afterValue;
             } else {
-                return dataMap.get(preStep + "_" + value);
+                return dataMap.get(preStep + "_" + value) == null ? "" : dataMap.get(preStep + "_" + value);
             }
         }
         return "";
@@ -49,7 +49,7 @@ public class ServerResult {
     public String getVal(String value) {
         if (datas.getBagDatas() != null && datas.getBagDatas().size() > 0) {
             Map<String, String> dataMap = datas.getBagDatas().get(0);
-            return dataMap.get(value);
+            return dataMap.get(value) == null ? "" : dataMap.get(value);
         }
         return "";
     }

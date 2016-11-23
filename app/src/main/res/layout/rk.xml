@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10sp"
+            android:textSize="13sp"
             android:text="@string/wait_scan"></TextView>
     </LinearLayout>
 
@@ -55,19 +56,6 @@
                 android:layout_height="match_parent"
                 android:text=""
                 android:background="@drawable/abc_edit_text_material"/>
-
-            <!--
-            <EditText
-                android:id="@+id/rk_v_jzrq"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text=""
-                android:textColor="#283593"
-                android:textSize="15sp"
-                android:inputType="date"
-                android:textStyle="bold"></EditText>-->
         </LinearLayout>
     </android.support.percent.PercentRelativeLayout>
 
@@ -115,6 +103,16 @@
             app:layout_widthPercent="20%"></TextView>
 
         <TextView
+                android:id="@+id/rk_l_tm"
+                style="@style/font_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/rk_l_tm"
+                app:layout_widthPercent="60%"
+                android:layout_toRightOf="@+id/rk_l_lb"
+                android:layout_toEndOf="@+id/rk_l_lb"></TextView>
+
+        <TextView
             android:id="@+id/rk_l_sl"
             style="@style/font_title"
             android:layout_width="0dp"
@@ -122,18 +120,6 @@
             android:text="@string/rk_l_sl"
             android:layout_toRightOf="@+id/rk_l_tm"
             app:layout_widthPercent="20%"></TextView>
-
-        <TextView
-        android:id="@+id/rk_l_tm"
-        style="@style/font_title"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:text="@string/rk_l_tm"
-            app:layout_widthPercent="60%"
-            android:layout_alignBaseline="@+id/rk_l_sl"
-            android:layout_alignBottom="@+id/rk_l_sl"
-            android:layout_toRightOf="@+id/rk_l_lb"
-            android:layout_toEndOf="@+id/rk_l_lb"></TextView>
 
     </android.support.percent.PercentRelativeLayout>
 

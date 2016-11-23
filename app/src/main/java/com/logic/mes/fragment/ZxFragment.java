@@ -70,6 +70,8 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        super.onCreateView(inflater, container, savedInstanceState);
+
         View view = inflater.inflate(R.layout.zx, container, false);
 
         ButterKnife.inject(this, view);
@@ -119,7 +121,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                     MyApplication.toast(R.string.hz_scan_need);
                 } else {
                     zx.setCode("zx");
-                    new ProcessUtil(activity).submit(submitResultReceiver, zx);
+                    new ProcessUtil(activity).submit(submitResultReceiver, zx, userInfo.getUser());
                 }
             }
         });
@@ -166,6 +168,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     public void scanReceive(String res, int scanCode) {
         if (scanCode == SCAN_CODE_XZ) {
             xhHead.setText(res);
+            MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_HZ);
         } else if (scanCode == SCAN_CODE_HZ) {
             hhHead.setText(res);
             ZxProduct p = new ZxProduct();

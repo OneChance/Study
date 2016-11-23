@@ -6,7 +6,7 @@
     <string name="need_emp_no">请输入员工号</string>
     <string name="scan_emp_no">扫描员工号</string>
     <string name="emp_no">员工号</string>
-    <string name="emp_info_error">员工号</string>
+    <string name="emp_info_error">员工信息错误</string>
     <string name="app_name">MES</string>
     <string name="login_out">退出</string>
     <string name="config_server">配置服务器</string>
@@ -29,6 +29,7 @@
     <string name="notice">注意</string>
     <string name="duplicate_data">条目重复</string>
     <string name="app_downloading">正在下载更新程序......</string>
+    <string name="data_need">数据缺失</string>
 
 
     <string name="pbj_tab_name">配棒检</string>
@@ -66,6 +67,7 @@
     <string name="pb_l_station">工位</string>
     <string name="pb_b_submit">提交</string>
     <string name="pb_b_clear">清空</string>
+    <string name="different_level">晶砖等级不一致</string>
 
     <!--配棒检-->
     <string name="pbj_l_code">条码</string>
@@ -77,6 +79,8 @@
     <string name="pbj_l_dj">倒角</string>
     <string name="pbj_b_quali">合格</string>
     <string name="pbj_b_unquali">不合格</string>
+    <string name="pbj_dj_yes">有</string>
+    <string name="pbj_dj_no">无</string>
 
     <!--验棒-->
     <string name="yb_l_spyy">碎片原因</string>
@@ -90,16 +94,19 @@
     <string name="yb_l_zqbb">整齐崩边</string>
     <string name="yb_b_submit">提交</string>
     <string name="yb_b_clear">清空</string>
+    <string name="yb_l_qps">切片碎</string>
 
     <!--清洗-->
     <string name="qx_l_llcps">理论出片数</string>
     <string name="qx_l_sjps">实际片数</string>
     <string name="qx_l_hs">盒数</string>
+    <string name="qx_l_mhps">每盒片数</string>
     <string name="qx_l_ps">片数</string>
     <string name="qx_l_bb">崩边</string>
     <string name="qx_l_yp">样片</string>
     <string name="qx_l_jjqxs">脱胶清洗碎</string>
     <string name="qx_l_qxsbs">清洗设备碎</string>
+    <string name="qx_l_zqqss">整齐缺损碎</string>
     <string name="qx_l_qt">其他</string>
     <string name="qx_l_zj">总计</string>
 
@@ -115,6 +122,7 @@
     <string name="qgsfh_l_zqbb">整齐崩边</string>
     <string name="qgsfh_b_submit">提交</string>
     <string name="qgsfh_b_clear">清空</string>
+    <string name="qgsfh_l_qps">切片碎</string>
 
     <!--装箱-->
     <string name="zx_b_scan_xz">扫描箱子</string>

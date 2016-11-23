@@ -4,8 +4,10 @@ import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
 
+import java.io.Serializable;
+
 @Table("server_config")
-public class ServerConfig {
+public class ServerConfig implements Serializable {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
     public String ip;

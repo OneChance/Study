@@ -18,6 +18,8 @@ public class PbProduct extends ProcessBase {
     private int id;
     @ItemCol(col = "jx")
     private String jx;
+    @ItemCol(col = "xwcd")
+    private String xwcd;
 
     @Mapping(Relation.OneToMany)
     @MapCollection(ArrayList.class)
@@ -41,6 +43,14 @@ public class PbProduct extends ProcessBase {
 
     public List<PbDetail> getDetailList() {
         return detailList;
+    }
+
+    public String getXwcd() {
+        return xwcd;
+    }
+
+    public void setXwcd(String xwcd) {
+        this.xwcd = xwcd;
     }
 
     public void setDetailList(List<PbDetail> detailList) {

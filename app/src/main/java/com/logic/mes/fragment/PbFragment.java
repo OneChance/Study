@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,12 @@ import android.widget.TextView;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
+import com.logic.mes.activity.MainActivity;
 import com.logic.mes.adapter.PbListAdapter;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.base.TableSet;
+import com.logic.mes.entity.base.TableType;
+import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.process.PbDetail;
 import com.logic.mes.entity.process.PbProduct;
 import com.logic.mes.entity.server.ProcessUtil;
@@ -66,6 +70,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     ServerObserver serverObserver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
     List<TableSet> tableSet;
+    List<TableType> tableType;
 
     @Override
     public void setReceiver() {
@@ -75,6 +80,8 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.pb, container, false);
 
@@ -124,7 +131,15 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
                     if (!stations.equals("")) {
                         //提交数据
                         pb.setCode("pb");
-                        new ProcessUtil(activity).submit(submitResultReceiver, pb);
+                        //添加线网数据
+                        for (TableType tt : tableType) {
+                            if (tt.getTypeCode().equals(pb.getJx())) {
+                                pb.setXwcd(tt.getLineLength());
+                                break;
+                            }
+                        }
+
+                        new ProcessUtil(activity).submit(submitResultReceiver, pb, userInfo.getUser());
                     } else {
                         MyApplication.toast(R.string.mtype_not_match);
                     }
@@ -160,6 +175,9 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         helper.attachToRecyclerView(listView);
         helper.setCloseOnAction(false);
 
+        tableType = userInfo.getTableType();
+        tableSet = userInfo.getTableSet();
+
         return view;
     }
 
@@ -177,6 +195,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         if (scanCode == SCAN_CODE_MTYPE) {
             pb.setJx(res);
             mType.setText(res);
+            MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
         } else if (scanCode == SCAN_CODE_PRODUCT) {
             //取产品信息
             brick.setText(res);
@@ -186,13 +205,17 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     }
 
     @Override
-    public void serverData(ServerResult res) {
+    public void serverData() {
 
-        if (!checkExist(res.getVal("ej_BrickID"))) {
+        if (checkExist(data.getVal("ej_BrickID"))) {
+            MyApplication.toast(R.string.duplicate_data);
+        } else if (differentLevel(data.getVal("ej_jzdj"))) {
+            MyApplication.toast(R.string.different_level);
+        } else {
             PbDetail p = new PbDetail();
-            p.setBrickId(res.getVal("ej_BrickID"));
-            p.setLength(res.getVal("pbj_yxbc"));
-            p.setLevel(res.getVal("pbj_jzdj"));
+            p.setBrickId(data.getVal("ej_BrickID"));
+            p.setLength(data.getVal("pbj_yxbc"));
+            p.setLevel(data.getVal("ej_jzdj"));
             p.setStation("");
             pb.getDetailList().add(p);
 
@@ -206,15 +229,18 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
             dataAdapter.notifyItemChanged(1);
             dataAdapter.notifyDataSetChanged();
-
-        } else {
-            MyApplication.toast(R.string.duplicate_data);
         }
+    }
+
+    @Override
+    public void setData(ServerResult res) {
+        data = res;
     }
 
     @Override
     public void clear() {
         mType.setText(R.string.wait_scan);
+        brick.setText(R.string.wait_scan);
         pb.getDetailList().clear();
         dataAdapter.notifyDataSetChanged();
         MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_MTYPE);
@@ -231,15 +257,8 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         MyApplication.toast(R.string.server_error);
     }
 
-    public void getTableSet() {
-        if (tableSet == null) {
-            tableSet = DBHelper.getInstance(activity).query(TableSet.class);
-        }
-    }
-
     public String getStations() {
         String stations = "";
-        getTableSet();
         for (TableSet ts : tableSet) {
             if (ts.getTypeCode().equals(mType.getText().toString())) {
                 if (ts.getDataSet().split(",").length == pb.getDetailList().size()) {
@@ -261,6 +280,15 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             if (d.getBrickId().equals(code)) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    public boolean differentLevel(String level) {
+
+        if (pb.getDetailList().size() > 0 && !pb.getDetailList().get(0).getLevel().equals(level)) {
+            return true;
         }
 
         return false;

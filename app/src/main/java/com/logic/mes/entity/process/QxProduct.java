@@ -33,6 +33,8 @@ public class QxProduct extends ProcessBase {
     private String jjqxs;
     @ItemCol(col = "qxsbs")
     private String sbqxs;
+    @ItemCol(col = "zqqss")
+    private String zqqss;
     @ItemCol(col = "qt")
     private String qt;
     private String zj;
@@ -139,5 +141,13 @@ public class QxProduct extends ProcessBase {
 
     public void setBrickId(String brickId) {
         this.brickId = brickId;
+    }
+
+    public String getZqqss() {
+        return zqqss;
+    }
+
+    public void setZqqss(String zqqss) {
+        this.zqqss = zqqss;
     }
 }

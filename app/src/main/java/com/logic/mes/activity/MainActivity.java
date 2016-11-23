@@ -84,7 +84,9 @@ public class MainActivity extends AppCompatActivity implements IMain {
             }
         });
 
-        adapter.getItem(0).setReceiver();
+        if(adapter.getCount()>0){
+            adapter.getItem(0).setReceiver();
+        }
 
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -147,4 +149,7 @@ public class MainActivity extends AppCompatActivity implements IMain {
 
     }
 
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
 }

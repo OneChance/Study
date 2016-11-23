@@ -6,6 +6,7 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.base.User;
+import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.process.ProcessBase;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -22,24 +23,26 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
     ServerObserver.ServerDataReceiver serverDataReceiver;
     ProcessBase processData;
     SimpleDateFormat sdf;
+    ServerResult data;
 
     public ProcessUtil(Context context) {
         this.context = context;
         this.serverDataReceiver = this;
-        sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
-    public void submit(SubmitResultReceiver receiver, ProcessBase processData) {
+    /***
+     * @param receiver    提交事件的监听者（各Fragment）
+     * @param processData 提交的数据
+     */
+    public void submit(SubmitResultReceiver receiver, ProcessBase processData, User user) {
         this.processData = processData;
         serverObserver = new ServerObserver(serverDataReceiver, "", null);
         this.submitResultReceiver = receiver;
 
-
-        List<User> userList = DBHelper.getInstance(context).query(User.class);
-        if (userList != null && userList.size() > 0) {
+        if (user != null) {
 
             ProcessSubmit processSubmit = new ProcessSubmit();
-            User user = userList.get(0);
 
             processSubmit.setUserCode(user.getEmpCode());
             processSubmit.setUserOrg(user.getOrgid_mes().toString());
@@ -71,19 +74,24 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
     }
 
     @Override
-    public void serverData(ServerResult res) {
-        if (res != null) {
-            if (res.getCode().equals("0")) {
+    public void serverData() {
+        if (data != null) {
+            if (data.getCode().equals("0")) {
                 MyApplication.toast(R.string.submit_ok);
                 DBHelper.getInstance(context).delete(processData.getClass());
                 submitResultReceiver.submitOk();
             } else {
-                if (res.getInfo() != null && !res.getInfo().equals("")) {
-                    MyApplication.toast(res.getInfo());
+                if (data.getInfo() != null && !data.getInfo().equals("")) {
+                    MyApplication.toast(data.getInfo());
                 }
                 this.serverError();
             }
         }
+    }
+
+    @Override
+    public void setData(ServerResult res) {
+        data = res;
     }
 
     @Override

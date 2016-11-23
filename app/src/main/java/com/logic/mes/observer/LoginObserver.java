@@ -3,6 +3,7 @@ package com.logic.mes.observer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.logic.mes.MyApplication;
@@ -48,6 +49,7 @@ public class LoginObserver implements Observer<UserInfoResult> {
             UserInfo userInfo = res.getDatas();
             toMain(userInfo);
         } else {
+            Log.w("mes", "login warn:" + res.getInfo());
             dbLogin();
         }
     }

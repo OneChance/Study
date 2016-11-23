@@ -3,11 +3,14 @@ package com.logic.mes.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.logic.mes.EditTextUtil;
@@ -54,14 +57,15 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     EditText yxbcValue;
     @InjectView(R.id.pbj_v_size)
     EditText sizeValue;
-    @InjectView(R.id.pbj_v_dj)
-    EditText djValue;
+    @InjectView(R.id.pbj_dj_group)
+    RadioGroup djValue;
 
     FragmentActivity activity;
     IScanReceiver receiver;
     ServerObserver serverObserver;
     Context context;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
+    View view;
 
     @Override
     public void setReceiver() {
@@ -72,7 +76,9 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(pbj, container, false);
+        super.onCreateView(inflater, container, savedInstanceState);
+
+        view = inflater.inflate(pbj, container, false);
 
         ButterKnife.inject(this, view);
 
@@ -99,18 +105,14 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         bQuali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ProcessUtil(context).submit(submitResultReceiver, createBean("是"));
+                submit("是");
             }
         });
 
         bUnquali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    new ProcessUtil(context).submit(submitResultReceiver, createBean("否"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                submit("否");
             }
         });
 
@@ -124,7 +126,8 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
             EditTextUtil.setTextEnd(zdbcValue, pbj.getZdbcValue());
             EditTextUtil.setTextEnd(yxbcValue, pbj.getYxbcValue());
             EditTextUtil.setTextEnd(sizeValue, pbj.getSizeValue());
-            EditTextUtil.setTextEnd(djValue, pbj.getDjValue());
+
+            setRatioGroup(pbj.getDjValue());
         }
 
         EditTextUtil.setNoKeyboard(bbValue);
@@ -132,9 +135,33 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         EditTextUtil.setNoKeyboard(zdbcValue);
         EditTextUtil.setNoKeyboard(yxbcValue);
         EditTextUtil.setNoKeyboard(sizeValue);
-        EditTextUtil.setNoKeyboard(djValue);
 
         return view;
+    }
+
+    public void submit(String quali) {
+        try {
+
+            PbjProduct bean = createBean(quali);
+
+            if (bean != null && bean.getCodeValue() != null && !bean.getCodeValue().equals("")) {
+                new ProcessUtil(context).submit(submitResultReceiver, bean, userInfo.getUser());
+            } else {
+                MyApplication.toast(R.string.data_need);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void setRatioGroup(String dj) {
+        if (dj.equals(MyApplication.getResString(R.string.pbj_dj_yes))) {
+            djValue.check(R.id.dj_yes);
+        } else {
+            djValue.check(R.id.dj_no);
+        }
     }
 
 
@@ -151,14 +178,19 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     }
 
     @Override
-    public void serverData(ServerResult res) {
-        codeValue.setText(res.getVal("ej_BrickID"));
-        EditTextUtil.setTextEnd(bbValue, res.getVal("pbj_bb"));
-        EditTextUtil.setTextEnd(zcbcValue, res.getVal("ej_zccd"));
-        EditTextUtil.setTextEnd(zdbcValue, res.getVal("ej_zdcd"));
-        EditTextUtil.setTextEnd(yxbcValue, res.getVal("pbj_yxbc"));
-        EditTextUtil.setTextEnd(sizeValue, res.getVal("ej_jzcc"));
-        EditTextUtil.setTextEnd(djValue, res.getVal("pbj_dj"));
+    public void serverData() {
+        codeValue.setText(data.getVal("ej_BrickID"));
+        EditTextUtil.setTextEnd(bbValue, data.getRelVal("ej", "pbj", "bb"));
+        EditTextUtil.setTextEnd(zcbcValue, data.getVal("ej_zccd"));
+        EditTextUtil.setTextEnd(zdbcValue, data.getVal("ej_zdcd"));
+        EditTextUtil.setTextEnd(yxbcValue, data.getRelVal("ej", "pbj", "yxbc"));
+        EditTextUtil.setTextEnd(sizeValue, data.getVal("ej_jzcc"));
+        setRatioGroup(data.getVal("pbj_dj"));
+    }
+
+    @Override
+    public void setData(ServerResult res) {
+        this.data = res;
     }
 
     @Override
@@ -170,7 +202,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         zdbcValue.setText("");
         yxbcValue.setText("");
         sizeValue.setText("");
-        djValue.setText("");
+        djValue.clearCheck();
     }
 
     @Override
@@ -193,7 +225,17 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         pbj.setYxbcValue(yxbcValue.getText().toString());
         pbj.setZcbcValue(zcbcValue.getText().toString());
         pbj.setZdbcValue(zdbcValue.getText().toString());
-        pbj.setDjValue(djValue.getText().toString());
+
+        RadioButton rb = (RadioButton) (view.findViewById(djValue.getCheckedRadioButtonId()));
+        String dj = "";
+
+        if (rb != null) {
+            dj = rb.getText().toString();
+        } else {
+            return null;
+        }
+
+        pbj.setDjValue(dj);
         pbj.setSfhg(sfhg);
         return pbj;
     }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.logic.mes.DataUtil;
 import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
@@ -20,10 +21,12 @@ import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnTextChanged;
 
 import static com.logic.mes.R.layout.qgsfh;
 
@@ -55,6 +58,8 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     EditText lds;
     @InjectView(R.id.qgsfh_v_zqbb)
     EditText zqbb;
+    @InjectView(R.id.qgsfh_v_qps)
+    TextView qps;
 
     FragmentActivity activity;
     IScanReceiver receiver;
@@ -70,6 +75,8 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(qgsfh, container, false);
 
@@ -104,7 +111,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
                 } else {
                     QgsfhProduct qgsfh = createQgsfh();
                     qgsfh.setCode("qgs");
-                    new ProcessUtil(activity).submit(submitResultReceiver, qgsfh);
+                    new ProcessUtil(activity).submit(submitResultReceiver, qgsfh, userInfo.getUser());
                 }
             }
         });
@@ -141,14 +148,14 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     }
 
     @Override
-    public void serverData(ServerResult res) {
-        EditTextUtil.setTextEnd(yzd, res.getRelVal("yb", "qgs", "yzd"));
-        EditTextUtil.setTextEnd(hbp, res.getRelVal("yb", "qgs", "hbp"));
-        EditTextUtil.setTextEnd(zb, res.getRelVal("yb", "qgs", "zb"));
-        EditTextUtil.setTextEnd(dp, res.getRelVal("yb", "qgs", "dp"));
-        EditTextUtil.setTextEnd(kxs, res.getRelVal("yb", "qgs", "kxs"));
-        EditTextUtil.setTextEnd(lds, res.getRelVal("yb", "qgs", "lds"));
-        EditTextUtil.setTextEnd(zqbb, res.getRelVal("yb", "qgs", "zqbb"));
+    public void serverData() {
+        EditTextUtil.setTextEnd(yzd, data.getRelVal("yb", "qgs", "yzd"));
+        EditTextUtil.setTextEnd(hbp, data.getRelVal("yb", "qgs", "hbp"));
+        EditTextUtil.setTextEnd(zb, data.getRelVal("yb", "qgs", "zb"));
+        EditTextUtil.setTextEnd(dp, data.getRelVal("yb", "qgs", "dp"));
+        EditTextUtil.setTextEnd(kxs, data.getRelVal("yb", "qgs", "kxs"));
+        EditTextUtil.setTextEnd(lds, data.getRelVal("yb", "qgs", "lds"));
+        EditTextUtil.setTextEnd(zqbb, data.getRelVal("yb", "qgs", "zqbb"));
     }
 
     @Override
@@ -182,7 +189,14 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         qgsfh.setKxs(kxs.getText().toString());
         qgsfh.setLds(lds.getText().toString());
         qgsfh.setZqbb(zqbb.getText().toString());
+        qgsfh.setQps(qps.getText().toString());
+
         return qgsfh;
+    }
+
+    @Override
+    public void setData(ServerResult res) {
+        data = res;
     }
 
     @Override
@@ -201,5 +215,22 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     @Override
     public void serverError() {
 
+    }
+
+    /***
+     * @Description 计算切片碎
+     */
+    @OnTextChanged(value = {R.id.qgsfh_v_yzd, R.id.qgsfh_v_hbp, R.id.qgsfh_v_zb, R.id.qgsfh_v_dp, R.id.qgsfh_v_kxs, R.id.qgsfh_v_lds, R.id.qgsfh_v_zqbb}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    public void calQps() {
+        int yzdI = DataUtil.getIntValue(yzd.getText().toString());
+        int hbpI = DataUtil.getIntValue(hbp.getText().toString());
+        int zbI = DataUtil.getIntValue(zb.getText().toString());
+        int dpI = DataUtil.getIntValue(dp.getText().toString());
+        int kxsI = DataUtil.getIntValue(kxs.getText().toString());
+        int ldsI = DataUtil.getIntValue(lds.getText().toString());
+        int zqbbI = DataUtil.getIntValue(zqbb.getText().toString());
+
+        int qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).intValue();
+        qps.setText(qpsI + "");
     }
 }

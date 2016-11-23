@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10sp"
+            android:textSize="13sp"
             android:text="@string/wait_scan"></TextView>
     </LinearLayout>
 
@@ -102,6 +103,16 @@
             app:layout_widthPercent="20%"></TextView>
 
         <TextView
+                android:id="@+id/ck_l_tm"
+                style="@style/font_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/ck_l_tm"
+                app:layout_widthPercent="60%"
+                android:layout_toRightOf="@+id/ck_l_lb"
+                android:layout_toEndOf="@+id/ck_l_lb"></TextView>
+
+        <TextView
             android:id="@+id/ck_l_sl"
             style="@style/font_title"
             android:layout_width="0dp"
@@ -110,17 +121,7 @@
             android:layout_toRightOf="@+id/ck_l_tm"
             app:layout_widthPercent="20%"></TextView>
 
-        <TextView
-        android:id="@+id/ck_l_tm"
-        style="@style/font_title"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:text="@string/ck_l_tm"
-            app:layout_widthPercent="60%"
-            android:layout_alignBaseline="@+id/ck_l_sl"
-            android:layout_alignBottom="@+id/ck_l_sl"
-            android:layout_toRightOf="@+id/ck_l_lb"
-            android:layout_toEndOf="@+id/ck_l_lb"></TextView>
+
 
     </android.support.percent.PercentRelativeLayout>
 

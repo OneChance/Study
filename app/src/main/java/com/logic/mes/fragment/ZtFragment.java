@@ -70,6 +70,8 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        super.onCreateView(inflater, container, savedInstanceState);
+
         View view = inflater.inflate(R.layout.zt, container, false);
 
         ButterKnife.inject(this, view);
@@ -120,7 +122,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
                     MyApplication.toast(R.string.xz_scan_need);
                 } else {
                     zt.setCode("zt");
-                    new ProcessUtil(activity).submit(submitResultReceiver, zt);
+                    new ProcessUtil(activity).submit(submitResultReceiver, zt,userInfo.getUser());
                 }
             }
         });
@@ -167,6 +169,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
     public void scanReceive(String res, int scanCode) {
         if (scanCode == SCAN_CODE_TH) {
             thHead.setText(res);
+            MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_XZ);
         } else if (scanCode == SCAN_CODE_XZ) {
             xhHead.setText(res);
             ZtProduct p = new ZtProduct();

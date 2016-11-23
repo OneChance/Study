@@ -28,6 +28,8 @@ public class QgsfhProduct extends ProcessBase {
     private String lds;
     @ItemCol(col = "zqbb")
     private String zqbb;
+    @ItemCol(col = "qps")
+    private String qps;
 
     public int getId() {
         return id;
@@ -99,5 +101,13 @@ public class QgsfhProduct extends ProcessBase {
 
     public void setBrickId(String brickId) {
         this.brickId = brickId;
+    }
+
+    public String getQps() {
+        return qps;
+    }
+
+    public void setQps(String qps) {
+        this.qps = qps;
     }
 }

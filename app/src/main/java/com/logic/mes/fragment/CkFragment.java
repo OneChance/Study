@@ -72,6 +72,8 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        super.onCreateView(inflater, container, savedInstanceState);
+
         View view = inflater.inflate(R.layout.ck, container, false);
         ButterKnife.inject(this, view);
         activity = getActivity();
@@ -119,7 +121,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
                     MyApplication.toast(R.string.jzrq_need);
                 } else {
                     product.setCode("ck");
-                    new ProcessUtil(activity).submit(submitResultReceiver, product);
+                    new ProcessUtil(activity).submit(submitResultReceiver, product, userInfo.getUser());
                 }
             }
         });
@@ -181,13 +183,13 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
     }
 
     @Override
-    public void serverData(ServerResult res) {
+    public void serverData() {
 
-        if (!checkExist(res.getVal("objCode"))) {
+        if (!checkExist(data.getVal("objCode"))) {
             CkDetail p = new CkDetail();
-            p.setLb(res.getVal("objType"));
-            p.setTm(res.getVal("objCode"));
-            p.setSl(res.getVal("pieces"));
+            p.setLb(data.getVal("objType"));
+            p.setTm(data.getVal("objCode"));
+            p.setSl(data.getVal("pieces"));
             product.getDetailList().add(p);
 
             int hjInt = hj.getText().equals("") ? 0 : Integer.parseInt(hj.getText().toString());
@@ -199,6 +201,11 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
         } else {
             MyApplication.toast(R.string.duplicate_data);
         }
+    }
+
+    @Override
+    public void setData(ServerResult res) {
+        data = res;
     }
 
     @Override

@@ -33,6 +33,7 @@
             android:gravity="center_vertical"
             android:padding="10sp"
             android:text="@string/wait_scan"
+            android:textSize="13sp"
             app:layout_widthPercent="50%"></TextView>
 
         <Button
@@ -57,12 +58,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
             android:padding="10sp"
             android:text="@string/th_brick_id"
             android:textColor="#3f51b5"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:gravity="center"
             app:layout_widthPercent="25%"></TextView>
 
         <TextView
@@ -73,6 +74,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:padding="10sp"
+            android:textSize="13sp"
             android:text="@string/wait_scan"
             app:layout_widthPercent="50%"></TextView>
 
@@ -101,7 +103,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/pb_l_station"
-            app:layout_widthPercent="20%"></TextView>
+            app:layout_widthPercent="18%"></TextView>
 
         <TextView
             android:id="@+id/pb_brick_id"
@@ -110,7 +112,7 @@
             android:layout_toRightOf="@+id/pb_l_station"
             android:layout_weight="1"
             android:text="@string/th_brick_id"
-            app:layout_widthPercent="40%"></TextView>
+            app:layout_widthPercent="46%"></TextView>
 
         <TextView
             android:id="@+id/pb_length"
@@ -119,7 +121,7 @@
             android:layout_toRightOf="@+id/pb_brick_id"
             android:layout_weight="1"
             android:text="@string/th_length"
-            app:layout_widthPercent="20%"></TextView>
+            app:layout_widthPercent="18%"></TextView>
         <TextView
                 android:id="@+id/pb_level"
                 style="@style/font_title"
@@ -127,7 +129,7 @@
                 android:layout_toRightOf="@+id/pb_length"
                 android:layout_weight="1"
                 android:text="@string/th_level"
-                app:layout_widthPercent="20%"></TextView>
+                app:layout_widthPercent="18%"></TextView>
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.v7.widget.RecyclerView
