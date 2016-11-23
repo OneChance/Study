@@ -4,9 +4,9 @@ android {
     signingConfigs {
         mes {
             keyAlias 'logicmes'
-            keyPassword 'mes2016logic'
-            storeFile file('D:/Work/android/projects/key/_mes.jks')
-            storePassword 'mes2016logic'
+            keyPassword KEY_PASSWORD
+            storeFile file(STORE_FILE_URL)
+            storePassword KEYSTORE_PASSWORD
         }
     }
     compileSdkVersion 22
