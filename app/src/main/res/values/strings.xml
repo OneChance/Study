@@ -30,6 +30,8 @@
     <string name="duplicate_data">条目重复</string>
     <string name="app_downloading">正在下载更新程序......</string>
     <string name="data_need">数据缺失</string>
+    <string name="choose">选择</string>
+    <string name="choose_org">选择部门</string>
 
 
     <string name="pbj_tab_name">配棒检</string>
