@@ -16,6 +16,7 @@ import com.logic.mes.TimeUtil;
 import com.logic.mes.activity.MainActivity;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.dialog.MaterialDialog;
+import com.logic.mes.entity.base.Org;
 import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.base.UserInfoResult;
 import com.logic.mes.update.UpdateAppUtils;
@@ -105,12 +106,20 @@ public class LoginObserver implements Observer<UserInfoResult> {
             }).start();
         } else {
             if (TimeUtil.isValidDateTime(userInfo.getAppInfo().getCurrentTime())) {
-                if (true) {
+                if (userInfo.getOrgs() != null && userInfo.getOrgs().size() > 1) {
                     this.userInfo = userInfo;
-
                     adapter.clear();
-                    adapter.add("a");
-                    adapter.add("b");
+
+                    for (Org org : userInfo.getOrgs()) {
+                        String orgName = org.getOrgName();
+
+                        if (orgName.length() > 15) {
+                            orgName = "..." + orgName.substring(orgName.length() - 15);
+                        }
+
+                        adapter.add(orgName);
+                    }
+
                     adapter.notifyDataSetChanged();
 
                     noticeDialog.show();
@@ -125,12 +134,12 @@ public class LoginObserver implements Observer<UserInfoResult> {
     }
 
     public void orgChooseCallback() {
-        Log.d("mes", "chooseOrg:" + chooseOrg);
-
-        //根据值取id
-
-
-        //activityTo(this.userInfo);
+        for (Org org : this.userInfo.getOrgs()) {
+            if (org.getOrgName().equals(chooseOrg)) {
+                this.userInfo.getUser().setOrgid_mes(Long.parseLong(org.getId()));
+            }
+        }
+        activityTo(this.userInfo);
     }
 
     public void activityTo(UserInfo userInfo) {

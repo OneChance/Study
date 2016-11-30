@@ -43,6 +43,8 @@ public class UserInfo implements Serializable {
     @MapCollection(ArrayList.class)
     List<TableType> tableType;
 
+    List<Org> orgs;
+
 
     public int getId() {
         return id;
@@ -114,5 +116,13 @@ public class UserInfo implements Serializable {
 
     public void setTableType(List<TableType> tableType) {
         this.tableType = tableType;
+    }
+
+    public List<Org> getOrgs() {
+        return orgs;
+    }
+
+    public void setOrgs(List<Org> orgs) {
+        this.orgs = orgs;
     }
 }
