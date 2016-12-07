@@ -4,37 +4,28 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
-import com.logic.mes.activity.MainActivity;
 import com.logic.mes.adapter.PbListAdapter;
-import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.base.TableSet;
 import com.logic.mes.entity.base.TableType;
-import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.process.PbDetail;
 import com.logic.mes.entity.process.PbProduct;
 import com.logic.mes.entity.server.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-import static android.R.id.list;
 
 public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonCallbacks, IScanReceiver, ServerObserver.ServerDataReceiver, ProcessUtil.SubmitResultReceiver {
 
@@ -55,8 +46,6 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     TextView brick;
     @InjectView(R.id.pb_product_list)
     RecyclerView listView;
-    @InjectView(R.id.pb_save)
-    Button save;
 
     @InjectView(R.id.pb_b_submit)
     Button submit;
@@ -112,15 +101,6 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DBHelper.getInstance(activity).delete(PbProduct.class);
-                DBHelper.getInstance(activity).save(list);
-                MyApplication.toast(R.string.product_save_success);
-            }
-        });
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,15 +139,6 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             pb.setDetailList(new ArrayList<PbDetail>());
         }
 
-        List<PbProduct> plist = DBHelper.getInstance(activity).query(PbProduct.class);
-        if (plist.size() > 0) {
-            pb = plist.get(0);
-            mType.setText(pb.getJx());
-        } else {
-            pb.setJx("");
-            pb.getDetailList().clear();
-        }
-
         dataAdapter = new PbListAdapter(getActivity(), pb.getDetailList(), this);
         SwipeOpenItemTouchHelper helper = new SwipeOpenItemTouchHelper(new SwipeOpenItemTouchHelper.SimpleCallback(SwipeOpenItemTouchHelper.START | SwipeOpenItemTouchHelper.END));
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -183,10 +154,6 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     @Override
     public void removePosition(int position) {
-        PbDetail p = pb.getDetailList().get(position);
-        if (p.getId() != 0) {
-            DBHelper.getInstance(activity).delete(p);
-        }
         dataAdapter.removePosition(position);
     }
 
@@ -244,7 +211,6 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         pb.getDetailList().clear();
         dataAdapter.notifyDataSetChanged();
         MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_MTYPE);
-        DBHelper.getInstance(activity).delete(PbProduct.class);
     }
 
     @Override

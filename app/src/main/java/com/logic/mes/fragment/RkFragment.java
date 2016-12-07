@@ -16,7 +16,6 @@ import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.adapter.RkListAdapter;
-import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.process.RkDetail;
 import com.logic.mes.entity.process.RkProduct;
 import com.logic.mes.entity.server.ProcessUtil;
@@ -42,8 +41,6 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
     TextView tmHead;
     @InjectView(R.id.rk_product_list)
     RecyclerView listView;
-    @InjectView(R.id.rk_save)
-    Button save;
     @InjectView(R.id.rk_v_jzrq)
     Button jzrq;
     @InjectView(R.id.rk_v_hj)
@@ -99,19 +96,6 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (product.getDetailList().size() > 0) {
-                    DBHelper.getInstance(activity).delete(RkProduct.class);
-                    DBHelper.getInstance(activity).save(product);
-                    MyApplication.toast(R.string.product_save_success);
-                } else {
-                    MyApplication.toast(R.string.tm_scan_first);
-                }
-            }
-        });
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,13 +121,6 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
             product = new RkProduct();
         }
 
-        List<RkProduct> plist = DBHelper.getInstance(activity).query(RkProduct.class);
-        if (plist.size() > 0) {
-            product = plist.get(0);
-            jzrq.setText(product.getJzrq());
-            hj.setText(product.getHj());
-        }
-
         dataAdapter = new RkListAdapter(getActivity(), product.getDetailList(), this);
         SwipeOpenItemTouchHelper helper = new SwipeOpenItemTouchHelper(new SwipeOpenItemTouchHelper.SimpleCallback(SwipeOpenItemTouchHelper.START | SwipeOpenItemTouchHelper.END));
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -158,10 +135,6 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
 
     @Override
     public void removePosition(int position) {
-        RkDetail p = product.getDetailList().get(position);
-        if (p.getId() != 0) {
-            DBHelper.getInstance(activity).delete(p);
-        }
         dataAdapter.removePosition(position);
     }
 
@@ -215,7 +188,6 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         hj.setText("");
         product.getDetailList().clear();
         dataAdapter.notifyDataSetChanged();
-        DBHelper.getInstance(activity).delete(RkProduct.class);
     }
 
     @Override

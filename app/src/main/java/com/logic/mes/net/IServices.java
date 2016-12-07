@@ -2,6 +2,7 @@ package com.logic.mes.net;
 
 
 import com.logic.mes.entity.base.UserInfoResult;
+import com.logic.mes.entity.server.ProcessItem;
 import com.logic.mes.entity.server.ProcessSubmit;
 import com.logic.mes.entity.server.ServerResult;
 
@@ -26,4 +27,7 @@ public interface IServices {
     @FormUrlEncoded
     @POST("intface/getbagdata/")
     public Observable<ServerResult> getBagData(@Field("objCode") String objCode);
+
+    @POST("intface/datacheck/")
+    public Observable<ServerResult> checkData(@Body ProcessItem data);
 }

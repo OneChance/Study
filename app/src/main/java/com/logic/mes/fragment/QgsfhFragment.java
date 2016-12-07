@@ -14,7 +14,6 @@ import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
-import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.process.QgsfhProduct;
 import com.logic.mes.entity.server.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
@@ -22,7 +21,6 @@ import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,8 +34,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         this.tagNameId = R.string.qgsfh_tab_name;
     }
 
-    @InjectView(R.id.qgsfh_save)
-    Button save;
     @InjectView(R.id.qgsfh_v_jzbh)
     TextView jzbh;
     @InjectView(R.id.qgsfh_b_submit)
@@ -87,22 +83,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         submitResultReceiver = this;
         serverObserver = new ServerObserver(this, "qgs", activity);
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.brickid_scan_first);
-                } else {
-                    //先清空表
-                    DBHelper.getInstance(activity).delete(QgsfhProduct.class);
-                    QgsfhProduct qgsfh = createQgsfh();
-                    DBHelper.getInstance(activity).save(qgsfh);
-                    MyApplication.toast(R.string.product_save_success);
-                }
-            }
-        });
-
         bSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,12 +102,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
                 clear();
             }
         });
-
-        List<QgsfhProduct> plist = DBHelper.getInstance(activity).query(QgsfhProduct.class);
-        if (plist.size() > 0) {
-            QgsfhProduct qgsfh = plist.get(0);
-            setPbjValue(qgsfh);
-        }
 
         EditTextUtil.setNoKeyboard(yzd);
         EditTextUtil.setNoKeyboard(hbp);
@@ -209,7 +183,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         kxs.setText("");
         lds.setText("");
         zqbb.setText("");
-        DBHelper.getInstance(activity).delete(QgsfhProduct.class);
     }
 
     @Override

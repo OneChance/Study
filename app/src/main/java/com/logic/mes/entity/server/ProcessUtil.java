@@ -21,7 +21,6 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
     Context context;
     SubmitResultReceiver submitResultReceiver;
     ServerObserver.ServerDataReceiver serverDataReceiver;
-    ProcessBase processData;
     SimpleDateFormat sdf;
     ServerResult data;
 
@@ -36,7 +35,6 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
      * @param processData 提交的数据
      */
     public void submit(SubmitResultReceiver receiver, ProcessBase processData, User user) {
-        this.processData = processData;
         serverObserver = new ServerObserver(serverDataReceiver, "", null);
         this.submitResultReceiver = receiver;
 
@@ -47,24 +45,15 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
             processSubmit.setUserCode(user.getEmpCode());
             processSubmit.setUserOrg(user.getOrgid_mes().toString());
             processSubmit.setUserName(user.getEmpName());
-
             String now = sdf.format(new Date());
-
-            if (processData.getLrsj() != null && !processData.getLrsj().equals("")) {
-                now = processData.getLrsj();
-            } else {
-                //记录操作时间 用于提交失败后保存
-                this.processData.setLrsj(now);
-            }
-
             processSubmit.setOperationTime(now);
             processSubmit.setProduceCode(processData.getCode());
+
             List<ProcessItem> items = ItemValueConverter.convert(processData);
 
             if (items.size() > 0) {
                 processSubmit.setItems(items);
-                NetUtil.SetObserverCommonAction(NetUtil.getServices(false).brickSubmit(processSubmit))
-                        .subscribe(serverObserver);
+                submitData(serverObserver, processSubmit);
             } else {
                 MyApplication.toast(R.string.submit_data_error);
             }
@@ -73,12 +62,20 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
         }
     }
 
+    public void submitData(ServerObserver serverObserver, ProcessSubmit processSubmit) {
+        if (MyApplication.netAble) {
+            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).brickSubmit(processSubmit))
+                    .subscribe(serverObserver);
+        } else {
+            //添加到提交数据表
+        }
+    }
+
     @Override
     public void serverData() {
         if (data != null) {
             if (data.getCode().equals("0")) {
                 MyApplication.toast(R.string.submit_ok);
-                DBHelper.getInstance(context).delete(processData.getClass());
                 submitResultReceiver.submitOk();
             } else {
                 if (data.getInfo() != null && !data.getInfo().equals("")) {
@@ -102,8 +99,7 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
     @Override
     public void serverError() {
         //保存这个工序数据
-        DBHelper.getInstance(context).delete(processData.getClass());
-        DBHelper.getInstance(context).save(processData);
+
     }
 
 

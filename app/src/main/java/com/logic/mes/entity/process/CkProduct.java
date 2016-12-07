@@ -12,10 +12,8 @@ import com.logic.mes.entity.server.ItemCol;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table("ck")
 public class CkProduct extends ProcessBase {
 
-    @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
 
     @ItemCol(col = "jzrq")

@@ -41,8 +41,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         this.tagNameId = R.string.qx_tab_name;
     }
 
-    @InjectView(R.id.yb_save)
-    Button save;
     @InjectView(R.id.qx_v_jzbh_head)
     TextView jzbhHead;
     @InjectView(R.id.qx_b_submit)
@@ -109,22 +107,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         serverObserver = new ServerObserver(this, "qx", activity);
         submitResultReceiver = this;
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (jzbhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.brickid_scan_first);
-                } else {
-                    //先清空表
-                    DBHelper.getInstance(activity).delete(QxProduct.class);
-                    QxProduct qx = createQx();
-                    DBHelper.getInstance(activity).save(qx);
-                    MyApplication.toast(R.string.product_save_success);
-                }
-            }
-        });
-
         bSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,12 +126,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
                 clear();
             }
         });
-
-        List<QxProduct> plist = DBHelper.getInstance(activity).query(QxProduct.class);
-        if (plist.size() > 0) {
-            QxProduct qx = plist.get(0);
-            setPbjValue(qx);
-        }
 
         EditTextUtil.setNoKeyboard(sjcps);
         EditTextUtil.setNoKeyboard(hs);
@@ -270,7 +246,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         zj.setText("");
         qt.setText("");
         zqqss.setText("");
-        DBHelper.getInstance(activity).delete(QxProduct.class);
     }
 
     @Override

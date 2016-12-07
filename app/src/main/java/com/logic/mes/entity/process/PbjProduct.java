@@ -1,17 +1,9 @@
 package com.logic.mes.entity.process;
 
-
-import com.litesuits.orm.db.annotation.PrimaryKey;
-import com.litesuits.orm.db.annotation.Table;
-import com.litesuits.orm.db.enums.AssignType;
 import com.logic.mes.entity.server.ItemKey;
 import com.logic.mes.entity.server.ItemCol;
 
-@Table("pbj")
 public class PbjProduct extends ProcessBase {
-
-    @PrimaryKey(AssignType.AUTO_INCREMENT)
-    private int id;
 
     @ItemKey()
     private String brickId;
@@ -37,14 +29,6 @@ public class PbjProduct extends ProcessBase {
 
     public void setSfhg(String sfhg) {
         this.sfhg = sfhg;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getBrickId() {

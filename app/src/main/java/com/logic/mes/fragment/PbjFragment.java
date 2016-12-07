@@ -3,7 +3,6 @@ package com.logic.mes.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
-import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.process.PbjProduct;
 import com.logic.mes.entity.server.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
@@ -37,8 +35,6 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         this.tagNameId = R.string.pbj_tab_name;
     }
 
-    @InjectView(R.id.pbj_save)
-    Button save;
     @InjectView(R.id.pbj_b_quali)
     Button bQuali;
     @InjectView(R.id.pbj_b_unquali)
@@ -89,19 +85,6 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
 
         serverObserver = new ServerObserver(this, "pbj", activity);
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (codeValue != null && !codeValue.equals("")) {
-                    //先清空表
-                    DBHelper.getInstance(activity).delete(PbjProduct.class);
-                    PbjProduct pbj = createBean("");
-                    DBHelper.getInstance(activity).save(pbj);
-                    MyApplication.toast("保存成功");
-                }
-            }
-        });
-
         bQuali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,20 +98,6 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
                 submit("否");
             }
         });
-
-        List<PbjProduct> plist = DBHelper.getInstance(activity).query(PbjProduct.class);
-        if (plist.size() > 0) {
-            PbjProduct pbj = plist.get(0);
-            brickId.setText(pbj.getBrickId());
-            codeValue.setText(pbj.getBrickId());
-            EditTextUtil.setTextEnd(bbValue, pbj.getBbValue());
-            EditTextUtil.setTextEnd(zcbcValue, pbj.getZcbcValue());
-            EditTextUtil.setTextEnd(zdbcValue, pbj.getZdbcValue());
-            EditTextUtil.setTextEnd(yxbcValue, pbj.getYxbcValue());
-            EditTextUtil.setTextEnd(sizeValue, pbj.getSizeValue());
-
-            setRatioGroup(pbj.getDjValue());
-        }
 
         EditTextUtil.setNoKeyboard(bbValue);
         EditTextUtil.setNoKeyboard(zcbcValue);
@@ -219,7 +188,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         PbjProduct pbj = new PbjProduct();
         pbj.setCode("pbj");
         pbj.setBrickId(brickId.getText().toString());
-        pbj.setCodeValue(codeValue.getText().toString());
+        pbj.setCodeValue(brickId.getText().toString());
         pbj.setBbValue(bbValue.getText().toString());
         pbj.setSizeValue(sizeValue.getText().toString());
         pbj.setYxbcValue(yxbcValue.getText().toString());

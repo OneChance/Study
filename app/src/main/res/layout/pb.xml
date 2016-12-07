@@ -146,12 +146,6 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/pb_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/product_save" />
-
-        <Button
             android:id="@+id/pb_b_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

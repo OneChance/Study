@@ -3,6 +3,8 @@ package com.logic.mes;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import java.util.LinkedList;
@@ -13,15 +15,20 @@ public class MyApplication extends Application {
     public static ScanUtil scanUtil;
     public static Integer VERSION = 1;
     private static List<Activity> mList = new LinkedList();
+    public static boolean netAble = false;
 
     @Override
     public void onCreate() {
         context = getApplicationContext();
         super.onCreate();
+
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeInfo = manager.getActiveNetworkInfo();
+        netAble = (activeInfo == null ? false : true);
     }
 
-    public static ScanUtil getScanUtil(){
-        if(scanUtil==null){
+    public static ScanUtil getScanUtil() {
+        if (scanUtil == null) {
             scanUtil = new ScanUtil(context);
         }
         return scanUtil;
@@ -33,15 +40,15 @@ public class MyApplication extends Application {
         super.onTerminate();
     }
 
-    public static void toast(String msg){
+    public static void toast(String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public static void toast(int resId){
+    public static void toast(int resId) {
         Toast.makeText(context, resId, Toast.LENGTH_SHORT).show();
     }
 
-    public static String getResString(int resId){
+    public static String getResString(int resId) {
         return context.getResources().getString(resId);
     }
 

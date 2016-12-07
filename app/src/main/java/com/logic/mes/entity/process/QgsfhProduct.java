@@ -1,17 +1,10 @@
 package com.logic.mes.entity.process;
 
-
-import com.litesuits.orm.db.annotation.PrimaryKey;
-import com.litesuits.orm.db.annotation.Table;
-import com.litesuits.orm.db.enums.AssignType;
 import com.logic.mes.entity.server.ItemCol;
 import com.logic.mes.entity.server.ItemKey;
 
-@Table("qgsfh")
 public class QgsfhProduct extends ProcessBase {
 
-    @PrimaryKey(AssignType.AUTO_INCREMENT)
-    private int id;
     @ItemKey()
     private String brickId;
     @ItemCol(col = "yzd")
@@ -30,14 +23,6 @@ public class QgsfhProduct extends ProcessBase {
     private String zqbb;
     @ItemCol(col = "qps")
     private String qps;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getYzd() {
         return yzd;

@@ -1,6 +1,15 @@
 package com.logic.mes.entity.server;
 
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.annotation.Table;
+import com.litesuits.orm.db.enums.AssignType;
+
+@Table("submit_data_item")
 public class ProcessItem {
+
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
+    private int id;
+
     public String itemKey;
     public String itemValue;
     public String valueType;
@@ -27,5 +36,13 @@ public class ProcessItem {
 
     public void setValueType(String valueType) {
         this.valueType = valueType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

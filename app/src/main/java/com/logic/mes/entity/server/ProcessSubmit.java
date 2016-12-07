@@ -1,14 +1,31 @@
 package com.logic.mes.entity.server;
 
 
+import com.litesuits.orm.db.annotation.MapCollection;
+import com.litesuits.orm.db.annotation.Mapping;
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.annotation.Table;
+import com.litesuits.orm.db.enums.AssignType;
+import com.litesuits.orm.db.enums.Relation;
+
+import java.util.ArrayList;
 import java.util.List;
 
+@Table("submit_data")
 public class ProcessSubmit {
+
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
+    private int id;
+
     public String userCode;
     public String userOrg;
     public String userName;
     public String produceCode;
+
+    @Mapping(Relation.OneToMany)
+    @MapCollection(ArrayList.class)
     public List<ProcessItem> items;
+
     public String operationTime;
 
     public String getUserName() {
@@ -57,5 +74,13 @@ public class ProcessSubmit {
 
     public void setOperationTime(String operationTime) {
         this.operationTime = operationTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

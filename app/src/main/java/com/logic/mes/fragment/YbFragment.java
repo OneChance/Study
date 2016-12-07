@@ -14,7 +14,6 @@ import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
-import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.process.YbProduct;
 import com.logic.mes.entity.server.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
@@ -22,7 +21,6 @@ import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,8 +34,6 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         this.tagNameId = R.string.yb_tab_name;
     }
 
-    @InjectView(R.id.yb_save)
-    Button save;
     @InjectView(R.id.yb_v_jzbh)
     TextView jzbh;
     @InjectView(R.id.yb_b_submit)
@@ -87,23 +83,6 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         submitResultReceiver = this;
         serverObserver = new ServerObserver(this, "yb", activity);
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.brickid_scan_first);
-                } else {
-                    //先清空表
-                    DBHelper.getInstance(activity).delete(YbProduct.class);
-                    YbProduct yb = createYb();
-                    DBHelper.getInstance(activity).save(yb);
-
-                    MyApplication.toast(R.string.product_save_success);
-                }
-            }
-        });
-
         bSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,12 +101,6 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
                 clear();
             }
         });
-
-        List<YbProduct> plist = DBHelper.getInstance(activity).query(YbProduct.class);
-        if (plist.size() > 0) {
-            YbProduct yb = plist.get(0);
-            setPbjValue(yb);
-        }
 
         EditTextUtil.setNoKeyboard(yzd);
         EditTextUtil.setNoKeyboard(hbp);
@@ -209,7 +182,6 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         kxs.setText("");
         lds.setText("");
         zqbb.setText("");
-        DBHelper.getInstance(activity).delete(YbProduct.class);
     }
 
     @Override

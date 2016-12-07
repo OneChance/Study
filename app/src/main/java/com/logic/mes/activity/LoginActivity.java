@@ -2,12 +2,15 @@ package com.logic.mes.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
@@ -119,6 +122,12 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
 
         MyApplication.getScanUtil().setReceiver(receiver, 0);
         EditTextUtil.setNoKeyboard(empNo);
+
+        //禁用HOME键
+        Intent intent = new Intent("com.android.action.HOMEKEY_SWITCH_STATE");
+        intent.putExtra("enable", false);
+        context.sendBroadcast(intent);
+
         MyApplication.addActivity(this);
     }
 
@@ -157,6 +166,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
 
     @Override
     public void onBackPressed() {
-        MyApplication.exit();
+        //不允许退出程序
+        //MyApplication.exit();
     }
 }
