@@ -22,8 +22,6 @@ import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
-import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -56,6 +54,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     @InjectView(R.id.pbj_dj_group)
     RadioGroup djValue;
 
+
     FragmentActivity activity;
     IScanReceiver receiver;
     ServerObserver serverObserver;
@@ -77,6 +76,9 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         view = inflater.inflate(pbj, container, false);
 
         ButterKnife.inject(this, view);
+
+        views.add(brickId);
+        views.add(codeValue);
 
         activity = getActivity();
         receiver = this;
@@ -116,7 +118,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
             if (bean != null && bean.getCodeValue() != null && !bean.getCodeValue().equals("")) {
                 new ProcessUtil(context).submit(submitResultReceiver, bean, userInfo.getUser());
             } else {
-                MyApplication.toast(R.string.data_need);
+                MyApplication.toast(R.string.data_need,false);
             }
 
         } catch (Exception e) {
@@ -143,7 +145,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
 
     @Override
     public void scanError() {
-        MyApplication.toast(R.string.server_error);
+        MyApplication.toast(R.string.server_error,false);
     }
 
     @Override

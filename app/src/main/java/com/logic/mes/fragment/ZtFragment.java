@@ -22,8 +22,6 @@ import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
-import java.util.List;
-
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -85,6 +83,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
         activity = getActivity();
         receiver = this;
         submitResultReceiver = this;
+        serverObserver = new ServerObserver(this, "zt", activity);
 
         scanTh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +97,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
             @Override
             public void onClick(View view) {
                 if (thHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.th_scan_first);
+                    MyApplication.toast(R.string.th_scan_first, false);
                 } else {
                     xhHead.setText(R.string.wait_scan);
                     MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_XZ);
@@ -110,9 +109,9 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
             @Override
             public void onClick(View v) {
                 if (thHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.th_scan_first);
+                    MyApplication.toast(R.string.th_scan_first, false);
                 } else if (zt.getDetailList().size() == 0) {
-                    MyApplication.toast(R.string.xz_scan_need);
+                    MyApplication.toast(R.string.xz_scan_need, false);
                 } else {
                     zt.setCode("zt");
                     new ProcessUtil(activity).submit(submitResultReceiver, zt, userInfo.getUser());
@@ -158,7 +157,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
                 item.setItemValue(currentCode);
                 NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
                         .subscribe(serverObserver);
-                currentReceiverCode = SCAN_CODE_XZ;
+                currentReceiverCode = SCAN_CODE_TH;
                 waitReceive = true;
             }
         } else if (scanCode == SCAN_CODE_XZ) {
@@ -176,7 +175,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
 
     @Override
     public void scanError() {
-        MyApplication.toast(R.string.server_error);
+        MyApplication.toast(R.string.server_error, false);
     }
 
     @Override
@@ -187,22 +186,27 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
     @Override
     public void serverData() {
         if (!data.getCode().equals("1")) {
-            if (currentReceiverCode == SCAN_CODE_TH) {
-                thHead.setText(currentCode);
-                MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_XZ);
-            } else if (currentReceiverCode == SCAN_CODE_XZ) {
-                xhHead.setText(currentCode);
-                ZtProduct p = new ZtProduct();
-                p.setTh(thHead.getText().toString());
-                p.setXh(currentCode);
-                zt.getDetailList().add(p);
-                dataAdapter.notifyDataSetChanged();
-            }
+            fillData();
         }
         waitReceive = false;
     }
 
+    public void fillData() {
+        if (currentReceiverCode == SCAN_CODE_TH) {
+            thHead.setText(currentCode);
+            MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_XZ);
+        } else if (currentReceiverCode == SCAN_CODE_XZ) {
+            xhHead.setText(currentCode);
+            ZtProduct p = new ZtProduct();
+            p.setTh(thHead.getText().toString());
+            p.setXh(currentCode);
+            zt.getDetailList().add(p);
+            dataAdapter.notifyDataSetChanged();
+        }
+    }
+
     public void clear() {
+        MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_TH);
         thHead.setText(R.string.wait_scan);
         xhHead.setText(R.string.wait_scan);
         zt.getDetailList().clear();
@@ -211,6 +215,9 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
 
     @Override
     public void serverError() {
+
+
+        fillData();
         waitReceive = false;
     }
 

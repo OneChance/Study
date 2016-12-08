@@ -3,8 +3,9 @@ package com.logic.mes;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.LinkedList;
@@ -21,10 +22,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         context = getApplicationContext();
         super.onCreate();
-
-        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeInfo = manager.getActiveNetworkInfo();
-        netAble = (activeInfo == null ? false : true);
     }
 
     public static ScanUtil getScanUtil() {
@@ -40,12 +37,29 @@ public class MyApplication extends Application {
         super.onTerminate();
     }
 
-    public static void toast(String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    public static void toast(String msg, boolean success) {
+        customToast(msg, success);
     }
 
-    public static void toast(int resId) {
-        Toast.makeText(context, resId, Toast.LENGTH_SHORT).show();
+    public static void toast(int resId, boolean success) {
+        String msg = getResString(resId);
+        customToast(msg, success);
+    }
+
+    public static void customToast(String msg, boolean success) {
+        View toastView = LayoutInflater.from(context).inflate(R.layout.toast, null);
+        Toast toast = new Toast(context);
+        TextView textView = (TextView) toastView.findViewById(R.id.toast_notice);
+        if (success) {
+            textView.setBackgroundColor(context.getResources().getColor(R.color.success));
+        } else {
+            textView.setBackgroundColor(context.getResources().getColor(R.color.error));
+        }
+        textView.setText(msg);
+        toast.setView(toastView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+
+        toast.show();
     }
 
     public static String getResString(int resId) {

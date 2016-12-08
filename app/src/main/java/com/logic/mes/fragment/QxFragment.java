@@ -2,7 +2,6 @@ package com.logic.mes.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.activity.MainActivity;
-import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.base.SysConfig;
 import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.process.QxProduct;
@@ -26,7 +24,6 @@ import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -111,7 +108,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
             @Override
             public void onClick(View v) {
                 if (jzbhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.brickid_scan_first);
+                    MyApplication.toast(R.string.brickid_scan_first,false);
                 } else {
                     QxProduct qx = createQx();
                     qx.setCode("qx");
@@ -181,7 +178,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
 
     @Override
     public void scanError() {
-        MyApplication.toast(R.string.server_error);
+        MyApplication.toast(R.string.server_error,false);
     }
 
     public void setPbjValue(QxProduct qx) {

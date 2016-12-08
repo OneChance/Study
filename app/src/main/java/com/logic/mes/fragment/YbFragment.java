@@ -87,7 +87,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
             @Override
             public void onClick(View v) {
                 if (jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.brickid_scan_first);
+                    MyApplication.toast(R.string.brickid_scan_first,false);
                 } else {
                     YbProduct yb = createYb();
                     new ProcessUtil(activity).submit(submitResultReceiver, yb, userInfo.getUser());
@@ -133,7 +133,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
     @Override
     public void scanError() {
-        MyApplication.toast(R.string.server_error);
+        MyApplication.toast(R.string.server_error,false);
     }
 
     public void setPbjValue(YbProduct yb) {

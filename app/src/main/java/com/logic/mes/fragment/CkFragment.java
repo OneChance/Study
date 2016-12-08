@@ -25,7 +25,6 @@ import com.logic.mes.observer.ServerObserver;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.List;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
@@ -100,9 +99,9 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
             @Override
             public void onClick(View v) {
                 if (product.getDetailList().size() == 0) {
-                    MyApplication.toast(R.string.tm_scan_first);
+                    MyApplication.toast(R.string.tm_scan_first, false);
                 } else if (jzrq.getText().equals("")) {
-                    MyApplication.toast(R.string.jzrq_need);
+                    MyApplication.toast(R.string.jzrq_need, false);
                 } else {
                     product.setCode("ck");
                     new ProcessUtil(activity).submit(submitResultReceiver, product, userInfo.getUser());
@@ -147,7 +146,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
 
     @Override
     public void scanError() {
-        MyApplication.toast(R.string.server_error);
+        MyApplication.toast(R.string.server_error, false);
     }
 
     @Override
@@ -172,7 +171,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
 
             dataAdapter.notifyDataSetChanged();
         } else {
-            MyApplication.toast(R.string.duplicate_data);
+            MyApplication.toast(R.string.duplicate_data,false);
         }
     }
 

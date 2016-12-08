@@ -13,7 +13,8 @@ import com.logic.mes.PrefsConsts;
 
 public class InstallReceiver extends BroadcastReceiver {
 
-    @Override public void onReceive(Context context, Intent intent) {
+    @Override
+    public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
             long downloadApkId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             installApk(context, downloadApkId);
@@ -35,7 +36,7 @@ public class InstallReceiver extends BroadcastReceiver {
                 install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(install);
             } else {
-                MyApplication.toast("下载失败");
+                MyApplication.toast("下载失败", false);
             }
         }
     }

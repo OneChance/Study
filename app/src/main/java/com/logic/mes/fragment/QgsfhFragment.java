@@ -87,7 +87,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
             @Override
             public void onClick(View v) {
                 if (jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.brickid_scan_first);
+                    MyApplication.toast(R.string.brickid_scan_first,false);
                 } else {
                     QgsfhProduct qgsfh = createQgsfh();
                     qgsfh.setCode("qgs");
@@ -134,7 +134,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
 
     @Override
     public void scanError() {
-        MyApplication.toast(R.string.server_error);
+        MyApplication.toast(R.string.server_error,false);
     }
 
     public void setPbjValue(QgsfhProduct qgsfh) {

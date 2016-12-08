@@ -15,7 +15,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10sp"
                 android:text="@string/l_jzbh"
-                android:textColor="#3f51b5"
+                android:textColor="@color/text"
                 android:textSize="15sp"
                 android:textStyle="bold"></TextView>
 
@@ -155,7 +155,7 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:text=""
-                            android:textColor="#283593"
+                            android:textColor="@color/text"
                             android:textSize="15sp"
                             android:textStyle="bold"></EditText>
                 </LinearLayout>
@@ -192,7 +192,7 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:text=""
-                            android:textColor="#283593"
+                            android:textColor="@color/text"
                             android:textSize="15sp"
                             android:textStyle="bold"></EditText>
                 </LinearLayout>
@@ -227,7 +227,7 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:text=""
-                            android:textColor="#283593"
+                            android:textColor="@color/text"
                             android:textSize="15sp"
                             android:textStyle="bold"></EditText>
                 </LinearLayout>
@@ -264,7 +264,7 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:text=""
-                            android:textColor="#283593"
+                            android:textColor="@color/text"
                             android:textSize="15sp"
                             android:textStyle="bold"></EditText>
                 </LinearLayout>
@@ -299,7 +299,7 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:text=""
-                            android:textColor="#283593"
+                            android:textColor="@color/text"
                             android:textSize="15sp"
                             android:textStyle="bold"></EditText>
                 </LinearLayout>
@@ -336,7 +336,7 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:text=""
-                            android:textColor="#283593"
+                            android:textColor="@color/text"
                             android:textSize="15sp"
                             android:textStyle="bold"></EditText>
                 </LinearLayout>
@@ -376,7 +376,7 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:text=""
-                            android:textColor="#283593"
+                            android:textColor="@color/text"
                             android:textSize="15sp"
                             android:textStyle="bold"></EditText>
                 </LinearLayout>
@@ -414,7 +414,7 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:text=""
-                            android:textColor="#283593"
+                            android:textColor="@color/text"
                             android:textSize="15sp"
                             android:textStyle="bold"></EditText>
                 </LinearLayout>
@@ -452,7 +452,7 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:text=""
-                            android:textColor="#283593"
+                            android:textColor="@color/text"
                             android:textSize="15sp"
                             android:textStyle="bold"></EditText>
                 </LinearLayout>
@@ -492,7 +492,7 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:text=""
-                            android:textColor="#283593"
+                            android:textColor="@color/text"
                             android:textSize="15sp"
                             android:textStyle="bold"></EditText>
                 </LinearLayout>

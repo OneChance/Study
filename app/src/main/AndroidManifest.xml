@@ -49,11 +49,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".NetStateReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

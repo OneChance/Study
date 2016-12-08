@@ -1,298 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/pbj_l_brick"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:padding="10sp"
+            android:text="@string/brick_id"
+            android:textColor="@color/text"
+            android:textSize="15sp"
+            android:textStyle="bold"></TextView>
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10sp"
-                android:text="@string/brick_id"
-                android:textColor="#3f51b5"
-                android:textSize="15sp"
-                android:textStyle="bold"></TextView>
-
-        <TextView
-                android:id="@+id/pbj_brick_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10sp"
-                android:text="@string/wait_scan"></TextView>
+            android:id="@+id/pbj_brick_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:text="@string/wait_scan"></TextView>
     </LinearLayout>
 
     <ScrollView
-            android:id="@+id/pbj_scroll_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_weight="1">
+        android:id="@+id/pbj_scroll_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1">
 
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/pbj_l_code"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/pbj_l_code"
-                        app:layout_widthPercent="30%"></TextView>
+                    android:id="@+id/pbj_l_code"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/pbj_l_code"
+                    app:layout_widthPercent="30%"></TextView>
 
 
                 <TextView
-                        android:id="@+id/pbj_v_code"
-                        style="@style/font_value"
-                        android:layout_width="0dp"
-                        android:layout_toRightOf="@+id/pbj_l_code"
-                        android:layout_weight="1"
+                    android:id="@+id/pbj_v_code"
+                    style="@style/font_value"
+                    android:layout_width="0dp"
+                    android:layout_toRightOf="@+id/pbj_l_code"
+                    android:layout_weight="1"
+                    android:text=""
+                    app:layout_widthPercent="70%"></TextView>
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pbj_l_bb"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/pbj_l_bb"
+                    app:layout_widthPercent="30%"></TextView>
+
+                <LinearLayout
+                    android:id="@+id/pbj_v_bb_wrapper"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/pbj_l_bb"
+                    app:layout_widthPercent="70%">
+
+                    <EditText
+                        android:id="@+id/pbj_v_bb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:text=""
-                        app:layout_widthPercent="70%"></TextView>
-            </android.support.percent.PercentRelativeLayout>
-
-            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
-
-                <TextView
-                        android:id="@+id/pbj_l_bb"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/pbj_l_bb"
-                        app:layout_widthPercent="30%"></TextView>
-
-                <LinearLayout
-                        android:id="@+id/pbj_v_bb_wrapper"
-                        style="@style/edit_text_wrapper"
-                        android:layout_toRightOf="@+id/pbj_l_bb"
-                        app:layout_widthPercent="70%">
-
-                    <EditText
-                            android:id="@+id/pbj_v_bb"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:text=""
-                            android:textColor="#283593"
-                            android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold"></EditText>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/pbj_l_zcbc"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/pbj_l_zcbc"
-                        app:layout_widthPercent="30%"></TextView>
+                    android:id="@+id/pbj_l_zcbc"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/pbj_l_zcbc"
+                    app:layout_widthPercent="30%"></TextView>
 
                 <LinearLayout
-                        android:id="@+id/pbj_v_zcbc_wrapper"
-                        style="@style/edit_text_wrapper"
-                        android:layout_toRightOf="@+id/pbj_l_zcbc"
-                        app:layout_widthPercent="70%">
+                    android:id="@+id/pbj_v_zcbc_wrapper"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/pbj_l_zcbc"
+                    app:layout_widthPercent="70%">
 
                     <EditText
-                            android:id="@+id/pbj_v_zcbc"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:text=""
-                            android:textColor="#283593"
-                            android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                        android:id="@+id/pbj_v_zcbc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold"></EditText>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/pbj_l_zdbc"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/pbj_l_zdbc"
-                        app:layout_widthPercent="30%"></TextView>
+                    android:id="@+id/pbj_l_zdbc"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/pbj_l_zdbc"
+                    app:layout_widthPercent="30%"></TextView>
 
                 <LinearLayout
-                        android:id="@+id/pbj_v_zdbc_wrapper"
-                        style="@style/edit_text_wrapper"
-                        android:layout_toRightOf="@+id/pbj_l_zdbc"
-                        app:layout_widthPercent="70%">
+                    android:id="@+id/pbj_v_zdbc_wrapper"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/pbj_l_zdbc"
+                    app:layout_widthPercent="70%">
 
                     <EditText
-                            android:id="@+id/pbj_v_zdbc"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:text=""
-                            android:textColor="#283593"
-                            android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                        android:id="@+id/pbj_v_zdbc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold"></EditText>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/pbj_l_yxbc"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/pbj_l_yxbc"
-                        app:layout_widthPercent="30%"></TextView>
+                    android:id="@+id/pbj_l_yxbc"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/pbj_l_yxbc"
+                    app:layout_widthPercent="30%"></TextView>
 
                 <LinearLayout
-                        android:id="@+id/pbj_v_yxbc_wrapper"
-                        style="@style/edit_text_wrapper"
-                        android:layout_toRightOf="@+id/pbj_l_yxbc"
-                        app:layout_widthPercent="70%">
+                    android:id="@+id/pbj_v_yxbc_wrapper"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/pbj_l_yxbc"
+                    app:layout_widthPercent="70%">
 
                     <EditText
-                            android:id="@+id/pbj_v_yxbc"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:text=""
-                            android:textColor="#283593"
-                            android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                        android:id="@+id/pbj_v_yxbc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold"></EditText>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/pbj_l_size"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/pbj_l_size"
-                        app:layout_widthPercent="30%"></TextView>
+                    android:id="@+id/pbj_l_size"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/pbj_l_size"
+                    app:layout_widthPercent="30%"></TextView>
 
                 <LinearLayout
-                        android:id="@+id/pbj_v_size_wrapper"
-                        style="@style/edit_text_wrapper"
-                        android:layout_toRightOf="@+id/pbj_l_size"
-                        app:layout_widthPercent="70%">
+                    android:id="@+id/pbj_v_size_wrapper"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/pbj_l_size"
+                    app:layout_widthPercent="70%">
 
                     <EditText
-                            android:id="@+id/pbj_v_size"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:text=""
-                            android:textColor="#283593"
-                            android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                        android:id="@+id/pbj_v_size"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold"></EditText>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
-            <android.support.percent.PercentRelativeLayout
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/dividers"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/pbj_l_dj"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/pbj_l_dj"
-                        app:layout_widthPercent="30%"></TextView>
+                    android:id="@+id/pbj_l_dj"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/pbj_l_dj"
+                    app:layout_widthPercent="30%"></TextView>
 
                 <LinearLayout
-                        android:id="@+id/pbj_v_dj"
-                        style="@style/edit_text_wrapper"
-                        android:layout_toRightOf="@+id/pbj_l_dj"
-                        app:layout_widthPercent="70%">
+                    android:id="@+id/pbj_v_dj"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/pbj_l_dj"
+                    app:layout_widthPercent="70%">
 
                     <RadioGroup
-                            android:id="@+id/pbj_dj_group"
-                            android:contentDescription="性别"
-                            android:layout_width="match_parent"
-                            android:orientation="horizontal"
-                            android:gravity="center_horizontal"
-                            android:layout_height="match_parent">
+                        android:id="@+id/pbj_dj_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="性别"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
 
                         <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/dj_yes"
-                                android:text="@string/pbj_dj_yes"
-                                android:textColor="#3f51b5"
-                                android:checked="true"></RadioButton>
+                            android:id="@+id/dj_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/pbj_dj_yes"
+                            android:textColor="@color/text"></RadioButton>
 
                         <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/dj_no"
-                                android:textColor="#3f51b5"
-                                android:text="@string/pbj_dj_no"></RadioButton>
+                            android:id="@+id/dj_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pbj_dj_no"
+                            android:textColor="@color/text"></RadioButton>
                     </RadioGroup>
 
                 </LinearLayout>
@@ -301,21 +301,21 @@
     </ScrollView>
 
     <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/pbj_b_quali"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:text="@string/pbj_b_quali" />
 
         <Button
-                android:id="@+id/pbj_b_quali"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pbj_b_quali"/>
-
-        <Button
-                android:id="@+id/pbj_b_unquali"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pbj_b_unquali"/>
+            android:id="@+id/pbj_b_unquali"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pbj_b_unquali" />
     </LinearLayout>
 </LinearLayout>

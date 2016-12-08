@@ -19,7 +19,7 @@
             android:gravity="center"
             android:padding="10sp"
             android:text="@string/pb_l_mtype"
-            android:textColor="#3f51b5"
+            android:textColor="@color/text"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_widthPercent="25%"></TextView>
@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:padding="10sp"
             android:text="@string/th_brick_id"
-            android:textColor="#3f51b5"
+            android:textColor="@color/text"
             android:textSize="15sp"
             android:textStyle="bold"
             android:gravity="center"

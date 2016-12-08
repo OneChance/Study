@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:padding="10sp"
             android:text="@string/rk_l_tm"
-            android:textColor="#3f51b5"
+            android:textColor="@color/text"
             android:textSize="15sp"
             android:textStyle="bold"></TextView>
 

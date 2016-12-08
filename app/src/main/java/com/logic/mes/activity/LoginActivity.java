@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -76,7 +75,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
             public void onClick(View v) {
                 //输入登陆
                 if (empNo.getText() == null || empNo.getText().toString().equals("")) {
-                    MyApplication.toast(R.string.need_emp_no);
+                    MyApplication.toast(R.string.need_emp_no,false);
                 } else {
                     loginDisable();
                     scanReceive(empNo.getText().toString(), 0);

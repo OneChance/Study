@@ -1,7 +1,12 @@
 package com.logic.mes.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -42,15 +47,22 @@ public class MainActivity extends AppCompatActivity implements IMain {
     TextView loginUser;
     @InjectView(R.id.emp_no)
     TextView empNo;
+    @InjectView(R.id.net_state)
+    TextView netState;
     @InjectView(R.id.btn_login_out)
     TextView bLoginOut;
     MainPresenter mainPresenter;
     private Context context;
     ViewPagerAdapter adapter;
 
+    Thread autoSubmit;
+
+    private BroadcastReceiver netStateReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.mainpage);
         ButterKnife.inject(this);
         context = this;
@@ -84,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements IMain {
             }
         });
 
-        if(adapter.getCount()>0){
+        if (adapter.getCount() > 0) {
             adapter.getItem(0).setReceiver();
         }
 
@@ -98,9 +110,55 @@ public class MainActivity extends AppCompatActivity implements IMain {
             }
         });
 
+        //注册网络监听
+        netStateReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // TODO Auto-generated method stub
+                ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeInfo = manager.getActiveNetworkInfo();
+
+                if (activeInfo == null) {
+                    //网络断开
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDarkNoNet));
+                    MyApplication.netAble = false;
+                    netState.setText(R.string.net_disable);
+                    tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryNoNet));
+                } else {
+                    MyApplication.netAble = true;
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    netState.setText("");
+                    tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                }
+            }
+        };
+
+        IntentFilter mFilter = new IntentFilter();
+        mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(netStateReceiver, mFilter);
+
         MyApplication.addActivity(this);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+    }
+
+    public void autoSubmitData() {
+
+        /*final List<ProcessSubmit> submits = DBHelper.getInstance(context).query(ProcessSubmit.class);
+
+        if (submits.size() > 0) {
+            //启动线程扫描提交数据表
+            autoSubmit = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (ProcessSubmit submit : submits) {
+
+                    }
+                }
+            });
+            autoSubmit.start();
+        }*/
+
     }
 
     @Override
@@ -151,5 +209,11 @@ public class MainActivity extends AppCompatActivity implements IMain {
 
     public UserInfo getUserInfo() {
         return userInfo;
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(netStateReceiver);
+        super.onDestroy();
     }
 }

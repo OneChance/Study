@@ -93,7 +93,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             @Override
             public void onClick(View view) {
                 if (mType.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.mtype_scan_first);
+                    MyApplication.toast(R.string.mtype_scan_first,false);
                 } else {
                     brick.setText(R.string.wait_scan);
                     MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
@@ -105,7 +105,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             @Override
             public void onClick(View v) {
                 if (mType.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.mtype_scan_first);
+                    MyApplication.toast(R.string.mtype_scan_first,false);
                 } else {
                     String stations = getStations();
                     if (!stations.equals("")) {
@@ -121,7 +121,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
                         new ProcessUtil(activity).submit(submitResultReceiver, pb, userInfo.getUser());
                     } else {
-                        MyApplication.toast(R.string.mtype_not_match);
+                        MyApplication.toast(R.string.mtype_not_match,false);
                     }
                 }
             }
@@ -175,9 +175,9 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     public void serverData() {
 
         if (checkExist(data.getVal("ej_BrickID"))) {
-            MyApplication.toast(R.string.duplicate_data);
+            MyApplication.toast(R.string.duplicate_data,false);
         } else if (differentLevel(data.getVal("ej_jzdj"))) {
-            MyApplication.toast(R.string.different_level);
+            MyApplication.toast(R.string.different_level,false);
         } else {
             PbDetail p = new PbDetail();
             p.setBrickId(data.getVal("ej_BrickID"));
@@ -220,7 +220,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     @Override
     public void scanError() {
-        MyApplication.toast(R.string.server_error);
+        MyApplication.toast(R.string.server_error,false);
     }
 
     public String getStations() {

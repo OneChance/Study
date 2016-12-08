@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +21,6 @@ import com.logic.mes.entity.server.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
-
-import java.util.List;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
@@ -100,7 +97,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
             @Override
             public void onClick(View view) {
                 if (xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.xz_scan_first);
+                    MyApplication.toast(R.string.xz_scan_first, false);
                 } else {
                     hhHead.setText(R.string.wait_scan);
                     MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_HZ);
@@ -112,9 +109,9 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
             @Override
             public void onClick(View v) {
                 if (xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.xz_scan_first);
+                    MyApplication.toast(R.string.xz_scan_first, false);
                 } else if (zx.getDetailList().size() == 0) {
-                    MyApplication.toast(R.string.hz_scan_need);
+                    MyApplication.toast(R.string.hz_scan_need, false);
                 } else {
                     zx.setCode("zx");
                     new ProcessUtil(activity).submit(submitResultReceiver, zx, userInfo.getUser());
@@ -195,26 +192,31 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     public void serverData() {
 
         if (!data.getCode().equals("1")) {
-            if (currentReceiverCode == SCAN_CODE_XZ) {
-                xhHead.setText(currentCode);
-                MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_HZ);
-            } else if (currentReceiverCode == SCAN_CODE_HZ) {
-                hhHead.setText(currentCode);
-                ZxProduct p = new ZxProduct();
-                p.setXh(xhHead.getText().toString());
-                p.setHh(currentCode);
-                if (zx.getDetailList().size() < 4) {
-                    zx.getDetailList().add(p);
-                } else {
-                    MyApplication.toast(R.string.zx_size_full_4);
-                }
-                dataAdapter.notifyDataSetChanged();
-            }
+            fillData();
         }
         waitReceive = false;
     }
 
+    public void fillData() {
+        if (currentReceiverCode == SCAN_CODE_XZ) {
+            xhHead.setText(currentCode);
+            MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_HZ);
+        } else if (currentReceiverCode == SCAN_CODE_HZ) {
+            hhHead.setText(currentCode);
+            ZxProduct p = new ZxProduct();
+            p.setXh(xhHead.getText().toString());
+            p.setHh(currentCode);
+            if (zx.getDetailList().size() < 4) {
+                zx.getDetailList().add(p);
+            } else {
+                MyApplication.toast(R.string.zx_size_full_4, false);
+            }
+            dataAdapter.notifyDataSetChanged();
+        }
+    }
+
     public void clear() {
+        MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_XZ);
         xhHead.setText(R.string.wait_scan);
         hhHead.setText(R.string.wait_scan);
         zx.getDetailList().clear();
@@ -223,6 +225,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
 
     @Override
     public void serverError() {
+        fillData();
         waitReceive = false;
     }
 }

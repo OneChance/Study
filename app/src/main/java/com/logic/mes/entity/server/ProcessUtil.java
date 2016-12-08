@@ -4,9 +4,7 @@ import android.content.Context;
 
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
-import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.base.User;
-import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.process.ProcessBase;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -55,10 +53,10 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
                 processSubmit.setItems(items);
                 submitData(serverObserver, processSubmit);
             } else {
-                MyApplication.toast(R.string.submit_data_error);
+                MyApplication.toast(R.string.submit_data_error, false);
             }
         } else {
-            MyApplication.toast(R.string.emp_info_error);
+            MyApplication.toast(R.string.emp_info_error, false);
         }
     }
 
@@ -73,16 +71,20 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
 
     @Override
     public void serverData() {
-        if (data != null) {
-            if (data.getCode().equals("0")) {
-                MyApplication.toast(R.string.submit_ok);
-                submitResultReceiver.submitOk();
-            } else {
-                if (data.getInfo() != null && !data.getInfo().equals("")) {
-                    MyApplication.toast(data.getInfo());
+        try {
+            if (data != null) {
+                if (data.getCode().equals("0")) {
+                    MyApplication.toast(R.string.submit_ok, true);
+                    submitResultReceiver.submitOk();
+                } else {
+                    if (data.getInfo() != null && !data.getInfo().equals("")) {
+                        MyApplication.toast(data.getInfo(), false);
+                    }
+                    this.serverError();
                 }
-                this.serverError();
             }
+        } catch (Exception e) {
+            MyApplication.toast(e.getMessage(), false);
         }
     }
 

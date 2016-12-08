@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- have net -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
@@ -11,11 +13,17 @@
     <color name="cyan_500">#00bcd4</color>
 
 
+    <!-- with out net -->
+    <color name="colorPrimaryNoNet">#ff5722</color>
+    <color name="colorPrimaryDarkNoNet">#e64a19</color>
+    <color name="amber_500">#ffc107</color>
+
+
     <!-- Theme colors -->
     <color name="tabChoose">#c5cae9</color>
 
     <!-- general text colors -->
-    <color name="text">#212121</color>
+    <color name="text">#616161</color>
     <color name="secondary">#727272</color>
     <color name="hint">#B8B8B8</color>
     <color name="dividers">#DADADA</color>
@@ -37,4 +45,8 @@
 
     <color name="swipe_delete">@android:color/holo_red_light</color>
     <color name="swipe_back">@android:color/white</color>
+
+
+    <color name="success">#259b24</color>
+    <color name="error">#e51c23</color>
 </resources>

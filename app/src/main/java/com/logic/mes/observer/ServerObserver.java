@@ -1,13 +1,11 @@
 package com.logic.mes.observer;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
-import com.logic.mes.db.DBHelper;
 import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.server.ServerResult;
 
@@ -67,7 +65,7 @@ public class ServerObserver implements Observer<ServerResult> {
 
     @Override
     public void onError(Throwable e) {
-        MyApplication.toast(R.string.server_error);
+        //MyApplication.toast(R.string.server_error, false);
         receiver.serverError();
         e.printStackTrace();
     }
@@ -76,7 +74,7 @@ public class ServerObserver implements Observer<ServerResult> {
     public void onNext(ServerResult res) {
 
         if (res.getCode().equals("1")) {
-            MyApplication.toast(res.getInfo());
+            MyApplication.toast(res.getInfo(), false);
         }
 
         receiver.setData(res);
@@ -94,8 +92,6 @@ public class ServerObserver implements Observer<ServerResult> {
                 } else {
                     receiver.serverData();
                 }
-            } else {
-                MyApplication.toast(R.string.no_data);
             }
         } else {
             receiver.serverData();
