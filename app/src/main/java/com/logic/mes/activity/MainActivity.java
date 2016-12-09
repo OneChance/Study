@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity implements IMain {
     private Context context;
     ViewPagerAdapter adapter;
 
-    Thread autoSubmit;
-
     private BroadcastReceiver netStateReceiver;
 
     @Override
@@ -124,11 +122,13 @@ public class MainActivity extends AppCompatActivity implements IMain {
                     MyApplication.netAble = false;
                     netState.setText(R.string.net_disable);
                     tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryNoNet));
+                    mainPresenter.stopAutoSubmit(context);
                 } else {
                     MyApplication.netAble = true;
                     toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     netState.setText("");
                     tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    mainPresenter.autoSubmitData(context);
                 }
             }
         };
@@ -140,25 +140,6 @@ public class MainActivity extends AppCompatActivity implements IMain {
         MyApplication.addActivity(this);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-    }
-
-    public void autoSubmitData() {
-
-        /*final List<ProcessSubmit> submits = DBHelper.getInstance(context).query(ProcessSubmit.class);
-
-        if (submits.size() > 0) {
-            //启动线程扫描提交数据表
-            autoSubmit = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (ProcessSubmit submit : submits) {
-
-                    }
-                }
-            });
-            autoSubmit.start();
-        }*/
-
     }
 
     @Override
