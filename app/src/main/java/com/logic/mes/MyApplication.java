@@ -3,6 +3,7 @@ package com.logic.mes;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -12,11 +13,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MyApplication extends Application {
+
     private static Context context;
     public static ScanUtil scanUtil;
     public static Integer VERSION = 1;
     private static List<Activity> mList = new LinkedList();
-    public static boolean netAble = false;
+    public static boolean netAble = true;
 
     @Override
     public void onCreate() {
@@ -70,6 +72,11 @@ public class MyApplication extends Application {
         mList.add(activity);
     }
 
+    public static void appSendBroadcast(String action) {
+        Intent intent = new Intent(action);
+        context.sendBroadcast(intent);
+    }
+
     public static void exit() {
         try {
 
@@ -85,4 +92,5 @@ public class MyApplication extends Application {
             System.exit(0);
         }
     }
+
 }

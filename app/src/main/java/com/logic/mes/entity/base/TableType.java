@@ -13,6 +13,7 @@ public class TableType implements Serializable {
     private String typeCode;
     private String typeName;
     private String lineLength;
+    private String groupLength;
 
 
     public String getTypeCode() {
@@ -45,5 +46,13 @@ public class TableType implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getGroupLength() {
+        return groupLength;
+    }
+
+    public void setGroupLength(String groupLength) {
+        this.groupLength = groupLength;
     }
 }

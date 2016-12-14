@@ -1,15 +1,9 @@
 package com.logic.mes.net;
 
-import android.util.Log;
-
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
@@ -30,7 +24,7 @@ public class NetUtil {
             if (services == null) {
                 client = new OkHttpClient();
                 client.setConnectTimeout(NetConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS);
-                client.interceptors().add(new Interceptor() {
+                /*client.interceptors().add(new Interceptor() {
 
                     @Override
                     public Response intercept(Chain chain) throws IOException {
@@ -40,13 +34,9 @@ public class NetUtil {
                                 .cacheControl(com.squareup.okhttp.CacheControl.FORCE_NETWORK)
                                 .build();
 
-                        //Log.d("mes", request.urlString());
-
-                        Response response = chain.proceed(request);
-
-                        return response;
+                        return chain.proceed(request);
                     }
-                });
+                });*/
             }
 
             if (rebuild) {

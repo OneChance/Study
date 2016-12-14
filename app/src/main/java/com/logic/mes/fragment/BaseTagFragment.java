@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.logic.mes.MyApplication;
+import com.logic.mes.R;
 import com.logic.mes.activity.MainActivity;
 import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.server.ServerResult;
@@ -24,6 +26,8 @@ public class BaseTagFragment extends Fragment {
 
     public List<TextView> views = new ArrayList<>();
 
+    MainActivity activity;
+
     public void setReceiver() {
 
     }
@@ -32,9 +36,32 @@ public class BaseTagFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        userInfo = ((MainActivity) getActivity()).getUserInfo();
+        activity = (MainActivity) getActivity();
+        userInfo = activity.getUserInfo();
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    public void clear() {
+
+    }
+
+    /**
+     * 在提交之后,在提交状态栏显示操作结果
+     *
+     * @param no      操作的单据号
+     * @param success 是否成功
+     */
+    public void doAfterSumbit(String no, boolean success) {
+
+        String status = MyApplication.getResString(R.string.submit_ok);
+
+        if (!success) {
+            status = MyApplication.getResString(R.string.data_save);
+        }
+
+        activity.setStatus(no + status, success);
+
+        clear();
+    }
 }

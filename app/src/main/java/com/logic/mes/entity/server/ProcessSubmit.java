@@ -17,16 +17,21 @@ public class ProcessSubmit {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
 
-    public String userCode;
-    public String userOrg;
-    public String userName;
-    public String produceCode;
+    private String userCode;
+    private String userOrg;
+    private String userName;
+    private String produceCode;
+    private Boolean isGroup;
 
     @Mapping(Relation.OneToMany)
     @MapCollection(ArrayList.class)
-    public List<ProcessItem> items;
+    private List<ProcessItem> items;
 
-    public String operationTime;
+    private String operationTime;
+
+    public ProcessSubmit() {
+        this.isGroup = false;
+    }
 
     public String getUserName() {
         return userName;
@@ -82,5 +87,13 @@ public class ProcessSubmit {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Boolean getGroup() {
+        return isGroup;
+    }
+
+    public void setGroup(Boolean group) {
+        isGroup = group;
     }
 }

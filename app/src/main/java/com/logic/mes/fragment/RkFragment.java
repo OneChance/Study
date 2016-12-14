@@ -18,7 +18,7 @@ import com.logic.mes.R;
 import com.logic.mes.adapter.RkListAdapter;
 import com.logic.mes.entity.process.RkDetail;
 import com.logic.mes.entity.process.RkProduct;
-import com.logic.mes.entity.server.ProcessUtil;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -151,7 +151,12 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
 
     @Override
     public void submitOk() {
-        clear();
+        doAfterSumbit(tmHead.getText().toString(), true);
+    }
+
+    @Override
+    public void submitError() {
+        doAfterSumbit(tmHead.getText().toString(), false);
     }
 
     @Override
@@ -166,7 +171,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
 
             int hjInt = hj.getText().equals("") ? 0 : Integer.parseInt(hj.getText().toString());
             hjInt = new BigDecimal(hjInt).add(new BigDecimal(p.getSl())).intValue();
-            hj.setText(hjInt + "");
+            hj.setText((hjInt + ""));
             product.setHj(hjInt + "");
 
             dataAdapter.notifyDataSetChanged();
@@ -190,7 +195,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
     }
 
     @Override
-    public void serverError() {
+    public void serverError(Throwable e) {
 
     }
 

@@ -17,7 +17,7 @@ import com.logic.mes.adapter.ZtListAdapter;
 import com.logic.mes.entity.process.ZtHead;
 import com.logic.mes.entity.process.ZtProduct;
 import com.logic.mes.entity.server.ProcessItem;
-import com.logic.mes.entity.server.ProcessUtil;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -214,15 +214,18 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
     }
 
     @Override
-    public void serverError() {
-
-
+    public void serverError(Throwable e) {
         fillData();
         waitReceive = false;
     }
 
     @Override
     public void submitOk() {
-        clear();
+        doAfterSumbit(thHead.getText().toString(), true);
+    }
+
+    @Override
+    public void submitError() {
+        doAfterSumbit(thHead.getText().toString(), false);
     }
 }

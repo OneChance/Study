@@ -16,7 +16,7 @@
             android:text="@string/l_jzbh"
             android:textColor="@color/text"
             android:textSize="15sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/qgsfh_v_jzbh"
@@ -24,16 +24,13 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:padding="10sp"
-            android:text="@string/wait_scan"></TextView>
+            android:text="@string/wait_scan" />
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/qx_scroll_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -55,7 +52,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/qgsfh_l_spyy"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
 
                 <TextView
@@ -65,7 +62,7 @@
                     android:layout_toRightOf="@+id/qgsfh_l_spyy"
                     android:layout_weight="1"
                     android:text="@string/qgsfh_l_sl"
-                    app:layout_widthPercent="70%"></TextView>
+                    app:layout_widthPercent="70%" />
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -82,7 +79,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/qgsfh_l_yzd"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/qgsfh_v_yzd_wrapper"
@@ -100,7 +97,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -119,7 +116,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/qgsfh_l_hbp"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/qgsfh_v_hbp_wrapper"
@@ -137,7 +134,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -155,7 +152,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/qgsfh_l_zb"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/qgsfh_v_zb_wrapper"
@@ -173,7 +170,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -191,7 +188,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/qgsfh_l_dp"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/qgsfh_v_dp_wrapper"
@@ -209,7 +206,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -227,7 +224,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/qgsfh_l_kxs"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/qgsfh_v_kxs_wrapper"
@@ -245,7 +242,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -263,7 +260,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/qgsfh_l_lds"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/qgsfh_v_lds_wrapper"
@@ -281,7 +278,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -299,7 +296,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/qgsfh_l_zqbb"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/qgsfh_v_zqbb_wrapper"
@@ -317,7 +314,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -331,21 +328,31 @@
                     android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/qgsfh_l_qps"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/yb_l_qps"
-                        app:layout_widthPercent="30%"></TextView>
+                    android:id="@+id/qgsfh_l_qps"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/yb_l_qps"
+                    app:layout_widthPercent="30%" />
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/qgsfh_v_qps_wrapper"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/qgsfh_l_qps"
+                    app:layout_widthPercent="70%">
+
+                    <EditText
                         android:id="@+id/qgsfh_v_qps"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:text=""
-                        android:layout_toRightOf="@+id/qgsfh_l_qps"
-                        app:layout_widthPercent="70%"></TextView>
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
             </android.support.percent.PercentRelativeLayout>
         </LinearLayout>

@@ -22,19 +22,16 @@
             android:textColor="@color/text"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_widthPercent="25%"></TextView>
+            app:layout_widthPercent="25%" />
 
-        <TextView
+        <Spinner
             android:id="@+id/pb_v_mtype"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="13dp"
             android:layout_toRightOf="@+id/pb_l_mtype"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:padding="10sp"
-            android:text="@string/wait_scan"
-            android:textSize="13sp"
-            app:layout_widthPercent="50%"></TextView>
+            app:layout_widthPercent="50%" />
 
         <Button
             android:id="@+id/pb_b_scan_mtype"
@@ -44,6 +41,8 @@
             android:layout_weight="1"
             android:text="@string/pb_b_mtype"
             app:layout_widthPercent="25%" />
+
+
     </android.support.percent.PercentRelativeLayout>
 
 
@@ -58,13 +57,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:padding="10sp"
             android:text="@string/th_brick_id"
             android:textColor="@color/text"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:gravity="center"
-            app:layout_widthPercent="25%"></TextView>
+            app:layout_widthPercent="25%" />
 
         <TextView
             android:id="@+id/pb_v_brick"
@@ -74,9 +73,9 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:padding="10sp"
-            android:textSize="13sp"
             android:text="@string/wait_scan"
-            app:layout_widthPercent="50%"></TextView>
+            android:textSize="13sp"
+            app:layout_widthPercent="50%" />
 
         <Button
             android:id="@+id/pb_b_scan_brick"
@@ -86,6 +85,7 @@
             android:layout_weight="1"
             android:text="@string/pb_b_brick"
             app:layout_widthPercent="25%" />
+
     </android.support.percent.PercentRelativeLayout>
 
 
@@ -103,7 +103,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/pb_l_station"
-            app:layout_widthPercent="18%"></TextView>
+            app:layout_widthPercent="18%" />
 
         <TextView
             android:id="@+id/pb_brick_id"
@@ -112,7 +112,7 @@
             android:layout_toRightOf="@+id/pb_l_station"
             android:layout_weight="1"
             android:text="@string/th_brick_id"
-            app:layout_widthPercent="46%"></TextView>
+            app:layout_widthPercent="46%" />
 
         <TextView
             android:id="@+id/pb_length"
@@ -121,21 +121,22 @@
             android:layout_toRightOf="@+id/pb_brick_id"
             android:layout_weight="1"
             android:text="@string/th_length"
-            app:layout_widthPercent="18%"></TextView>
+            app:layout_widthPercent="18%" />
+
         <TextView
-                android:id="@+id/pb_level"
-                style="@style/font_title"
-                android:layout_width="0dp"
-                android:layout_toRightOf="@+id/pb_length"
-                android:layout_weight="1"
-                android:text="@string/th_level"
-                app:layout_widthPercent="18%"></TextView>
+            android:id="@+id/pb_level"
+            style="@style/font_title"
+            android:layout_width="0dp"
+            android:layout_toRightOf="@+id/pb_length"
+            android:layout_weight="1"
+            android:text="@string/th_level"
+            app:layout_widthPercent="18%" />
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pb_product_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false" />
 

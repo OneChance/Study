@@ -17,6 +17,7 @@
     <string name="config_save">保存</string>
     <string name="time_error">设备时间与服务器时间偏差较大,请设置设备当前时间</string>
     <string name="submit_error">提交失败</string>
+    <string name="data_save">已保存</string>
     <string name="server_config_error">服务器信息配置有误</string>
     <string name="submit_data_error">提交数据有误</string>
     <string name="server_error">与服务器通信异常</string>
@@ -33,6 +34,7 @@
     <string name="choose">选择</string>
     <string name="choose_org">选择部门</string>
     <string name="net_disable">当前无网络</string>
+    <string name="wait_choose">请选择</string>
 
     <string name="pbj_tab_name">配棒检</string>
     <string name="pb_tab_name">配棒</string>
@@ -60,6 +62,7 @@
     <string name="product_save_success">保存成功</string>
 
     <!--配棒-->
+    <string name="wait_choose_mtype">请选择机型</string>
     <string name="pb_l_mtype">机型</string>
     <string name="th_brick_id">BrickID</string>
     <string name="th_length">长度</string>
@@ -70,6 +73,7 @@
     <string name="pb_b_submit">提交</string>
     <string name="pb_b_clear">清空</string>
     <string name="different_level">晶砖等级不一致</string>
+    <string name="length_over">长度超出</string>
 
     <!--配棒检-->
     <string name="pbj_l_code">条码</string>
@@ -97,6 +101,7 @@
     <string name="yb_b_submit">提交</string>
     <string name="yb_b_clear">清空</string>
     <string name="yb_l_qps">切片碎</string>
+    <string name="no_cj">槽距数据错误</string>
 
     <!--清洗-->
     <string name="qx_l_llcps">理论出片数</string>

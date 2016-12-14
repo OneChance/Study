@@ -5,8 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +20,7 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.fragment.BaseTagFragment;
+import com.logic.mes.observer.ServerObserver;
 import com.logic.mes.presenter.main.IMain;
 import com.logic.mes.presenter.main.MainPresenter;
 
@@ -34,7 +33,6 @@ import butterknife.InjectView;
 
 public class MainActivity extends AppCompatActivity implements IMain {
 
-    private static FragmentManager fragmentManager;
     Activity activity;
     UserInfo userInfo;
     @InjectView(R.id.toolbar)
@@ -51,11 +49,13 @@ public class MainActivity extends AppCompatActivity implements IMain {
     TextView netState;
     @InjectView(R.id.btn_login_out)
     TextView bLoginOut;
+    @InjectView(R.id.submit_status)
+    TextView submitStatus;
     MainPresenter mainPresenter;
     private Context context;
     ViewPagerAdapter adapter;
 
-    private BroadcastReceiver netStateReceiver;
+    private BroadcastReceiver serverAccessReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +67,15 @@ public class MainActivity extends AppCompatActivity implements IMain {
         activity = this;
         Bundle bundle = this.getIntent().getExtras();
         userInfo = (UserInfo) bundle.getSerializable("userInfo");
+        assert userInfo != null;
         loginUser.setText(userInfo.getUser().getEmpName());
         empNo.setText("[" + userInfo.getUser().getEmpCode() + "]");
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         adapter = new ViewPagerAdapter(fragmentManager);
-        mainPresenter = new MainPresenter(this);
+        mainPresenter = new MainPresenter(this,context);
         mainPresenter.getAuthTags(userInfo);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -109,33 +110,30 @@ public class MainActivity extends AppCompatActivity implements IMain {
         });
 
         //注册网络监听
-        netStateReceiver = new BroadcastReceiver() {
+        serverAccessReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 // TODO Auto-generated method stub
-                ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo activeInfo = manager.getActiveNetworkInfo();
-
-                if (activeInfo == null) {
-                    //网络断开
+                if (MyApplication.netAble && intent.getAction().equals(ServerObserver.SERVER_ERROR)) {
+                    //网络访问失败
                     toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDarkNoNet));
                     MyApplication.netAble = false;
-                    netState.setText(R.string.net_disable);
                     tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryNoNet));
-                    mainPresenter.stopAutoSubmit(context);
                 } else {
-                    MyApplication.netAble = true;
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    netState.setText("");
-                    tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                    mainPresenter.autoSubmitData(context);
+                    if (!MyApplication.netAble && intent.getAction().equals(ServerObserver.SERVER_OK)) {
+                        MyApplication.netAble = true;
+                        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                        tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                        mainPresenter.autoSubmitData();
+                    }
                 }
             }
         };
 
         IntentFilter mFilter = new IntentFilter();
-        mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(netStateReceiver, mFilter);
+        mFilter.addAction(ServerObserver.SERVER_ERROR);
+        mFilter.addAction(ServerObserver.SERVER_OK);
+        registerReceiver(serverAccessReceiver, mFilter);
 
         MyApplication.addActivity(this);
 
@@ -158,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements IMain {
         private final List<BaseTagFragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(android.support.v4.app.FragmentManager manager) {
+        ViewPagerAdapter(android.support.v4.app.FragmentManager manager) {
             super(manager);
         }
 
@@ -194,7 +192,17 @@ public class MainActivity extends AppCompatActivity implements IMain {
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(netStateReceiver);
+        unregisterReceiver(serverAccessReceiver);
+        mainPresenter.stopSubmitData();
         super.onDestroy();
+    }
+
+    public void setStatus(String text, boolean success) {
+        if (success) {
+            submitStatus.setTextColor(getResources().getColor(R.color.success));
+        } else {
+            submitStatus.setTextColor(getResources().getColor(R.color.error));
+        }
+        submitStatus.setText(text);
     }
 }

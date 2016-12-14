@@ -2,7 +2,6 @@ package com.logic.mes.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,9 @@ import android.widget.TextView;
 import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.entity.process.PbjProduct;
-import com.logic.mes.entity.server.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -54,8 +53,6 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     @InjectView(R.id.pbj_dj_group)
     RadioGroup djValue;
 
-
-    FragmentActivity activity;
     IScanReceiver receiver;
     ServerObserver serverObserver;
     Context context;
@@ -80,10 +77,8 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         views.add(brickId);
         views.add(codeValue);
 
-        activity = getActivity();
         receiver = this;
         submitResultReceiver = this;
-        context = getActivity();
 
         serverObserver = new ServerObserver(this, "pbj", activity);
 
@@ -118,7 +113,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
             if (bean != null && bean.getCodeValue() != null && !bean.getCodeValue().equals("")) {
                 new ProcessUtil(context).submit(submitResultReceiver, bean, userInfo.getUser());
             } else {
-                MyApplication.toast(R.string.data_need,false);
+                MyApplication.toast(R.string.data_need, false);
             }
 
         } catch (Exception e) {
@@ -139,13 +134,13 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     @Override
     public void scanReceive(String res, int scanCode) {
         brickId.setText(res);
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res))
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res,"pbj"))
                 .subscribe(serverObserver);
     }
 
     @Override
     public void scanError() {
-        MyApplication.toast(R.string.server_error,false);
+        MyApplication.toast(R.string.server_error, false);
     }
 
     @Override
@@ -177,13 +172,18 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     }
 
     @Override
-    public void serverError() {
+    public void serverError(Throwable e) {
 
     }
 
     @Override
     public void submitOk() {
-        clear();
+        doAfterSumbit(brickId.getText().toString(), true);
+    }
+
+    @Override
+    public void submitError() {
+        doAfterSumbit(brickId.getText().toString(), false);
     }
 
     public PbjProduct createBean(String sfhg) {

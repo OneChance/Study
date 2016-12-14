@@ -19,10 +19,13 @@ public interface IServices {
 
     @FormUrlEncoded
     @POST("intface/getbrick/")
-    public Observable<ServerResult> getBrickInfo(@Field("brickId") String brickId);
+    public Observable<ServerResult> getBrickInfo(@Field("brickId") String brickId, @Field("produceCode") String produceCode);
 
     @POST("intface/bricksubmit/")
     public Observable<ServerResult> brickSubmit(@Body ProcessSubmit data);
+
+    @POST("intface/submitcatch/")
+    public Observable<ServerResult> submitCatch(@Body ProcessSubmit data);
 
     @FormUrlEncoded
     @POST("intface/getbagdata/")

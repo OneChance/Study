@@ -18,7 +18,7 @@ import com.logic.mes.activity.MainActivity;
 import com.logic.mes.entity.base.SysConfig;
 import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.process.QxProduct;
-import com.logic.mes.entity.server.ProcessUtil;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -108,7 +108,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
             @Override
             public void onClick(View v) {
                 if (jzbhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.brickid_scan_first,false);
+                    MyApplication.toast(R.string.brickid_scan_first, false);
                 } else {
                     QxProduct qx = createQx();
                     qx.setCode("qx");
@@ -145,7 +145,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     @Override
     public void scanReceive(String res, int scanCode) {
         jzbhHead.setText(res);
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res))
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res,"qx"))
                 .subscribe(serverObserver);
     }
 
@@ -178,7 +178,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
 
     @Override
     public void scanError() {
-        MyApplication.toast(R.string.server_error,false);
+        MyApplication.toast(R.string.server_error, false);
     }
 
     public void setPbjValue(QxProduct qx) {
@@ -200,7 +200,12 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
 
     @Override
     public void submitOk() {
-        clear();
+        doAfterSumbit(jzbhHead.getText().toString(), true);
+    }
+
+    @Override
+    public void submitError() {
+        doAfterSumbit(jzbhHead.getText().toString(), false);
     }
 
     public QxProduct createQx() {
@@ -246,12 +251,12 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     }
 
     @Override
-    public void serverError() {
+    public void serverError(Throwable e) {
 
     }
 
     /***
-     * @Description 计算总计数
+     * 计算总计数
      */
     @OnTextChanged(value = {R.id.qx_v_ps, R.id.qx_v_bb, R.id.qx_v_yp, R.id.qx_v_jjqxs, R.id.qx_v_sbqxs, R.id.qx_v_qt}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calZj() {
@@ -262,11 +267,11 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         int sbqxsV = DataUtil.getIntValue(sbqxs.getText().toString());
         int qtV = DataUtil.getIntValue(qt.getText().toString());
         int zjV = new BigDecimal(psI).add(new BigDecimal(bbI)).add(new BigDecimal(ypV)).add(new BigDecimal(jjqxsV)).add(new BigDecimal(sbqxsV)).add(new BigDecimal(qtV)).intValue();
-        zj.setText(zjV + "");
+        zj.setText((zjV + ""));
     }
 
     /***
-     * @Description 计算实际出片数
+     * 计算实际出片数
      */
     @OnTextChanged(value = {R.id.qx_v_hs, R.id.qx_v_mhps, R.id.qx_v_ps, R.id.qx_v_bb, R.id.qx_v_yp}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calSjps() {
@@ -276,13 +281,13 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         int bbI = DataUtil.getIntValue(bb.getText().toString());
         int ypI = DataUtil.getIntValue(yp.getText().toString());
         int sjpsI = new BigDecimal(hsI).multiply(new BigDecimal(mhpsI)).add(new BigDecimal(psI)).add(new BigDecimal(bbI)).add(new BigDecimal(ypI)).intValue();
-        sjcps.setText(sjpsI + "");
+        sjcps.setText((sjpsI + ""));
 
         calTJqxs();
     }
 
     /***
-     * @Description 计算理论出片数
+     * 计算理论出片数
      */
     @OnTextChanged(value = {R.id.qx_v_yp}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calLlcps() {
@@ -291,14 +296,14 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         double xwcdI = DataUtil.getDoubleValue(xwcd);
         double cjI = DataUtil.getDoubleValueNotZero(cj);
         int ypI = DataUtil.getIntValue(yp.getText().toString());
-        int llcpsI = new BigDecimal(yxbcI).subtract(new BigDecimal(xwcdI)).divide(new BigDecimal(cjI), 0, BigDecimal.ROUND_HALF_DOWN).subtract(new BigDecimal(ypI)).intValue();
-        llcps.setText(llcpsI + "");
+        int llcpsI = new BigDecimal(yxbcI).subtract(new BigDecimal(xwcdI)).divide(new BigDecimal(cjI), 0, BigDecimal.ROUND_DOWN).subtract(new BigDecimal(ypI)).intValue();
+        llcps.setText((llcpsI + ""));
 
         calTJqxs();
     }
 
     /***
-     * @Description 计算脱胶清洗碎
+     * 计算脱胶清洗碎
      */
     public void calTJqxs() {
         int llcpsI = DataUtil.getIntValue(llcps.getText().toString());
@@ -306,6 +311,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         int offset = DataUtil.getIntValue(sysConfig.getOffset());
 
         int tjqxsI = new BigDecimal(llcpsI).add(new BigDecimal(offset)).subtract(new BigDecimal(sjcpsI)).intValue();
-        jjqxs.setText(tjqxsI + "");
+        jjqxs.setText((tjqxsI + ""));
     }
 }

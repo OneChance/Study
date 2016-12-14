@@ -17,7 +17,7 @@ import com.logic.mes.adapter.ZxListAdapter;
 import com.logic.mes.entity.process.ZxHead;
 import com.logic.mes.entity.process.ZxProduct;
 import com.logic.mes.entity.server.ProcessItem;
-import com.logic.mes.entity.server.ProcessUtil;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -180,7 +180,12 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
 
     @Override
     public void submitOk() {
-        clear();
+        doAfterSumbit(xhHead.getText().toString(), true);
+    }
+
+    @Override
+    public void submitError() {
+        doAfterSumbit(xhHead.getText().toString(), false);
     }
 
     @Override
@@ -224,7 +229,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     }
 
     @Override
-    public void serverError() {
+    public void serverError(Throwable e) {
         fillData();
         waitReceive = false;
     }

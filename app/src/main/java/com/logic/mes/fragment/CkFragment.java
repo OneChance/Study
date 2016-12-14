@@ -18,7 +18,7 @@ import com.logic.mes.R;
 import com.logic.mes.adapter.CkListAdapter;
 import com.logic.mes.entity.process.CkDetail;
 import com.logic.mes.entity.process.CkProduct;
-import com.logic.mes.entity.server.ProcessUtil;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -151,7 +151,12 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
 
     @Override
     public void submitOk() {
-        clear();
+        doAfterSumbit(tmHead.getText().toString(), true);
+    }
+
+    @Override
+    public void submitError() {
+        doAfterSumbit(tmHead.getText().toString(), false);
     }
 
     @Override
@@ -166,12 +171,12 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
 
             int hjInt = hj.getText().equals("") ? 0 : Integer.parseInt(hj.getText().toString());
             hjInt = new BigDecimal(hjInt).add(new BigDecimal(p.getSl())).intValue();
-            hj.setText(hjInt + "");
+            hj.setText((hjInt + ""));
             product.setHj(hjInt + "");
 
             dataAdapter.notifyDataSetChanged();
         } else {
-            MyApplication.toast(R.string.duplicate_data,false);
+            MyApplication.toast(R.string.duplicate_data, false);
         }
     }
 
@@ -190,7 +195,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
     }
 
     @Override
-    public void serverError() {
+    public void serverError(Throwable e) {
 
     }
 

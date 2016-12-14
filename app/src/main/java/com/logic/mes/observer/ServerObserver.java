@@ -1,6 +1,7 @@
 package com.logic.mes.observer;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ public class ServerObserver implements Observer<ServerResult> {
     public TextView textView;
     public String content;
     public String codeNotVali = ",rk,ck,";
+    public static String SERVER_ERROR = "com.mes.logic.SERVER_ERROR";
+    public static String SERVER_OK = "com.mes.logic.SERVER_OK";
 
 
     public ServerObserver(final ServerDataReceiver receiver, String code, Context context) {
@@ -65,59 +68,77 @@ public class ServerObserver implements Observer<ServerResult> {
 
     @Override
     public void onError(Throwable e) {
-        //MyApplication.toast(R.string.server_error, false);
-        receiver.serverError();
-        e.printStackTrace();
+        try {
+            MyApplication.appSendBroadcast(SERVER_ERROR);
+            receiver.serverError(e);
+            e.printStackTrace();
+        } catch (Exception innerE) {
+            innerE.printStackTrace();
+        }
     }
 
     @Override
     public void onNext(ServerResult res) {
 
-        if (res.getCode().equals("1")) {
-            MyApplication.toast(res.getInfo(), false);
-        }
+        try {
+            MyApplication.appSendBroadcast(SERVER_OK);
 
-        receiver.setData(res);
-
-        if (res.getDatas() != null) {
-            if (res.getDatas().getBagDatas() != null && res.getDatas().getBagDatas().size() > 0) {
-
-                Map<String, String> dataMap = res.getDatas().getBagDatas().get(0);
-                String lrsj = dataMap.get(code + "_lrsj");
-
-                //验证是否已经提交过
-                if (lrsj != null && !lrsj.equals("") && context != null && !codeNotVali.contains("," + code + ",")) {
-                    textView.setText(String.format(content, lrsj));
-                    noticeDialog.show();
-                } else {
-                    receiver.serverData();
+            if (res.getCode().equals("1")) {
+                if (res.getInfo() != null && !res.getInfo().equals("")) {
+                    MyApplication.toast(res.getInfo(), false);
                 }
+            } else if (res.getCode().equals("100")) {
+                if (res.getInfo() != null && !res.getInfo().equals("")) {
+                    MyApplication.toast(res.getInfo(), false);
+                }
+
             }
-        } else {
-            receiver.serverData();
+
+            receiver.setData(res);
+
+            if (res.getDatas() != null) {
+                if (res.getDatas().getBagDatas() != null && res.getDatas().getBagDatas().size() > 0) {
+
+                    Map<String, String> dataMap = res.getDatas().getBagDatas().get(0);
+                    String lrsj = dataMap.get(code + "_lrsj");
+
+                    //验证是否已经提交过
+                    if (lrsj != null && !lrsj.equals("") && context != null && !codeNotVali.contains("," + code + ",")) {
+                        textView.setText(String.format(content, lrsj));
+                        noticeDialog.show();
+                    } else {
+                        receiver.serverData();
+                    }
+                }
+            } else {
+                receiver.serverData();
+            }
+        } catch (Exception e) {
+            Log.e("mes_exception", e.getMessage());
         }
     }
 
     public interface ServerDataReceiver {
         /***
+         * 把数据传递给监者
+         *
          * @param res 从服务器获得的数据
-         * @Description 把数据传递给监者
          */
         void setData(ServerResult res);
 
         /***
-         * @Description 通知监听者使用服务器返回的数据
+         * 通知监听者使用服务器返回的数据
          */
         void serverData();
 
         /***
-         * @Description 通知监听者清除数据
+         * 通知监听者响应异常
          */
-        void clear();
+        void serverError(Throwable e);
 
-        /***
-         * @Description 通知监听者响应异常
+        /**
+         * 阻止提交
          */
-        void serverError();
+        void preventSubmit();
     }
 }

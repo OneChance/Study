@@ -1,11 +1,13 @@
-package com.logic.mes.entity.server;
+package com.logic.mes;
 
 import android.content.Context;
 
-import com.logic.mes.MyApplication;
-import com.logic.mes.R;
 import com.logic.mes.entity.base.User;
 import com.logic.mes.entity.process.ProcessBase;
+import com.logic.mes.entity.server.ItemValueConverter;
+import com.logic.mes.entity.server.ProcessItem;
+import com.logic.mes.entity.server.ProcessSubmit;
+import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
@@ -15,12 +17,13 @@ import java.util.List;
 
 public class ProcessUtil implements ServerObserver.ServerDataReceiver {
 
-    ServerObserver serverObserver;
-    Context context;
-    SubmitResultReceiver submitResultReceiver;
-    ServerObserver.ServerDataReceiver serverDataReceiver;
-    SimpleDateFormat sdf;
-    ServerResult data;
+    private ServerObserver serverObserver;
+    private Context context;
+    private SubmitResultReceiver submitResultReceiver;
+    private ServerObserver.ServerDataReceiver serverDataReceiver;
+    private SimpleDateFormat sdf;
+    private ServerResult data;
+    private ProcessSubmit processToSubmit;
 
     public ProcessUtil(Context context) {
         this.context = context;
@@ -60,13 +63,10 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
         }
     }
 
-    public void submitData(ServerObserver serverObserver, ProcessSubmit processSubmit) {
-        if (MyApplication.netAble) {
-            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).brickSubmit(processSubmit))
-                    .subscribe(serverObserver);
-        } else {
-            //添加到提交数据表
-        }
+    private void submitData(ServerObserver serverObserver, ProcessSubmit processSubmit) {
+        processToSubmit = processSubmit;
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).brickSubmit(processSubmit))
+                .subscribe(serverObserver);
     }
 
     @Override
@@ -80,7 +80,6 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
                     if (data.getInfo() != null && !data.getInfo().equals("")) {
                         MyApplication.toast(data.getInfo(), false);
                     }
-                    this.serverError();
                 }
             }
         } catch (Exception e) {
@@ -94,19 +93,20 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
     }
 
     @Override
-    public void clear() {
-
-    }
-
-    @Override
-    public void serverError() {
-        //保存这个工序数据
-
+    public void serverError(Throwable e) {
+        if (processToSubmit != null) {
+            //保存这个工序数据
+            MyApplication.toast(R.string.data_save, true);
+            //DBHelper.getInstance(context).save(processToSubmit);
+            submitResultReceiver.submitError();
+        }
     }
 
 
     public interface SubmitResultReceiver {
         void submitOk();
+
+        void submitError();
     }
 
 }

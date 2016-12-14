@@ -13,9 +13,9 @@ import com.logic.mes.DataUtil;
 import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.entity.process.YbProduct;
-import com.logic.mes.entity.server.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -55,12 +55,14 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     @InjectView(R.id.yb_v_zqbb)
     EditText zqbb;
     @InjectView(R.id.yb_v_qps)
-    TextView qps;
+    EditText qps;
 
     FragmentActivity activity;
     IScanReceiver receiver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
     ServerObserver serverObserver;
+
+    String cj = "";
 
     @Override
     public void setReceiver() {
@@ -87,7 +89,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
             @Override
             public void onClick(View v) {
                 if (jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.brickid_scan_first,false);
+                    MyApplication.toast(R.string.brickid_scan_first, false);
                 } else {
                     YbProduct yb = createYb();
                     new ProcessUtil(activity).submit(submitResultReceiver, yb, userInfo.getUser());
@@ -109,6 +111,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setNoKeyboard(kxs);
         EditTextUtil.setNoKeyboard(lds);
         EditTextUtil.setNoKeyboard(zqbb);
+        EditTextUtil.setNoKeyboard(qps);
 
         return view;
     }
@@ -116,12 +119,13 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     @Override
     public void scanReceive(String res, int scanCode) {
         jzbh.setText(res);
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res))
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res,"yb"))
                 .subscribe(serverObserver);
     }
 
     @Override
     public void serverData() {
+        cj = data.getVal("qp_cj");
         EditTextUtil.setTextEnd(yzd, data.getVal("yb_yzd"));
         EditTextUtil.setTextEnd(hbp, data.getVal("yb_hbp"));
         EditTextUtil.setTextEnd(zb, data.getVal("yb_zb"));
@@ -133,7 +137,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
     @Override
     public void scanError() {
-        MyApplication.toast(R.string.server_error,false);
+        MyApplication.toast(R.string.server_error, false);
     }
 
     public void setPbjValue(YbProduct yb) {
@@ -149,7 +153,12 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
     @Override
     public void submitOk() {
-        clear();
+        doAfterSumbit(jzbh.getText().toString(), true);
+    }
+
+    @Override
+    public void submitError() {
+        doAfterSumbit(jzbh.getText().toString(), false);
     }
 
     public YbProduct createYb() {
@@ -182,15 +191,16 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         kxs.setText("");
         lds.setText("");
         zqbb.setText("");
+        qps.setText("");
     }
 
     @Override
-    public void serverError() {
+    public void serverError(Throwable e) {
 
     }
 
     /***
-     * @Description 计算切片碎
+     * 计算切片碎
      */
     @OnTextChanged(value = {R.id.yb_v_yzd, R.id.yb_v_hbp, R.id.yb_v_zb, R.id.yb_v_dp, R.id.yb_v_kxs, R.id.yb_v_lds, R.id.yb_v_zqbb}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calQps() {
@@ -202,7 +212,15 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         int ldsI = DataUtil.getIntValue(lds.getText().toString());
         int zqbbI = DataUtil.getIntValue(zqbb.getText().toString());
 
-        int qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).intValue();
-        qps.setText(qpsI + "");
+        int qpsI = 0;
+
+        if (!cj.equals("")) {
+            qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).divide(new BigDecimal(cj), 0, BigDecimal.ROUND_DOWN).intValue();
+        } else {
+            qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).intValue();
+        }
+
+        qps.setText((qpsI + ""));
+
     }
 }
