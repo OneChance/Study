@@ -225,7 +225,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         } else if (scanCode == SCAN_CODE_PRODUCT) {
             //取产品信息
             brick.setText(res);
-            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res,"pb"))
+            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res, "pb"))
                     .subscribe(serverObserver);
         }
     }
@@ -275,6 +275,16 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     @Override
     public void serverError(Throwable e) {
 
+    }
+
+    @Override
+    public void preventSubmit() {
+        submit.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void ableSubmit() {
+        submit.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -26,9 +26,9 @@ public class MainPresenter {
             @Override
             public void run() {
                 DataAutoSubmit.getInstance().autoSubmit(context);
-                try{
-                    Thread.sleep(30*60*1000);
-                }catch (Exception e){
+                try {
+                    Thread.sleep(30 * 60 * 1000);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -36,7 +36,7 @@ public class MainPresenter {
     }
 
     public void getAuthTags(UserInfo userInfo) {
-        List<BaseTagFragment> tags = FragmentFactory.getFragmentsByProcesses(userInfo.getProduceDef());
+        List<BaseTagFragment> tags = FragmentFactory.getInstance().getFragmentsByProcesses(userInfo.getProduceDef());
         iMain.setTags(tags);
     }
 
@@ -48,7 +48,7 @@ public class MainPresenter {
         });
     }
 
-    public void stopSubmitData(){
+    public void stopSubmitData() {
         timeingSubmit.interrupt();
         cachedThreadPool.shutdownNow();
     }

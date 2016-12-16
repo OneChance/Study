@@ -233,4 +233,14 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         fillData();
         waitReceive = false;
     }
+
+    @Override
+    public void preventSubmit() {
+        submit.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void ableSubmit() {
+        submit.setVisibility(View.VISIBLE);
+    }
 }

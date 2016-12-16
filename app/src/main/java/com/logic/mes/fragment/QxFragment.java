@@ -313,4 +313,14 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         int tjqxsI = new BigDecimal(llcpsI).add(new BigDecimal(offset)).subtract(new BigDecimal(sjcpsI)).intValue();
         jjqxs.setText((tjqxsI + ""));
     }
+
+    @Override
+    public void preventSubmit() {
+        bSubmit.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void ableSubmit() {
+        bSubmit.setVisibility(View.VISIBLE);
+    }
 }

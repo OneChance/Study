@@ -2,6 +2,7 @@ package com.logic.mes;
 
 import android.content.Context;
 
+import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.base.User;
 import com.logic.mes.entity.process.ProcessBase;
 import com.logic.mes.entity.server.ItemValueConverter;
@@ -64,9 +65,15 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
     }
 
     private void submitData(ServerObserver serverObserver, ProcessSubmit processSubmit) {
+
         processToSubmit = processSubmit;
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).brickSubmit(processSubmit))
-                .subscribe(serverObserver);
+
+        if (MyApplication.netAble) {
+            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).brickSubmit(processSubmit))
+                    .subscribe(serverObserver);
+        } else {
+            DBHelper.getInstance(context).save(processSubmit);
+        }
     }
 
     @Override
@@ -97,9 +104,19 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
         if (processToSubmit != null) {
             //保存这个工序数据
             MyApplication.toast(R.string.data_save, true);
-            //DBHelper.getInstance(context).save(processToSubmit);
+            DBHelper.getInstance(context).save(processToSubmit);
             submitResultReceiver.submitError();
         }
+    }
+
+    @Override
+    public void preventSubmit() {
+
+    }
+
+    @Override
+    public void ableSubmit() {
+
     }
 
 

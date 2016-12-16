@@ -8,17 +8,27 @@ import java.util.List;
 
 public class FragmentFactory {
 
-    private static PbjFragment pbjFragment;
-    private static PbFragment pbFragment;
-    private static YbFragment ybFragment;
-    private static QxFragment qxFragment;
-    private static QgsfhFragment qgsfhFragment;
-    private static ZxFragment zxFragment;
-    private static ZtFragment ztFragment;
-    private static RkFragment rkFragment;
-    private static CkFragment ckFragment;
+    private PbjFragment pbjFragment;
+    private PbFragment pbFragment;
+    private YbFragment ybFragment;
+    private QxFragment qxFragment;
+    private QgsfhFragment qgsfhFragment;
+    private ZxFragment zxFragment;
+    private ZtFragment ztFragment;
+    private RkFragment rkFragment;
+    private CkFragment ckFragment;
+    private JbFragment jbFragment;
 
-    public static List<BaseTagFragment> getFragmentsByProcesses(List<ProduceDef> produceDefs) {
+    private static FragmentFactory fragmentFactory;
+
+    public static FragmentFactory getInstance() {
+        if (fragmentFactory == null) {
+            fragmentFactory = new FragmentFactory();
+        }
+        return fragmentFactory;
+    }
+
+    public List<BaseTagFragment> getFragmentsByProcesses(List<ProduceDef> produceDefs) {
         List<BaseTagFragment> tags = new ArrayList<>();
 
         for (ProduceDef p : produceDefs) {
@@ -28,7 +38,7 @@ public class FragmentFactory {
         return tags;
     }
 
-    public static BaseTagFragment createFragment(int pid) {
+    private BaseTagFragment createFragment(int pid) {
 
         switch (pid) {
             case 2:
@@ -49,6 +59,8 @@ public class FragmentFactory {
                 return (rkFragment == null ? rkFragment = new RkFragment() : rkFragment);
             case 17:
                 return (ckFragment == null ? ckFragment = new CkFragment() : ckFragment);
+            case 18:
+                return (jbFragment == null ? jbFragment = new JbFragment() : jbFragment);
             default:
                 return new BaseTagFragment();
         }

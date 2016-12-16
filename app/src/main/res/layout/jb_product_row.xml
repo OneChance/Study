@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dividers"
+        android:clickable="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/jb_v_station"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:text=""
+            app:layout_widthPercent="18%" />
+
+        <TextView
+            android:id="@+id/jb_brick_id"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:layout_toRightOf="@+id/jb_v_station"
+            android:lines="2"
+            android:text=""
+            app:layout_widthPercent="46%" />
+
+        <TextView
+            android:id="@+id/jb_length"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:layout_toRightOf="@+id/jb_brick_id"
+            android:text=""
+            app:layout_widthPercent="18%" />
+
+        <TextView
+            android:id="@+id/jb_level"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:layout_toRightOf="@+id/jb_length"
+            android:text=""
+            app:layout_widthPercent="18%" />
+    </android.support.percent.PercentRelativeLayout>
+</FrameLayout>

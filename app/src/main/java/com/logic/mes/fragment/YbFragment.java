@@ -223,4 +223,14 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         qps.setText((qpsI + ""));
 
     }
+
+    @Override
+    public void preventSubmit() {
+        bSubmit.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void ableSubmit() {
+        bSubmit.setVisibility(View.VISIBLE);
+    }
 }

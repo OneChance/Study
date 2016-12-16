@@ -229,4 +229,14 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     public String calWithCj(String old) {
         return new BigDecimal(old).divide(new BigDecimal(cj), BigDecimal.ROUND_DOWN).toString();
     }
+
+    @Override
+    public void preventSubmit() {
+        bSubmit.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void ableSubmit() {
+        bSubmit.setVisibility(View.VISIBLE);
+    }
 }

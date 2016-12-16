@@ -1,7 +1,6 @@
 package com.logic.mes.observer;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,10 +19,10 @@ public class ServerObserver implements Observer<ServerResult> {
     public ServerDataReceiver receiver;
     public String code;
     public Context context;
-    public MaterialDialog noticeDialog;
-    public TextView textView;
+    private MaterialDialog noticeDialog;
+    private TextView textView;
     public String content;
-    public String codeNotVali = ",rk,ck,";
+    private String codeNotVali = ",rk,ck,";
     public static String SERVER_ERROR = "com.mes.logic.SERVER_ERROR";
     public static String SERVER_OK = "com.mes.logic.SERVER_OK";
 
@@ -70,6 +69,7 @@ public class ServerObserver implements Observer<ServerResult> {
     public void onError(Throwable e) {
         try {
             MyApplication.appSendBroadcast(SERVER_ERROR);
+            receiver.ableSubmit();
             receiver.serverError(e);
             e.printStackTrace();
         } catch (Exception innerE) {
@@ -83,27 +83,26 @@ public class ServerObserver implements Observer<ServerResult> {
         try {
             MyApplication.appSendBroadcast(SERVER_OK);
 
-            if (res.getCode().equals("1")) {
-                if (res.getInfo() != null && !res.getInfo().equals("")) {
-                    MyApplication.toast(res.getInfo(), false);
-                }
-            } else if (res.getCode().equals("100")) {
-                if (res.getInfo() != null && !res.getInfo().equals("")) {
-                    MyApplication.toast(res.getInfo(), false);
-                }
+            if (res.getInfo() != null && !res.getInfo().equals("")) {
+                MyApplication.toast(res.getInfo(), false);
+            }
 
+            if (!res.getCode().equals("0")) {
+                receiver.preventSubmit();
+            } else {
+                receiver.ableSubmit();
             }
 
             receiver.setData(res);
 
             if (res.getDatas() != null) {
-                if (res.getDatas().getBagDatas() != null && res.getDatas().getBagDatas().size() > 0) {
+                if (res.getDatas().getBagDatas() != null && res.getDatas().getBagDatas().size() > 0 && !codeNotVali.contains("," + code + ",")) {
 
                     Map<String, String> dataMap = res.getDatas().getBagDatas().get(0);
                     String lrsj = dataMap.get(code + "_lrsj");
 
                     //验证是否已经提交过
-                    if (lrsj != null && !lrsj.equals("") && context != null && !codeNotVali.contains("," + code + ",")) {
+                    if (lrsj != null && !lrsj.equals("") && context != null) {
                         textView.setText(String.format(content, lrsj));
                         noticeDialog.show();
                     } else {
@@ -113,8 +112,9 @@ public class ServerObserver implements Observer<ServerResult> {
             } else {
                 receiver.serverData();
             }
+
         } catch (Exception e) {
-            Log.e("mes_exception", e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -137,8 +137,13 @@ public class ServerObserver implements Observer<ServerResult> {
         void serverError(Throwable e);
 
         /**
-         * 阻止提交
+         * 通知监听者阻止提交
          */
         void preventSubmit();
+
+        /**
+         * 通知监听者允许提交
+         */
+        void ableSubmit();
     }
 }

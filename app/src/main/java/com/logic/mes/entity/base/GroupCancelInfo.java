@@ -1,6 +1,16 @@
-package com.logic.mes.entity.server;
+package com.logic.mes.entity.base;
 
-public class ProcessItem {
+
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.annotation.Table;
+import com.litesuits.orm.db.enums.AssignType;
+
+import java.io.Serializable;
+
+@Table("group_cancel_info")
+public class GroupCancelInfo implements Serializable {
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
+    private int id;
 
     private String itemKey;
     private String itemValue;
@@ -28,5 +38,13 @@ public class ProcessItem {
 
     public void setValueType(String valueType) {
         this.valueType = valueType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

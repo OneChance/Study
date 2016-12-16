@@ -17,23 +17,20 @@
             android:text="@string/brick_id"
             android:textColor="@color/text"
             android:textSize="15sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/pbj_brick_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10sp"
-            android:text="@string/wait_scan"></TextView>
+            android:text="@string/wait_scan" />
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/pbj_scroll_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -55,7 +52,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/pbj_l_code"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
 
                 <TextView
@@ -65,7 +62,7 @@
                     android:layout_toRightOf="@+id/pbj_l_code"
                     android:layout_weight="1"
                     android:text=""
-                    app:layout_widthPercent="70%"></TextView>
+                    app:layout_widthPercent="70%" />
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -82,7 +79,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/pbj_l_bb"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/pbj_v_bb_wrapper"
@@ -100,7 +97,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -119,7 +116,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/pbj_l_zcbc"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/pbj_v_zcbc_wrapper"
@@ -137,7 +134,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -155,7 +152,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/pbj_l_zdbc"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/pbj_v_zdbc_wrapper"
@@ -173,7 +170,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -191,7 +188,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/pbj_l_yxbc"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/pbj_v_yxbc_wrapper"
@@ -209,7 +206,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -227,7 +224,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/pbj_l_size"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/pbj_v_size_wrapper"
@@ -245,7 +242,7 @@
                         android:text=""
                         android:textColor="@color/text"
                         android:textSize="15sp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -263,7 +260,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/pbj_l_dj"
-                    app:layout_widthPercent="30%"></TextView>
+                    app:layout_widthPercent="30%" />
 
                 <LinearLayout
                     android:id="@+id/pbj_v_dj"
@@ -275,7 +272,6 @@
                         android:id="@+id/pbj_dj_group"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:contentDescription="性别"
                         android:gravity="center_horizontal"
                         android:orientation="horizontal">
 
@@ -285,14 +281,14 @@
                             android:layout_height="wrap_content"
                             android:checked="true"
                             android:text="@string/pbj_dj_yes"
-                            android:textColor="@color/text"></RadioButton>
+                            android:textColor="@color/text" />
 
                         <RadioButton
                             android:id="@+id/dj_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/pbj_dj_no"
-                            android:textColor="@color/text"></RadioButton>
+                            android:textColor="@color/text" />
                     </RadioGroup>
 
                 </LinearLayout>

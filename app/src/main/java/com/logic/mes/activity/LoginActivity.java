@@ -75,7 +75,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
             public void onClick(View v) {
                 //输入登陆
                 if (empNo.getText() == null || empNo.getText().toString().equals("")) {
-                    MyApplication.toast(R.string.need_emp_no,false);
+                    MyApplication.toast(R.string.need_emp_no, false);
                 } else {
                     loginDisable();
                     scanReceive(empNo.getText().toString(), 0);
@@ -144,6 +144,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
         LoginObserver.currentInputCode = scanResult;
         NetUtil.SetObserverCommonAction(NetUtil.getServices(true).Login(scanResult))
                 .subscribe(loginObserver);
+        loadingText.setText(R.string.logining);
     }
 
     @Override

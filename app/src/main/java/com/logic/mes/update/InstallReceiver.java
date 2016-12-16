@@ -2,14 +2,21 @@ package com.logic.mes.update;
 
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.logic.mes.MyApplication;
 import com.logic.mes.PrefsConsts;
+
+import java.util.List;
 
 public class InstallReceiver extends BroadcastReceiver {
 
@@ -18,6 +25,15 @@ public class InstallReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
             long downloadApkId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             installApk(context, downloadApkId);
+        }
+        if (intent.getAction().equals("android.intent.action.PACKAGE_ADDED")) {
+            String packageName = intent.getDataString();
+
+            Log.d("mes", "-------------" + packageName);
+
+            if (packageName.equals("com.logic.ms")) {
+                runApp(packageName, context);
+            }
         }
     }
 
@@ -38,6 +54,29 @@ public class InstallReceiver extends BroadcastReceiver {
             } else {
                 MyApplication.toast("下载失败", false);
             }
+        }
+    }
+
+    private void runApp(String packageName, Context context) {
+        PackageManager pm;
+        PackageInfo pi;
+        try {
+            pm = context.getPackageManager();
+            pi = pm.getPackageInfo(packageName, 0);
+            Intent intent = new Intent(Intent.ACTION_MAIN, null);
+            intent.setPackage(pi.packageName);
+            List<ResolveInfo> apps = pm.queryIntentActivities(intent, 0);
+            ResolveInfo ri = apps.iterator().next();
+            if (ri != null) {
+                packageName = ri.activityInfo.packageName;
+                String className = ri.activityInfo.name;
+                Intent startIntent = new Intent(Intent.ACTION_MAIN);
+                ComponentName cn = new ComponentName(packageName, className);
+                startIntent.setComponent(cn);
+                context.startActivity(startIntent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

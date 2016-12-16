@@ -54,3 +54,6 @@ local.properties
 mes.iml
 app/gradle.properties
 app/app.iml
+app/app.iml
+*.apk
+app/app.iml

@@ -134,7 +134,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     @Override
     public void scanReceive(String res, int scanCode) {
         brickId.setText(res);
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res,"pbj"))
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res, "pbj"))
                 .subscribe(serverObserver);
     }
 
@@ -209,5 +209,17 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         pbj.setDjValue(dj);
         pbj.setSfhg(sfhg);
         return pbj;
+    }
+
+    @Override
+    public void preventSubmit() {
+        bQuali.setVisibility(View.INVISIBLE);
+        bUnquali.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void ableSubmit() {
+        bQuali.setVisibility(View.VISIBLE);
+        bUnquali.setVisibility(View.VISIBLE);
     }
 }

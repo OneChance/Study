@@ -228,4 +228,14 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
     public void submitError() {
         doAfterSumbit(thHead.getText().toString(), false);
     }
+
+    @Override
+    public void preventSubmit() {
+        submit.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void ableSubmit() {
+        submit.setVisibility(View.VISIBLE);
+    }
 }

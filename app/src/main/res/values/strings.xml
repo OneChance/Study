@@ -3,6 +3,7 @@
     <!-- 登陆 -->
     <string name="login_error">登录异常</string>
     <string name="login">登录</string>
+    <string name="logining">登录中</string>
     <string name="need_emp_no">请输入员工号</string>
     <string name="scan_emp_no">扫描员工号</string>
     <string name="emp_no">员工号</string>
@@ -35,9 +36,11 @@
     <string name="choose_org">选择部门</string>
     <string name="net_disable">当前无网络</string>
     <string name="wait_choose">请选择</string>
+    <string name="form_required">请完善表单</string>
 
     <string name="pbj_tab_name">配棒检</string>
     <string name="pb_tab_name">配棒</string>
+    <string name="jb_tab_name">解棒</string>
     <string name="yb_tab_name">验棒</string>
     <string name="qx_tab_name">清洗</string>
     <string name="qgsfh_tab_name">切割碎复核</string>
@@ -173,4 +176,10 @@
     <string name="ck_l_hj">合计</string>
     <string name="ck_b_submit">提交</string>
     <string name="ck_b_clear">清空</string>
+
+    <!--解棒 -->
+    <string name="jb_l_reason">解棒原因</string>
+    <string name="jb_ratio_kz">可粘</string>
+    <string name="jb_ratio_bf">报废</string>
+    <string name="jb_b_submit">解绑</string>
 </resources>

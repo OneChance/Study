@@ -209,4 +209,14 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
 
         return false;
     }
+
+    @Override
+    public void preventSubmit() {
+        submit.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void ableSubmit() {
+        submit.setVisibility(View.VISIBLE);
+    }
 }

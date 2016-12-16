@@ -1,7 +1,11 @@
 package com.logic.mes.net;
 
+import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.GsonConverterFactory;
@@ -24,7 +28,7 @@ public class NetUtil {
             if (services == null) {
                 client = new OkHttpClient();
                 client.setConnectTimeout(NetConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS);
-                /*client.interceptors().add(new Interceptor() {
+                client.interceptors().add(new Interceptor() {
 
                     @Override
                     public Response intercept(Chain chain) throws IOException {
@@ -36,7 +40,7 @@ public class NetUtil {
 
                         return chain.proceed(request);
                     }
-                });*/
+                });
             }
 
             if (rebuild) {

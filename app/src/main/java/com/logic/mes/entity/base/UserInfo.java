@@ -45,6 +45,15 @@ public class UserInfo implements Serializable {
 
     List<Org> orgs;
 
+    List<GroupCancelInfo> groupCancelInfo;
+
+    public List<GroupCancelInfo> getGroupCancelInfo() {
+        return groupCancelInfo;
+    }
+
+    public void setGroupCancelInfo(List<GroupCancelInfo> groupCancelInfo) {
+        this.groupCancelInfo = groupCancelInfo;
+    }
 
     public int getId() {
         return id;
