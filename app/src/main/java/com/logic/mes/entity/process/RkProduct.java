@@ -1,11 +1,7 @@
 package com.logic.mes.entity.process;
 
 
-import com.litesuits.orm.db.annotation.MapCollection;
-import com.litesuits.orm.db.annotation.Mapping;
-import com.litesuits.orm.db.enums.Relation;
 import com.logic.mes.entity.server.ItemCol;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +11,6 @@ public class RkProduct extends ProcessBase {
     private String jzrq;
     private String hj;
 
-    @Mapping(Relation.OneToMany)
-    @MapCollection(ArrayList.class)
     private List<RkDetail> detailList;
 
     public RkProduct() {

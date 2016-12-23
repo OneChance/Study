@@ -1,14 +1,7 @@
 package com.logic.mes.entity.process;
 
 
-import com.litesuits.orm.db.annotation.MapCollection;
-import com.litesuits.orm.db.annotation.Mapping;
-import com.litesuits.orm.db.annotation.PrimaryKey;
-import com.litesuits.orm.db.annotation.Table;
-import com.litesuits.orm.db.enums.AssignType;
-import com.litesuits.orm.db.enums.Relation;
 import com.logic.mes.entity.server.ItemCol;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +12,9 @@ public class CkProduct extends ProcessBase {
     @ItemCol(col = "jzrq")
     private String jzrq;
     private String hj;
+    @ItemCol(col = "dh")
+    private String bill;
 
-    @Mapping(Relation.OneToMany)
-    @MapCollection(ArrayList.class)
     private List<CkDetail> detailList;
 
     public CkProduct() {
@@ -58,5 +51,13 @@ public class CkProduct extends ProcessBase {
 
     public void setDetailList(List<CkDetail> detailList) {
         this.detailList = detailList;
+    }
+
+    public String getBill() {
+        return bill;
+    }
+
+    public void setBill(String bill) {
+        this.bill = bill;
     }
 }

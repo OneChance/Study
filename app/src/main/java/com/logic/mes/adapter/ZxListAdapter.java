@@ -48,6 +48,7 @@ public class ZxListAdapter extends RecyclerView.Adapter<ZxListAdapter.ViewHolder
         final ZxProduct p = list.get(position);
         holder.xh.setText(p.getXh());
         holder.hh.setText(p.getHh());
+        holder.level.setText(p.getLevel());
     }
 
     @Override
@@ -70,6 +71,8 @@ public class ZxListAdapter extends RecyclerView.Adapter<ZxListAdapter.ViewHolder
         public TextView xh;
         @InjectView(R.id.zx_v_hh)
         public TextView hh;
+        @InjectView(R.id.zx_v_level)
+        public TextView level;
         @InjectView(R.id.zx_delete_button)
         public TextView deleteButton;
 

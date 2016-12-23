@@ -1,6 +1,14 @@
 package com.logic.mes.entity.server;
 
-public class ProcessItem {
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.enums.AssignType;
+
+import java.io.Serializable;
+
+public class ProcessItem implements Serializable {
+
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
+    private Long id;
 
     private String itemKey;
     private String itemValue;
@@ -28,5 +36,13 @@ public class ProcessItem {
 
     public void setValueType(String valueType) {
         this.valueType = valueType;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

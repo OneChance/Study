@@ -11,6 +11,8 @@ public class ZtProduct {
     @ItemKey()
     private String xh;
 
+    private String db;
+
     public String getTh() {
         return th;
     }
@@ -25,5 +27,13 @@ public class ZtProduct {
 
     public void setXh(String xh) {
         this.xh = xh;
+    }
+
+    public String getDb() {
+        return db;
+    }
+
+    public void setDb(String db) {
+        this.db = db;
     }
 }

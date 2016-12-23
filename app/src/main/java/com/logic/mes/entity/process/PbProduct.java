@@ -1,12 +1,8 @@
 package com.logic.mes.entity.process;
 
 
-import com.litesuits.orm.db.annotation.MapCollection;
-import com.litesuits.orm.db.annotation.Mapping;
-import com.litesuits.orm.db.enums.Relation;
 import com.logic.mes.entity.server.ItemCol;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PbProduct extends ProcessBase {
@@ -16,8 +12,6 @@ public class PbProduct extends ProcessBase {
     @ItemCol(col = "xwcd")
     private String xwcd;
 
-    @Mapping(Relation.OneToMany)
-    @MapCollection(ArrayList.class)
     private List<PbDetail> detailList;
 
     public String getJx() {

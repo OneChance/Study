@@ -1,4 +1,4 @@
-package com.logic.mes.net;
+package com.logic.mes;
 
 import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
@@ -10,12 +10,23 @@ import java.io.Serializable;
 public class ServerConfig implements Serializable {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
-    public String ip;
-    public String port;
+    private String ip;
+    private String port;
+    private String machineCode;
 
-    public ServerConfig(String ip, String port) {
+
+    public ServerConfig(String ip, String port, String machineCode) {
         this.ip = ip;
         this.port = port;
+        this.machineCode = machineCode;
+    }
+
+    public String getMachineCode() {
+        return machineCode;
+    }
+
+    public void setMachineCode(String machineCode) {
+        this.machineCode = machineCode;
     }
 
     public String getIp() {

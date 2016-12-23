@@ -7,7 +7,6 @@ public class PbjProduct extends ProcessBase {
 
     @ItemKey()
     private String brickId;
-    private String codeValue;
     @ItemCol(col = "bb")
     private String bbValue;
     @ItemCol(col = "zcbc")
@@ -37,14 +36,6 @@ public class PbjProduct extends ProcessBase {
 
     public void setBrickId(String brickId) {
         this.brickId = brickId;
-    }
-
-    public String getCodeValue() {
-        return codeValue;
-    }
-
-    public void setCodeValue(String codeValue) {
-        this.codeValue = codeValue;
     }
 
     public String getBbValue() {

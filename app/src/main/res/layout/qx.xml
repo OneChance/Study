@@ -17,7 +17,7 @@
                 android:text="@string/l_jzbh"
                 android:textColor="@color/text"
                 android:textSize="15sp"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold"/>
 
         <TextView
                 android:id="@+id/qx_v_jzbh_head"
@@ -25,16 +25,13 @@
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
                 android:padding="10sp"
-                android:text="@string/wait_scan"></TextView>
+                android:text="@string/wait_scan"/>
     </LinearLayout>
 
     <ScrollView
             android:id="@+id/qx_scroll_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:layout_height="0dp"
             android:layout_weight="1">
 
         <LinearLayout
@@ -42,13 +39,14 @@
                 android:layout_height="0dp"
                 android:orientation="vertical">
 
-            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+            <android.support.percent.PercentRelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                 <TextView
                         android:id="@+id/qx_l_station"
@@ -56,7 +54,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/station"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
                 <TextView
                         android:id="@+id/qx_v_station"
@@ -65,18 +63,19 @@
                         android:layout_toRightOf="@+id/qx_l_station"
                         android:layout_weight="1"
                         android:text=""
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
             </android.support.percent.PercentRelativeLayout>
 
 
-            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+            <android.support.percent.PercentRelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                 <TextView
                         android:id="@+id/qx_l_jzbh"
@@ -84,7 +83,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/l_jzbh"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
                 <TextView
                         android:id="@+id/qx_v_jzbh"
@@ -93,16 +92,17 @@
                         android:layout_toRightOf="@+id/qx_l_jzbh"
                         android:layout_weight="1"
                         android:text=""
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
             </android.support.percent.PercentRelativeLayout>
 
-            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+            <android.support.percent.PercentRelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                 <TextView
                         android:id="@+id/qx_l_llcps"
@@ -113,7 +113,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_weight="1"
                         android:text="@string/qx_l_llcps"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
                 <TextView
                         android:id="@+id/qx_v_llcps"
@@ -122,7 +122,7 @@
                         android:layout_toRightOf="@+id/qx_l_llcps"
                         android:layout_weight="1"
                         android:text=""
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
             </android.support.percent.PercentRelativeLayout>
 
@@ -139,7 +139,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/qx_l_sjps"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
                 <LinearLayout
                         android:id="@+id/qx_v_sjcps_wrapper"
@@ -157,7 +157,7 @@
                             android:text=""
                             android:textColor="@color/text"
                             android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                            android:textStyle="bold"/>
                 </LinearLayout>
 
             </android.support.percent.PercentRelativeLayout>
@@ -176,7 +176,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/qx_l_hs"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
                 <LinearLayout
                         android:id="@+id/qx_v_hs_wrapper"
@@ -194,7 +194,7 @@
                             android:text=""
                             android:textColor="@color/text"
                             android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                            android:textStyle="bold"/>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -211,7 +211,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/qx_l_mhps"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
                 <LinearLayout
                         android:id="@+id/qx_v_mhhs_wrapper"
@@ -229,7 +229,7 @@
                             android:text=""
                             android:textColor="@color/text"
                             android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                            android:textStyle="bold"/>
                 </LinearLayout>
 
 
@@ -248,7 +248,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/qx_l_ps"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
                 <LinearLayout
                         android:id="@+id/qx_v_ps_wrapper"
@@ -266,7 +266,7 @@
                             android:text=""
                             android:textColor="@color/text"
                             android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                            android:textStyle="bold"/>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -283,7 +283,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/qx_l_bb"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
                 <LinearLayout
                         android:id="@+id/qx_v_bb_wrapper"
@@ -301,7 +301,7 @@
                             android:text=""
                             android:textColor="@color/text"
                             android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                            android:textStyle="bold"/>
                 </LinearLayout>
 
             </android.support.percent.PercentRelativeLayout>
@@ -320,7 +320,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/qx_l_yp"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
                 <LinearLayout
                         android:id="@+id/qx_v_yp_wrapper"
@@ -338,7 +338,7 @@
                             android:text=""
                             android:textColor="@color/text"
                             android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                            android:textStyle="bold"/>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -359,7 +359,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_weight="1"
                         android:text="@string/qx_l_jjqxs"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
 
                 <LinearLayout
@@ -378,18 +378,19 @@
                             android:text=""
                             android:textColor="@color/text"
                             android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                            android:textStyle="bold"/>
                 </LinearLayout>
 
             </android.support.percent.PercentRelativeLayout>
 
-            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+            <android.support.percent.PercentRelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                 <TextView
                         android:id="@+id/qx_l_sbqxs"
@@ -397,7 +398,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/qx_l_qxsbs"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
 
                 <LinearLayout
@@ -416,7 +417,7 @@
                             android:text=""
                             android:textColor="@color/text"
                             android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                            android:textStyle="bold"/>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
@@ -435,7 +436,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="@string/qx_l_zqqss"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
 
                 <LinearLayout
@@ -454,18 +455,19 @@
                             android:text=""
                             android:textColor="@color/text"
                             android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                            android:textStyle="bold"/>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
 
-            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+            <android.support.percent.PercentRelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                 <TextView
                         android:id="@+id/qx_l_qt"
@@ -476,7 +478,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_weight="1"
                         android:text="@string/qx_l_qt"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
                 <LinearLayout
                         android:id="@+id/qx_v_qt_wrapper"
@@ -494,17 +496,18 @@
                             android:text=""
                             android:textColor="@color/text"
                             android:textSize="15sp"
-                            android:textStyle="bold"></EditText>
+                            android:textStyle="bold"/>
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
-            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                           android:layout_width="match_parent"
-                                                           android:layout_height="40dp"
-                                                           android:background="@color/dividers"
-                                                           android:gravity="center"
-                                                           android:orientation="horizontal">
+            <android.support.percent.PercentRelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/dividers"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                 <TextView
                         android:id="@+id/qx_l_zj"
@@ -515,7 +518,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_weight="1"
                         android:text="@string/qx_l_zj"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
 
 
                 <TextView
@@ -525,7 +528,7 @@
                         android:layout_toRightOf="@+id/qx_l_zj"
                         android:layout_weight="1"
                         android:text="0"
-                        app:layout_widthPercent="50%"></TextView>
+                        app:layout_widthPercent="50%"/>
             </android.support.percent.PercentRelativeLayout>
         </LinearLayout>
     </ScrollView>

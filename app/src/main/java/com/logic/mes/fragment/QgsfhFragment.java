@@ -2,6 +2,7 @@ package com.logic.mes.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,7 +120,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     @Override
     public void scanReceive(String res, int scanCode) {
         jzbh.setText(res);
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res,"qgs"))
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res, "qgs"))
                 .subscribe(serverObserver);
     }
 
@@ -128,7 +129,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
 
         cj = data.getVal("qp_cj");
 
-        if (cj.equals("")) {
+        if (cjError(cj)) {
             MyApplication.toast(R.string.no_cj, false);
         } else {
             EditTextUtil.setTextEnd(yzd, calWithCj(data.getRelVal("yb", "qgs", "yzd")));
@@ -227,7 +228,11 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
      * @return 返回除以槽距后的值
      */
     public String calWithCj(String old) {
-        return new BigDecimal(old).divide(new BigDecimal(cj), BigDecimal.ROUND_DOWN).toString();
+        if (cjError(cj)) {
+            return old;
+        } else {
+            return new BigDecimal(old).divide(new BigDecimal(cj), BigDecimal.ROUND_DOWN).toString();
+        }
     }
 
     @Override
@@ -238,5 +243,23 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     @Override
     public void ableSubmit() {
         bSubmit.setVisibility(View.VISIBLE);
+    }
+
+    public boolean cjError(String cj) {
+
+        if (cj.equals("")) {
+            return true;
+        }
+
+        try {
+            double cjD = Double.parseDouble(cj);
+            if (cjD <= 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            return true;
+        }
+
+        return false;
     }
 }

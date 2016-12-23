@@ -73,38 +73,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal">
-
-
-        <RadioGroup
-            android:id="@+id/jb_ratio_group"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/jb_kz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/jb_ratio_kz"
-                android:textColor="@color/text" />
-
-            <RadioButton
-                android:id="@+id/jb_bf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/jb_ratio_bf"
-                android:textColor="@color/text" />
-        </RadioGroup>
-
-    </android.support.percent.PercentRelativeLayout>
-
-    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
         android:background="@color/dividers"
         android:gravity="center"
         android:orientation="horizontal">
@@ -124,7 +92,7 @@
             android:layout_toRightOf="@+id/jb_l_station"
             android:layout_weight="1"
             android:text="@string/th_brick_id"
-            app:layout_widthPercent="46%" />
+            app:layout_widthPercent="50%" />
 
         <TextView
             android:id="@+id/jb_length"
@@ -136,13 +104,13 @@
             app:layout_widthPercent="18%" />
 
         <TextView
-            android:id="@+id/jb_level"
+            android:id="@+id/jb_bf"
             style="@style/font_title"
             android:layout_width="0dp"
             android:layout_toRightOf="@+id/jb_length"
             android:layout_weight="1"
-            android:text="@string/th_level"
-            app:layout_widthPercent="18%" />
+            android:text="@string/jb_l_bf"
+            app:layout_widthPercent="14%" />
 
     </android.support.percent.PercentRelativeLayout>
 

@@ -5,16 +5,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.util.Log;
 
 public class ScanUtil {
-    IntentFilter mFilter;
-    Intent intent;
-    BroadcastReceiver mReceiver;
-    IScanReceiver receiver;
-    int scanCode;
-    Context context;
+    private IntentFilter mFilter;
+    private Intent intent;
+    private BroadcastReceiver mReceiver;
+    private IScanReceiver receiver;
+    private int scanCode;
+    private Context context;
 
-    public ScanUtil(Context context) {
+    ScanUtil(Context context) {
         this.context = context;
         mFilter = new IntentFilter("ACTION_BAR_SCAN");
         intent = new Intent("ACTION_BAR_TRIGSCAN");
@@ -39,7 +40,7 @@ public class ScanUtil {
         this.receiver = receiver;
     }
 
-    public void release() {
+    void release() {
         context.unregisterReceiver(mReceiver);
         mFilter = null;
         mReceiver = null;

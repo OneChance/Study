@@ -2,16 +2,16 @@ package com.logic.mes.entity.process;
 
 
 import com.logic.mes.entity.server.ItemCol;
-import com.logic.mes.entity.server.ItemKey;
+
+import java.util.List;
 
 public class JbProduct extends ProcessBase {
 
-    @ItemKey()
     private String brickId;
     @ItemCol(col = "yy")
     private String reason;
-    @ItemCol(col = "lx")
-    private String lx;
+
+    private List<JbDetail> jbDetailList;
 
     public JbProduct() {
         this.code = "jb";
@@ -33,12 +33,11 @@ public class JbProduct extends ProcessBase {
         this.reason = reason;
     }
 
-    public String getLx() {
-        return lx;
+    public List<JbDetail> getJbDetailList() {
+        return jbDetailList;
     }
 
-    public void setLx(String lx) {
-        this.lx = lx;
+    public void setJbDetailList(List<JbDetail> jbDetailList) {
+        this.jbDetailList = jbDetailList;
     }
-
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,9 @@ import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
@@ -98,14 +101,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (product.getDetailList().size() == 0) {
-                    MyApplication.toast(R.string.tm_scan_first, false);
-                } else if (jzrq.getText().equals("")) {
-                    MyApplication.toast(R.string.jzrq_need, false);
-                } else {
-                    product.setCode("rk");
-                    new ProcessUtil(activity).submit(submitResultReceiver, product, userInfo.getUser());
-                }
+                toSubmit("rk");
             }
         });
 
@@ -127,10 +123,25 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         helper.attachToRecyclerView(listView);
         helper.setCloseOnAction(false);
 
+        jzrq.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        product.setJzrq(jzrq.getText().toString());
+
         MyApplication.getScanUtil().setReceiver(receiver, 0);
 
         return view;
     }
+
+    public void toSubmit(String code) {
+        if (product.getDetailList().size() == 0) {
+            MyApplication.toast(R.string.tm_scan_first, false);
+        } else if (jzrq.getText().equals("")) {
+            MyApplication.toast(R.string.jzrq_need, false);
+        } else {
+            product.setCode(code);
+            new ProcessUtil(activity).submit(submitResultReceiver, product, userInfo.getUser());
+        }
+    }
+
 
     @Override
     public void removePosition(int position) {
@@ -163,6 +174,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
     public void serverData() {
 
         if (!checkExist(data.getVal("objCode"))) {
+
             RkDetail p = new RkDetail();
             p.setLb(data.getVal("objType"));
             p.setTm(data.getVal("objCode"));
@@ -212,11 +224,11 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
 
     @Override
     public void preventSubmit() {
-        submit.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     public void ableSubmit() {
-        submit.setVisibility(View.VISIBLE);
+
     }
 }

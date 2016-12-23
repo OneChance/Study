@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.logic.mes.R;
@@ -19,21 +21,23 @@ public class JbListAdapter extends RecyclerView.Adapter<JbListAdapter.ViewHolder
 
     private Context context;
     private List<JbDetail> list;
+    private final JbDetailCallback jbDetailCallback;
 
-    public interface ButtonCallbacks {
-        void removePosition(int position);
+    public interface JbDetailCallback {
+        void checkedChange(int position, boolean checked);
     }
 
-    public JbListAdapter(Context context, List<JbDetail> list) {
+
+    public JbListAdapter(Context context, List<JbDetail> list, JbDetailCallback jbDetailCallback) {
         this.list = list;
         this.context = context;
+        this.jbDetailCallback = jbDetailCallback;
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.jb_product_row, viewGroup, false);
-        return new ViewHolder(v);
+        return new ViewHolder(v, jbDetailCallback);
     }
 
 
@@ -43,7 +47,6 @@ public class JbListAdapter extends RecyclerView.Adapter<JbListAdapter.ViewHolder
         holder.brickId.setText(p.getBrickId());
         holder.length.setText(p.getLength());
         holder.station.setText(p.getStation());
-        holder.level.setText(p.getLevel());
     }
 
     @Override
@@ -58,14 +61,21 @@ public class JbListAdapter extends RecyclerView.Adapter<JbListAdapter.ViewHolder
         TextView brickId;
         @InjectView(R.id.jb_length)
         TextView length;
-        @InjectView(R.id.jb_level)
-        TextView level;
+        @InjectView(R.id.jb_v_bf)
+        CheckBox bf;
         @InjectView(R.id.jb_v_station)
         public TextView station;
 
-        public ViewHolder(View v) {
+        public ViewHolder(View v, final JbDetailCallback jbDetailCallback) {
             super(v);
             ButterKnife.inject(this, v);
+
+            bf.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    jbDetailCallback.checkedChange(getAdapterPosition(), b);
+                }
+            });
         }
     }
 

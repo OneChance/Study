@@ -16,9 +16,9 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.dialog.MaterialDialog;
-import com.logic.mes.net.NetConfig;
+import com.logic.mes.LocalConfig;
 import com.logic.mes.net.NetUtil;
-import com.logic.mes.net.ServerConfig;
+import com.logic.mes.ServerConfig;
 import com.logic.mes.observer.LoginObserver;
 
 import java.util.List;
@@ -62,11 +62,12 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
 
         ButterKnife.inject(this);
 
-        if (NetConfig.IP.equals("") || NetConfig.PORT.equals("")) {
+        if (LocalConfig.IP.equals("") || LocalConfig.PORT.equals("")) {
             List<ServerConfig> dataList = DBHelper.getInstance(activity).query(ServerConfig.class);
             if (dataList.size() > 0) {
-                NetConfig.IP = dataList.get(0).getIp();
-                NetConfig.PORT = dataList.get(0).getPort();
+                LocalConfig.IP = dataList.get(0).getIp();
+                LocalConfig.PORT = dataList.get(0).getPort();
+                LocalConfig.MACHINE_CODE = dataList.get(0).getMachineCode();
             }
         }
 
@@ -92,16 +93,19 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
                 dialog.setContentView(view);
                 final EditText ip = (EditText) view.findViewById(R.id.server_ip);
                 final EditText port = (EditText) view.findViewById(R.id.server_port);
+                final EditText machineCode = (EditText) view.findViewById(R.id.machine_code);
 
-                ip.setText(NetConfig.IP);
-                port.setText(NetConfig.PORT);
+                ip.setText(LocalConfig.IP);
+                port.setText(LocalConfig.PORT);
+                machineCode.setText(LocalConfig.MACHINE_CODE);
 
                 dialog.setPositiveButton(R.string.config_save, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ServerConfig serverConfig = new ServerConfig(ip.getText().toString(), port.getText().toString());
-                        NetConfig.IP = ip.getText().toString();
-                        NetConfig.PORT = port.getText().toString();
+                        ServerConfig serverConfig = new ServerConfig(ip.getText().toString(), port.getText().toString(), machineCode.getText().toString());
+                        LocalConfig.IP = ip.getText().toString();
+                        LocalConfig.PORT = port.getText().toString();
+                        LocalConfig.MACHINE_CODE = machineCode.getText().toString();
                         DBHelper.getInstance(activity).delete(ServerConfig.class);
                         DBHelper.getInstance(activity).save(serverConfig);
                         dialog.dismiss(view);

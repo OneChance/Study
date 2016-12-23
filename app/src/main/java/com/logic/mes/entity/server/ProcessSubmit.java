@@ -8,24 +8,35 @@ import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
 import com.litesuits.orm.db.enums.Relation;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Table("submit_data")
-public class ProcessSubmit {
+public class ProcessSubmit implements Serializable {
 
     @PrimaryKey(AssignType.AUTO_INCREMENT)
-    private int id;
+    private Long id;
 
     private String userCode;
     private String userOrg;
     private String userName;
     private String produceCode;
     private Boolean isGroup;
+    private String bagCode;
+    private String machineCode;
 
     @Mapping(Relation.OneToMany)
     @MapCollection(ArrayList.class)
     private List<ProcessItem> items;
+
+    public String getMachineCode() {
+        return machineCode;
+    }
+
+    public void setMachineCode(String machineCode) {
+        this.machineCode = machineCode;
+    }
 
     private String operationTime;
 
@@ -81,11 +92,11 @@ public class ProcessSubmit {
         this.operationTime = operationTime;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -95,5 +106,13 @@ public class ProcessSubmit {
 
     public void setGroup(Boolean group) {
         isGroup = group;
+    }
+
+    public String getBagCode() {
+        return bagCode;
+    }
+
+    public void setBagCode(String bagCode) {
+        this.bagCode = bagCode;
     }
 }

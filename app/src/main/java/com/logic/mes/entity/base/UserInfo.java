@@ -43,8 +43,13 @@ public class UserInfo implements Serializable {
     @MapCollection(ArrayList.class)
     List<TableType> tableType;
 
+    @Mapping(Relation.OneToMany)
+    @MapCollection(ArrayList.class)
     List<Org> orgs;
 
+    @Mapping(Relation.OneToMany)
+    @MapCollection(ArrayList.class)
+    private
     List<GroupCancelInfo> groupCancelInfo;
 
     public List<GroupCancelInfo> getGroupCancelInfo() {

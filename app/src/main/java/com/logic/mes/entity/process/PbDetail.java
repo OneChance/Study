@@ -1,7 +1,6 @@
 package com.logic.mes.entity.process;
 
 
-
 import com.logic.mes.entity.server.ItemCol;
 import com.logic.mes.entity.server.ItemKey;
 
@@ -12,8 +11,10 @@ public class PbDetail {
     private String brickId;
     private String length;
     private String level;
-    @ItemCol(col="gw")
+    @ItemCol(col = "gw")
     private String station;
+
+    private String db;
 
     public String getBrickId() {
         return brickId;
@@ -45,5 +46,13 @@ public class PbDetail {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public String getDb() {
+        return db;
+    }
+
+    public void setDb(String db) {
+        this.db = db;
     }
 }

@@ -1,6 +1,7 @@
 package com.logic.mes.observer;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ public class ServerObserver implements Observer<ServerResult> {
     private MaterialDialog noticeDialog;
     private TextView textView;
     public String content;
-    private String codeNotVali = ",rk,ck,";
+    private String codeNotVali = ",,";
     public static String SERVER_ERROR = "com.mes.logic.SERVER_ERROR";
     public static String SERVER_OK = "com.mes.logic.SERVER_OK";
 
@@ -81,6 +82,9 @@ public class ServerObserver implements Observer<ServerResult> {
     public void onNext(ServerResult res) {
 
         try {
+
+            Log.d("mes", res.toString());
+
             MyApplication.appSendBroadcast(SERVER_OK);
 
             if (res.getInfo() != null && !res.getInfo().equals("")) {
@@ -90,29 +94,31 @@ public class ServerObserver implements Observer<ServerResult> {
             if (!res.getCode().equals("0")) {
                 receiver.preventSubmit();
             } else {
+
                 receiver.ableSubmit();
-            }
+                receiver.setData(res);
 
-            receiver.setData(res);
+                if (res.getDatas() != null) {
+                    if (res.getDatas().getBagDatas() != null && res.getDatas().getBagDatas().size() > 0 && !codeNotVali.contains("," + code + ",")) {
 
-            if (res.getDatas() != null) {
-                if (res.getDatas().getBagDatas() != null && res.getDatas().getBagDatas().size() > 0 && !codeNotVali.contains("," + code + ",")) {
+                        Map<String, String> dataMap = res.getDatas().getBagDatas().get(0);
+                        String lrsj = dataMap.get(code + "_lrsj");
 
-                    Map<String, String> dataMap = res.getDatas().getBagDatas().get(0);
-                    String lrsj = dataMap.get(code + "_lrsj");
+                        //验证是否已经提交过
+                        if (lrsj != null && !lrsj.equals("") && context != null) {
+                            textView.setText(String.format(content, lrsj));
+                            noticeDialog.show();
+                        } else {
+                            receiver.serverData();
+                        }
 
-                    //验证是否已经提交过
-                    if (lrsj != null && !lrsj.equals("") && context != null) {
-                        textView.setText(String.format(content, lrsj));
-                        noticeDialog.show();
                     } else {
                         receiver.serverData();
                     }
+                } else {
+                    receiver.serverData();
                 }
-            } else {
-                receiver.serverData();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

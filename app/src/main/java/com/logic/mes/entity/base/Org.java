@@ -1,21 +1,27 @@
 package com.logic.mes.entity.base;
 
 
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.annotation.Table;
+import com.litesuits.orm.db.enums.AssignType;
+
 import java.io.Serializable;
 
+@Table("org")
 public class Org implements Serializable {
 
-    private String id;
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
+    private Long id;
     private String upId;
     private String orgName;
     private String isDel;
     private String idx;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

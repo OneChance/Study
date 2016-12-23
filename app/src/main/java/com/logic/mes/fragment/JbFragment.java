@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class JbFragment extends BaseTagFragment implements IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
+public class JbFragment extends BaseTagFragment implements IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver, JbListAdapter.JbDetailCallback {
 
     @InjectView(R.id.jb_v_brick)
     TextView brick;
@@ -45,16 +46,9 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
     Button submit;
     @InjectView(R.id.jb_v_reason)
     Spinner reason;
-    @InjectView(R.id.jb_ratio_group)
-    RadioGroup lx;
-    @InjectView(R.id.jb_kz)
-    RadioButton kzRb;
-    @InjectView(R.id.jb_bf)
-    RadioButton bfRb;
 
 
     JbProduct jb;
-    List<JbDetail> jbDetailList;
     JbListAdapter dataAdapter;
     FragmentActivity activity;
     IScanReceiver receiver;
@@ -81,21 +75,19 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
         if (jb == null) {
             jb = new JbProduct();
-        }
-
-        if (jbDetailList == null) {
-            jbDetailList = new ArrayList<>();
+            jb.setJbDetailList(new ArrayList<JbDetail>());
         }
 
         final List<String> reasons = new ArrayList<>();
-        
+
         List<GroupCancelInfo> infos = userInfo.getGroupCancelInfo();
+
+        reasons.add(MyApplication.getResString(R.string.wait_choose));
 
         for (GroupCancelInfo info : infos) {
             reasons.add(info.getItemKey());
         }
 
-        reasons.add(MyApplication.getResString(R.string.wait_choose));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, reasons);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         reason.setAdapter(adapter);
@@ -112,30 +104,10 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
             }
         });
 
-        lx.clearCheck();
-
-        lx.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-
-                String lx = "";
-
-                if (i == kzRb.getId()) {
-                    lx = kzRb.getText().toString();
-                } else {
-                    lx = bfRb.getText().toString();
-                }
-
-                jb.setLx(lx);
-            }
-        });
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (jb.getReason().equals(MyApplication.getResString(R.string.wait_choose))) {
-                    MyApplication.toast(R.string.form_required, false);
-                } else if (jb.getLx().equals("")) {
                     MyApplication.toast(R.string.form_required, false);
                 } else {
                     new ProcessUtil(activity).submit(submitResultReceiver, jb, userInfo.getUser());
@@ -143,9 +115,7 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
             }
         });
 
-        jbDetailList.clear();
-
-        dataAdapter = new JbListAdapter(getActivity(), jbDetailList);
+        dataAdapter = new JbListAdapter(getActivity(), jb.getJbDetailList(), this);
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listView.setAdapter(dataAdapter);
 
@@ -161,6 +131,7 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
     @Override
     public void scanReceive(String res, int scanCode) {
         brick.setText(res);
+        jb.setBrickId(res);
         NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickGroup(res, "jb"))
                 .subscribe(serverObserver);
     }
@@ -172,12 +143,12 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
     @Override
     public void submitOk() {
-
+        doAfterSumbit(jb.getBrickId(), true);
     }
 
     @Override
     public void submitError() {
-
+        doAfterSumbit(jb.getBrickId(), false);
     }
 
     @Override
@@ -188,7 +159,7 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
     @Override
     public void serverData() {
 
-        jbDetailList.clear();
+        jb.getJbDetailList().clear();
 
         if (data.getDatas() != null && data.getDatas().getBagDatas() != null) {
             for (Map<String, String> bag : data.getDatas().getBagDatas()) {
@@ -196,8 +167,8 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
                 jbDetail.setStation(bag.get("pb_gw"));
                 jbDetail.setBrickId(bag.get("ej_BrickID"));
                 jbDetail.setLength(bag.get("pbj_yxbc"));
-                jbDetail.setLevel(bag.get("ej_jzdj"));
-                jbDetailList.add(jbDetail);
+                jbDetail.setSfbf(MyApplication.getResString(R.string.no));
+                jb.getJbDetailList().add(jbDetail);
             }
         }
 
@@ -221,14 +192,20 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
     @Override
     public void clear() {
-
         brick.setText(R.string.wait_scan);
         reason.setSelection(0);
-        lx.clearCheck();
-        jb.setLx("");
         jb.setBrickId("");
         jb.setReason("");
-        jbDetailList.clear();
+        jb.getJbDetailList().clear();
         dataAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void checkedChange(int position, boolean checked) {
+        if (checked) {
+            jb.getJbDetailList().get(position).setSfbf(MyApplication.getResString(R.string.yes));
+        } else {
+            jb.getJbDetailList().get(position).setSfbf(MyApplication.getResString(R.string.no));
+        }
     }
 }

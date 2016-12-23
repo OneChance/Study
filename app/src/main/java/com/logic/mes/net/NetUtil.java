@@ -1,5 +1,6 @@
 package com.logic.mes.net;
 
+import com.logic.mes.LocalConfig;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -27,7 +28,7 @@ public class NetUtil {
 
             if (services == null) {
                 client = new OkHttpClient();
-                client.setConnectTimeout(NetConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS);
+                client.setConnectTimeout(LocalConfig.CONNECT_TIMEOUT, TimeUnit.SECONDS);
                 client.interceptors().add(new Interceptor() {
 
                     @Override
@@ -45,16 +46,16 @@ public class NetUtil {
 
             if (rebuild) {
 
-                if (NetConfig.IP.equals("")) {
-                    NetConfig.IP = "127.0.0.1";
+                if (LocalConfig.IP.equals("")) {
+                    LocalConfig.IP = "127.0.0.1";
                 }
 
-                if (NetConfig.PORT.equals("")) {
-                    NetConfig.PORT = "8080";
+                if (LocalConfig.PORT.equals("")) {
+                    LocalConfig.PORT = "8080";
                 }
 
                 restAdapter = new Retrofit.Builder()
-                        .baseUrl("http://" + NetConfig.IP + ":" + NetConfig.PORT + "/")
+                        .baseUrl("http://" + LocalConfig.IP + ":" + LocalConfig.PORT + "/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .client(client)
                         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

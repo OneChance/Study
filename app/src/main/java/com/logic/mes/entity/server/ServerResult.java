@@ -1,6 +1,8 @@
 package com.logic.mes.entity.server;
 
 
+import android.util.Log;
+
 import java.util.Map;
 
 public class ServerResult {
@@ -34,9 +36,11 @@ public class ServerResult {
     }
 
     public String getRelVal(String preStep, String afterStep, String value) {
+        
         if (datas.getBagDatas() != null && datas.getBagDatas().size() > 0) {
             Map<String, String> dataMap = datas.getBagDatas().get(0);
             String afterValue = dataMap.get(afterStep + "_" + value);
+
             if (afterValue != null && !afterValue.equals("")) {
                 return afterValue;
             } else {
@@ -52,5 +56,10 @@ public class ServerResult {
             return dataMap.get(value) == null ? "" : dataMap.get(value);
         }
         return "";
+    }
+
+    @Override
+    public String toString() {
+        return "[code:" + this.code + "][info:" + this.info + "]";
     }
 }

@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
@@ -24,7 +26,9 @@ import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
@@ -44,6 +48,8 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
     Button jzrq;
     @InjectView(R.id.ck_v_hj)
     TextView hj;
+    @InjectView(R.id.ck_v_bill)
+    EditText bill;
 
     @InjectView(R.id.ck_b_submit)
     Button submit;
@@ -104,6 +110,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
                     MyApplication.toast(R.string.jzrq_need, false);
                 } else {
                     product.setCode("ck");
+                    product.setBill(bill.getText().toString());
                     new ProcessUtil(activity).submit(submitResultReceiver, product, userInfo.getUser());
                 }
             }
@@ -127,7 +134,12 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
         helper.attachToRecyclerView(listView);
         helper.setCloseOnAction(false);
 
+        jzrq.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        product.setJzrq(jzrq.getText().toString());
+
         MyApplication.getScanUtil().setReceiver(receiver, 0);
+
+        EditTextUtil.setNoKeyboard(bill);
 
         return view;
     }
@@ -190,6 +202,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
         tmHead.setText(MyApplication.getResString(R.string.wait_scan));
         jzrq.setText("");
         hj.setText("");
+        bill.setText("");
         product.getDetailList().clear();
         dataAdapter.notifyDataSetChanged();
     }
@@ -212,11 +225,11 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
 
     @Override
     public void preventSubmit() {
-        submit.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     public void ableSubmit() {
-        submit.setVisibility(View.VISIBLE);
+
     }
 }

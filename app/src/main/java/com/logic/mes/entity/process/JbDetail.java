@@ -1,12 +1,17 @@
 package com.logic.mes.entity.process;
 
 
+import com.logic.mes.entity.server.ItemCol;
+import com.logic.mes.entity.server.ItemKey;
+
 public class JbDetail {
 
+    @ItemKey()
     private String brickId;
     private String length;
-    private String level;
     private String station;
+    @ItemCol(col = "sfbf")
+    private String sfbf;
 
     public String getBrickId() {
         return brickId;
@@ -32,11 +37,11 @@ public class JbDetail {
         this.station = station;
     }
 
-    public String getLevel() {
-        return level;
+    public String getSfbf() {
+        return sfbf;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setSfbf(String sfbf) {
+        this.sfbf = sfbf;
     }
 }

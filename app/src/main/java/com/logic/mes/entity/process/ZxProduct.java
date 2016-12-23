@@ -11,6 +11,18 @@ public class ZxProduct {
     @ItemKey()
     private String hh;
 
+    private String db;
+
+    private String level;
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
     public String getXh() {
         return xh;
     }
@@ -25,5 +37,13 @@ public class ZxProduct {
 
     public void setHh(String hh) {
         this.hh = hh;
+    }
+
+    public String getDb() {
+        return db;
+    }
+
+    public void setDb(String db) {
+        this.db = db;
     }
 }

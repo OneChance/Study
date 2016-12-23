@@ -14,6 +14,7 @@
     <string name="server_config">服务器信息配置</string>
     <string name="server_ip">服务器地址</string>
     <string name="server_port">端口</string>
+    <string name="machine_code">机台号</string>
     <string name="config_dismiss">关闭</string>
     <string name="config_save">保存</string>
     <string name="time_error">设备时间与服务器时间偏差较大,请设置设备当前时间</string>
@@ -37,6 +38,10 @@
     <string name="net_disable">当前无网络</string>
     <string name="wait_choose">请选择</string>
     <string name="form_required">请完善表单</string>
+    <string name="hj">合计:</string>
+
+    <string name="unit_length_mm">毫米</string>
+    <string name="unit_piece">片</string>
 
     <string name="pbj_tab_name">配棒检</string>
     <string name="pb_tab_name">配棒</string>
@@ -48,6 +53,7 @@
     <string name="zt_tab_name">装托</string>
     <string name="rk_tab_name">入库</string>
     <string name="ck_tab_name">出库</string>
+    <string name="db_tab_name">单包</string>
     <string name="action_settings">设置</string>
     <string name="station">工位</string>
     <string name="brick_id">BrickId</string>
@@ -94,16 +100,16 @@
     <!--验棒-->
     <string name="yb_l_spyy">碎片原因</string>
     <string name="yb_l_sl">数量</string>
-    <string name="yb_l_yzd">硬质点</string>
-    <string name="yb_l_hbp">厚薄片</string>
-    <string name="yb_l_zb">撞棒</string>
-    <string name="yb_l_dp">掉片</string>
-    <string name="yb_l_kxs">卡线碎</string>
-    <string name="yb_l_lds">亮点碎</string>
-    <string name="yb_l_zqbb">整齐崩边</string>
+    <string name="yb_l_yzd">硬质点(毫米)</string>
+    <string name="yb_l_hbp">厚薄片(毫米)</string>
+    <string name="yb_l_zb">撞棒(毫米)</string>
+    <string name="yb_l_dp">掉片(毫米)</string>
+    <string name="yb_l_kxs">卡线碎(毫米)</string>
+    <string name="yb_l_lds">亮点碎(毫米)</string>
+    <string name="yb_l_zqbb">整齐崩边(毫米)</string>
     <string name="yb_b_submit">提交</string>
     <string name="yb_b_clear">清空</string>
-    <string name="yb_l_qps">切片碎</string>
+    <string name="yb_l_qps">切片碎(片)</string>
     <string name="no_cj">槽距数据错误</string>
 
     <!--清洗-->
@@ -123,27 +129,33 @@
     <!--切割碎复核-->
     <string name="qgsfh_l_spyy">碎片原因</string>
     <string name="qgsfh_l_sl">数量</string>
-    <string name="qgsfh_l_yzd">硬质点</string>
-    <string name="qgsfh_l_hbp">厚薄片</string>
-    <string name="qgsfh_l_zb">撞棒</string>
-    <string name="qgsfh_l_dp">掉片</string>
-    <string name="qgsfh_l_kxs">卡线碎</string>
-    <string name="qgsfh_l_lds">亮点碎</string>
-    <string name="qgsfh_l_zqbb">整齐崩边</string>
+    <string name="qgsfh_l_yzd">硬质点(片)</string>
+    <string name="qgsfh_l_hbp">厚薄片(片)</string>
+    <string name="qgsfh_l_zb">撞棒(片)</string>
+    <string name="qgsfh_l_dp">掉片(片)</string>
+    <string name="qgsfh_l_kxs">卡线碎(片)</string>
+    <string name="qgsfh_l_lds">亮点碎(片)</string>
+    <string name="qgsfh_l_zqbb">整齐崩边(片)</string>
     <string name="qgsfh_b_submit">提交</string>
     <string name="qgsfh_b_clear">清空</string>
-    <string name="qgsfh_l_qps">切片碎</string>
+    <string name="qgsfh_l_qps">切片碎(片)</string>
 
     <!--装箱-->
     <string name="zx_b_scan_xz">扫描箱子</string>
     <string name="zx_b_scan_hz">扫描盒子</string>
-    <string name="zx_b_l_xh">箱号</string>
-    <string name="zx_b_l_hh">盒号</string>
+    <string name="zx_l_xh">箱号</string>
+    <string name="zx_l_hh">盒号</string>
+    <string name="zx_l_level">等级</string>
     <string name="zx_b_submit">提交</string>
     <string name="zx_b_clear">清空</string>
     <string name="xz_scan_first">请先扫描箱子</string>
     <string name="hz_scan_need">请扫描盒子</string>
-    <string name="zx_size_full_4">一箱不能超过4盒</string>
+    <string name="zx_size_full">一箱不能超过4盒</string>
+    <string name="hz_duplicate">盒子不能重复</string>
+    <string name="hz_dj_diff">盒子等级必须一致</string>
+    <string name="db_diff">单包类别必须一致</string>
+    <string name="db_type">单包类别:</string>
+    <string name="b_cd">撤单</string>
 
     <!--装托-->
     <string name="zt_b_scan_xz">扫描箱子</string>
@@ -154,6 +166,8 @@
     <string name="zt_b_clear">清空</string>
     <string name="th_scan_first">请先扫描托号</string>
     <string name="xz_scan_need">请扫描箱子</string>
+    <string name="xz_duplicate">箱子不能重复</string>
+    <string name="zt_size_full">一托不能超过30箱</string>
 
     <!--入库-->
     <string name="rk_b_scan_tm">扫描条码</string>
@@ -167,7 +181,8 @@
     <string name="tm_scan_first">请扫描条码</string>
     <string name="jzrq_need">请填写记账日期</string>
 
-    <!--入库-->
+    <!--出库-->
+    <string name="ck_l_bill">出库单号</string>
     <string name="ck_b_scan_tm">扫描条码</string>
     <string name="ck_l_tm">条码</string>
     <string name="ck_l_lb">类别</string>
@@ -179,7 +194,14 @@
 
     <!--解棒 -->
     <string name="jb_l_reason">解棒原因</string>
-    <string name="jb_ratio_kz">可粘</string>
-    <string name="jb_ratio_bf">报废</string>
-    <string name="jb_b_submit">解绑</string>
+    <string name="jb_l_bf">报废</string>
+    <string name="jb_b_submit">解棒</string>
+
+    <!--单包-->
+    <string name="db_l_type">类别</string>
+    <string name="db_l_brickId">条码</string>
+    <string name="db_l_cate">类型</string>
+    <string name="db_b_add">增加</string>
+    <string name="db_b_cd">撤单</string>
+    <string name="need_cate">请输入单包类型</string>
 </resources>

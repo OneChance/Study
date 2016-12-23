@@ -17,6 +17,7 @@ import com.logic.mes.activity.MainActivity;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.base.Org;
+import com.logic.mes.entity.base.ProduceDef;
 import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.base.UserInfoResult;
 import com.logic.mes.update.UpdateAppUtils;
@@ -80,12 +81,16 @@ public class LoginObserver implements Observer<UserInfoResult> {
     @Override
     public void onError(Throwable e) {
         dbLogin();
+        MyApplication.netAble = false;
         e.printStackTrace();
     }
 
 
     @Override
     public void onNext(UserInfoResult res) {
+
+        MyApplication.netAble = true;
+
         if (res.getCode() == 0) {
             UserInfo userInfo = res.getDatas();
             toMain(userInfo);
@@ -133,16 +138,16 @@ public class LoginObserver implements Observer<UserInfoResult> {
         }
     }
 
-    public void orgChooseCallback() {
+    private void orgChooseCallback() {
         for (Org org : this.userInfo.getOrgs()) {
             if (org.getOrgName().equals(chooseOrg)) {
-                this.userInfo.getUser().setOrgid_mes(Long.parseLong(org.getId()));
+                this.userInfo.getUser().setOrgid_mes(org.getId());
             }
         }
         activityTo(this.userInfo);
     }
 
-    public void activityTo(UserInfo userInfo) {
+    private void activityTo(UserInfo userInfo) {
         DBHelper.getInstance(context).deleteAll(UserInfo.class);
         userInfo.getAppInfo().setCurrentTime("");
         DBHelper.getInstance(context).save(userInfo);
@@ -154,7 +159,7 @@ public class LoginObserver implements Observer<UserInfoResult> {
         context.startActivity(intent);
     }
 
-    public void dbLogin() {
+    private void dbLogin() {
         List<UserInfo> list = DBHelper.getInstance(context).query(UserInfo.class);
 
         if (list != null && list.size() > 0 && list.get(0).getUser().getEmpCode().equals(currentInputCode)) {

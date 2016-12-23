@@ -23,6 +23,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         context = getApplicationContext();
+        CrashHandler.getInstance().init(this);
         super.onCreate();
     }
 
@@ -88,8 +89,6 @@ public class MyApplication extends Application {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            System.exit(0);
         }
     }
 

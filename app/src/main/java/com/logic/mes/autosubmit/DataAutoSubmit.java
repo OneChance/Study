@@ -4,6 +4,7 @@ package com.logic.mes.autosubmit;
 import android.content.Context;
 import android.util.Log;
 
+import com.litesuits.orm.LiteOrm;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.entity.server.ProcessSubmit;
 import com.logic.mes.entity.server.ServerResult;
@@ -26,20 +27,19 @@ public class DataAutoSubmit {
 
     public synchronized void autoSubmit(Context context) {
 
+        final LiteOrm dbInstance = DBHelper.getInstance(context);
+
         List<ProcessSubmit> submits = DBHelper.getInstance(context).query(ProcessSubmit.class);
-        final List<ProcessSubmit> submited = new ArrayList<>();
 
-        if(submits.size()>0){
+        if (submits.size() > 0) {
             for (final ProcessSubmit submit : submits) {
-
-                Log.d("mes", "submit data from database:" + submit.getProduceCode());
 
                 NetUtil.SetObserverCommonAction(NetUtil.getServices(false).submitCatch(submit))
                         .subscribe(new Observer<ServerResult>() {
 
                             @Override
                             public void onCompleted() {
-
+                                
                             }
 
                             @Override
@@ -49,15 +49,10 @@ public class DataAutoSubmit {
 
                             @Override
                             public void onNext(ServerResult serverResult) {
-                                submited.add(submit);
+                                dbInstance.delete(submit);
                             }
                         });
             }
-        }
-
-        //清除已提交成功的数据
-        if (submited.size() > 0) {
-            DBHelper.getInstance(context).delete(submited);
         }
     }
 }

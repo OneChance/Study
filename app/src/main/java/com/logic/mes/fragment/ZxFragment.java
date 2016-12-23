@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
+import com.logic.mes.activity.MainActivity;
 import com.logic.mes.adapter.ZxListAdapter;
+import com.logic.mes.entity.process.ZtProduct;
 import com.logic.mes.entity.process.ZxHead;
 import com.logic.mes.entity.process.ZxProduct;
 import com.logic.mes.entity.server.ProcessItem;
@@ -21,6 +24,9 @@ import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
+
+import java.util.List;
+import java.util.Map;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
@@ -35,8 +41,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     public final int SCAN_CODE_XZ = 0;
     public final int SCAN_CODE_HZ = 1;
 
-    int currentReceiverCode = SCAN_CODE_XZ;
-    boolean waitReceive = false;
+    int currentReceiver = SCAN_CODE_XZ;
     String currentCode;
 
     @InjectView(R.id.zx_xh_v)
@@ -59,7 +64,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
 
     ZxHead zx;
     ZxListAdapter dataAdapter;
-    FragmentActivity activity;
+    MainActivity activity;
     IScanReceiver receiver;
     ServerObserver serverObserver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
@@ -81,7 +86,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
 
         ButterKnife.inject(this, view);
 
-        activity = getActivity();
+        activity = (MainActivity) getActivity();
         receiver = this;
         serverObserver = new ServerObserver(this, "zx", activity);
 
@@ -108,14 +113,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.xz_scan_first, false);
-                } else if (zx.getDetailList().size() == 0) {
-                    MyApplication.toast(R.string.hz_scan_need, false);
-                } else {
-                    zx.setCode("zx");
-                    new ProcessUtil(activity).submit(submitResultReceiver, zx, userInfo.getUser());
-                }
+                toSubmit("zx");
             }
         });
 
@@ -140,6 +138,18 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         return view;
     }
 
+    public void toSubmit(String code) {
+        if (xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
+            MyApplication.toast(R.string.xz_scan_first, false);
+        } else if (zx.getDetailList().size() == 0) {
+            MyApplication.toast(R.string.hz_scan_need, false);
+        } else {
+            zx.setCode(code);
+            zx.setBagCode(zx.getDetailList().get(0).getXh());
+            new ProcessUtil(activity).submit(submitResultReceiver, zx, userInfo.getUser());
+        }
+    }
+
     @Override
     public void removePosition(int position) {
         dataAdapter.removePosition(position);
@@ -151,31 +161,34 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         ProcessItem item = new ProcessItem();
 
         if (scanCode == SCAN_CODE_XZ) {
-            if (!waitReceive) {
-                currentCode = res;
-                item.setItemKey("CaseCode");
-                item.setItemValue(currentCode);
-                NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
-                        .subscribe(serverObserver);
-                currentReceiverCode = SCAN_CODE_XZ;
-                waitReceive = true;
-            }
+            xhHead.setText(res);
+            item.setItemKey("CaseInfo");
+            item.setItemValue(res);
+            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
+                    .subscribe(serverObserver);
+            currentReceiver = SCAN_CODE_XZ;
         } else if (scanCode == SCAN_CODE_HZ) {
-            if (!waitReceive) {
-                currentCode = res;
-                item.setItemKey("BoxCode");
-                item.setItemValue(currentCode);
-                NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
-                        .subscribe(serverObserver);
-                currentReceiverCode = SCAN_CODE_HZ;
-                waitReceive = true;
-            }
+            currentCode = res;
+            item.setItemKey("BoxCode");
+            item.setItemValue(currentCode);
+            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
+                    .subscribe(serverObserver);
+            currentReceiver = SCAN_CODE_HZ;
         }
     }
 
     @Override
     public void scanError() {
 
+    }
+
+    private boolean checkExist(String code) {
+        for (ZxProduct product : zx.getDetailList()) {
+            if (product.getHh().equals(code)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -195,28 +208,66 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
 
     @Override
     public void serverData() {
+        if (currentReceiver == SCAN_CODE_XZ) {
+            //如果有之前提交的数据，带出
+            if (data != null && data.getDatas() != null && data.getDatas().getBagDatas() != null) {
+                List<Map<String, String>> mapList = data.getDatas().getBagDatas();
+                if (mapList.size() > 0) {
+                    for (Map<String, String> map : mapList) {
+                        ZxProduct p = new ZxProduct();
+                        p.setXh(map.get("caseCode"));
+                        p.setHh(map.get("boxCode"));
+                        p.setDb(map.get("db"));
 
-        if (!data.getCode().equals("1")) {
+                        if (map.get("boxdj") != null && !map.get("boxdj").equals("")) {
+                            p.setLevel(map.get("boxdj"));
+                        }
+
+                        zx.getDetailList().add(p);
+                    }
+                    dataAdapter.notifyDataSetChanged();
+                }
+            }
+            MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_HZ);
+        } else {
             fillData();
         }
-        waitReceive = false;
     }
 
     public void fillData() {
-        if (currentReceiverCode == SCAN_CODE_XZ) {
-            xhHead.setText(currentCode);
-            MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_HZ);
-        } else if (currentReceiverCode == SCAN_CODE_HZ) {
-            hhHead.setText(currentCode);
-            ZxProduct p = new ZxProduct();
-            p.setXh(xhHead.getText().toString());
-            p.setHh(currentCode);
-            if (zx.getDetailList().size() < 4) {
-                zx.getDetailList().add(p);
+        if (zx.getDetailList().size() < 4) {
+            if (!checkExist(currentCode)) {
+                if (!levelDiff(data.getVal("boxdj"))) {
+                    if (!dbDiff(data.getVal("db"))) {
+
+                        hhHead.setText(currentCode);
+                        ZxProduct p = new ZxProduct();
+                        p.setXh(xhHead.getText().toString());
+                        p.setHh(currentCode);
+
+                        if (data != null && data.getVal("boxdj") != null && !data.getVal("boxdj").equals("")) {
+                            p.setLevel(data.getVal("boxdj"));
+                        }
+
+                        if (data != null && data.getVal("db") != null && !data.getVal("db").equals("")) {
+                            p.setDb(data.getVal("db"));
+                            activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("db"), true);
+                        }
+
+                        zx.getDetailList().add(p);
+
+                        dataAdapter.notifyDataSetChanged();
+                    } else {
+                        MyApplication.toast(R.string.db_diff, false);
+                    }
+                } else {
+                    MyApplication.toast(R.string.hz_dj_diff, false);
+                }
             } else {
-                MyApplication.toast(R.string.zx_size_full_4, false);
+                MyApplication.toast(R.string.hz_duplicate, false);
             }
-            dataAdapter.notifyDataSetChanged();
+        } else {
+            MyApplication.toast(R.string.zx_size_full, false);
         }
     }
 
@@ -230,17 +281,45 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
 
     @Override
     public void serverError(Throwable e) {
-        fillData();
-        waitReceive = false;
+        if (currentReceiver == SCAN_CODE_HZ) {
+            fillData();
+        } else {
+            MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_HZ);
+        }
     }
 
     @Override
     public void preventSubmit() {
-        submit.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     public void ableSubmit() {
-        submit.setVisibility(View.VISIBLE);
+
+    }
+
+    public boolean levelDiff(String level) {
+
+        if (level != null && !level.equals("")) {
+            for (ZxProduct product : zx.getDetailList()) {
+                if (product.getLevel() != null && !product.getLevel().equals("") && !product.getLevel().equals(level)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean dbDiff(String db) {
+        if (db != null && !db.equals("")) {
+            for (ZxProduct product : zx.getDetailList()) {
+                if (product.getDb() != null && !product.getDb().equals("") && !product.getDb().equals(db)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

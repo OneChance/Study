@@ -24,8 +24,6 @@ public class BaseTagFragment extends Fragment {
 
     public UserInfo userInfo;
 
-    public List<TextView> views = new ArrayList<>();
-
     MainActivity activity;
 
     public void setReceiver() {

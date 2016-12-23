@@ -18,6 +18,7 @@ public class FragmentFactory {
     private RkFragment rkFragment;
     private CkFragment ckFragment;
     private JbFragment jbFragment;
+    private DbFragment dbFragment;
 
     private static FragmentFactory fragmentFactory;
 
@@ -32,35 +33,37 @@ public class FragmentFactory {
         List<BaseTagFragment> tags = new ArrayList<>();
 
         for (ProduceDef p : produceDefs) {
-            tags.add(createFragment(p.getId()));
+            tags.add(createFragment(p.getProducecode()));
         }
 
         return tags;
     }
 
-    private BaseTagFragment createFragment(int pid) {
+    private BaseTagFragment createFragment(String code) {
 
-        switch (pid) {
-            case 2:
+        switch (code) {
+            case "pbj":
                 return (pbjFragment == null ? pbjFragment = new PbjFragment() : pbjFragment);
-            case 3:
+            case "pb":
                 return (pbFragment == null ? pbFragment = new PbFragment() : pbFragment);
-            case 6:
+            case "yb":
                 return (ybFragment == null ? ybFragment = new YbFragment() : ybFragment);
-            case 9:
+            case "qx":
                 return (qxFragment == null ? qxFragment = new QxFragment() : qxFragment);
-            case 10:
+            case "qgs":
                 return (qgsfhFragment == null ? qgsfhFragment = new QgsfhFragment() : qgsfhFragment);
-            case 14:
+            case "zx":
                 return (zxFragment == null ? zxFragment = new ZxFragment() : zxFragment);
-            case 15:
+            case "zt":
                 return (ztFragment == null ? ztFragment = new ZtFragment() : ztFragment);
-            case 16:
+            case "rk":
                 return (rkFragment == null ? rkFragment = new RkFragment() : rkFragment);
-            case 17:
+            case "ck":
                 return (ckFragment == null ? ckFragment = new CkFragment() : ckFragment);
-            case 18:
+            case "jb":
                 return (jbFragment == null ? jbFragment = new JbFragment() : jbFragment);
+            case "db":
+                return (dbFragment == null ? dbFragment = new DbFragment() : dbFragment);
             default:
                 return new BaseTagFragment();
         }

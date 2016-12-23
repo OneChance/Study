@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.process.MType;
 import com.logic.mes.entity.process.PbDetail;
 import com.logic.mes.entity.process.PbProduct;
+import com.logic.mes.entity.process.ZtProduct;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -65,7 +67,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     PbProduct pb;
     PbListAdapter dataAdapter;
-    FragmentActivity activity;
+    MainActivity activity;
     IScanReceiver receiver;
     ServerObserver serverObserver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
@@ -88,7 +90,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
         ButterKnife.inject(this, view);
 
-        activity = getActivity();
+        activity = (MainActivity) getActivity();
         receiver = this;
         serverObserver = new ServerObserver(this, "pb", activity);
         submitResultReceiver = this;
@@ -129,6 +131,9 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 pb.setJx(mTypes.get(i).getCode());
+                if (!mTypes.get(i).getCode().equals("")) {
+                    MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
+                }
             }
 
             @Override
@@ -230,19 +235,25 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         }
     }
 
-    @Override
-    public void serverData() {
-
-        if (checkExist(data.getVal("ej_BrickID"))) {
+    public void addRow(String brickId, String level, String length) {
+        if (checkExist(brickId)) {
             MyApplication.toast(R.string.duplicate_data, false);
-        } else if (differentLevel(data.getVal("ej_jzdj"))) {
+        } else if (dbDiff(data.getVal("db"))) {
+            MyApplication.toast(R.string.db_diff, false);
+        } else if (differentLevel(level)) {
             MyApplication.toast(R.string.different_level, false);
         } else {
             PbDetail p = new PbDetail();
-            p.setBrickId(data.getVal("ej_BrickID"));
-            p.setLength(data.getVal("pbj_yxbc"));
-            p.setLevel(data.getVal("ej_jzdj"));
+            p.setBrickId(brickId);
+            p.setLength(length);
+            p.setLevel(level);
             p.setStation("");
+
+            if (data != null && data.getVal("db") != null && !data.getVal("db").equals("")) {
+                p.setDb(data.getVal("db"));
+                activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("db"), true);
+            }
+
             pb.getDetailList().add(p);
 
             String stations = getStations();
@@ -256,6 +267,11 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             dataAdapter.notifyItemChanged(1);
             dataAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void serverData() {
+        addRow(data.getVal("ej_BrickID"), data.getVal("ej_jzdj"), data.getVal("pbj_yxbc"));
     }
 
     @Override
@@ -274,17 +290,17 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     @Override
     public void serverError(Throwable e) {
-
+        addRow(brick.getText().toString(), "", "");
     }
 
     @Override
     public void preventSubmit() {
-        submit.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     public void ableSubmit() {
-        submit.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -376,5 +392,17 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             }
         }
         return 0;
+    }
+
+    public boolean dbDiff(String db) {
+        if (db != null && !db.equals("")) {
+            for (PbDetail product : pb.getDetailList()) {
+                if (product.getDb() != null && !product.getDb().equals("") && !product.getDb().equals(db)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

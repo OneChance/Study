@@ -18,7 +18,6 @@ import java.util.List;
 
 public class ProcessUtil implements ServerObserver.ServerDataReceiver {
 
-    private ServerObserver serverObserver;
     private Context context;
     private SubmitResultReceiver submitResultReceiver;
     private ServerObserver.ServerDataReceiver serverDataReceiver;
@@ -37,7 +36,7 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
      * @param processData 提交的数据
      */
     public void submit(SubmitResultReceiver receiver, ProcessBase processData, User user) {
-        serverObserver = new ServerObserver(serverDataReceiver, "", null);
+        ServerObserver serverObserver = new ServerObserver(serverDataReceiver, "", null);
         this.submitResultReceiver = receiver;
 
         if (user != null) {
@@ -50,6 +49,11 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
             String now = sdf.format(new Date());
             processSubmit.setOperationTime(now);
             processSubmit.setProduceCode(processData.getCode());
+            processSubmit.setBagCode(processData.getBagCode());
+
+            if (processData.getCode().equals("qx")) {
+                processSubmit.setMachineCode(LocalConfig.MACHINE_CODE);
+            }
 
             List<ProcessItem> items = ItemValueConverter.convert(processData);
 
@@ -69,29 +73,23 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
         processToSubmit = processSubmit;
 
         if (MyApplication.netAble) {
-            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).brickSubmit(processSubmit))
-                    .subscribe(serverObserver);
+            if (processSubmit.getProduceCode().equals("jb")) {
+                NetUtil.SetObserverCommonAction(NetUtil.getServices(false).cancelBrickGroup(processSubmit))
+                        .subscribe(serverObserver);
+            } else {
+                NetUtil.SetObserverCommonAction(NetUtil.getServices(false).brickSubmit(processSubmit))
+                        .subscribe(serverObserver);
+            }
         } else {
             DBHelper.getInstance(context).save(processSubmit);
+            serverError(null);
         }
     }
 
     @Override
     public void serverData() {
-        try {
-            if (data != null) {
-                if (data.getCode().equals("0")) {
-                    MyApplication.toast(R.string.submit_ok, true);
-                    submitResultReceiver.submitOk();
-                } else {
-                    if (data.getInfo() != null && !data.getInfo().equals("")) {
-                        MyApplication.toast(data.getInfo(), false);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            MyApplication.toast(e.getMessage(), false);
-        }
+        MyApplication.toast(R.string.submit_ok, true);
+        submitResultReceiver.submitOk();
     }
 
     @Override

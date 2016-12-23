@@ -1,6 +1,7 @@
 package com.logic.mes.presenter.main;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.logic.mes.autosubmit.DataAutoSubmit;
 import com.logic.mes.entity.base.UserInfo;

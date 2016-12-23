@@ -119,13 +119,18 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     @Override
     public void scanReceive(String res, int scanCode) {
         jzbh.setText(res);
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res,"yb"))
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res, "yb"))
                 .subscribe(serverObserver);
     }
 
     @Override
     public void serverData() {
         cj = data.getVal("qp_cj");
+
+        if (cjError(cj)) {
+            MyApplication.toast(R.string.no_cj, false);
+        }
+
         EditTextUtil.setTextEnd(yzd, data.getVal("yb_yzd"));
         EditTextUtil.setTextEnd(hbp, data.getVal("yb_hbp"));
         EditTextUtil.setTextEnd(zb, data.getVal("yb_zb"));
@@ -204,17 +209,17 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
      */
     @OnTextChanged(value = {R.id.yb_v_yzd, R.id.yb_v_hbp, R.id.yb_v_zb, R.id.yb_v_dp, R.id.yb_v_kxs, R.id.yb_v_lds, R.id.yb_v_zqbb}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calQps() {
-        int yzdI = DataUtil.getIntValue(yzd.getText().toString());
-        int hbpI = DataUtil.getIntValue(hbp.getText().toString());
-        int zbI = DataUtil.getIntValue(zb.getText().toString());
-        int dpI = DataUtil.getIntValue(dp.getText().toString());
-        int kxsI = DataUtil.getIntValue(kxs.getText().toString());
-        int ldsI = DataUtil.getIntValue(lds.getText().toString());
-        int zqbbI = DataUtil.getIntValue(zqbb.getText().toString());
+        double yzdI = DataUtil.getDoubleValue(yzd.getText().toString());
+        double hbpI = DataUtil.getDoubleValue(hbp.getText().toString());
+        double zbI = DataUtil.getDoubleValue(zb.getText().toString());
+        double dpI = DataUtil.getDoubleValue(dp.getText().toString());
+        double kxsI = DataUtil.getDoubleValue(kxs.getText().toString());
+        double ldsI = DataUtil.getDoubleValue(lds.getText().toString());
+        double zqbbI = DataUtil.getDoubleValue(zqbb.getText().toString());
 
         int qpsI = 0;
 
-        if (!cj.equals("")) {
+        if (!cjError(cj)) {
             qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).divide(new BigDecimal(cj), 0, BigDecimal.ROUND_DOWN).intValue();
         } else {
             qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).intValue();
@@ -232,5 +237,23 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     @Override
     public void ableSubmit() {
         bSubmit.setVisibility(View.VISIBLE);
+    }
+
+    public boolean cjError(String cj) {
+
+        if (cj.equals("")) {
+            return true;
+        }
+
+        try {
+            double cjD = Double.parseDouble(cj);
+            if (cjD <= 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            return true;
+        }
+
+        return false;
     }
 }

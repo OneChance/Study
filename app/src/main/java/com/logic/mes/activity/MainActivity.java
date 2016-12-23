@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements IMain {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         adapter = new ViewPagerAdapter(fragmentManager);
-        mainPresenter = new MainPresenter(this,context);
+        mainPresenter = new MainPresenter(this, context);
         mainPresenter.getAuthTags(userInfo);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements IMain {
 
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
         bLoginOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,15 +116,12 @@ public class MainActivity extends AppCompatActivity implements IMain {
                 // TODO Auto-generated method stub
                 if (MyApplication.netAble && intent.getAction().equals(ServerObserver.SERVER_ERROR)) {
                     //网络访问失败
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDarkNoNet));
                     MyApplication.netAble = false;
-                    tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryNoNet));
+                    setNetableStyle(false);
                 } else {
                     if (!MyApplication.netAble && intent.getAction().equals(ServerObserver.SERVER_OK)) {
                         MyApplication.netAble = true;
-                        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                        tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                        mainPresenter.autoSubmitData();
+                        setNetableStyle(true);
                     }
                 }
             }
@@ -135,9 +132,22 @@ public class MainActivity extends AppCompatActivity implements IMain {
         mFilter.addAction(ServerObserver.SERVER_OK);
         registerReceiver(serverAccessReceiver, mFilter);
 
+        setNetableStyle(MyApplication.netAble);
+
         MyApplication.addActivity(this);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+    }
+
+    private void setNetableStyle(boolean netable) {
+        if (netable) {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            mainPresenter.autoSubmitData();
+        } else {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDarkNoNet));
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryNoNet));
+        }
     }
 
     @Override
