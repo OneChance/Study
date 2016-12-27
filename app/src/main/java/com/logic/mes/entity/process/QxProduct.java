@@ -11,7 +11,7 @@ public class QxProduct extends ProcessBase {
     private String brickId;
     private String llcps;
 
-    @ItemCol(col = "sjps")
+    @ItemCol(col = "sjcps")
     private String sjcps;
     @ItemCol(col = "hs")
     private String hs;

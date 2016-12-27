@@ -3,7 +3,6 @@ package com.logic.mes.observer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,7 +16,6 @@ import com.logic.mes.activity.MainActivity;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.base.Org;
-import com.logic.mes.entity.base.ProduceDef;
 import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.base.UserInfoResult;
 import com.logic.mes.update.UpdateAppUtils;
@@ -95,7 +93,7 @@ public class LoginObserver implements Observer<UserInfoResult> {
             UserInfo userInfo = res.getDatas();
             toMain(userInfo);
         } else {
-            Log.w("mes", "login warn:" + res.getInfo());
+            MyApplication.toast(res.getInfo(), false);
             dbLogin();
         }
     }
@@ -166,7 +164,7 @@ public class LoginObserver implements Observer<UserInfoResult> {
             toMain(list.get(0));
         } else {
             iUpdate.loginButtonRecover();
-            Toast.makeText(context, R.string.login_error, Toast.LENGTH_SHORT).show();
+            MyApplication.toast(R.string.login_local_error, false);
         }
     }
 

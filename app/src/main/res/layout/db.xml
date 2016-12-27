@@ -1,101 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/db_l_brick"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:padding="10sp"
+            android:text="@string/db_l_brickId"
+            android:textColor="@color/text"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
-                android:id="@+id/db_l_brick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10sp"
-                android:text="@string/brick_id"
-                android:textColor="@color/text"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-
-        <TextView
-                android:id="@+id/db_brick_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10sp"
-                android:text="@string/wait_scan"/>
+            android:id="@+id/db_brick_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:text="@string/wait_scan" />
     </LinearLayout>
 
     <ScrollView
-            android:id="@+id/db_scroll_content"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+        android:id="@+id/db_scroll_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical">
 
             <android.support.percent.PercentRelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/dividers"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/db_l_type"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/db_l_type"
-                        app:layout_widthPercent="50%"/>
+                    android:id="@+id/db_l_type"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/db_l_type"
+                    app:layout_widthPercent="50%" />
 
                 <TextView
-                        android:id="@+id/db_v_type"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_toRightOf="@+id/db_l_type"
-                        app:layout_widthPercent="50%"/>
+                    android:id="@+id/db_v_type"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_toRightOf="@+id/db_l_type"
+                    android:layout_weight="1"
+                    app:layout_widthPercent="50%" />
 
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.percent.PercentRelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/dividers"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/db_l_cate"
-                        style="@style/font_title"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/db_l_cate"
-                        app:layout_widthPercent="50%"/>
+                    android:id="@+id/db_l_cate"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/db_l_cate"
+                    app:layout_widthPercent="50%" />
 
                 <LinearLayout
-                        android:id="@+id/db_v_cate_wrapper"
-                        style="@style/edit_text_wrapper"
-                        android:layout_toRightOf="@+id/db_l_cate"
-                        app:layout_widthPercent="50%">
+                    android:id="@+id/db_v_cate_wrapper"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/db_l_cate"
+                    app:layout_widthPercent="50%">
 
                     <EditText
-                            android:id="@+id/db_v_cate"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:text=""
-                            android:textColor="@color/text"
-                            android:textSize="15sp"
-                            android:textStyle="bold"/>
+                        android:id="@+id/db_v_cate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
         </LinearLayout>
@@ -103,21 +103,21 @@
     </ScrollView>
 
     <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/db_b_add"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:text="@string/db_b_add" />
 
         <Button
-                android:id="@+id/db_b_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/db_b_add"/>
-
-        <Button
-                android:id="@+id/db_b_cd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/db_b_cd"/>
+            android:id="@+id/db_b_cd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/db_b_cd" />
     </LinearLayout>
 </LinearLayout>

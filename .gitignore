@@ -49,11 +49,6 @@ Temporary Items
 /.idea
 /.gradle
 /zxing
-*.iml
-local.properties
-mes.iml
-app/gradle.properties
-app/app.iml
-app/app.iml
-*.apk
-app/app.iml
+/local.properties
+/gradle.properties
+/app/*.apk

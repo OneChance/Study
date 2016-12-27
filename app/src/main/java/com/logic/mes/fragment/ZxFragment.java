@@ -1,10 +1,8 @@
 package com.logic.mes.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +11,13 @@ import android.widget.TextView;
 
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.activity.MainActivity;
 import com.logic.mes.adapter.ZxListAdapter;
-import com.logic.mes.entity.process.ZtProduct;
 import com.logic.mes.entity.process.ZxHead;
 import com.logic.mes.entity.process.ZxProduct;
 import com.logic.mes.entity.server.ProcessItem;
-import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -217,7 +214,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                         ZxProduct p = new ZxProduct();
                         p.setXh(map.get("caseCode"));
                         p.setHh(map.get("boxCode"));
-                        p.setDb(map.get("db"));
+                        p.setDb(map.get("zh_db"));
 
                         if (map.get("boxdj") != null && !map.get("boxdj").equals("")) {
                             p.setLevel(map.get("boxdj"));
@@ -238,7 +235,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         if (zx.getDetailList().size() < 4) {
             if (!checkExist(currentCode)) {
                 if (!levelDiff(data.getVal("boxdj"))) {
-                    if (!dbDiff(data.getVal("db"))) {
+                    if (!dbDiff(data.getVal("zh_db"))) {
 
                         hhHead.setText(currentCode);
                         ZxProduct p = new ZxProduct();
@@ -249,9 +246,9 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                             p.setLevel(data.getVal("boxdj"));
                         }
 
-                        if (data != null && data.getVal("db") != null && !data.getVal("db").equals("")) {
-                            p.setDb(data.getVal("db"));
-                            activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("db"), true);
+                        if (data != null && data.getVal("zh_db") != null && !data.getVal("zh_db").equals("")) {
+                            p.setDb(data.getVal("zh_db"));
+                            activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("zh_db"), true);
                         }
 
                         zx.getDetailList().add(p);

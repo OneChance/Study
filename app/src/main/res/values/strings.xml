@@ -1,7 +1,10 @@
 <resources>
 
+    <string name="accessibility_service_name">我的智能安装</string>
+    <string name="accessibility_service_description">智能安装服务，无需用户的任何操作就可以自动安装程序。</string>
+
     <!-- 登陆 -->
-    <string name="login_error">登录异常</string>
+    <string name="login_local_error">本地登录失败</string>
     <string name="login">登录</string>
     <string name="logining">登录中</string>
     <string name="need_emp_no">请输入员工号</string>
@@ -25,6 +28,7 @@
     <string name="server_error">与服务器通信异常</string>
     <string name="submit_ok">提交成功</string>
     <string name="no_data">无数据</string>
+    <string name="server_data_bag_error">获取失败</string>
     <string name="switch_down">扫描类型已切换</string>
     <string name="process_submited">该工序已于%1$s提交过,是否重新提交数据</string>
     <string name="no">否</string>
@@ -100,13 +104,13 @@
     <!--验棒-->
     <string name="yb_l_spyy">碎片原因</string>
     <string name="yb_l_sl">数量</string>
-    <string name="yb_l_yzd">硬质点(毫米)</string>
-    <string name="yb_l_hbp">厚薄片(毫米)</string>
-    <string name="yb_l_zb">撞棒(毫米)</string>
-    <string name="yb_l_dp">掉片(毫米)</string>
-    <string name="yb_l_kxs">卡线碎(毫米)</string>
-    <string name="yb_l_lds">亮点碎(毫米)</string>
-    <string name="yb_l_zqbb">整齐崩边(毫米)</string>
+    <string name="yb_l_yzd">硬质点(mm)</string>
+    <string name="yb_l_hbp">厚薄片(mm)</string>
+    <string name="yb_l_zb">撞棒(mm)</string>
+    <string name="yb_l_dp">掉片(mm)</string>
+    <string name="yb_l_kxs">卡线碎(mm)</string>
+    <string name="yb_l_lds">亮点碎(mm)</string>
+    <string name="yb_l_zqbb">整齐崩边(mm)</string>
     <string name="yb_b_submit">提交</string>
     <string name="yb_b_clear">清空</string>
     <string name="yb_l_qps">切片碎(片)</string>
@@ -198,10 +202,10 @@
     <string name="jb_b_submit">解棒</string>
 
     <!--单包-->
-    <string name="db_l_type">类别</string>
     <string name="db_l_brickId">条码</string>
-    <string name="db_l_cate">类型</string>
-    <string name="db_b_add">增加</string>
-    <string name="db_b_cd">撤单</string>
+    <string name="db_l_type">类别</string>
+    <string name="db_l_cate">单包类型</string>
+    <string name="db_b_add">设置单包</string>
+    <string name="db_b_cd">撤销单包</string>
     <string name="need_cate">请输入单包类型</string>
 </resources>

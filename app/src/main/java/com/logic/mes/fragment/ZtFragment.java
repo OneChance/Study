@@ -1,7 +1,6 @@
 package com.logic.mes.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,14 +11,13 @@ import android.widget.TextView;
 
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.activity.MainActivity;
 import com.logic.mes.adapter.ZtListAdapter;
 import com.logic.mes.entity.process.ZtHead;
 import com.logic.mes.entity.process.ZtProduct;
-import com.logic.mes.entity.process.ZxProduct;
 import com.logic.mes.entity.server.ProcessItem;
-import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -170,6 +168,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
                     .subscribe(serverObserver);
             currentReceiverCode = SCAN_CODE_TH;
         } else if (scanCode == SCAN_CODE_XZ) {
+            xhHead.setText(res);
             currentCode = res;
             item.setItemKey("CaseCode");
             item.setItemValue(currentCode);
@@ -200,7 +199,8 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
                         ZtProduct p = new ZtProduct();
                         p.setTh(map.get("torrCode"));
                         p.setXh(map.get("caseCode"));
-                        p.setDb(map.get("db"));
+                        p.setDb(map.get("zh_db"));
+
                         zt.getDetailList().add(p);
                     }
                     changeSumXz(zt.getDetailList().size());
@@ -219,15 +219,15 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
 
             if (!checkExist(currentCode)) {
 
-                if (!dbDiff(data.getVal("db"))) {
+                if (!dbDiff(data.getVal("zh_db"))) {
                     xhHead.setText(currentCode);
                     ZtProduct p = new ZtProduct();
                     p.setTh(thHead.getText().toString());
                     p.setXh(currentCode);
 
-                    if (data != null && data.getVal("db") != null && !data.getVal("db").equals("")) {
-                        p.setDb(data.getVal("db"));
-                        activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("db"), true);
+                    if (data != null && data.getVal("zh_db") != null && !data.getVal("zh_db").equals("")) {
+                        p.setDb(data.getVal("zh_db"));
+                        activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("zh_db"), true);
                     }
 
                     zt.getDetailList().add(p);

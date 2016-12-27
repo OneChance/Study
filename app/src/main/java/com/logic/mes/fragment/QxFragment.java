@@ -145,7 +145,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     @Override
     public void scanReceive(String res, int scanCode) {
         jzbhHead.setText(res);
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res,"qx"))
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBrickInfo(res, "qx"))
                 .subscribe(serverObserver);
     }
 
@@ -154,7 +154,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         jzbh.setText(data.getVal("ej_BrickID"));
         station.setText(data.getVal("pb_gw"));
         llcps.setText(data.getVal("cp_llcps"));
-        EditTextUtil.setTextEnd(sjcps, data.getRelVal("cp", "qx", "sjps"));
+        EditTextUtil.setTextEnd(sjcps, data.getRelVal("cp", "qx", "sjcps"));
         EditTextUtil.setTextEnd(hs, data.getRelVal("cp", "qx", "hs"));
 
         String pieces = sysConfig.getPieces();

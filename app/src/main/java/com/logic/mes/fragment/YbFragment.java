@@ -55,7 +55,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     @InjectView(R.id.yb_v_zqbb)
     EditText zqbb;
     @InjectView(R.id.yb_v_qps)
-    EditText qps;
+    TextView qps;
 
     FragmentActivity activity;
     IScanReceiver receiver;
@@ -111,7 +111,6 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setNoKeyboard(kxs);
         EditTextUtil.setNoKeyboard(lds);
         EditTextUtil.setNoKeyboard(zqbb);
-        EditTextUtil.setNoKeyboard(qps);
 
         return view;
     }
@@ -221,12 +220,10 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
         if (!cjError(cj)) {
             qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).divide(new BigDecimal(cj), 0, BigDecimal.ROUND_DOWN).intValue();
+            qps.setText((qpsI + ""));
         } else {
-            qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).intValue();
+            qps.setText("");
         }
-
-        qps.setText((qpsI + ""));
-
     }
 
     @Override

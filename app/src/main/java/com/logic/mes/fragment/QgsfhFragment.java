@@ -2,7 +2,6 @@ package com.logic.mes.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,9 @@ import com.logic.mes.DataUtil;
 import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.entity.process.QgsfhProduct;
-import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -56,7 +55,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     @InjectView(R.id.qgsfh_v_zqbb)
     EditText zqbb;
     @InjectView(R.id.qgsfh_v_qps)
-    EditText qps;
+    TextView qps;
     String cj = "";
 
     FragmentActivity activity;
@@ -112,7 +111,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         EditTextUtil.setNoKeyboard(kxs);
         EditTextUtil.setNoKeyboard(lds);
         EditTextUtil.setNoKeyboard(zqbb);
-        EditTextUtil.setNoKeyboard(qps);
 
         return view;
     }
@@ -132,13 +130,13 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         if (cjError(cj)) {
             MyApplication.toast(R.string.no_cj, false);
         } else {
-            EditTextUtil.setTextEnd(yzd, calWithCj(data.getRelVal("yb", "qgs", "yzd")));
-            EditTextUtil.setTextEnd(hbp, calWithCj(data.getRelVal("yb", "qgs", "hbp")));
-            EditTextUtil.setTextEnd(zb, calWithCj(data.getRelVal("yb", "qgs", "zb")));
-            EditTextUtil.setTextEnd(dp, calWithCj(data.getRelVal("yb", "qgs", "dp")));
-            EditTextUtil.setTextEnd(kxs, calWithCj(data.getRelVal("yb", "qgs", "kxs")));
-            EditTextUtil.setTextEnd(lds, calWithCj(data.getRelVal("yb", "qgs", "lds")));
-            EditTextUtil.setTextEnd(zqbb, calWithCj(data.getRelVal("yb", "qgs", "zqbb")));
+            EditTextUtil.setTextEnd(yzd, calWithCj(data.getRelValWithRes("yb", "qgs", "yzd")));
+            EditTextUtil.setTextEnd(hbp, calWithCj(data.getRelValWithRes("yb", "qgs", "hbp")));
+            EditTextUtil.setTextEnd(zb, calWithCj(data.getRelValWithRes("yb", "qgs", "zb")));
+            EditTextUtil.setTextEnd(dp, calWithCj(data.getRelValWithRes("yb", "qgs", "dp")));
+            EditTextUtil.setTextEnd(kxs, calWithCj(data.getRelValWithRes("yb", "qgs", "kxs")));
+            EditTextUtil.setTextEnd(lds, calWithCj(data.getRelValWithRes("yb", "qgs", "lds")));
+            EditTextUtil.setTextEnd(zqbb, calWithCj(data.getRelValWithRes("yb", "qgs", "zqbb")));
         }
     }
 
@@ -227,12 +225,20 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     /**
      * @return 返回除以槽距后的值
      */
-    public String calWithCj(String old) {
-        if (cjError(cj)) {
-            return old;
-        } else {
-            return new BigDecimal(old).divide(new BigDecimal(cj), BigDecimal.ROUND_DOWN).toString();
+    public String calWithCj(String[] res) {
+        if (res[1].equals("after")) {
+            return res[0];
+        } else if (res[1].equals("pre")) {
+            if (cjError(cj)) {
+                return "";
+            } else {
+                if (res[0].equals("")) {
+                    res[0] = "0";
+                }
+                return new BigDecimal(res[0]).divide(new BigDecimal(cj), BigDecimal.ROUND_DOWN).toString();
+            }
         }
+        return "";
     }
 
     @Override
