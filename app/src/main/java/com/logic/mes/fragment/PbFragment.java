@@ -1,10 +1,8 @@
 package com.logic.mes.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +24,6 @@ import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.process.MType;
 import com.logic.mes.entity.process.PbDetail;
 import com.logic.mes.entity.process.PbProduct;
-import com.logic.mes.entity.process.ZtProduct;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -189,7 +186,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clear();
+                clearAll();
             }
         });
 
@@ -281,7 +278,15 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     @Override
     public void clear() {
+        successClear();
+    }
+
+    public void clearAll() {
         mType.setSelection(0);
+        successClear();
+    }
+
+    public void successClear() {
         brick.setText(R.string.wait_scan);
         pb.getDetailList().clear();
         dataAdapter.notifyDataSetChanged();

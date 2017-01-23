@@ -76,6 +76,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     String xwcd = "0";
     String yxbc = "0";
     String cj = "1";
+    String qps = "0";
 
     SysConfig sysConfig;
 
@@ -170,6 +171,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         xwcd = data.getVal("pb_xwcd");
         yxbc = data.getVal("ej_yxbc");
         cj = data.getVal("qp_cj");
+        qps = data.getVal("qgs_qps");
 
         calSjps();
         calLlcps();
@@ -309,8 +311,9 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         int llcpsI = DataUtil.getIntValue(llcps.getText().toString());
         int sjcpsI = DataUtil.getIntValue(sjcps.getText().toString());
         int offset = DataUtil.getIntValue(sysConfig.getOffset());
+        int qpsI = DataUtil.getIntValue(qps);
 
-        int tjqxsI = new BigDecimal(llcpsI).add(new BigDecimal(offset)).subtract(new BigDecimal(sjcpsI)).intValue();
+        int tjqxsI = new BigDecimal(llcpsI).add(new BigDecimal(offset)).subtract(new BigDecimal(sjcpsI)).subtract(new BigDecimal(qpsI)).intValue();
         jjqxs.setText((tjqxsI + ""));
     }
 
