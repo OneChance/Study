@@ -54,6 +54,8 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     EditText lds;
     @InjectView(R.id.qgsfh_v_zqbb)
     EditText zqbb;
+    @InjectView(R.id.qgsfh_v_dxfq)
+    EditText dxfq;
     @InjectView(R.id.qgsfh_v_qps)
     TextView qps;
     String cj = "";
@@ -111,6 +113,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         EditTextUtil.setNoKeyboard(kxs);
         EditTextUtil.setNoKeyboard(lds);
         EditTextUtil.setNoKeyboard(zqbb);
+        EditTextUtil.setNoKeyboard(dxfq);
 
         return view;
     }
@@ -137,6 +140,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
             EditTextUtil.setTextEnd(kxs, calWithCj(data.getRelValWithRes("yb", "qgs", "kxs")));
             EditTextUtil.setTextEnd(lds, calWithCj(data.getRelValWithRes("yb", "qgs", "lds")));
             EditTextUtil.setTextEnd(zqbb, calWithCj(data.getRelValWithRes("yb", "qgs", "zqbb")));
+            EditTextUtil.setTextEnd(zqbb, calWithCj(data.getRelValWithRes("yb", "qgs", "dxfq")));
         }
     }
 
@@ -154,6 +158,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         EditTextUtil.setTextEnd(kxs, qgsfh.getKxs());
         EditTextUtil.setTextEnd(lds, qgsfh.getLds());
         EditTextUtil.setTextEnd(zqbb, qgsfh.getZqbb());
+        EditTextUtil.setTextEnd(dxfq, qgsfh.getDxfq());
     }
 
     @Override
@@ -177,6 +182,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         qgsfh.setLds(lds.getText().toString());
         qgsfh.setZqbb(zqbb.getText().toString());
         qgsfh.setQps(qps.getText().toString());
+        qgsfh.setDxfq(dxfq.getText().toString());
 
         return qgsfh;
     }
@@ -197,6 +203,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         lds.setText("");
         zqbb.setText("");
         qps.setText("");
+        dxfq.setText("");
     }
 
     @Override
@@ -216,8 +223,9 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         int kxsI = DataUtil.getIntValue(kxs.getText().toString());
         int ldsI = DataUtil.getIntValue(lds.getText().toString());
         int zqbbI = DataUtil.getIntValue(zqbb.getText().toString());
+        int dxfqI =  DataUtil.getIntValue(dxfq.getText().toString());
 
-        int qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).intValue();
+        int qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).add(new BigDecimal(dxfqI)).intValue();
 
         qps.setText((qpsI + ""));
     }

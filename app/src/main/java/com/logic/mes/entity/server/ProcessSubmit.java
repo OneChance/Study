@@ -25,10 +25,28 @@ public class ProcessSubmit implements Serializable {
     private Boolean isGroup;
     private String bagCode;
     private String machineCode;
+    private String orgPath;
+    private String changQu;
 
     @Mapping(Relation.OneToMany)
     @MapCollection(ArrayList.class)
     private List<ProcessItem> items;
+
+    public String getOrgPath() {
+        return orgPath;
+    }
+
+    public void setOrgPath(String orgPath) {
+        this.orgPath = orgPath;
+    }
+
+    public String getChangQu() {
+        return changQu;
+    }
+
+    public void setChangQu(String changQu) {
+        this.changQu = changQu;
+    }
 
     public String getMachineCode() {
         return machineCode;

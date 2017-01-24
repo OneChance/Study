@@ -23,6 +23,16 @@ public class QgsfhProduct extends ProcessBase {
     private String zqbb;
     @ItemCol(col = "qps")
     private String qps;
+    @ItemCol(col = "dxfq")
+    private String dxfq;
+
+    public String getDxfq() {
+        return dxfq;
+    }
+
+    public void setDxfq(String dxfq) {
+        this.dxfq = dxfq;
+    }
 
     public String getYzd() {
         return yzd;

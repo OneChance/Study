@@ -54,6 +54,8 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     EditText lds;
     @InjectView(R.id.yb_v_zqbb)
     EditText zqbb;
+    @InjectView(R.id.yb_v_dxfq)
+    EditText dxfq;
     @InjectView(R.id.yb_v_qps)
     TextView qps;
 
@@ -111,6 +113,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setNoKeyboard(kxs);
         EditTextUtil.setNoKeyboard(lds);
         EditTextUtil.setNoKeyboard(zqbb);
+        EditTextUtil.setNoKeyboard(dxfq);
 
         return view;
     }
@@ -137,6 +140,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setTextEnd(kxs, data.getVal("yb_kxs"));
         EditTextUtil.setTextEnd(lds, data.getVal("yb_lds"));
         EditTextUtil.setTextEnd(zqbb, data.getVal("yb_zqbb"));
+        EditTextUtil.setTextEnd(zqbb, data.getVal("yb_dxfq"));
     }
 
     @Override
@@ -153,6 +157,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setTextEnd(kxs, yb.getKxs());
         EditTextUtil.setTextEnd(lds, yb.getLds());
         EditTextUtil.setTextEnd(zqbb, yb.getZqbb());
+        EditTextUtil.setTextEnd(dxfq, yb.getDxfq());
     }
 
     @Override
@@ -175,6 +180,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         yb.setKxs(kxs.getText().toString());
         yb.setLds(lds.getText().toString());
         yb.setZqbb(zqbb.getText().toString());
+        yb.setDxfq(dxfq.getText().toString());
         yb.setQps(qps.getText().toString());
         yb.setCode("yb");
         return yb;
@@ -196,6 +202,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         lds.setText("");
         zqbb.setText("");
         qps.setText("");
+        dxfq.setText("");
     }
 
     @Override

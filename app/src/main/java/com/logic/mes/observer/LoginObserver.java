@@ -127,6 +127,12 @@ public class LoginObserver implements Observer<UserInfoResult> {
 
                     noticeDialog.show();
                 } else {
+
+                    if(userInfo.getUser()!=null && userInfo.getOrgs()!=null && userInfo.getOrgs().size()>0){
+                        userInfo.getUser().setOrgPath(userInfo.getOrgs().get(0).getOrgName());
+                        userInfo.getUser().setOrgid_mes(userInfo.getOrgs().get(0).getId());
+                    }
+
                     activityTo(userInfo);
                 }
             } else {
@@ -139,22 +145,36 @@ public class LoginObserver implements Observer<UserInfoResult> {
     private void orgChooseCallback() {
         for (Org org : this.userInfo.getOrgs()) {
             if (org.getOrgName().equals(chooseOrg)) {
+                this.userInfo.getUser().setOrgPath(org.getOrgName());
                 this.userInfo.getUser().setOrgid_mes(org.getId());
             }
         }
+
         activityTo(this.userInfo);
+
     }
 
     private void activityTo(UserInfo userInfo) {
-        DBHelper.getInstance(context).deleteAll(UserInfo.class);
-        userInfo.getAppInfo().setCurrentTime("");
-        DBHelper.getInstance(context).save(userInfo);
-        Intent intent = new Intent();
-        intent.setClass(context, MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("userInfo", userInfo);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
+
+        String orgPath = "";
+
+        if(userInfo.getUser()!=null){
+            orgPath = userInfo.getUser().getOrgPath();
+        }
+
+        if(orgPath.equals("")||orgPath.length()<2){
+            Toast.makeText(context, R.string.choose_org_error, Toast.LENGTH_LONG).show();
+        }else{
+            DBHelper.getInstance(context).deleteAll(UserInfo.class);
+            userInfo.getAppInfo().setCurrentTime("");
+            DBHelper.getInstance(context).save(userInfo);
+            Intent intent = new Intent();
+            intent.setClass(context, MainActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("userInfo", userInfo);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+        }
     }
 
     private void dbLogin() {

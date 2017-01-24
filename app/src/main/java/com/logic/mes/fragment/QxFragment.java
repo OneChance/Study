@@ -72,6 +72,9 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     TextView zj;
     @InjectView(R.id.qx_v_zqqss)
     EditText zqqss;
+    @InjectView(R.id.qx_v_qps)
+    EditText qpsV;
+
 
     String xwcd = "0";
     String yxbc = "0";
@@ -172,6 +175,8 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         yxbc = data.getVal("ej_yxbc");
         cj = data.getVal("qp_cj");
         qps = data.getVal("qgs_qps");
+
+        qpsV.setText(qps);
 
         calSjps();
         calLlcps();

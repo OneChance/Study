@@ -21,6 +21,7 @@
     <string name="config_dismiss">关闭</string>
     <string name="config_save">保存</string>
     <string name="time_error">设备时间与服务器时间偏差较大,请设置设备当前时间</string>
+    <string name="choose_org_error">部门信息有误</string>
     <string name="submit_error">提交失败</string>
     <string name="data_save">已保存</string>
     <string name="server_config_error">服务器信息配置有误</string>
@@ -111,6 +112,7 @@
     <string name="yb_l_kxs">卡线碎(mm)</string>
     <string name="yb_l_lds">亮点碎(mm)</string>
     <string name="yb_l_zqbb">整齐崩边(mm)</string>
+    <string name="yb_l_dxfq">断线放弃(mm)</string>
     <string name="yb_b_submit">提交</string>
     <string name="yb_b_clear">清空</string>
     <string name="yb_l_qps">切片碎(片)</string>
@@ -118,6 +120,7 @@
 
     <!--清洗-->
     <string name="qx_l_llcps">理论出片数</string>
+    <string name="qx_l_qps">切片碎</string>
     <string name="qx_l_sjps">实际片数</string>
     <string name="qx_l_hs">盒数</string>
     <string name="qx_l_mhps">每盒片数</string>
@@ -140,6 +143,7 @@
     <string name="qgsfh_l_kxs">卡线碎(片)</string>
     <string name="qgsfh_l_lds">亮点碎(片)</string>
     <string name="qgsfh_l_zqbb">整齐崩边(片)</string>
+    <string name="qgsfh_l_dxfq">断线放弃(片)</string>
     <string name="qgsfh_b_submit">提交</string>
     <string name="qgsfh_b_clear">清空</string>
     <string name="qgsfh_l_qps">切片碎(片)</string>

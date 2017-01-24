@@ -23,6 +23,15 @@ public class User implements Serializable{
     private Long orgid_mes;
     private Integer isDel;
     private Integer isChanged;
+    private String orgPath;
+
+    public String getOrgPath() {
+        return orgPath;
+    }
+
+    public void setOrgPath(String orgPath) {
+        this.orgPath = orgPath;
+    }
 
     public Long getId() {
         return id;
