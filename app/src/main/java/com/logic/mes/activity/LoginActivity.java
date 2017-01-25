@@ -12,13 +12,13 @@ import android.widget.TextView;
 
 import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
+import com.logic.mes.LocalConfig;
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
+import com.logic.mes.ServerConfig;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.dialog.MaterialDialog;
-import com.logic.mes.LocalConfig;
 import com.logic.mes.net.NetUtil;
-import com.logic.mes.ServerConfig;
 import com.logic.mes.observer.LoginObserver;
 
 import java.util.List;
@@ -39,6 +39,9 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
     LinearLayout loading;
     @InjectView(R.id.loading_text)
     TextView loadingText;
+    @InjectView(R.id.app_version)
+    TextView appVersion;
+
     @InjectView(R.id.btn_config_server)
     Button config;
     LoginActivity activity;
@@ -125,6 +128,8 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
 
         MyApplication.getScanUtil().setReceiver(receiver, 0);
         EditTextUtil.setNoKeyboard(empNo);
+
+        appVersion.setText(String.format(MyApplication.getResString(R.string.app_version), MyApplication.VERSION));
 
         //禁用HOME键
         Intent intent = new Intent("com.android.action.HOMEKEY_SWITCH_STATE");

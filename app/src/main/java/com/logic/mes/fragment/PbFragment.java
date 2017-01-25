@@ -128,7 +128,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 pb.setJx(mTypes.get(i).getCode());
-                if (!mTypes.get(i).getCode().equals("")) {
+                if (!mTypes.get(i).getCode().equals("")&&(receiver instanceof PbFragment)) {
                     MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
                 }
             }

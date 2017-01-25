@@ -13,6 +13,7 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.TimeUtil;
 import com.logic.mes.activity.MainActivity;
+import com.logic.mes.adapter.OrgItem;
 import com.logic.mes.db.DBHelper;
 import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.base.Org;
@@ -33,8 +34,8 @@ public class LoginObserver implements Observer<UserInfoResult> {
     public MaterialDialog noticeDialog;
     UserInfo userInfo;
     Spinner spinner;
-    String chooseOrg;
-    private ArrayAdapter<String> adapter;
+    OrgItem chooseOrg;
+    private ArrayAdapter<OrgItem> adapter;
 
     public LoginObserver(Context context, IUpdate iUpdate) {
         this.context = context;
@@ -48,7 +49,7 @@ public class LoginObserver implements Observer<UserInfoResult> {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                chooseOrg = (String) spinner.getSelectedItem();
+                chooseOrg = (OrgItem) spinner.getSelectedItem();
             }
 
             @Override
@@ -62,12 +63,12 @@ public class LoginObserver implements Observer<UserInfoResult> {
         noticeDialog.setPositiveButton(R.string.choose, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                orgChooseCallback();
                 noticeDialog.dismiss(view);
+                orgChooseCallback();
             }
         });
 
-        adapter = new ArrayAdapter<String>(context, R.layout.support_simple_spinner_dropdown_item);
+        adapter = new ArrayAdapter<OrgItem>(context, R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
 
@@ -117,10 +118,10 @@ public class LoginObserver implements Observer<UserInfoResult> {
                         String orgName = org.getOrgName();
 
                         if (orgName.length() > 15) {
-                            orgName = "..." + orgName.substring(orgName.length() - 15);
+                            orgName = orgName.substring(0, 15) + "...";
                         }
 
-                        adapter.add(orgName);
+                        adapter.add(new OrgItem(org.getId(),orgName));
                     }
 
                     adapter.notifyDataSetChanged();
@@ -128,7 +129,7 @@ public class LoginObserver implements Observer<UserInfoResult> {
                     noticeDialog.show();
                 } else {
 
-                    if(userInfo.getUser()!=null && userInfo.getOrgs()!=null && userInfo.getOrgs().size()>0){
+                    if (userInfo.getUser() != null && userInfo.getOrgs() != null && userInfo.getOrgs().size() > 0) {
                         userInfo.getUser().setOrgPath(userInfo.getOrgs().get(0).getOrgName());
                         userInfo.getUser().setOrgid_mes(userInfo.getOrgs().get(0).getId());
                     }
@@ -143,13 +144,8 @@ public class LoginObserver implements Observer<UserInfoResult> {
     }
 
     private void orgChooseCallback() {
-        for (Org org : this.userInfo.getOrgs()) {
-            if (org.getOrgName().equals(chooseOrg)) {
-                this.userInfo.getUser().setOrgPath(org.getOrgName());
-                this.userInfo.getUser().setOrgid_mes(org.getId());
-            }
-        }
-
+        this.userInfo.getUser().setOrgPath(chooseOrg.getPath());
+        this.userInfo.getUser().setOrgid_mes(chooseOrg.getId());
         activityTo(this.userInfo);
 
     }
@@ -158,13 +154,15 @@ public class LoginObserver implements Observer<UserInfoResult> {
 
         String orgPath = "";
 
-        if(userInfo.getUser()!=null){
+        if (userInfo.getUser() != null) {
             orgPath = userInfo.getUser().getOrgPath();
         }
 
-        if(orgPath.equals("")||orgPath.length()<2){
+        if (orgPath == null || orgPath.equals("") || orgPath.length() < 2) {
             Toast.makeText(context, R.string.choose_org_error, Toast.LENGTH_LONG).show();
-        }else{
+            iUpdate.loginButtonRecover();
+        } else {
+
             DBHelper.getInstance(context).deleteAll(UserInfo.class);
             userInfo.getAppInfo().setCurrentTime("");
             DBHelper.getInstance(context).save(userInfo);

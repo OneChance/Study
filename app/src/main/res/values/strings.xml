@@ -4,6 +4,7 @@
     <string name="accessibility_service_description">智能安装服务，无需用户的任何操作就可以自动安装程序。</string>
 
     <!-- 登陆 -->
+    <string name="app_version">VERSION:%1$s</string>
     <string name="login_local_error">本地登录失败</string>
     <string name="login">登录</string>
     <string name="logining">登录中</string>

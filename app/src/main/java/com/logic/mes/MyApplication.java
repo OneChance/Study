@@ -16,7 +16,7 @@ public class MyApplication extends Application {
 
     private static Context context;
     public static ScanUtil scanUtil;
-    public static Integer VERSION = 4;
+    public static Integer VERSION = 5;
     private static List<Activity> mList = new LinkedList();
     public static boolean netAble = true;
 

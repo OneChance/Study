@@ -140,7 +140,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
             EditTextUtil.setTextEnd(kxs, calWithCj(data.getRelValWithRes("yb", "qgs", "kxs")));
             EditTextUtil.setTextEnd(lds, calWithCj(data.getRelValWithRes("yb", "qgs", "lds")));
             EditTextUtil.setTextEnd(zqbb, calWithCj(data.getRelValWithRes("yb", "qgs", "zqbb")));
-            EditTextUtil.setTextEnd(zqbb, calWithCj(data.getRelValWithRes("yb", "qgs", "dxfq")));
+            EditTextUtil.setTextEnd(dxfq, calWithCj(data.getRelValWithRes("yb", "qgs", "dxfq")));
         }
     }
 
@@ -214,7 +214,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     /***
      * 计算切片碎
      */
-    @OnTextChanged(value = {R.id.qgsfh_v_yzd, R.id.qgsfh_v_hbp, R.id.qgsfh_v_zb, R.id.qgsfh_v_dp, R.id.qgsfh_v_kxs, R.id.qgsfh_v_lds, R.id.qgsfh_v_zqbb}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = {R.id.qgsfh_v_yzd, R.id.qgsfh_v_hbp, R.id.qgsfh_v_zb, R.id.qgsfh_v_dp, R.id.qgsfh_v_kxs, R.id.qgsfh_v_lds, R.id.qgsfh_v_zqbb,R.id.qgsfh_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calQps() {
         int yzdI = DataUtil.getIntValue(yzd.getText().toString());
         int hbpI = DataUtil.getIntValue(hbp.getText().toString());

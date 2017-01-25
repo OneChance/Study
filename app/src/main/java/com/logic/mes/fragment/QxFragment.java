@@ -73,7 +73,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     @InjectView(R.id.qx_v_zqqss)
     EditText zqqss;
     @InjectView(R.id.qx_v_qps)
-    EditText qpsV;
+    TextView qpsV;
 
 
     String xwcd = "0";
