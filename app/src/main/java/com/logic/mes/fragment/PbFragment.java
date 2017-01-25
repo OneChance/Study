@@ -72,10 +72,18 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     List<TableType> tableType;
     List<MType> mTypes = new ArrayList<>();
 
+    boolean visible = false;
+
     @Override
     public void setReceiver() {
         receiver = this;
         MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_MTYPE);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        visible = isVisibleToUser;
     }
 
     @Override
@@ -128,7 +136,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 pb.setJx(mTypes.get(i).getCode());
-                if (!mTypes.get(i).getCode().equals("")&&(receiver instanceof PbFragment)) {
+                if (!mTypes.get(i).getCode().equals("") && visible ) {
                     MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
                 }
             }

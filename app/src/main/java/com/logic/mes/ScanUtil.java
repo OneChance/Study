@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.util.Log;
 
 public class ScanUtil {
     private IntentFilter mFilter;
@@ -38,6 +37,10 @@ public class ScanUtil {
     public void setReceiver(final IScanReceiver receiver, int scanCode) {
         this.scanCode = scanCode;
         this.receiver = receiver;
+    }
+
+    public IScanReceiver getReceiver(){
+        return this.receiver;
     }
 
     void release() {
