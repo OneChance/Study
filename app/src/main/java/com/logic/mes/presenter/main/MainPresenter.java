@@ -1,7 +1,6 @@
 package com.logic.mes.presenter.main;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.logic.mes.autosubmit.DataAutoSubmit;
 import com.logic.mes.entity.base.UserInfo;
@@ -26,14 +25,17 @@ public class MainPresenter {
         timeingSubmit = new Thread(new Runnable() {
             @Override
             public void run() {
-                DataAutoSubmit.getInstance().autoSubmit(context);
-                try {
-                    Thread.sleep(30 * 60 * 1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                while (true) {
+                    DataAutoSubmit.getInstance().autoSubmit(context);
+                    try {
+                        Thread.sleep(30 * 60 * 1000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
+        timeingSubmit.start();
     }
 
     public void getAuthTags(UserInfo userInfo) {
