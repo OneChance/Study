@@ -11,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.logic.mes.MyApplication;
 import com.logic.mes.PrefsConsts;
@@ -29,9 +28,7 @@ public class InstallReceiver extends BroadcastReceiver {
         if (intent.getAction().equals("android.intent.action.PACKAGE_ADDED")) {
             String packageName = intent.getDataString();
 
-            Log.d("mes", "-------------" + packageName);
-
-            if (packageName.equals("com.logic.ms")) {
+            if (packageName.equals("com.logic.mes")) {
                 runApp(packageName, context);
             }
         }
