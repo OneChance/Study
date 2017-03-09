@@ -101,10 +101,15 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
 
     @Override
     public void serverError(Throwable e) {
-        if (processToSubmit != null) {
-            //保存这个工序数据
-            MyApplication.toast(R.string.data_save, true);
-            DBHelper.getInstance(context).save(processToSubmit);
+        if (MyApplication.offlineAble) {
+            if (processToSubmit != null) {
+                //保存这个工序数据
+                MyApplication.toast(R.string.data_save, true);
+                DBHelper.getInstance(context).save(processToSubmit);
+                submitResultReceiver.submitError();
+            }
+        } else {
+            MyApplication.toast(R.string.submit_error, false);
             submitResultReceiver.submitError();
         }
     }

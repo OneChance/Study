@@ -59,6 +59,11 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     @InjectView(R.id.zx_b_clear)
     Button clear;
 
+    @InjectView(R.id.zx_hs)
+    TextView hs;
+    @InjectView(R.id.zx_ps)
+    TextView ps;
+
     ZxHead zx;
     ZxListAdapter dataAdapter;
     MainActivity activity;
@@ -150,6 +155,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     @Override
     public void removePosition(int position) {
         dataAdapter.removePosition(position);
+        updateSl();
     }
 
     @Override
@@ -212,16 +218,21 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                 if (mapList.size() > 0) {
                     for (Map<String, String> map : mapList) {
                         ZxProduct p = new ZxProduct();
-                        p.setXh(map.get("caseCode"));
                         p.setHh(map.get("boxCode"));
                         p.setDb(map.get("zh_db"));
 
-                        if (map.get("boxdj") != null && !map.get("boxdj").equals("")) {
-                            p.setLevel(map.get("boxdj"));
+                        if (map.get("boxdjmc") != null && !map.get("boxdjmc").equals("")) {
+                            p.setLevel(map.get("boxdjmc"));
+                        }
+                        if (data != null && data.getVal("boxps") != null && !data.getVal("boxps").equals("")) {
+                            p.setSl(data.getVal("boxps"));
                         }
 
                         zx.getDetailList().add(p);
                     }
+
+                    updateSl();
+
                     dataAdapter.notifyDataSetChanged();
                 }
             }
@@ -234,7 +245,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     public void fillData() {
         if (zx.getDetailList().size() < 4) {
             if (!checkExist(currentCode)) {
-                if (!levelDiff(data.getVal("boxdj"))) {
+                if (!levelDiff(data.getVal("boxdjmc"))) {
                     if (!dbDiff(data.getVal("zh_db"))) {
 
                         hhHead.setText(currentCode);
@@ -242,8 +253,12 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                         p.setXh(xhHead.getText().toString());
                         p.setHh(currentCode);
 
-                        if (data != null && data.getVal("boxdj") != null && !data.getVal("boxdj").equals("")) {
-                            p.setLevel(data.getVal("boxdj"));
+                        if (data != null && data.getVal("boxps") != null && !data.getVal("boxps").equals("")) {
+                            p.setSl(data.getVal("boxps"));
+                        }
+
+                        if (data != null && data.getVal("boxdjmc") != null && !data.getVal("boxdjmc").equals("")) {
+                            p.setLevel(data.getVal("boxdjmc"));
                         }
 
                         if (data != null && data.getVal("zh_db") != null && !data.getVal("zh_db").equals("")) {
@@ -252,6 +267,8 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                         }
 
                         zx.getDetailList().add(p);
+
+                        updateSl();
 
                         dataAdapter.notifyDataSetChanged();
                     } else {
@@ -273,6 +290,8 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         xhHead.setText(R.string.wait_scan);
         hhHead.setText(R.string.wait_scan);
         zx.getDetailList().clear();
+        hs.setText("0");
+        ps.setText("0");
         dataAdapter.notifyDataSetChanged();
     }
 
@@ -296,7 +315,6 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     }
 
     public boolean levelDiff(String level) {
-
         if (level != null && !level.equals("")) {
             for (ZxProduct product : zx.getDetailList()) {
                 if (product.getLevel() != null && !product.getLevel().equals("") && !product.getLevel().equals(level)) {
@@ -318,5 +336,29 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         }
 
         return false;
+    }
+
+    /**
+     * 更新数量
+     */
+    public void updateSl() {
+        String[] sl = calCurrentHsPs();
+        hs.setText(sl[0]);
+        ps.setText(sl[1]);
+    }
+
+    public String[] calCurrentHsPs() {
+
+        int psInt = 0;
+
+        for (ZxProduct xz : zx.getDetailList()) {
+            try {
+                psInt = psInt + Integer.parseInt(xz.getSl());
+            } catch (Exception e) {
+                //do not cal
+            }
+        }
+
+        return new String[]{zx.getDetailList().size() + "", psInt + ""};
     }
 }

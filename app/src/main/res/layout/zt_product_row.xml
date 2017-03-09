@@ -26,19 +26,27 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/zt_v_th"
-            style="@style/font_value"
-            android:layout_width="0dp"
-            android:text=""
-            app:layout_widthPercent="50%"></TextView>
-
-        <TextView
             android:id="@+id/zt_v_xh"
             style="@style/font_value"
             android:layout_width="0dp"
             android:text=""
-            android:layout_toRightOf="@+id/zt_v_th"
-            app:layout_widthPercent="50%"></TextView>
+            app:layout_widthPercent="50%" />
+
+        <TextView
+            android:id="@+id/zt_v_sl"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:layout_toRightOf="@+id/zt_v_xh"
+            android:text=""
+            app:layout_widthPercent="20%" />
+
+        <TextView
+            android:id="@+id/zt_v_dj"
+            style="@style/font_value"
+            android:layout_width="0dp"
+            android:layout_toRightOf="@+id/zt_v_sl"
+            android:text=""
+            app:layout_widthPercent="30%" />
 
     </android.support.percent.PercentRelativeLayout>
 </FrameLayout>

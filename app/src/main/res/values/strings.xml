@@ -153,6 +153,7 @@
     <string name="zx_b_scan_xz">扫描箱子</string>
     <string name="zx_b_scan_hz">扫描盒子</string>
     <string name="zx_l_xh">箱号</string>
+    <string name="zx_l_sl">数量</string>
     <string name="zx_l_hh">盒号</string>
     <string name="zx_l_level">等级</string>
     <string name="zx_b_submit">提交</string>
@@ -165,18 +166,25 @@
     <string name="db_diff">单包类别必须一致</string>
     <string name="db_type">单包类别:</string>
     <string name="b_cd">撤单</string>
+    <string name="zx_hs">盒数:</string>
+    <string name="zx_ps">片数:</string>
 
     <!--装托-->
     <string name="zt_b_scan_xz">扫描箱子</string>
     <string name="zt_b_scan_th">扫描托号</string>
     <string name="zt_l_xh">箱号</string>
     <string name="zt_l_th">托号</string>
+    <string name="zt_l_sl">数量</string>
+    <string name="zt_l_dj">等级</string>
     <string name="zt_b_submit">提交</string>
     <string name="zt_b_clear">清空</string>
     <string name="th_scan_first">请先扫描托号</string>
     <string name="xz_scan_need">请扫描箱子</string>
     <string name="xz_duplicate">箱子不能重复</string>
     <string name="zt_size_full">一托不能超过30箱</string>
+    <string name="zt_hs">箱数:</string>
+    <string name="zt_ps">片数:</string>
+    <string name="zt_dj_diff">箱子等级必须一致</string>
 
     <!--入库-->
     <string name="rk_b_scan_tm">扫描条码</string>

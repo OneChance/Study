@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,11 @@ import android.widget.TextView;
 
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.adapter.RkListAdapter;
 import com.logic.mes.entity.process.RkDetail;
 import com.logic.mes.entity.process.RkProduct;
-import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -146,6 +145,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
     @Override
     public void removePosition(int position) {
         dataAdapter.removePosition(position);
+        calSum();
     }
 
     @Override
@@ -181,15 +181,25 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
             p.setSl(data.getVal("pieces"));
             product.getDetailList().add(p);
 
-            int hjInt = hj.getText().equals("") ? 0 : Integer.parseInt(hj.getText().toString());
-            hjInt = new BigDecimal(hjInt).add(new BigDecimal(p.getSl())).intValue();
-            hj.setText((hjInt + ""));
-            product.setHj(hjInt + "");
+            calSum();
 
             dataAdapter.notifyDataSetChanged();
         } else {
             MyApplication.toast(R.string.duplicate_data, false);
         }
+    }
+
+    public void calSum() {
+        int hjInt = 0;
+        for (RkDetail rkDetail : product.getDetailList()) {
+            String sl = rkDetail.getSl();
+            if (sl == null || sl.equals("")) {
+                sl = "0";
+            }
+            hjInt = new BigDecimal(hjInt).add(new BigDecimal(sl)).intValue();
+        }
+        hj.setText((hjInt + ""));
+        product.setHj(hjInt + "");
     }
 
     @Override

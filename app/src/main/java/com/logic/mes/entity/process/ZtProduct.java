@@ -8,6 +8,10 @@ public class ZtProduct {
     @ItemCol(col = "torrCode")
     private String th;
 
+    private String sl;
+    private String dj;
+    private String djCode;
+
     @ItemKey()
     private String xh;
 
@@ -35,5 +39,29 @@ public class ZtProduct {
 
     public void setDb(String db) {
         this.db = db;
+    }
+
+    public String getSl() {
+        return sl;
+    }
+
+    public void setSl(String sl) {
+        this.sl = sl;
+    }
+
+    public String getDj() {
+        return dj;
+    }
+
+    public void setDj(String dj) {
+        this.dj = dj;
+    }
+
+    public String getDjCode() {
+        return djCode;
+    }
+
+    public void setDjCode(String djCode) {
+        this.djCode = djCode;
     }
 }

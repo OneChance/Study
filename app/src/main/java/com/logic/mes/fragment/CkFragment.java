@@ -16,11 +16,11 @@ import android.widget.TextView;
 import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.adapter.CkListAdapter;
 import com.logic.mes.entity.process.CkDetail;
 import com.logic.mes.entity.process.CkProduct;
-import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
@@ -147,6 +147,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
     @Override
     public void removePosition(int position) {
         dataAdapter.removePosition(position);
+        calSum();
     }
 
     @Override
@@ -181,15 +182,25 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
             p.setSl(data.getVal("pieces"));
             product.getDetailList().add(p);
 
-            int hjInt = hj.getText().equals("") ? 0 : Integer.parseInt(hj.getText().toString());
-            hjInt = new BigDecimal(hjInt).add(new BigDecimal(p.getSl())).intValue();
-            hj.setText((hjInt + ""));
-            product.setHj(hjInt + "");
+            calSum();
 
             dataAdapter.notifyDataSetChanged();
         } else {
             MyApplication.toast(R.string.duplicate_data, false);
         }
+    }
+
+    public void calSum() {
+        int hjInt = 0;
+        for (CkDetail rkDetail : product.getDetailList()) {
+            String sl = rkDetail.getSl();
+            if (sl == null || sl.equals("")) {
+                sl = "0";
+            }
+            hjInt = new BigDecimal(hjInt).add(new BigDecimal(sl)).intValue();
+        }
+        hj.setText((hjInt + ""));
+        product.setHj(hjInt + "");
     }
 
     @Override

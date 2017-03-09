@@ -6,16 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.logic.mes.MyApplication;
 import com.logic.mes.R;
 import com.logic.mes.activity.MainActivity;
 import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.server.ServerResult;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BaseTagFragment extends Fragment {
     public int tagNameId = -1;
@@ -55,7 +51,11 @@ public class BaseTagFragment extends Fragment {
         String status = MyApplication.getResString(R.string.submit_ok);
 
         if (!success) {
-            status = MyApplication.getResString(R.string.data_save);
+            if (MyApplication.offlineAble) {
+                status = MyApplication.getResString(R.string.data_save);
+            } else {
+                status = MyApplication.getResString(R.string.submit_error);
+            }
         }
 
         activity.setStatus(no + status, success);

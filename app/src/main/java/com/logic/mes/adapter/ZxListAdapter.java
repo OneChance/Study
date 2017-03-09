@@ -46,7 +46,7 @@ public class ZxListAdapter extends RecyclerView.Adapter<ZxListAdapter.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final ZxProduct p = list.get(position);
-        holder.xh.setText(p.getXh());
+        holder.sl.setText(p.getSl());
         holder.hh.setText(p.getHh());
         holder.level.setText(p.getLevel());
     }
@@ -67,10 +67,10 @@ public class ZxListAdapter extends RecyclerView.Adapter<ZxListAdapter.ViewHolder
 
         @InjectView(R.id.content_view)
         public PercentRelativeLayout content;
-        @InjectView(R.id.zx_v_xh)
-        public TextView xh;
         @InjectView(R.id.zx_v_hh)
         public TextView hh;
+        @InjectView(R.id.zx_v_sl)
+        public TextView sl;
         @InjectView(R.id.zx_v_level)
         public TextView level;
         @InjectView(R.id.zx_delete_button)
