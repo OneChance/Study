@@ -3,7 +3,6 @@ package com.logic.mes;
 
 import android.content.Context;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.widget.Toast;
 
 public class CrashHandler implements
@@ -44,6 +43,7 @@ public class CrashHandler implements
             @Override
             public void run() {
                 Looper.prepare();
+                ex.printStackTrace();
 
                 Toast.makeText(mContext, "程序发生了点小意外，即将重启，请稍等... " +
                         ex.getMessage(), Toast.LENGTH_LONG).show();

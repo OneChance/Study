@@ -2,6 +2,8 @@ package com.logic.mes.net;
 
 
 import com.logic.mes.entity.base.UserInfoResult;
+import com.logic.mes.entity.process.By;
+import com.logic.mes.entity.process.Wx;
 import com.logic.mes.entity.server.ProcessItem;
 import com.logic.mes.entity.server.ProcessSubmit;
 import com.logic.mes.entity.server.ServerResult;
@@ -40,4 +42,14 @@ public interface IServices {
 
     @POST("intface/datacheck/")
     public Observable<ServerResult> checkData(@Body ProcessItem data);
+
+    @FormUrlEncoded
+    @POST("intface/getuser/")
+    public Observable<ServerResult> getUser(@Field("userCode") String userCode);
+
+    @POST("intface/baoyang/")
+    public Observable<ServerResult> baoYangStart(@Body By data);
+
+    @POST("intface/weixiu/")
+    public Observable<ServerResult> weiXiuStart(@Body Wx data);
 }

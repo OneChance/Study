@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/by_scroll_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/oper_code_label"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10sp"
+                android:text="@string/oper_code_label"
+                android:textColor="@color/text"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_widthPercent="35%" />
+
+            <TextView
+                android:id="@+id/oper_code_value"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/oper_code_label"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="10sp"
+                android:text="@string/wait_scan"
+                android:textSize="13sp"
+                app:layout_widthPercent="40%" />
+
+            <Button
+                android:id="@+id/scan_oper"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/oper_code_value"
+                android:layout_weight="1"
+                android:text="@string/scan_oper"
+                app:layout_widthPercent="25%" />
+        </android.support.percent.PercentRelativeLayout>
+
+        <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/equip_code_label"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10sp"
+                android:text="@string/equip_code_label"
+                android:textColor="@color/text"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_widthPercent="35%" />
+
+            <TextView
+                android:id="@+id/equip_code_value"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/equip_code_label"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="10sp"
+                android:text="@string/wait_scan"
+                android:textSize="13sp"
+                app:layout_widthPercent="40%" />
+
+            <Button
+                android:id="@+id/scan_equip"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/equip_code_value"
+                android:layout_weight="1"
+                android:text="@string/scan_equip"
+                app:layout_widthPercent="25%" />
+        </android.support.percent.PercentRelativeLayout>
+
+
+        <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/dividers"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/oper_name_label"
+                style="@style/font_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/oper_name_label"
+                app:layout_widthPercent="30%" />
+
+            <TextView
+                android:id="@+id/oper_name_value"
+                style="@style/font_value"
+                android:layout_width="0dp"
+                android:layout_toRightOf="@+id/oper_name_label"
+                android:layout_weight="1"
+                android:text=""
+                app:layout_widthPercent="70%" />
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/dividers"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/equip_name_label"
+                style="@style/font_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/equip_name_label"
+                app:layout_widthPercent="30%" />
+
+            <TextView
+                android:id="@+id/equip_name_value"
+                style="@style/font_value"
+                android:layout_width="0dp"
+                android:layout_toRightOf="@+id/equip_name_label"
+                android:layout_weight="1"
+                android:text=""
+                app:layout_widthPercent="70%" />
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/note_maintain"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/equip_stop_date_label"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/equip_stop_time_label"
+                    app:layout_widthPercent="30%" />
+
+                <LinearLayout
+                    android:id="@+id/equip_stop_date"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/equip_stop_date_label"
+                    app:layout_widthPercent="40%">
+
+                    <Button
+                        android:id="@+id/equip_stop_date_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:text="@string/stop_date"
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/equip_stop_date"
+                    app:layout_widthPercent="30%">
+
+                    <Button
+                        android:id="@+id/equip_stop_time_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:text="@string/stop_time"
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </android.support.percent.PercentRelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <Button
+                    android:id="@+id/btn_note_maintain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/note_maintain" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/confirm_maintain"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/equip_stop_date_confirm_label"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:text="@string/equip_stop_date_label"
+                    app:layout_widthPercent="30%" />
+
+                <TextView
+                    android:id="@+id/equip_stop_datetime_value"
+                    style="@style/font_value"
+                    android:layout_width="0dp"
+                    android:layout_toRightOf="@+id/equip_stop_date_confirm_label"
+                    app:layout_widthPercent="70%" />
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/note_datetime_label"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/note_datetime_label"
+                    app:layout_widthPercent="30%" />
+
+                <TextView
+                    android:id="@+id/note_datetime_value"
+                    style="@style/font_value"
+                    android:layout_width="0dp"
+                    android:layout_toRightOf="@+id/note_datetime_label"
+                    app:layout_widthPercent="70%" />
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/accept_datetime_label"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/accept_datetime_label"
+                    app:layout_widthPercent="30%" />
+
+                <TextView
+                    android:id="@+id/accept_datetime_value"
+                    style="@style/font_value"
+                    android:layout_width="0dp"
+                    android:layout_toRightOf="@+id/accept_datetime_label"
+                    app:layout_widthPercent="70%" />
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/complete_datetime_label"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/complete_datetime_label"
+                    app:layout_widthPercent="30%" />
+
+                <TextView
+                    android:id="@+id/complete_datetime_value"
+                    style="@style/font_value"
+                    android:layout_width="0dp"
+                    android:layout_toRightOf="@+id/complete_datetime_label"
+                    app:layout_widthPercent="70%" />
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/maintain_oper_label"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/maintain_oper_label"
+                    app:layout_widthPercent="30%" />
+
+                <TextView
+                    android:id="@+id/maintain_oper_value"
+                    style="@style/font_value"
+                    android:layout_width="0dp"
+                    android:layout_toRightOf="@+id/maintain_oper_label"
+                    android:layout_weight="1"
+                    android:text=""
+                    app:layout_widthPercent="70%" />
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/confirm_datetime_label"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/confirm_datetime_label"
+                    app:layout_widthPercent="30%" />
+
+                <LinearLayout
+                    android:id="@+id/complete_date_label"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/confirm_datetime_label"
+                    app:layout_widthPercent="40%">
+
+                    <Button
+                        android:id="@+id/confirm_date_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/complete_date_label"
+                    app:layout_widthPercent="30%">
+
+                    <Button
+                        android:id="@+id/confirm_time_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/abc_edit_text_material"
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/confirm_agree_label"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/confirm_agree_label"
+                    app:layout_widthPercent="30%" />
+
+                <LinearLayout
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/confirm_agree_label"
+                    app:layout_widthPercent="70%">
+
+                    <RadioGroup
+                        android:id="@+id/confirm_agree_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/confirm_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/confirm_yes"
+                            android:textColor="@color/text" />
+
+                        <RadioButton
+                            android:id="@+id/confirm_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/confirm_no"
+                            android:textColor="@color/text" />
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="20dp">
+
+                <Button
+                    android:id="@+id/btn_confirm_maintain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_confirm_maintain" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

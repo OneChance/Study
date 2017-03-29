@@ -23,7 +23,7 @@ public class ServerObserver implements Observer<ServerResult> {
     private MaterialDialog noticeDialog;
     private TextView textView;
     public String content;
-    private String codeNotVali = ",,";
+    private String codeNotVali = ",by,wx,";
     public static String SERVER_ERROR = "com.mes.logic.SERVER_ERROR";
     public static String SERVER_OK = "com.mes.logic.SERVER_OK";
 
@@ -78,6 +78,19 @@ public class ServerObserver implements Observer<ServerResult> {
         }
     }
 
+    private boolean errorCode(String resCode) {
+        if (this.code.equals("by") || this.code.equals("wx")) {
+            if (resCode.equals("1")) {
+                return true;
+            }
+        } else {
+            if (!resCode.equals("0")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onNext(ServerResult res) {
 
@@ -87,14 +100,12 @@ public class ServerObserver implements Observer<ServerResult> {
 
             MyApplication.appSendBroadcast(SERVER_OK);
 
-            if (res.getInfo() != null && !res.getInfo().equals("")) {
-                MyApplication.toast(res.getInfo(), false);
-            }
-
-            if (!res.getCode().equals("0")) {
+            if (errorCode(res.getCode())) {
+                if (res.getInfo() != null && !res.getInfo().equals("")) {
+                    MyApplication.toast(res.getInfo(), false);
+                }
                 receiver.preventSubmit();
             } else {
-
                 receiver.ableSubmit();
                 receiver.setData(res);
 

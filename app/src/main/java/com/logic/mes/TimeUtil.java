@@ -4,6 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimeUtil {
+
+    private static SimpleDateFormat sdf;
+
+    public static String getNow() {
+        if (sdf == null) {
+            sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        }
+        return sdf.format(new Date());
+    }
+
     public static boolean isValidDateTime(String dateTime) {
 
         if (dateTime != null && !dateTime.equals("")) {
