@@ -16,7 +16,7 @@ public class MyApplication extends Application {
 
     private static Context context;
     public static ScanUtil scanUtil;
-    public static Integer VERSION = 9;
+    public static Integer VERSION = 0;
     private static List<Activity> mList = new LinkedList();
     public static boolean netAble = true;
     public static boolean offlineAble = false;
@@ -24,6 +24,11 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         context = getApplicationContext();
+        try {
+            VERSION = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+        } catch (Exception e) {
+            VERSION = 9999;
+        }
         CrashHandler.getInstance().init(this);
         super.onCreate();
     }

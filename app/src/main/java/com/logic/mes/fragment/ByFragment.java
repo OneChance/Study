@@ -3,6 +3,7 @@ package com.logic.mes.fragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.percent.PercentRelativeLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,8 +63,10 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
     Button scanOper;
     @InjectView(R.id.scan_equip)
     TextView scanEquip;
+    @InjectView(R.id.oper_type)
+    RadioGroup operType;
 
-    /*通知保养*/
+    /*开始阶段*/
     @InjectView(R.id.note_maintain)
     LinearLayout noteMaintain;
     @InjectView(R.id.maintain_type_value)
@@ -72,10 +75,8 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
     Button equipStopDate;
     @InjectView(R.id.equip_stop_time_value)
     Button equipStopTime;
-    @InjectView(R.id.btn_note_maintain)
-    Button noteMaintainBtn;
 
-    /*确认保养*/
+    /*后续阶段*/
     @InjectView(R.id.confirm_maintain)
     LinearLayout confirmMaintain;
     @InjectView(R.id.equip_stop_datetime_value)
@@ -88,14 +89,26 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
     TextView completeDatetime;
     @InjectView(R.id.maintain_oper_value)
     TextView maintainOper;
-    @InjectView(R.id.confirm_date_value)
+    @InjectView(R.id.oper_date_value)
     Button confirmDate;
-    @InjectView(R.id.confirm_time_value)
+    @InjectView(R.id.oper_time_value)
     Button confirmTime;
-    @InjectView(R.id.confirm_agree_value)
-    RadioGroup confirmAgree;
-    @InjectView(R.id.btn_confirm_maintain)
-    Button confirmMaintainBtn;
+    @InjectView(R.id.agree_value)
+    RadioGroup agree;
+
+    /*控制显示行*/
+    @InjectView(R.id.accept_time_wrapper)
+    PercentRelativeLayout acceptTimeWrapper;
+    @InjectView(R.id.complete_time_wrapper)
+    PercentRelativeLayout completeTimeWrapper;
+    @InjectView(R.id.maintain_oper_wrapper)
+    PercentRelativeLayout maintainOperWrapper;
+    @InjectView(R.id.oper_date_wrapper)
+    PercentRelativeLayout operDateWrapper;
+
+
+    @InjectView(R.id.btn_submit)
+    Button submit;
 
     IScanReceiver receiver;
     ServerObserver serverObserver;
@@ -174,46 +187,75 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
             }
         });
 
-        noteMaintainBtn.setOnClickListener(new View.OnClickListener() {
+        submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View btnView) {
-
                 if (operName.getText().equals("")) {
                     MyApplication.toast(R.string.need_scan_oper, false);
                 } else if (equipName.getText().equals("")) {
                     MyApplication.toast(R.string.need_scan_equip, false);
-                } else if (equipStopDate.getText().equals("")) {
-                    MyApplication.toast(R.string.need_choose_stop_date, false);
-                } else if (equipStopTime.getText().equals("")) {
-                    MyApplication.toast(R.string.need_choose_stop_time, false);
                 } else {
-                    RadioButton rb = (RadioButton) (view.findViewById(maintainType.getCheckedRadioButtonId()));
-                    String maintainType = "";
-                    if (rb != null) {
-                        maintainType = rb.getText().toString();
-                    }
-                    if (maintainType.equals("")) {
-                        MyApplication.toast(R.string.need_choose_maintain_type, false);
+
+                    RadioButton operTypeRB = (RadioButton) (view.findViewById(operType.getCheckedRadioButtonId()));
+
+                    if (operTypeRB.getText().toString().equals(MyApplication.getResString(R.string.oper_type_start))) {
+                        //开始
+                        RadioButton rb = (RadioButton) (view.findViewById(maintainType.getCheckedRadioButtonId()));
+                        String maintainType = "";
+                        if (rb != null) {
+                            maintainType = rb.getText().toString();
+                        }
+                        if (maintainType.equals("")) {
+                            MyApplication.toast(R.string.need_choose_maintain_type, false);
+                        } else {
+                            byEntity.setEquipmentCode(equipCode.getText().toString());
+                            byEntity.setEquipmentName(equipName.getText().toString());
+                            byEntity.setStartCode(operCode.getText().toString());
+                            byEntity.setStartName(operName.getText().toString());
+                            byEntity.setFinishCode(operCode.getText().toString());
+                            byEntity.setFinishName(operName.getText().toString());
+                            byEntity.setProcessStep("开始");
+                            byEntity.setLayer(maintainType);
+                            byEntity.setStartTime("");
+                            byEntity.setStopTime(equipStopDate.getText() + " " + equipStopTime.getText() + ":00");
+                            byEntity.setCode("by");
+                            currentReceiverCode = NOTE_SUBMIT;
+                            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).baoYangStart(byEntity))
+                                    .subscribe(serverObserver);
+                        }
                     } else {
-                        byEntity.setEquipmentCode(equipCode.getText().toString());
-                        byEntity.setEquipmentName(equipName.getText().toString());
-                        byEntity.setStartCode(operCode.getText().toString());
-                        byEntity.setStartName(operName.getText().toString());
-                        byEntity.setProcessStep("开始");
-                        byEntity.setLayer(maintainType);
-                        byEntity.setStartTime("");
-                        byEntity.setStopTime(equipStopDate.getText() + " " + equipStopTime.getText() + ":00");
-                        byEntity.setCode("by");
-                        currentReceiverCode = NOTE_SUBMIT;
-                        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).baoYangStart(byEntity))
-                                .subscribe(serverObserver);
+                        RadioButton rb = (RadioButton) (view.findViewById(agree.getCheckedRadioButtonId()));
+                        String agree = "";
+                        if (rb != null) {
+                            agree = rb.getText().toString();
+                        }
+                        if (agree.equals("")) {
+                            MyApplication.toast(R.string.need_choose_agree, false);
+                        } else {
+                            byEntity.setCode("by");
+                            Log.d("mes", "submit:" + operTypeRB.getText().toString());
+                            byEntity.setProcessStep(operTypeRB.getText().toString());
+                            byEntity.setConfirmCode(operCode.getText().toString());
+                            byEntity.setConfirmName(operName.getText().toString());
+                            byEntity.setAcceptCode(operCode.getText().toString());
+                            byEntity.setAcceptName(operName.getText().toString());
+                            byEntity.setFinishCode(operCode.getText().toString());
+                            byEntity.setFinishName(operName.getText().toString());
+                            byEntity.setConfirmResult(agree);
+                            String operTime = confirmDate.getText() + " " + confirmTime.getText() + ":00";
+                            byEntity.setConfirmFinishTime(operTime);
+                            byEntity.setAcceptTime(operTime);
+                            byEntity.setFinishTime(operTime);
+
+                            currentReceiverCode = CONFIRM_SUBMIT;
+                            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).baoYangStart(byEntity))
+                                    .subscribe(serverObserver);
+                        }
                     }
                 }
             }
         });
 
-
-        /*确认保养*/
         confirmDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -239,38 +281,39 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
             }
         });
 
-        confirmMaintainBtn.setOnClickListener(new View.OnClickListener() {
+        operType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View btnView) {
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
-                if (operName.getText().equals("")) {
-                    MyApplication.toast(R.string.need_scan_oper, false);
-                } else if (equipName.getText().equals("")) {
-                    MyApplication.toast(R.string.need_scan_equip, false);
-                } else if (confirmDate.getText().equals("")) {
-                    MyApplication.toast(R.string.need_choose_confirm_date, false);
-                } else if (confirmTime.getText().equals("")) {
-                    MyApplication.toast(R.string.need_choose_confirm_time, false);
+                clear();
+
+                RadioButton rb = (RadioButton) view.findViewById(i);
+                String rbName = rb.getText().toString();
+                if (rbName.equals(MyApplication.getResString(R.string.oper_type_start))) {
+                    noteMaintain.setVisibility(View.VISIBLE);
+                    confirmMaintain.setVisibility(GONE);
                 } else {
-                    RadioButton rb = (RadioButton) (view.findViewById(confirmAgree.getCheckedRadioButtonId()));
-                    String agree = "";
-                    if (rb != null) {
-                        agree = rb.getText().toString();
-                    }
-                    if (agree.equals("")) {
-                        MyApplication.toast(R.string.need_choose_agree, false);
+                    confirmMaintain.setVisibility(View.VISIBLE);
+                    noteMaintain.setVisibility(GONE);
+                    if (rbName.equals(MyApplication.getResString(R.string.oper_type_receive))) {
+                        acceptTimeWrapper.setVisibility(GONE);
+                        completeTimeWrapper.setVisibility(GONE);
+                        maintainOperWrapper.setVisibility(GONE);
+                        operDateWrapper.setVisibility(GONE);
+                    } else if (rbName.equals(MyApplication.getResString(R.string.oper_type_complete))) {
+                        acceptTimeWrapper.setVisibility(View.VISIBLE);
+                        completeTimeWrapper.setVisibility(GONE);
+                        maintainOperWrapper.setVisibility(View.VISIBLE);
+                        operDateWrapper.setVisibility(View.GONE);
                     } else {
-                        byEntity.setCode("by");
-                        byEntity.setProcessStep("确认");
-                        byEntity.setConfirmCode(operCode.getText().toString());
-                        byEntity.setConfirmName(operName.getText().toString());
-                        byEntity.setConfirmResult(agree);
-                        byEntity.setConfirmFinishTime(confirmDate.getText() + " " + confirmTime.getText() + ":00");
-                        currentReceiverCode = CONFIRM_SUBMIT;
-                        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).baoYangStart(byEntity))
-                                .subscribe(serverObserver);
+                        acceptTimeWrapper.setVisibility(View.VISIBLE);
+                        completeTimeWrapper.setVisibility(View.VISIBLE);
+                        maintainOperWrapper.setVisibility(View.VISIBLE);
+                        operDateWrapper.setVisibility(View.VISIBLE);
                     }
                 }
+
+                activity.setStatus("", true);
             }
         });
 
@@ -319,6 +362,10 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
                     ProcessItem item = new ProcessItem();
                     item.setItemKey("BaoYang");
                     item.setItemValue(equipCode.getText().toString());
+
+                    RadioButton rb = (RadioButton) (view.findViewById(operType.getCheckedRadioButtonId()));
+                    item.setExParam1(rb.getText().toString());
+
                     currentReceiverCode = GET_BAOYANG;
                     NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
                             .subscribe(serverObserver);
@@ -326,35 +373,40 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
             }
         } else if (currentReceiverCode == GET_BAOYANG) {
             String now = TimeUtil.getNow();
-            if (data.getCode().equals("2")) {
-                noteMaintain.setVisibility(View.VISIBLE);
-                confirmMaintain.setVisibility(GONE);
-                if (data.getDatas() != null && data.getDatas().getBagDatas() != null) {
-                    List<Map<String, String>> mapList = data.getDatas().getBagDatas();
-                    equipStopDate.setText(now.split(" ")[0]);
-                    equipStopTime.setText(now.split(" ")[1]);
+
+            if (data.getCode().equals("1")) {
+                if (data.getInfo() != null && !data.getInfo().equals("")) {
+                    MyApplication.toast(data.getInfo(), false);
                 }
-            } else if (data.getCode().equals("0")) {
-                noteMaintain.setVisibility(GONE);
-                confirmMaintain.setVisibility(View.VISIBLE);
-                if (data.getDatas() != null && data.getDatas().getBagDatas() != null) {
-                    List<Map<String, String>> mapList = data.getDatas().getBagDatas();
-                    byEntity.setId(Long.parseLong(mapList.get(0).get("id")));
-                    stopDatetime.setText(mapList.get(0).get("stopTime"));
-                    noteDatetime.setText(mapList.get(0).get("startTime"));
-                    acceptDatetime.setText(mapList.get(0).get("acceptTime"));
-                    completeDatetime.setText(mapList.get(0).get("finishTime"));
-                    maintainOper.setText(mapList.get(0).get("acceptName"));
-                    confirmDate.setText(now.split(" ")[0]);
-                    confirmTime.setText(now.split(" ")[1]);
-                }
-            } else {
-                noteMaintain.setVisibility(GONE);
-                confirmMaintain.setVisibility(GONE);
+                this.preventSubmit();
+            }
+
+            //加载数据
+            RadioButton rb = (RadioButton) (view.findViewById(operType.getCheckedRadioButtonId()));
+
+            if (rb.getText().toString().equals(MyApplication.getResString(R.string.oper_type_start))) {
+                equipStopDate.setText(now.split(" ")[0]);
+                equipStopTime.setText(now.split(" ")[1]);
+            }
+
+            if (data.getDatas() != null && data.getDatas().getBagDatas() != null) {
+                List<Map<String, String>> mapList = data.getDatas().getBagDatas();
+                byEntity.setId(Long.parseLong(mapList.get(0).get("id")));
+                stopDatetime.setText(mapList.get(0).get("stopTime"));
+                noteDatetime.setText(mapList.get(0).get("startTime"));
+                acceptDatetime.setText(mapList.get(0).get("acceptTime"));
+                completeDatetime.setText(mapList.get(0).get("finishTime"));
+                maintainOper.setText(mapList.get(0).get("acceptName"));
+                confirmDate.setText(now.split(" ")[0]);
+                confirmTime.setText(now.split(" ")[1]);
             }
         } else if (currentReceiverCode == NOTE_SUBMIT || currentReceiverCode == CONFIRM_SUBMIT) {
             if (data.getCode().equals("0")) {
                 doAfterSumbit(equipCode.getText().toString(), true);
+            } else if (data.getCode().equals("1")) {
+                if (data.getInfo() != null && !data.getInfo().equals("")) {
+                    MyApplication.toast(data.getInfo(), false);
+                }
             }
         }
     }
@@ -370,6 +422,15 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
         equipName.setText("");
         noteMaintain.setVisibility(GONE);
         confirmMaintain.setVisibility(GONE);
+        equipStopDate.setText("");
+        equipStopTime.setText("");
+        stopDatetime.setText("");
+        noteDatetime.setText("");
+        acceptDatetime.setText("");
+        completeDatetime.setText("");
+        maintainOper.setText("");
+        confirmDate.setText("");
+        confirmTime.setText("");
     }
 
     @Override
@@ -379,11 +440,11 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
 
     @Override
     public void preventSubmit() {
-
+        submit.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void ableSubmit() {
-
+        submit.setVisibility(View.VISIBLE);
     }
 }

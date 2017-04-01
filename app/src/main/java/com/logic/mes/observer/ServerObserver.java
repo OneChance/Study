@@ -80,7 +80,7 @@ public class ServerObserver implements Observer<ServerResult> {
 
     private boolean errorCode(String resCode) {
         if (this.code.equals("by") || this.code.equals("wx")) {
-            if (resCode.equals("1")) {
+            if (resCode.equals("2")) {
                 return true;
             }
         } else {

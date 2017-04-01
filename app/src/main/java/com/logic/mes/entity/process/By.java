@@ -1,7 +1,7 @@
 package com.logic.mes.entity.process;
 
 
-public class By extends ProcessBase{
+public class By extends ProcessBase {
     private Long id;
     private Long equipmentId;
     private String equipmentCode;
@@ -27,6 +27,8 @@ public class By extends ProcessBase{
     private String howDo;
     private String totalCost;
     private String tag;
+    private String finishName;
+    private String finishCode;
 
     public Long getId() {
         return id;
@@ -227,4 +229,22 @@ public class By extends ProcessBase{
     public void setTag(String tag) {
         this.tag = tag;
     }
+
+    public String getFinishName() {
+        return finishName;
+    }
+
+    public void setFinishName(String finishName) {
+        this.finishName = finishName;
+    }
+
+    public String getFinishCode() {
+        return finishCode;
+    }
+
+    public void setFinishCode(String finishCode) {
+        this.finishCode = finishCode;
+    }
 }
+
+

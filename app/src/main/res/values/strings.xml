@@ -231,10 +231,9 @@
     <string name="oper_name_label">姓名</string>
     <string name="equip_code_label">设备条码</string>
     <string name="equip_name_label">设备名称</string>
-    <string name="note_maintain">提交</string>
+    <string name="btn_submit">提交</string>
     <string name="maintain_type_label">保养类别</string>
-    <string name="equip_stop_date_label">停机日期</string>
-    <string name="equip_stop_time_label">停机时间</string>
+    <string name="equip_stop_date_label">停机时间</string>
     <string name="scan_oper">扫描</string>
     <string name="scan_equip">扫描</string>
     <string name="level_1">一级</string>
@@ -249,14 +248,18 @@
     <string name="stop_time">时间</string>
     <string name="note_datetime_label">通知时间</string>
     <string name="accept_datetime_label">受理时间</string>
-    <string name="complete_datetime_label">完成时间</string>
-    <string name="maintain_oper_label">保养人</string>
-    <string name="confirm_datetime_label">确认时间</string>
-    <string name="confirm_agree_label">确认完成</string>
+    <string name="complete_datetime_label">处理时间</string>
+    <string name="maintain_oper_label">受理人</string>
+    <string name="oper_datetime_label">操作时间</string>
+    <string name="agree_label">意见</string>
     <string name="confirm_yes">同意</string>
     <string name="confirm_no">不同意</string>
-    <string name="btn_confirm_maintain">提交</string>
     <string name="need_choose_confirm_date">请选择确认日期</string>
     <string name="need_choose_confirm_time">请选择确认时间</string>
     <string name="need_choose_agree">请选择确认意见</string>
+    <string name="oper_type_start">开始</string>
+    <string name="oper_type_receive">接收</string>
+    <string name="oper_type_complete">处理</string>
+    <string name="oper_type_confirm">确认</string>
+    <string name="confirm_datetime_label">确认时间</string>
 </resources>

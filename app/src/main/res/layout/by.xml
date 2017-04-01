@@ -9,6 +9,45 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <RadioGroup
+            android:id="@+id/oper_type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <RadioButton
+                android:id="@+id/oper_type_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/oper_type_start"
+                android:textColor="@color/text" />
+
+            <RadioButton
+                android:id="@+id/oper_type_receive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oper_type_receive"
+                android:textColor="@color/text" />
+
+            <RadioButton
+                android:id="@+id/oper_type_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oper_type_complete"
+                android:textColor="@color/text" />
+
+            <RadioButton
+                android:id="@+id/oper_type_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oper_type_confirm"
+                android:textColor="@color/text" />
+
+        </RadioGroup>
+
         <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
@@ -91,7 +130,6 @@
                 app:layout_widthPercent="25%" />
         </android.support.percent.PercentRelativeLayout>
 
-
         <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
@@ -150,8 +188,7 @@
             android:id="@+id/note_maintain"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="vertical">
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -222,7 +259,7 @@
                     style="@style/font_title"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="@string/equip_stop_time_label"
+                    android:text="@string/equip_stop_date_label"
                     app:layout_widthPercent="30%" />
 
                 <LinearLayout
@@ -259,30 +296,18 @@
                 </LinearLayout>
             </android.support.percent.PercentRelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <Button
-                    android:id="@+id/btn_note_maintain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/note_maintain" />
-            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/confirm_maintain"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/stop_time_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/dividers"
@@ -306,6 +331,7 @@
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/note_time_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/dividers"
@@ -330,11 +356,13 @@
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/accept_time_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/dividers"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/accept_datetime_label"
@@ -354,11 +382,13 @@
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/complete_time_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/dividers"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/complete_datetime_label"
@@ -378,11 +408,13 @@
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/maintain_oper_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/dividers"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/maintain_oper_label"
@@ -407,12 +439,14 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:id="@+id/oper_date_wrapper"
                 android:background="@color/dividers"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
-                    android:id="@+id/confirm_datetime_label"
+                    android:id="@+id/oper_datetime_label"
                     style="@style/font_title"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -420,13 +454,13 @@
                     app:layout_widthPercent="30%" />
 
                 <LinearLayout
-                    android:id="@+id/complete_date_label"
+                    android:id="@+id/oper_date_label"
                     style="@style/edit_text_wrapper"
-                    android:layout_toRightOf="@+id/confirm_datetime_label"
+                    android:layout_toRightOf="@+id/oper_datetime_label"
                     app:layout_widthPercent="40%">
 
                     <Button
-                        android:id="@+id/confirm_date_value"
+                        android:id="@+id/oper_date_value"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/abc_edit_text_material"
@@ -437,11 +471,11 @@
 
                 <LinearLayout
                     style="@style/edit_text_wrapper"
-                    android:layout_toRightOf="@+id/complete_date_label"
+                    android:layout_toRightOf="@+id/oper_date_label"
                     app:layout_widthPercent="30%">
 
                     <Button
-                        android:id="@+id/confirm_time_value"
+                        android:id="@+id/oper_time_value"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/abc_edit_text_material"
@@ -465,7 +499,7 @@
                     style="@style/font_title"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="@string/confirm_agree_label"
+                    android:text="@string/agree_label"
                     app:layout_widthPercent="30%" />
 
                 <LinearLayout
@@ -474,7 +508,7 @@
                     app:layout_widthPercent="70%">
 
                     <RadioGroup
-                        android:id="@+id/confirm_agree_value"
+                        android:id="@+id/agree_value"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
@@ -500,19 +534,20 @@
 
             </android.support.percent.PercentRelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="20dp">
+        </LinearLayout>
 
-                <Button
-                    android:id="@+id/btn_confirm_maintain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/btn_confirm_maintain" />
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_submit" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
