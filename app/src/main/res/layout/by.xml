@@ -437,9 +437,9 @@
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/oper_date_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/oper_date_wrapper"
                 android:background="@color/dividers"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -488,6 +488,7 @@
 
             <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/agree_row"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/dividers"

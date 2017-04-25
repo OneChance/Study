@@ -95,6 +95,8 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
     Button confirmTime;
     @InjectView(R.id.agree_value)
     RadioGroup agree;
+    @InjectView(R.id.agree_row)
+    PercentRelativeLayout agreeRow;
 
     /*控制显示行*/
     @InjectView(R.id.accept_time_wrapper)
@@ -228,6 +230,9 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
                         String agree = "";
                         if (rb != null) {
                             agree = rb.getText().toString();
+                        } else {
+                            //处理界面没有意见选择,默认同意
+                            agree = MyApplication.getResString(R.string.confirm_yes);
                         }
                         if (agree.equals("")) {
                             MyApplication.toast(R.string.need_choose_agree, false);
@@ -300,16 +305,19 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
                         completeTimeWrapper.setVisibility(GONE);
                         maintainOperWrapper.setVisibility(GONE);
                         operDateWrapper.setVisibility(GONE);
+                        agreeRow.setVisibility(View.VISIBLE);
                     } else if (rbName.equals(MyApplication.getResString(R.string.oper_type_complete))) {
                         acceptTimeWrapper.setVisibility(View.VISIBLE);
                         completeTimeWrapper.setVisibility(GONE);
                         maintainOperWrapper.setVisibility(View.VISIBLE);
                         operDateWrapper.setVisibility(View.GONE);
+                        agreeRow.setVisibility(View.GONE);
                     } else {
                         acceptTimeWrapper.setVisibility(View.VISIBLE);
                         completeTimeWrapper.setVisibility(View.VISIBLE);
                         maintainOperWrapper.setVisibility(View.VISIBLE);
                         operDateWrapper.setVisibility(View.VISIBLE);
+                        agreeRow.setVisibility(View.VISIBLE);
                     }
                 }
 
