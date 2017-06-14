@@ -136,7 +136,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 pb.setJx(mTypes.get(i).getCode());
-                if (!mTypes.get(i).getCode().equals("") && visible ) {
+                if (!mTypes.get(i).getCode().equals("") && visible) {
                     MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
                 }
             }
@@ -156,6 +156,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
                     MyApplication.toast(R.string.wait_choose_mtype, false);
                 } else {
                     double groupLength = getGroupLength(pb.getJx());
+                    double groupMinLength = getGroupMinLength(pb.getJx());
                     double listLength = 0;
                     for (PbDetail pbDetail : pb.getDetailList()) {
                         String length = pbDetail.getLength();
@@ -166,8 +167,8 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
                     }
 
                     //校验长度信息
-                    if (listLength > groupLength) {
-                        MyApplication.toast(R.string.length_over, false);
+                    if (listLength > groupLength || listLength < groupMinLength) {
+                        MyApplication.toast(String.format(MyApplication.getResString(R.string.length_error), listLength, groupMinLength, groupLength), false);
                     } else {
                         //校验工位信息
                         String stations = getStations();
@@ -399,6 +400,25 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             if (tableType.get(i).getTypeCode().equals(mType)) {
                 try {
                     return Double.parseDouble(tableType.get(i).getGroupLength());
+                } catch (Exception e) {
+                    return 0;
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * 获得最小组长度
+     *
+     * @param mType 机型
+     * @return 最小组长度
+     */
+    public double getGroupMinLength(String mType) {
+        for (int i = 0; i < tableType.size(); i++) {
+            if (tableType.get(i).getTypeCode().equals(mType)) {
+                try {
+                    return Double.parseDouble(tableType.get(i).getGroupMinLength());
                 } catch (Exception e) {
                     return 0;
                 }

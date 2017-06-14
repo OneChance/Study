@@ -161,9 +161,10 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         EditTextUtil.setTextEnd(sjcps, data.getRelVal("cp", "qx", "sjcps"));
         EditTextUtil.setTextEnd(hs, data.getRelVal("cp", "qx", "hs"));
 
-        String pieces = sysConfig.getPieces();
+        //String pieces = sysConfig.getPieces();
+        //EditTextUtil.setTextEnd(mhps, pieces);
+        EditTextUtil.setTextEnd(mhps, data.getRelVal("cp", "qx", "mhps"));
 
-        EditTextUtil.setTextEnd(mhps, pieces);
         EditTextUtil.setTextEnd(ps, data.getRelVal("cp", "qx", "ps"));
         EditTextUtil.setTextEnd(bb, data.getRelVal("cp", "qx", "bb"));
         EditTextUtil.setTextEnd(yp, data.getRelVal("cp", "qx", "yp"));

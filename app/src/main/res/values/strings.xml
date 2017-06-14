@@ -88,7 +88,7 @@
     <string name="pb_b_submit">提交</string>
     <string name="pb_b_clear">清空</string>
     <string name="different_level">晶砖等级不一致</string>
-    <string name="length_over">长度超出</string>
+    <string name="length_error">非法棒长:%1$.1f,必须介于%2$.1f-%3$.1f之间</string>
 
     <!--配棒检-->
     <string name="pbj_l_code">条码</string>

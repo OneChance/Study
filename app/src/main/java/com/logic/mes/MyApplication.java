@@ -66,7 +66,7 @@ public class MyApplication extends Application {
         }
         textView.setText(msg);
         toast.setView(toastView);
-        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setDuration(Toast.LENGTH_LONG);
 
         toast.show();
     }

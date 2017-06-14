@@ -14,7 +14,7 @@ public class TableType implements Serializable {
     private String typeName;
     private String lineLength;
     private String groupLength;
-
+    private String groupMinLength;
 
     public String getTypeCode() {
         return typeCode;
@@ -54,5 +54,13 @@ public class TableType implements Serializable {
 
     public void setGroupLength(String groupLength) {
         this.groupLength = groupLength;
+    }
+
+    public String getGroupMinLength() {
+        return groupMinLength;
+    }
+
+    public void setGroupMinLength(String groupMinLength) {
+        this.groupMinLength = groupMinLength;
     }
 }
