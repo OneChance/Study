@@ -14,6 +14,7 @@ public class ProcessItem implements Serializable {
     private String itemValue;
     private String valueType;
     private String exParam1;
+    private String exParam2;
 
     public String getItemKey() {
         return itemKey;
@@ -53,5 +54,13 @@ public class ProcessItem implements Serializable {
 
     public void setExParam1(String exParam1) {
         this.exParam1 = exParam1;
+    }
+
+    public String getExParam2() {
+        return exParam2;
+    }
+
+    public void setExParam2(String exParam2) {
+        this.exParam2 = exParam2;
     }
 }

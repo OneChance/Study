@@ -292,6 +292,9 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
 
                 clear();
 
+                noteMaintain.setVisibility(GONE);
+                confirmMaintain.setVisibility(GONE);
+
                 RadioButton rb = (RadioButton) view.findViewById(i);
                 String rbName = rb.getText().toString();
                 if (rbName.equals(MyApplication.getResString(R.string.oper_type_start))) {
@@ -374,9 +377,15 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
                     RadioButton rb = (RadioButton) (view.findViewById(operType.getCheckedRadioButtonId()));
                     item.setExParam1(rb.getText().toString());
 
-                    currentReceiverCode = GET_BAOYANG;
-                    NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
-                            .subscribe(serverObserver);
+                    RadioButton maintainTypeRb = (RadioButton) (view.findViewById(maintainType.getCheckedRadioButtonId()));
+                    if (maintainTypeRb == null || maintainTypeRb.getText().toString().equals("")) {
+                        MyApplication.toast(R.string.need_choose_maintain_type, false);
+                    } else {
+                        item.setExParam2(maintainTypeRb.getText().toString());
+                        currentReceiverCode = GET_BAOYANG;
+                        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
+                                .subscribe(serverObserver);
+                    }
                 }
             }
         } else if (currentReceiverCode == GET_BAOYANG) {
@@ -428,8 +437,6 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
     public void clear() {
         equipCode.setText(R.string.wait_scan);
         equipName.setText("");
-        noteMaintain.setVisibility(GONE);
-        confirmMaintain.setVisibility(GONE);
         equipStopDate.setText("");
         equipStopTime.setText("");
         stopDatetime.setText("");
