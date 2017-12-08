@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 import static android.view.View.GONE;
 import static com.logic.mes.R.layout.by;
@@ -51,65 +51,65 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
         this.tagNameId = R.string.by_tab_name;
     }
 
-    @InjectView(R.id.oper_code_value)
+    @BindView(R.id.oper_code_value)
     TextView operCode;
-    @InjectView(R.id.equip_code_value)
+    @BindView(R.id.equip_code_value)
     TextView equipCode;
-    @InjectView(R.id.oper_name_value)
+    @BindView(R.id.oper_name_value)
     TextView operName;
-    @InjectView(R.id.equip_name_value)
+    @BindView(R.id.equip_name_value)
     TextView equipName;
-    @InjectView(R.id.scan_oper)
+    @BindView(R.id.scan_oper)
     Button scanOper;
-    @InjectView(R.id.scan_equip)
+    @BindView(R.id.scan_equip)
     TextView scanEquip;
-    @InjectView(R.id.oper_type)
+    @BindView(R.id.oper_type)
     RadioGroup operType;
 
     /*开始阶段*/
-    @InjectView(R.id.note_maintain)
+    @BindView(R.id.note_maintain)
     LinearLayout noteMaintain;
-    @InjectView(R.id.maintain_type_value)
+    @BindView(R.id.maintain_type_value)
     RadioGroup maintainType;
-    @InjectView(R.id.equip_stop_date_value)
+    @BindView(R.id.equip_stop_date_value)
     Button equipStopDate;
-    @InjectView(R.id.equip_stop_time_value)
+    @BindView(R.id.equip_stop_time_value)
     Button equipStopTime;
 
     /*后续阶段*/
-    @InjectView(R.id.confirm_maintain)
+    @BindView(R.id.confirm_maintain)
     LinearLayout confirmMaintain;
-    @InjectView(R.id.equip_stop_datetime_value)
+    @BindView(R.id.equip_stop_datetime_value)
     TextView stopDatetime;
-    @InjectView(R.id.note_datetime_value)
+    @BindView(R.id.note_datetime_value)
     TextView noteDatetime;
-    @InjectView(R.id.accept_datetime_value)
+    @BindView(R.id.accept_datetime_value)
     TextView acceptDatetime;
-    @InjectView(R.id.complete_datetime_value)
+    @BindView(R.id.complete_datetime_value)
     TextView completeDatetime;
-    @InjectView(R.id.maintain_oper_value)
+    @BindView(R.id.maintain_oper_value)
     TextView maintainOper;
-    @InjectView(R.id.oper_date_value)
+    @BindView(R.id.oper_date_value)
     Button confirmDate;
-    @InjectView(R.id.oper_time_value)
+    @BindView(R.id.oper_time_value)
     Button confirmTime;
-    @InjectView(R.id.agree_value)
+    @BindView(R.id.agree_value)
     RadioGroup agree;
-    @InjectView(R.id.agree_row)
+    @BindView(R.id.agree_row)
     PercentRelativeLayout agreeRow;
 
     /*控制显示行*/
-    @InjectView(R.id.accept_time_wrapper)
+    @BindView(R.id.accept_time_wrapper)
     PercentRelativeLayout acceptTimeWrapper;
-    @InjectView(R.id.complete_time_wrapper)
+    @BindView(R.id.complete_time_wrapper)
     PercentRelativeLayout completeTimeWrapper;
-    @InjectView(R.id.maintain_oper_wrapper)
+    @BindView(R.id.maintain_oper_wrapper)
     PercentRelativeLayout maintainOperWrapper;
-    @InjectView(R.id.oper_date_wrapper)
+    @BindView(R.id.oper_date_wrapper)
     PercentRelativeLayout operDateWrapper;
 
 
-    @InjectView(R.id.btn_submit)
+    @BindView(R.id.btn_submit)
     Button submit;
 
     IScanReceiver receiver;
@@ -131,7 +131,7 @@ public class ByFragment extends BaseTagFragment implements IScanReceiver, Server
 
         view = inflater.inflate(by, container, false);
 
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         if (byEntity == null) {
             byEntity = new By();

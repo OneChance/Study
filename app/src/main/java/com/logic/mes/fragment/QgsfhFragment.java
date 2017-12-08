@@ -23,7 +23,7 @@ import com.logic.mes.observer.ServerObserver;
 import java.math.BigDecimal;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 import butterknife.OnTextChanged;
 
 import static com.logic.mes.R.layout.qgsfh;
@@ -34,29 +34,29 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         this.tagNameId = R.string.qgsfh_tab_name;
     }
 
-    @InjectView(R.id.qgsfh_v_jzbh)
+    @BindView(R.id.qgsfh_v_jzbh)
     TextView jzbh;
-    @InjectView(R.id.qgsfh_b_submit)
+    @BindView(R.id.qgsfh_b_submit)
     Button bSubmit;
-    @InjectView(R.id.qgsfh_b_clear)
+    @BindView(R.id.qgsfh_b_clear)
     Button bClear;
-    @InjectView(R.id.qgsfh_v_yzd)
+    @BindView(R.id.qgsfh_v_yzd)
     EditText yzd;
-    @InjectView(R.id.qgsfh_v_hbp)
+    @BindView(R.id.qgsfh_v_hbp)
     EditText hbp;
-    @InjectView(R.id.qgsfh_v_zb)
+    @BindView(R.id.qgsfh_v_zb)
     EditText zb;
-    @InjectView(R.id.qgsfh_v_dp)
+    @BindView(R.id.qgsfh_v_dp)
     EditText dp;
-    @InjectView(R.id.qgsfh_v_kxs)
+    @BindView(R.id.qgsfh_v_kxs)
     EditText kxs;
-    @InjectView(R.id.qgsfh_v_lds)
+    @BindView(R.id.qgsfh_v_lds)
     EditText lds;
-    @InjectView(R.id.qgsfh_v_zqbb)
+    @BindView(R.id.qgsfh_v_zqbb)
     EditText zqbb;
-    @InjectView(R.id.qgsfh_v_dxfq)
+    @BindView(R.id.qgsfh_v_dxfq)
     EditText dxfq;
-    @InjectView(R.id.qgsfh_v_qps)
+    @BindView(R.id.qgsfh_v_qps)
     TextView qps;
     String cj = "";
 
@@ -79,7 +79,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
 
         View view = inflater.inflate(qgsfh, container, false);
 
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         activity = getActivity();
         receiver = this;

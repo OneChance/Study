@@ -11,6 +11,16 @@ public class PbProduct extends ProcessBase {
     private String jx;
     @ItemCol(col = "xwcd")
     private String xwcd;
+    @ItemCol(col = "gdh")
+    private String gdh;
+
+    public String getGdh() {
+        return gdh;
+    }
+
+    public void setGdh(String gdh) {
+        this.gdh = gdh;
+    }
 
     private List<PbDetail> detailList;
 

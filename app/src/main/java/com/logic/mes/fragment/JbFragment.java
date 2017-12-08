@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,18 +30,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class JbFragment extends BaseTagFragment implements IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver, JbListAdapter.JbDetailCallback {
 
-    @InjectView(R.id.jb_v_brick)
+    @BindView(R.id.jb_v_brick)
     TextView brick;
-    @InjectView(R.id.jb_product_list)
+    @BindView(R.id.jb_product_list)
     RecyclerView listView;
-    @InjectView(R.id.jb_b_submit)
+    @BindView(R.id.jb_b_submit)
     Button submit;
-    @InjectView(R.id.jb_v_reason)
+    @BindView(R.id.jb_v_reason)
     Spinner reason;
 
 
@@ -66,7 +63,7 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
         View view = inflater.inflate(R.layout.jb, container, false);
 
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         activity = getActivity();
         receiver = this;

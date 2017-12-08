@@ -15,7 +15,7 @@ import com.logic.mes.entity.process.JbDetail;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class JbListAdapter extends RecyclerView.Adapter<JbListAdapter.ViewHolder> {
 
@@ -57,18 +57,18 @@ public class JbListAdapter extends RecyclerView.Adapter<JbListAdapter.ViewHolder
     public static class ViewHolder
             extends RecyclerView.ViewHolder {
 
-        @InjectView(R.id.jb_brick_id)
+        @BindView(R.id.jb_brick_id)
         TextView brickId;
-        @InjectView(R.id.jb_length)
+        @BindView(R.id.jb_length)
         TextView length;
-        @InjectView(R.id.jb_v_bf)
+        @BindView(R.id.jb_v_bf)
         CheckBox bf;
-        @InjectView(R.id.jb_v_station)
+        @BindView(R.id.jb_v_station)
         public TextView station;
 
         public ViewHolder(View v, final JbDetailCallback jbDetailCallback) {
             super(v);
-            ButterKnife.inject(this, v);
+            ButterKnife.bind(this, v);
 
             bf.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

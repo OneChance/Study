@@ -17,7 +17,7 @@ import java.util.List;
 
 import atownsend.swipeopenhelper.BaseSwipeOpenViewHolder;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class PbListAdapter extends RecyclerView.Adapter<PbListAdapter.ViewHolder> {
 
@@ -66,22 +66,22 @@ public class PbListAdapter extends RecyclerView.Adapter<PbListAdapter.ViewHolder
     public static class ViewHolder
             extends BaseSwipeOpenViewHolder {
 
-        @InjectView(R.id.content_view)
+        @BindView(R.id.content_view)
         public PercentRelativeLayout content;
-        @InjectView(R.id.pb_brick_id)
+        @BindView(R.id.pb_brick_id)
         public TextView brickId;
-        @InjectView(R.id.pb_length)
+        @BindView(R.id.pb_length)
         public TextView length;
-        @InjectView(R.id.pb_level)
+        @BindView(R.id.pb_level)
         public TextView level;
-        @InjectView(R.id.pb_v_station)
+        @BindView(R.id.pb_v_station)
         public TextView station;
-        @InjectView(R.id.pb_delete_button)
+        @BindView(R.id.pb_delete_button)
         public TextView deleteButton;
 
         public ViewHolder(View v, final ButtonCallbacks callbacks) {
             super(v);
-            ButterKnife.inject(this, v);
+            ButterKnife.bind(this, v);
 
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override

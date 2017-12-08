@@ -32,7 +32,7 @@ import java.util.Date;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
 
@@ -40,20 +40,20 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
         this.tagNameId = R.string.ck_tab_name;
     }
 
-    @InjectView(R.id.ck_v_tm_head)
+    @BindView(R.id.ck_v_tm_head)
     TextView tmHead;
-    @InjectView(R.id.ck_product_list)
+    @BindView(R.id.ck_product_list)
     RecyclerView listView;
-    @InjectView(R.id.ck_v_jzrq)
+    @BindView(R.id.ck_v_jzrq)
     Button jzrq;
-    @InjectView(R.id.ck_v_hj)
+    @BindView(R.id.ck_v_hj)
     TextView hj;
-    @InjectView(R.id.ck_v_bill)
+    @BindView(R.id.ck_v_bill)
     EditText bill;
 
-    @InjectView(R.id.ck_b_submit)
+    @BindView(R.id.ck_b_submit)
     Button submit;
-    @InjectView(R.id.ck_b_clear)
+    @BindView(R.id.ck_b_clear)
     Button clear;
 
     CkProduct product;
@@ -77,7 +77,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.ck, container, false);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
         activity = getActivity();
         receiver = this;
         submitResultReceiver = this;

@@ -19,7 +19,7 @@ import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 import static com.logic.mes.R.layout.db;
 
@@ -29,16 +29,16 @@ public class DbFragment extends BaseTagFragment implements IScanReceiver, Server
         this.tagNameId = R.string.db_tab_name;
     }
 
-    @InjectView(R.id.db_b_add)
+    @BindView(R.id.db_b_add)
     Button add;
-    @InjectView(R.id.db_b_cd)
+    @BindView(R.id.db_b_cd)
     Button cd;
-    @InjectView(R.id.db_brick_id)
+    @BindView(R.id.db_brick_id)
     TextView brickId;
 
-    @InjectView(R.id.db_v_type)
+    @BindView(R.id.db_v_type)
     EditText type;
-    @InjectView(R.id.db_v_cate)
+    @BindView(R.id.db_v_cate)
     EditText cate;
 
     IScanReceiver receiver;
@@ -62,7 +62,7 @@ public class DbFragment extends BaseTagFragment implements IScanReceiver, Server
 
         view = inflater.inflate(db, container, false);
 
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         receiver = this;
         submitResultReceiver = this;

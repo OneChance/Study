@@ -26,7 +26,7 @@ import com.logic.mes.observer.ServerObserver;
 import java.math.BigDecimal;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 import butterknife.OnTextChanged;
 
 import static com.logic.mes.R.id.qx_v_zj;
@@ -38,41 +38,41 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         this.tagNameId = R.string.qx_tab_name;
     }
 
-    @InjectView(R.id.qx_v_jzbh_head)
+    @BindView(R.id.qx_v_jzbh_head)
     TextView jzbhHead;
-    @InjectView(R.id.qx_b_submit)
+    @BindView(R.id.qx_b_submit)
     Button bSubmit;
-    @InjectView(R.id.qx_b_clear)
+    @BindView(R.id.qx_b_clear)
     Button bClear;
-    @InjectView(R.id.qx_v_station)
+    @BindView(R.id.qx_v_station)
     TextView station;
-    @InjectView(R.id.qx_v_jzbh)
+    @BindView(R.id.qx_v_jzbh)
     TextView jzbh;
-    @InjectView(R.id.qx_v_llcps)
+    @BindView(R.id.qx_v_llcps)
     TextView llcps;
-    @InjectView(R.id.qx_v_sjcps)
+    @BindView(R.id.qx_v_sjcps)
     EditText sjcps;
-    @InjectView(R.id.qx_v_hs)
+    @BindView(R.id.qx_v_hs)
     EditText hs;
-    @InjectView(R.id.qx_v_mhps)
+    @BindView(R.id.qx_v_mhps)
     EditText mhps;
-    @InjectView(R.id.qx_v_ps)
+    @BindView(R.id.qx_v_ps)
     EditText ps;
-    @InjectView(R.id.qx_v_bb)
+    @BindView(R.id.qx_v_bb)
     EditText bb;
-    @InjectView(R.id.qx_v_yp)
+    @BindView(R.id.qx_v_yp)
     EditText yp;
-    @InjectView(R.id.qx_v_jjqxs)
+    @BindView(R.id.qx_v_jjqxs)
     EditText jjqxs;
-    @InjectView(R.id.qx_v_sbqxs)
+    @BindView(R.id.qx_v_sbqxs)
     EditText sbqxs;
-    @InjectView(R.id.qx_v_qt)
+    @BindView(R.id.qx_v_qt)
     EditText qt;
-    @InjectView(qx_v_zj)
+    @BindView(qx_v_zj)
     TextView zj;
-    @InjectView(R.id.qx_v_zqqss)
+    @BindView(R.id.qx_v_zqqss)
     EditText zqqss;
-    @InjectView(R.id.qx_v_qps)
+    @BindView(R.id.qx_v_qps)
     TextView qpsV;
 
 
@@ -101,7 +101,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
 
         View view = inflater.inflate(qx, container, false);
 
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         activity = getActivity();
         receiver = this;

@@ -27,7 +27,7 @@ import java.util.Map;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
 
@@ -42,27 +42,27 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
     String currentCode;
 
 
-    @InjectView(R.id.zt_th_v)
+    @BindView(R.id.zt_th_v)
     TextView thHead;
-    @InjectView(R.id.zt_xh_v)
+    @BindView(R.id.zt_xh_v)
     TextView xhHead;
 
-    @InjectView(R.id.zt_b_scan_th)
+    @BindView(R.id.zt_b_scan_th)
     Button scanTh;
-    @InjectView(R.id.zt_b_scan_xz)
+    @BindView(R.id.zt_b_scan_xz)
     Button scanXh;
 
-    @InjectView(R.id.zt_product_list)
+    @BindView(R.id.zt_product_list)
     RecyclerView listView;
 
-    @InjectView(R.id.zt_b_submit)
+    @BindView(R.id.zt_b_submit)
     Button submit;
-    @InjectView(R.id.zt_b_clear)
+    @BindView(R.id.zt_b_clear)
     Button clear;
 
-    @InjectView(R.id.zt_hs)
+    @BindView(R.id.zt_hs)
     TextView hs;
-    @InjectView(R.id.zt_ps)
+    @BindView(R.id.zt_ps)
     TextView ps;
 
     ZtHead zt;
@@ -85,7 +85,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
 
         View view = inflater.inflate(R.layout.zt, container, false);
 
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         activity = (MainActivity) getActivity();
         receiver = this;

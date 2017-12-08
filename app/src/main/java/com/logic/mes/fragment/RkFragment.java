@@ -30,7 +30,7 @@ import java.util.Date;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
 
@@ -38,18 +38,18 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         this.tagNameId = R.string.rk_tab_name;
     }
 
-    @InjectView(R.id.rk_v_tm_head)
+    @BindView(R.id.rk_v_tm_head)
     TextView tmHead;
-    @InjectView(R.id.rk_product_list)
+    @BindView(R.id.rk_product_list)
     RecyclerView listView;
-    @InjectView(R.id.rk_v_jzrq)
+    @BindView(R.id.rk_v_jzrq)
     Button jzrq;
-    @InjectView(R.id.rk_v_hj)
+    @BindView(R.id.rk_v_hj)
     TextView hj;
 
-    @InjectView(R.id.rk_b_submit)
+    @BindView(R.id.rk_b_submit)
     Button submit;
-    @InjectView(R.id.rk_b_clear)
+    @BindView(R.id.rk_b_clear)
     Button clear;
 
     RkProduct product;
@@ -73,7 +73,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.rk, container, false);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
         activity = getActivity();
         receiver = this;
         submitResultReceiver = this;

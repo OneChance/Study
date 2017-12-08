@@ -23,26 +23,26 @@ import com.logic.mes.observer.LoginObserver;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class LoginActivity extends Activity implements IScanReceiver, LoginObserver.IUpdate {
 
     private Context context;
-    @InjectView(R.id.btn_login)
+    @BindView(R.id.btn_login)
     Button bLogin;
-    @InjectView(R.id.emp_no)
+    @BindView(R.id.emp_no)
     EditText empNo;
     IScanReceiver receiver;
     LoginObserver loginObserver;
-    @InjectView(R.id.loading)
+    @BindView(R.id.loading)
     LinearLayout loading;
-    @InjectView(R.id.loading_text)
+    @BindView(R.id.loading_text)
     TextView loadingText;
-    @InjectView(R.id.app_version)
+    @BindView(R.id.app_version)
     TextView appVersion;
 
-    @InjectView(R.id.btn_config_server)
+    @BindView(R.id.btn_config_server)
     Button config;
     LoginActivity activity;
 
@@ -63,7 +63,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
         activity = this;
         loginObserver = new LoginObserver(context, this);
 
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         if (LocalConfig.IP.equals("") || LocalConfig.PORT.equals("")) {
             List<ServerConfig> dataList = DBHelper.getInstance(activity).query(ServerConfig.class);

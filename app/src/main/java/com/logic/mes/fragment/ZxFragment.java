@@ -27,7 +27,7 @@ import java.util.Map;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
 
@@ -41,27 +41,27 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     int currentReceiver = SCAN_CODE_XZ;
     String currentCode;
 
-    @InjectView(R.id.zx_xh_v)
+    @BindView(R.id.zx_xh_v)
     TextView xhHead;
-    @InjectView(R.id.zx_hh_v)
+    @BindView(R.id.zx_hh_v)
     TextView hhHead;
 
-    @InjectView(R.id.zx_product_list)
+    @BindView(R.id.zx_product_list)
     RecyclerView listView;
 
-    @InjectView(R.id.zx_b_scan_xz)
+    @BindView(R.id.zx_b_scan_xz)
     Button scanXz;
-    @InjectView(R.id.zx_b_scan_hz)
+    @BindView(R.id.zx_b_scan_hz)
     Button scanHz;
 
-    @InjectView(R.id.zx_b_submit)
+    @BindView(R.id.zx_b_submit)
     Button submit;
-    @InjectView(R.id.zx_b_clear)
+    @BindView(R.id.zx_b_clear)
     Button clear;
 
-    @InjectView(R.id.zx_hs)
+    @BindView(R.id.zx_hs)
     TextView hs;
-    @InjectView(R.id.zx_ps)
+    @BindView(R.id.zx_ps)
     TextView ps;
 
     ZxHead zx;
@@ -86,7 +86,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
 
         View view = inflater.inflate(R.layout.zx, container, false);
 
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         activity = (MainActivity) getActivity();
         receiver = this;

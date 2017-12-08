@@ -34,7 +34,7 @@ import java.util.List;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonCallbacks, IScanReceiver, ServerObserver.ServerDataReceiver, ProcessUtil.SubmitResultReceiver {
 
@@ -44,22 +44,27 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     public final int SCAN_CODE_MTYPE = 0;
     public final int SCAN_CODE_PRODUCT = 1;
+    public final int SCAN_CODE_GDH = 2;
 
-    @InjectView(R.id.pb_b_scan_mtype)
+    @BindView(R.id.pb_b_scan_mtype)
     Button scanMType;
-    @InjectView(R.id.pb_b_scan_brick)
+    @BindView(R.id.pb_b_scan_gdh)
+    Button scanGdh;
+    @BindView(R.id.pb_b_scan_brick)
     Button scanBrick;
 
-    @InjectView(R.id.pb_v_mtype)
+    @BindView(R.id.pb_v_mtype)
     Spinner mType;
-    @InjectView(R.id.pb_v_brick)
+    @BindView(R.id.pb_v_gdh)
+    TextView gdh;
+    @BindView(R.id.pb_v_brick)
     TextView brick;
-    @InjectView(R.id.pb_product_list)
+    @BindView(R.id.pb_product_list)
     RecyclerView listView;
 
-    @InjectView(R.id.pb_b_submit)
+    @BindView(R.id.pb_b_submit)
     Button submit;
-    @InjectView(R.id.pb_b_clear)
+    @BindView(R.id.pb_b_clear)
     Button clear;
 
     PbProduct pb;
@@ -93,7 +98,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
         View view = inflater.inflate(R.layout.pb, container, false);
 
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         activity = (MainActivity) getActivity();
         receiver = this;
@@ -119,6 +124,14 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             }
         });
 
+        scanGdh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gdh.setText(R.string.wait_scan);
+                MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_GDH);
+            }
+        });
+
         //初始化机型下拉列表
         final UserInfo userInfo = ((MainActivity) activity).getUserInfo();
         List<TableType> types = userInfo.getTableType();
@@ -137,7 +150,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 pb.setJx(mTypes.get(i).getCode());
                 if (!mTypes.get(i).getCode().equals("") && visible) {
-                    MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
+                    MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_GDH);
                 }
             }
 
@@ -154,6 +167,8 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
                 if (pb.getJx().equals("")) {
                     MyApplication.toast(R.string.wait_choose_mtype, false);
+                } else if (pb.getGdh().equals("")) {
+                    MyApplication.toast(R.string.wait_scan_gdh, false);
                 } else {
                     double groupLength = getGroupLength(pb.getJx());
                     double groupMinLength = getGroupMinLength(pb.getJx());
@@ -229,10 +244,14 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             int selectIndex = getSelectIndex(res);
             if (selectIndex > 0) {
                 mType.setSelection(selectIndex);
-                MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
+                MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_GDH);
             } else {
                 mType.setSelection(0);
             }
+        } else if (scanCode == SCAN_CODE_GDH) {
+            gdh.setText(res);
+            pb.setGdh(res);
+            MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
         } else if (scanCode == SCAN_CODE_PRODUCT) {
             //取产品信息
             brick.setText(res);
@@ -297,6 +316,8 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     public void successClear() {
         brick.setText(R.string.wait_scan);
+        gdh.setText(R.string.wait_scan);
+        pb.setGdh("");
         pb.getDetailList().clear();
         dataAdapter.notifyDataSetChanged();
         MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_MTYPE);

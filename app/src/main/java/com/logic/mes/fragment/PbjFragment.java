@@ -2,7 +2,6 @@ package com.logic.mes.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +21,8 @@ import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 import static com.logic.mes.R.layout.pbj;
 
@@ -33,23 +32,23 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         this.tagNameId = R.string.pbj_tab_name;
     }
 
-    @InjectView(R.id.pbj_b_quali)
+    @BindView(R.id.pbj_b_quali)
     Button bQuali;
-    @InjectView(R.id.pbj_b_unquali)
+    @BindView(R.id.pbj_b_unquali)
     Button bUnquali;
-    @InjectView(R.id.pbj_brick_id)
+    @BindView(R.id.pbj_brick_id)
     TextView brickId;
-    @InjectView(R.id.pbj_v_bb)
+    @BindView(R.id.pbj_v_bb)
     EditText bbValue;
-    @InjectView(R.id.pbj_v_zcbc)
+    @BindView(R.id.pbj_v_zcbc)
     EditText zcbcValue;
-    @InjectView(R.id.pbj_v_zdbc)
+    @BindView(R.id.pbj_v_zdbc)
     EditText zdbcValue;
-    @InjectView(R.id.pbj_v_yxbc)
+    @BindView(R.id.pbj_v_yxbc)
     EditText yxbcValue;
-    @InjectView(R.id.pbj_v_size)
+    @BindView(R.id.pbj_v_size)
     EditText sizeValue;
-    @InjectView(R.id.pbj_dj_group)
+    @BindView(R.id.pbj_dj_group)
     RadioGroup djValue;
 
     IScanReceiver receiver;
@@ -71,7 +70,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
 
         view = inflater.inflate(pbj, container, false);
 
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         receiver = this;
         submitResultReceiver = this;

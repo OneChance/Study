@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -28,29 +27,29 @@ import com.logic.mes.presenter.main.MainPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 
 public class MainActivity extends AppCompatActivity implements IMain {
 
     Activity activity;
     UserInfo userInfo;
-    @InjectView(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.main_viewpager)
+    @BindView(R.id.main_viewpager)
     ViewPager viewPager;
-    @InjectView(R.id.main_tabs)
+    @BindView(R.id.main_tabs)
     TabLayout tabLayout;
-    @InjectView(R.id.login_user)
+    @BindView(R.id.login_user)
     TextView loginUser;
-    @InjectView(R.id.emp_no)
+    @BindView(R.id.emp_no)
     TextView empNo;
-    @InjectView(R.id.net_state)
+    @BindView(R.id.net_state)
     TextView netState;
-    @InjectView(R.id.btn_login_out)
+    @BindView(R.id.btn_login_out)
     TextView bLoginOut;
-    @InjectView(R.id.submit_status)
+    @BindView(R.id.submit_status)
     TextView submitStatus;
     MainPresenter mainPresenter;
     private Context context;
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements IMain {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.mainpage);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         context = this;
         activity = this;
         Bundle bundle = this.getIntent().getExtras();

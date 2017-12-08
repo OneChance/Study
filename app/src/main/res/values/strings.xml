@@ -78,10 +78,13 @@
 
     <!--配棒-->
     <string name="wait_choose_mtype">请选择机型</string>
+    <string name="wait_scan_gdh">请扫描切片工单</string>
     <string name="pb_l_mtype">机型</string>
+    <string name="pb_l_gdh">切片工单</string>
     <string name="th_brick_id">BrickID</string>
     <string name="th_length">长度</string>
     <string name="th_level">等级</string>
+    <string name="pb_b_gdh">扫描工单</string>
     <string name="pb_b_mtype">扫描机型</string>
     <string name="pb_b_brick">扫描晶砖</string>
     <string name="pb_l_station">工位</string>

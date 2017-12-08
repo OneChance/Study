@@ -23,7 +23,7 @@ import com.logic.mes.observer.ServerObserver;
 import java.math.BigDecimal;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 import butterknife.OnTextChanged;
 
 import static com.logic.mes.R.layout.yb;
@@ -34,29 +34,29 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         this.tagNameId = R.string.yb_tab_name;
     }
 
-    @InjectView(R.id.yb_v_jzbh)
+    @BindView(R.id.yb_v_jzbh)
     TextView jzbh;
-    @InjectView(R.id.yb_b_submit)
+    @BindView(R.id.yb_b_submit)
     Button bSubmit;
-    @InjectView(R.id.yb_b_clear)
+    @BindView(R.id.yb_b_clear)
     Button bClear;
-    @InjectView(R.id.yb_v_yzd)
+    @BindView(R.id.yb_v_yzd)
     EditText yzd;
-    @InjectView(R.id.yb_v_hbp)
+    @BindView(R.id.yb_v_hbp)
     EditText hbp;
-    @InjectView(R.id.yb_v_zb)
+    @BindView(R.id.yb_v_zb)
     EditText zb;
-    @InjectView(R.id.yb_v_dp)
+    @BindView(R.id.yb_v_dp)
     EditText dp;
-    @InjectView(R.id.yb_v_kxs)
+    @BindView(R.id.yb_v_kxs)
     EditText kxs;
-    @InjectView(R.id.yb_v_lds)
+    @BindView(R.id.yb_v_lds)
     EditText lds;
-    @InjectView(R.id.yb_v_zqbb)
+    @BindView(R.id.yb_v_zqbb)
     EditText zqbb;
-    @InjectView(R.id.yb_v_dxfq)
+    @BindView(R.id.yb_v_dxfq)
     EditText dxfq;
-    @InjectView(R.id.yb_v_qps)
+    @BindView(R.id.yb_v_qps)
     TextView qps;
 
     FragmentActivity activity;
@@ -80,7 +80,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
         View view = inflater.inflate(yb, container, false);
 
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
 
         activity = getActivity();
         receiver = this;

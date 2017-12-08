@@ -54,3 +54,5 @@ Temporary Items
 /app/*.apk
 /app/gradle.properties
 /local.properties
+/app/release
+/app/build
