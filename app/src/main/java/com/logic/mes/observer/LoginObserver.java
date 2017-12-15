@@ -95,7 +95,7 @@ public class LoginObserver implements Observer<UserInfoResult> {
             toMain(userInfo);
         } else {
             MyApplication.toast(res.getInfo(), false);
-            dbLogin();
+            iUpdate.loginButtonRecover();
         }
     }
 

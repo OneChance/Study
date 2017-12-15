@@ -92,6 +92,7 @@
     <string name="pb_b_clear">清空</string>
     <string name="different_level">晶砖等级不一致</string>
     <string name="length_error">非法棒长:%1$.1f,必须介于%2$.1f-%3$.1f之间</string>
+    <string name="qpgdh_error">切片工单号错误</string>
 
     <!--配棒检-->
     <string name="pbj_l_code">条码</string>

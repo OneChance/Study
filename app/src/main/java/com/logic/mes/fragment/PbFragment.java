@@ -249,9 +249,13 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
                 mType.setSelection(0);
             }
         } else if (scanCode == SCAN_CODE_GDH) {
-            gdh.setText(res);
-            pb.setGdh(res);
-            MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
+            if(null!=res&&res.length()>15){
+                MyApplication.toast(R.string.qpgdh_error, false);
+            }else{
+                gdh.setText(res);
+                pb.setGdh(res);
+                MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
+            }
         } else if (scanCode == SCAN_CODE_PRODUCT) {
             //取产品信息
             brick.setText(res);
