@@ -38,6 +38,8 @@ import butterknife.BindView;
 
 public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonCallbacks, IScanReceiver, ServerObserver.ServerDataReceiver, ProcessUtil.SubmitResultReceiver {
 
+    private String length;
+
     public PbFragment() {
         this.tagNameId = R.string.pb_tab_name;
     }
@@ -249,9 +251,9 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
                 mType.setSelection(0);
             }
         } else if (scanCode == SCAN_CODE_GDH) {
-            if(null==res || res.length()>15 || res.toUpperCase().contains("RD")){
+            if (null == res || res.length() > 15 || res.toUpperCase().contains("RD")) {
                 MyApplication.toast(R.string.qpgdh_error, false);
-            }else{
+            } else {
                 gdh.setText(res);
                 pb.setGdh(res);
                 MyApplication.getScanUtil().setReceiver(receiver, SCAN_CODE_PRODUCT);
@@ -300,7 +302,16 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     @Override
     public void serverData() {
-        addRow(data.getVal("ej_BrickID"), data.getVal("ej_jzdj"), data.getVal("pbj_yxbc"));
+        String yxbc = data.getVal("pbj_yxbc");
+        String bb = data.getRelValWithRes("ej", "pbj", "bb")[0];
+        if (yxbc.equals("")) {
+            yxbc = "0";
+        }
+        if (bb.equals("")) {
+            bb = "0";
+        }
+        String length = new BigDecimal(yxbc).add(new BigDecimal(bb)).toString();
+        addRow(data.getVal("ej_BrickID"), data.getVal("ej_jzdj"), length);
     }
 
     @Override
