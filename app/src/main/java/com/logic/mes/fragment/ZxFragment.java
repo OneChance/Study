@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.logic.mes.DataUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.activity.MainActivity;
 import com.logic.mes.adapter.ZxListAdapter;
+import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.process.ZxHead;
 import com.logic.mes.entity.process.ZxProduct;
 import com.logic.mes.entity.server.ProcessItem;
@@ -26,8 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
 
@@ -70,6 +72,10 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     IScanReceiver receiver;
     ServerObserver serverObserver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
+
+    MaterialDialog noticeDialog;
+    View noteView;
+    TextView noteMsgView;
 
 
     @Override
@@ -115,7 +121,22 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toSubmit("zx");
+
+                if (xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
+                    MyApplication.toast(R.string.xz_scan_first, false);
+                } else if (zx.getDetailList().size() == 0) {
+                    MyApplication.toast(R.string.hz_scan_need, false);
+                } else {
+                    zx.setCode("zx");
+                    zx.setBagCode(zx.getDetailList().get(0).getXh());
+                    String psNumber = ps.getText().toString();
+                    int psI = DataUtil.getIntValue(psNumber);
+                    if (psI < 1600) {
+                        noticeDialog.show();
+                    } else {
+                        new ProcessUtil(activity).submit(submitResultReceiver, zx, userInfo.getUser());
+                    }
+                }
             }
         });
 
@@ -137,19 +158,35 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         helper.attachToRecyclerView(listView);
         helper.setCloseOnAction(false);
 
+        noticeDialog = new MaterialDialog(activity);
+
+        noteView = View.inflate(activity, R.layout.dialog_msg, null);
+        noteMsgView = (TextView) noteView.findViewById(R.id.dialog_msg_content);
+        noteMsgView.setSingleLine(false);
+        noteMsgView.setText(activity.getResources().getString(R.string.piece_not_full));
+        noticeDialog.setTitle(R.string.notice);
+        noticeDialog.setContentView(noteView);
+
+        noticeDialog.setPositiveButton(R.string.yes, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ProcessUtil(activity).submit(submitResultReceiver, zx, userInfo.getUser());
+                noticeDialog.dismiss(view);
+            }
+        });
+
+        noticeDialog.setNegativeButton(R.string.no, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noticeDialog.dismiss(view);
+            }
+        });
+
         return view;
     }
 
     public void toSubmit(String code) {
-        if (xhHead.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-            MyApplication.toast(R.string.xz_scan_first, false);
-        } else if (zx.getDetailList().size() == 0) {
-            MyApplication.toast(R.string.hz_scan_need, false);
-        } else {
-            zx.setCode(code);
-            zx.setBagCode(zx.getDetailList().get(0).getXh());
-            new ProcessUtil(activity).submit(submitResultReceiver, zx, userInfo.getUser());
-        }
+
     }
 
     @Override
@@ -217,15 +254,17 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                 List<Map<String, String>> mapList = data.getDatas().getBagDatas();
                 if (mapList.size() > 0) {
                     for (Map<String, String> map : mapList) {
+
                         ZxProduct p = new ZxProduct();
+                        p.setXh(xhHead.getText().toString());
                         p.setHh(map.get("boxCode"));
                         p.setDb(map.get("zh_db"));
 
                         if (map.get("boxdjmc") != null && !map.get("boxdjmc").equals("")) {
                             p.setLevel(map.get("boxdjmc"));
                         }
-                        if (data != null && data.getVal("boxps") != null && !data.getVal("boxps").equals("")) {
-                            p.setSl(data.getVal("boxps"));
+                        if (map.get("boxps") != null && !map.get("boxps").equals("")) {
+                            p.setSl(map.get("boxps"));
                         }
 
                         zx.getDetailList().add(p);

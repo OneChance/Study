@@ -120,8 +120,10 @@
     <string name="yb_l_dxfq">断线放弃(mm)</string>
     <string name="yb_b_submit">提交</string>
     <string name="yb_b_clear">清空</string>
+    <string name="yb_b_scrap">报废</string>
     <string name="yb_l_qps">切片碎(片)</string>
     <string name="no_cj">槽距数据错误</string>
+    <string name="scrap_confirm">确定报废该晶砖?</string>
 
     <!--清洗-->
     <string name="qx_l_llcps">理论出片数</string>
@@ -137,6 +139,8 @@
     <string name="qx_l_zqqss">整齐缺损碎</string>
     <string name="qx_l_qt">其他</string>
     <string name="qx_l_zj">总计</string>
+    <string name="qx_l_cc">尺寸</string>
+    <string name="qx_l_db">单包</string>
 
     <!--切割碎复核-->
     <string name="qgsfh_l_spyy">碎片原因</string>
@@ -172,6 +176,7 @@
     <string name="b_cd">撤单</string>
     <string name="zx_hs">盒数:</string>
     <string name="zx_ps">片数:</string>
+    <string name="piece_not_full">未满1600片是否装箱?</string>
 
     <!--装托-->
     <string name="zt_b_scan_xz">扫描箱子</string>

@@ -15,6 +15,7 @@ import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
+import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.process.YbProduct;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
@@ -22,8 +23,8 @@ import com.logic.mes.observer.ServerObserver;
 
 import java.math.BigDecimal;
 
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
 
 import static com.logic.mes.R.layout.yb;
@@ -40,6 +41,8 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     Button bSubmit;
     @BindView(R.id.yb_b_clear)
     Button bClear;
+    @BindView(R.id.yb_b_scrap)
+    Button bScrap;
     @BindView(R.id.yb_v_yzd)
     EditText yzd;
     @BindView(R.id.yb_v_hbp)
@@ -63,6 +66,10 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     IScanReceiver receiver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
     ServerObserver serverObserver;
+
+    MaterialDialog noticeDialog;
+    View noteView;
+    TextView noteMsgView;
 
     String cj = "";
 
@@ -94,7 +101,46 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
                     MyApplication.toast(R.string.brickid_scan_first, false);
                 } else {
                     YbProduct yb = createYb();
+                    yb.setSfbf("否");
                     new ProcessUtil(activity).submit(submitResultReceiver, yb, userInfo.getUser());
+                }
+            }
+        });
+
+
+        noticeDialog = new MaterialDialog(activity);
+
+        noteView = View.inflate(activity, R.layout.dialog_msg, null);
+        noteMsgView = (TextView) noteView.findViewById(R.id.dialog_msg_content);
+        noteMsgView.setSingleLine(false);
+        noteMsgView.setText(activity.getResources().getString(R.string.scrap_confirm));
+        noticeDialog.setTitle(R.string.notice);
+        noticeDialog.setContentView(noteView);
+
+        noticeDialog.setPositiveButton(R.string.yes, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                YbProduct yb = createYb();
+                yb.setSfbf("是");
+                new ProcessUtil(activity).submit(submitResultReceiver, yb, userInfo.getUser());
+                noticeDialog.dismiss(view);
+            }
+        });
+
+        noticeDialog.setNegativeButton(R.string.no, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noticeDialog.dismiss(view);
+            }
+        });
+
+        bScrap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
+                    MyApplication.toast(R.string.brickid_scan_first, false);
+                } else {
+                    noticeDialog.show();
                 }
             }
         });
@@ -213,7 +259,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     /***
      * 计算切片碎
      */
-    @OnTextChanged(value = {R.id.yb_v_yzd, R.id.yb_v_hbp, R.id.yb_v_zb, R.id.yb_v_dp, R.id.yb_v_kxs, R.id.yb_v_lds, R.id.yb_v_zqbb,R.id.yb_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = {R.id.yb_v_yzd, R.id.yb_v_hbp, R.id.yb_v_zb, R.id.yb_v_dp, R.id.yb_v_kxs, R.id.yb_v_lds, R.id.yb_v_zqbb, R.id.yb_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calQps() {
         double yzdI = DataUtil.getDoubleValue(yzd.getText().toString());
         double hbpI = DataUtil.getDoubleValue(hbp.getText().toString());

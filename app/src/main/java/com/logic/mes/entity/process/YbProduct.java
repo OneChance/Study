@@ -26,6 +26,8 @@ public class YbProduct extends ProcessBase {
     private String qps;
     @ItemCol(col = "dxfq")
     private String dxfq;
+    @ItemCol(col = "sfbf")
+    private String sfbf;
 
     public String getYzd() {
         return yzd;
@@ -105,5 +107,13 @@ public class YbProduct extends ProcessBase {
 
     public void setDxfq(String dxfq) {
         this.dxfq = dxfq;
+    }
+
+    public String getSfbf() {
+        return sfbf;
+    }
+
+    public void setSfbf(String sfbf) {
+        this.sfbf = sfbf;
     }
 }

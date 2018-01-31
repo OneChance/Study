@@ -44,6 +44,10 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     Button bSubmit;
     @BindView(R.id.qx_b_clear)
     Button bClear;
+    @BindView(R.id.qx_v_cc)
+    TextView cc;
+    @BindView(R.id.qx_v_db)
+    TextView db;
     @BindView(R.id.qx_v_station)
     TextView station;
     @BindView(R.id.qx_v_jzbh)
@@ -155,6 +159,8 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
 
     @Override
     public void serverData() {
+        cc.setText(data.getVal("pbj_cc"));
+        db.setText(data.getVal("ej_db"));
         jzbh.setText(data.getVal("ej_BrickID"));
         station.setText(data.getVal("pb_gw"));
         llcps.setText(data.getVal("cp_llcps"));
@@ -243,6 +249,8 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     public void clear() {
         jzbhHead.setText(R.string.wait_scan);
         jzbh.setText("");
+        cc.setText("");
+        db.setText("");
         station.setText("");
         llcps.setText("");
         sjcps.setText("");
@@ -300,7 +308,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     @OnTextChanged(value = {R.id.qx_v_yp}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calLlcps() {
 
-        int yxbcI = DataUtil.getIntValue(yxbc);
+        double yxbcI = DataUtil.getDoubleValue(yxbc);
         double xwcdI = DataUtil.getDoubleValue(xwcd);
         double cjI = DataUtil.getDoubleValueNotZero(cj);
         int ypI = DataUtil.getIntValue(yp.getText().toString());
