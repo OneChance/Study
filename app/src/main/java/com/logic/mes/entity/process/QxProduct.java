@@ -9,7 +9,6 @@ public class QxProduct extends ProcessBase {
 
     @ItemKey()
     private String brickId;
-    private String llcps;
 
     @ItemCol(col = "sjcps")
     private String sjcps;
@@ -37,14 +36,6 @@ public class QxProduct extends ProcessBase {
 
     public void setStation(String station) {
         this.station = station;
-    }
-
-    public String getLlcps() {
-        return llcps;
-    }
-
-    public void setLlcps(String llcps) {
-        this.llcps = llcps;
     }
 
     public String getSjcps() {

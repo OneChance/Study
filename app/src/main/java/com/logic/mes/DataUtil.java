@@ -3,7 +3,7 @@ package com.logic.mes;
 
 public class DataUtil {
     public static int getIntValue(String v) {
-        return v == null || v.equals("") ? 0 : Integer.parseInt(v);
+        return v == null || v.equals("") || v.equals("-") ? 0 : Integer.parseInt(v);
     }
 
     public static double getDoubleValue(String v) {

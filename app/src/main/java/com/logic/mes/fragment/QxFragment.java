@@ -46,6 +46,8 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     Button bClear;
     @BindView(R.id.qx_v_cc)
     TextView cc;
+    @BindView(R.id.qx_v_jzdj)
+    TextView jzdj;
     @BindView(R.id.qx_v_db)
     TextView db;
     @BindView(R.id.qx_v_station)
@@ -159,6 +161,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
 
     @Override
     public void serverData() {
+        jzdj.setText(data.getVal("ej_jzdj"));
         cc.setText(data.getVal("pbj_cc"));
         db.setText(data.getVal("ej_db"));
         jzbh.setText(data.getVal("ej_BrickID"));
@@ -186,7 +189,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         qpsV.setText(qps);
 
         calSjps();
-        calLlcps();
+        //calLlcps();
         calTJqxs();
     }
 
@@ -199,7 +202,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         jzbhHead.setText(qx.getBrickId());
         jzbh.setText(qx.getBrickId());
         station.setText(qx.getStation());
-        llcps.setText(qx.getLlcps());
         sjcps.setText(qx.getSjcps());
         hs.setText(qx.getHs());
         ps.setText(qx.getPs());
@@ -226,7 +228,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         QxProduct qx = new QxProduct();
         qx.setBrickId(jzbh.getText().toString());
         qx.setStation(station.getText().toString());
-        qx.setLlcps(llcps.getText().toString());
         qx.setSjcps(sjcps.getText().toString());
         qx.setHs(hs.getText().toString());
         qx.setPs(ps.getText().toString());
@@ -305,6 +306,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     /***
      * 计算理论出片数
      */
+    /*
     @OnTextChanged(value = {R.id.qx_v_yp}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calLlcps() {
 
@@ -316,7 +318,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         llcps.setText((llcpsI + ""));
 
         calTJqxs();
-    }
+    }*/
 
     /***
      * 计算脱胶清洗碎

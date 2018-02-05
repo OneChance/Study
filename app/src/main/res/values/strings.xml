@@ -141,6 +141,7 @@
     <string name="qx_l_zj">总计</string>
     <string name="qx_l_cc">尺寸</string>
     <string name="qx_l_db">单包</string>
+    <string name="qx_l_jzdj">等级</string>
 
     <!--切割碎复核-->
     <string name="qgsfh_l_spyy">碎片原因</string>
