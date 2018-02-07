@@ -1,7 +1,6 @@
 package com.logic.mes.observer;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -96,7 +95,7 @@ public class ServerObserver implements Observer<ServerResult> {
 
         try {
 
-            Log.d("mes", res.toString());
+            //Log.d("mes", res.toString());
 
             MyApplication.appSendBroadcast(SERVER_OK);
 

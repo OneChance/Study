@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
 
@@ -64,6 +64,14 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
     TextView hs;
     @BindView(R.id.zt_ps)
     TextView ps;
+
+
+    @BindView(R.id.t_infos)
+    TextView tInfos;
+
+    String jzdjFromTorr = "";
+    String jzccFromTorr = "";
+    String dbFromTorr = "";
 
     ZtHead zt;
     ZtListAdapter dataAdapter;
@@ -194,6 +202,11 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
     @Override
     public void serverData() {
         if (currentReceiverCode == SCAN_CODE_TH) {
+            //Gson gson = new Gson();
+            //Log.d("mes", gson.toJson(data));
+
+            zt.getDetailList().clear();
+
             //如果有之前提交的数据，带出
             if (data != null && data.getDatas() != null && data.getDatas().getBagDatas() != null) {
                 List<Map<String, String>> mapList = data.getDatas().getBagDatas();
@@ -201,6 +214,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
                     for (Map<String, String> map : mapList) {
                         ZtProduct p = new ZtProduct();
 
+                        p.setTh(thHead.getText().toString());
                         p.setXh(map.get("caseCode"));
                         p.setDb(map.get("zh_db"));
 
@@ -211,11 +225,18 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
                             p.setDjCode(map.get("casedj"));
                         }
 
-                        if (data != null && data.getVal("caseps") != null && !data.getVal("caseps").equals("")) {
+                        if (map.get("caseps") != null && !map.get("caseps").equals("")) {
                             p.setSl(data.getVal("caseps"));
                         }
 
                         zt.getDetailList().add(p);
+
+                        jzdjFromTorr = map.get("jzdj");
+                        jzccFromTorr = map.get("jzcc") == null || map.get("jzcc").equals("") ? "0" : map.get("jzcc");
+                        dbFromTorr = map.get("zh_db");
+
+                        tInfos.setText(String.format(activity.getResources().getString(R.string.case_infos), jzdjFromTorr, jzccFromTorr, dbFromTorr));
+
                     }
                     updateSl();
                     dataAdapter.notifyDataSetChanged();
@@ -232,32 +253,41 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
             if (!checkExist(currentCode)) {
                 if (!levelDiff(data.getVal("casedj"))) {
                     if (!dbDiff(data.getVal("zh_db"))) {
-                        xhHead.setText(currentCode);
-                        ZtProduct p = new ZtProduct();
 
-                        p.setXh(currentCode);
-                        p.setTh(thHead.getText().toString());
+                        String jzdj = data.getVal("jzdj");
+                        String jzcc = data.getVal("jzcc") == null || data.getVal("jzcc").equals("") ? "0" : data.getVal("jzcc");
+                        String db = data.getVal("zh_db");
 
-                        if (data != null && data.getVal("casedjmc") != null && !data.getVal("casedjmc").equals("")) {
-                            p.setDj(data.getVal("casedjmc"));
+                        if (jzdjFromTorr.equals(jzdj) && Double.parseDouble(jzccFromTorr) == Double.parseDouble(jzcc) && dbFromTorr.equals(db)) {
+                            xhHead.setText(currentCode);
+                            ZtProduct p = new ZtProduct();
+
+                            p.setXh(currentCode);
+                            p.setTh(thHead.getText().toString());
+
+                            if (data != null && data.getVal("casedjmc") != null && !data.getVal("casedjmc").equals("")) {
+                                p.setDj(data.getVal("casedjmc"));
+                            }
+
+                            if (data != null && data.getVal("casedj") != null && !data.getVal("casedj").equals("")) {
+                                p.setDjCode(data.getVal("casedj"));
+                            }
+
+                            if (data != null && data.getVal("caseps") != null && !data.getVal("caseps").equals("")) {
+                                p.setSl(data.getVal("caseps"));
+                            }
+
+                            if (data != null && data.getVal("zh_db") != null && !data.getVal("zh_db").equals("")) {
+                                p.setDb(data.getVal("zh_db"));
+                                activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("zh_db"), true);
+                            }
+
+                            zt.getDetailList().add(p);
+                            updateSl();
+                            dataAdapter.notifyDataSetChanged();
+                        } else {
+                            MyApplication.toast(String.format(activity.getResources().getString(R.string.t_info_diff), jzdj, jzcc, db), false);
                         }
-
-                        if (data != null && data.getVal("casedj") != null && !data.getVal("casedj").equals("")) {
-                            p.setDjCode(data.getVal("casedj"));
-                        }
-
-                        if (data != null && data.getVal("caseps") != null && !data.getVal("caseps").equals("")) {
-                            p.setSl(data.getVal("caseps"));
-                        }
-
-                        if (data != null && data.getVal("zh_db") != null && !data.getVal("zh_db").equals("")) {
-                            p.setDb(data.getVal("zh_db"));
-                            activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("zh_db"), true);
-                        }
-
-                        zt.getDetailList().add(p);
-                        updateSl();
-                        dataAdapter.notifyDataSetChanged();
                     } else {
                         MyApplication.toast(R.string.db_diff, false);
                     }
@@ -279,6 +309,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
         zt.getDetailList().clear();
         hs.setText("0");
         ps.setText("0");
+        tInfos.setText("");
         dataAdapter.notifyDataSetChanged();
     }
 
@@ -323,6 +354,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
     /**
      * 比较箱子等级
      * 即将装托的箱子列表中如果有A级,则所有箱子的级别必须一致
+     *
      * @param levelCode 扫描待加入的箱子等级
      * @return 等级是否不一致
      */
@@ -356,6 +388,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
         if (db != null && !db.equals("")) {
             for (ZtProduct product : zt.getDetailList()) {
                 if (product.getDb() != null && !product.getDb().equals("") && !product.getDb().equals(db)) {
+                    //Log.d("mes", "new db:" + db + "     exist db:" + product.getDb());
                     return true;
                 }
             }

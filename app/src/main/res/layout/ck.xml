@@ -1,194 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:weightSum="1">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ck_tm_head"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="@string/ck_l_tm"
+            android:textColor="@color/text"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_widthPercent="30%" />
 
         <TextView
-                android:id="@+id/ck_tm_head"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10sp"
-                android:text="@string/ck_l_tm"
-                android:gravity="center"
-                android:textColor="@color/text"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_widthPercent="30%"/>
-
-        <TextView
-                android:id="@+id/ck_v_tm_head"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10sp"
-                android:textSize="13sp"
-                android:text="@string/wait_scan"/>
+            android:id="@+id/ck_v_tm_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:text="@string/wait_scan"
+            android:textSize="13sp" />
     </LinearLayout>
 
     <android.support.percent.PercentRelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/dividers"
-            android:gravity="center"
-            android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dividers"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
-                android:id="@+id/ck_l_bill"
-                style="@style/font_title"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/ck_l_bill"
-                app:layout_widthPercent="30%"/>
+            android:id="@+id/ck_l_bill"
+            style="@style/font_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/ck_l_bill"
+            app:layout_widthPercent="30%" />
 
 
         <LinearLayout
-                android:id="@+id/ck_v_bill_wrapper"
-                style="@style/edit_text_wrapper"
-                android:layout_toRightOf="@+id/ck_l_bill"
-                app:layout_widthPercent="70%">
+            android:id="@+id/ck_v_bill_wrapper"
+            style="@style/edit_text_wrapper"
+            android:layout_toRightOf="@+id/ck_l_bill"
+            app:layout_widthPercent="70%">
 
             <EditText
-                    android:id="@+id/ck_v_bill"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:text=""
-                    android:textColor="@color/text"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>
+                android:id="@+id/ck_v_bill"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/text"
+                android:textSize="15sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.percent.PercentRelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/dividers"
-            android:gravity="center"
-            android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dividers"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
-                android:id="@+id/ck_l_jzrq"
-                style="@style/font_title"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/ck_l_jzrq"
-                app:layout_widthPercent="30%"/>
+            android:id="@+id/ck_l_jzrq"
+            style="@style/font_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/ck_l_jzrq"
+            app:layout_widthPercent="30%" />
 
         <LinearLayout
-                android:layout_toRightOf="@+id/ck_l_jzrq"
-                android:id="@+id/ck_v_jzrq_wrapper"
-                style="@style/edit_text_wrapper"
-                app:layout_widthPercent="70%">
+            android:id="@+id/ck_v_jzrq_wrapper"
+            style="@style/edit_text_wrapper"
+            android:layout_toRightOf="@+id/ck_l_jzrq"
+            app:layout_widthPercent="70%">
 
             <Button
-                    android:id="@+id/ck_v_jzrq"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/text"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/abc_edit_text_material"/>
+                android:id="@+id/ck_v_jzrq"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/abc_edit_text_material"
+                android:textColor="@color/text"
+                android:textSize="15sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="40dp"
-                                                   android:background="@color/dividers"
-                                                   android:gravity="center"
-                                                   android:orientation="horizontal">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dividers"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
-                android:id="@+id/ck_l_hj"
-                style="@style/font_title"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/ck_l_hj"
-                app:layout_widthPercent="30%"/>
+            android:id="@+id/ck_l_hj"
+            style="@style/font_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/ck_l_hj"
+            app:layout_widthPercent="30%" />
 
         <TextView
-                android:id="@+id/ck_v_hj"
-                style="@style/font_title"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text=""
-                android:layout_toRightOf="@+id/ck_l_hj"
-                app:layout_widthPercent="70%"/>
+            android:id="@+id/ck_v_hj"
+            style="@style/font_title"
+            android:layout_width="0dp"
+            android:layout_toRightOf="@+id/ck_l_hj"
+            android:layout_weight="1"
+            android:text=""
+            app:layout_widthPercent="70%" />
 
     </android.support.percent.PercentRelativeLayout>
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dividers"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ck_base_infos"
+            style="@style/font_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
+
     <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="40dp"
-                                                   android:background="@color/dividers"
-                                                   android:gravity="center"
-                                                   android:orientation="horizontal">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dividers"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
-                android:id="@+id/ck_l_lb"
-                style="@style/font_title"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/ck_l_lb"
-                app:layout_widthPercent="20%"/>
+            android:id="@+id/ck_l_lb"
+            style="@style/font_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/ck_l_lb"
+            app:layout_widthPercent="20%" />
 
         <TextView
-                android:id="@+id/ck_l_tm"
-                style="@style/font_title"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/ck_l_tm"
-                app:layout_widthPercent="60%"
-                android:layout_toRightOf="@+id/ck_l_lb"
-                android:layout_toEndOf="@+id/ck_l_lb"/>
+            android:id="@+id/ck_l_tm"
+            style="@style/font_title"
+            android:layout_width="0dp"
+            android:layout_toEndOf="@+id/ck_l_lb"
+            android:layout_toRightOf="@+id/ck_l_lb"
+            android:layout_weight="1"
+            android:text="@string/ck_l_tm"
+            app:layout_widthPercent="60%" />
 
         <TextView
-                android:id="@+id/ck_l_sl"
-                style="@style/font_title"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/ck_l_sl"
-                android:layout_toRightOf="@+id/ck_l_tm"
-                app:layout_widthPercent="20%"/>
+            android:id="@+id/ck_l_sl"
+            style="@style/font_title"
+            android:layout_width="0dp"
+            android:layout_toRightOf="@+id/ck_l_tm"
+            android:layout_weight="1"
+            android:text="@string/ck_l_sl"
+            app:layout_widthPercent="20%" />
 
 
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/ck_product_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:layout_weight="1"/>
+        android:id="@+id/ck_product_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false" />
 
     <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ck_b_submit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:text="@string/ck_b_submit" />
 
         <Button
-                android:id="@+id/ck_b_submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ck_b_submit"/>
-
-        <Button
-                android:id="@+id/ck_b_clear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ck_b_clear"/>
+            android:id="@+id/ck_b_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ck_b_clear" />
     </LinearLayout>
 
 </LinearLayout>

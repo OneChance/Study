@@ -17,6 +17,7 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.adapter.RkListAdapter;
+import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.process.RkDetail;
 import com.logic.mes.entity.process.RkProduct;
 import com.logic.mes.entity.server.ServerResult;
@@ -29,8 +30,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
 
@@ -52,11 +53,24 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
     @BindView(R.id.rk_b_clear)
     Button clear;
 
+    @BindView(R.id.rk_base_infos)
+    TextView baseInfos;
+
+    String jzdjGlobal = "";
+    String jzccGlobal = "";
+    String dbGlobal = "";
+
+
     RkProduct product;
     RkListAdapter dataAdapter;
     FragmentActivity activity;
     IScanReceiver receiver;
     Calendar c;
+
+    MaterialDialog noticeDialog;
+    View noteView;
+    TextView noteMsgView;
+
 
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
     ServerObserver serverObserver;
@@ -100,7 +114,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toSubmit("rk");
+                toSubmit();
             }
         });
 
@@ -127,16 +141,39 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
 
         MyApplication.getScanUtil().setReceiver(receiver, 0);
 
+        noticeDialog = new MaterialDialog(activity);
+
+        noteView = View.inflate(activity, R.layout.dialog_msg, null);
+        noteMsgView = (TextView) noteView.findViewById(R.id.dialog_msg_content);
+        noteMsgView.setSingleLine(false);
+        noticeDialog.setTitle(R.string.notice);
+        noticeDialog.setContentView(noteView);
+
+        noticeDialog.setPositiveButton(R.string.yes, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                add();
+                noticeDialog.dismiss(view);
+            }
+        });
+
+        noticeDialog.setNegativeButton(R.string.no, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noticeDialog.dismiss(view);
+            }
+        });
+
         return view;
     }
 
-    public void toSubmit(String code) {
+    public void toSubmit() {
         if (product.getDetailList().size() == 0) {
             MyApplication.toast(R.string.tm_scan_first, false);
         } else if (jzrq.getText().equals("")) {
             MyApplication.toast(R.string.jzrq_need, false);
         } else {
-            product.setCode(code);
+            product.setCode("rk");
             new ProcessUtil(activity).submit(submitResultReceiver, product, userInfo.getUser());
         }
     }
@@ -145,6 +182,9 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
     @Override
     public void removePosition(int position) {
         dataAdapter.removePosition(position);
+        if (product.getDetailList().size() == 0) {
+            baseInfos.setText("");
+        }
         calSum();
     }
 
@@ -175,18 +215,37 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
 
         if (!checkExist(data.getVal("objCode"))) {
 
-            RkDetail p = new RkDetail();
-            p.setLb(data.getVal("objType"));
-            p.setTm(data.getVal("objCode"));
-            p.setSl(data.getVal("pieces"));
-            product.getDetailList().add(p);
+            String jzdj = data.getVal("jzdj");
+            String jzcc = data.getVal("jzcc") == null || data.getVal("jzcc").equals("") ? "0" : data.getVal("jzcc");
+            String db = data.getVal("zh_db");
 
-            calSum();
-
-            dataAdapter.notifyDataSetChanged();
+            if (product.getDetailList().size() > 0) {
+                if (!jzdj.equals(jzdjGlobal) || Double.parseDouble(jzccGlobal) != Double.parseDouble(jzcc) || !dbGlobal.equals(db)) {
+                    noteMsgView.setText(String.format(activity.getResources().getString(R.string.base_info_diff), jzdj, jzcc, db));
+                    noticeDialog.show();
+                } else {
+                    add();
+                }
+            } else {
+                jzdjGlobal = jzdj;
+                jzccGlobal = jzcc;
+                dbGlobal = db;
+                add();
+                baseInfos.setText(String.format(activity.getResources().getString(R.string.case_infos), jzdjGlobal, jzccGlobal, dbGlobal));
+            }
         } else {
             MyApplication.toast(R.string.duplicate_data, false);
         }
+    }
+
+    public void add() {
+        RkDetail p = new RkDetail();
+        p.setLb(data.getVal("objType"));
+        p.setTm(data.getVal("objCode"));
+        p.setSl(data.getVal("pieces"));
+        product.getDetailList().add(p);
+        calSum();
+        dataAdapter.notifyDataSetChanged();
     }
 
     public void calSum() {
@@ -213,6 +272,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         jzrq.setText("");
         hj.setText("");
         product.getDetailList().clear();
+        baseInfos.setText("");
         dataAdapter.notifyDataSetChanged();
     }
 

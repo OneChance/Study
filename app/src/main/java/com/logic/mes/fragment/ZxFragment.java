@@ -66,6 +66,9 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     @BindView(R.id.zx_ps)
     TextView ps;
 
+    @BindView(R.id.case_infos)
+    TextView caseInfos;
+
     ZxHead zx;
     ZxListAdapter dataAdapter;
     MainActivity activity;
@@ -76,6 +79,10 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     MaterialDialog noticeDialog;
     View noteView;
     TextView noteMsgView;
+
+    String jzdjFromCase = "";
+    String jzccFromCase = "";
+    String dbFromCase = "";
 
 
     @Override
@@ -249,6 +256,9 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     @Override
     public void serverData() {
         if (currentReceiver == SCAN_CODE_XZ) {
+
+            zx.getDetailList().clear();
+
             //如果有之前提交的数据，带出
             if (data != null && data.getDatas() != null && data.getDatas().getBagDatas() != null) {
                 List<Map<String, String>> mapList = data.getDatas().getBagDatas();
@@ -268,6 +278,12 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                         }
 
                         zx.getDetailList().add(p);
+
+                        jzdjFromCase = map.get("jzdj");
+                        jzccFromCase = map.get("jzcc") == null || map.get("jzcc").equals("") ? "0" : map.get("jzcc");
+                        dbFromCase = map.get("zh_db");
+
+                        caseInfos.setText(String.format(activity.getResources().getString(R.string.case_infos), jzdjFromCase, jzccFromCase, dbFromCase));
                     }
 
                     updateSl();
@@ -287,29 +303,37 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                 if (!levelDiff(data.getVal("boxdjmc"))) {
                     if (!dbDiff(data.getVal("zh_db"))) {
 
-                        hhHead.setText(currentCode);
-                        ZxProduct p = new ZxProduct();
-                        p.setXh(xhHead.getText().toString());
-                        p.setHh(currentCode);
+                        String jzdj = data.getVal("jzdj");
+                        String jzcc = data.getVal("jzcc") == null || data.getVal("jzcc").equals("") ? "0" : data.getVal("jzcc");
+                        String db = data.getVal("zh_db");
 
-                        if (data != null && data.getVal("boxps") != null && !data.getVal("boxps").equals("")) {
-                            p.setSl(data.getVal("boxps"));
+                        if (jzdjFromCase.equals(jzdj) && Double.parseDouble(jzccFromCase) == Double.parseDouble(jzcc) && dbFromCase.equals(db)) {
+                            hhHead.setText(currentCode);
+                            ZxProduct p = new ZxProduct();
+                            p.setXh(xhHead.getText().toString());
+                            p.setHh(currentCode);
+
+                            if (data != null && data.getVal("boxps") != null && !data.getVal("boxps").equals("")) {
+                                p.setSl(data.getVal("boxps"));
+                            }
+
+                            if (data != null && data.getVal("boxdjmc") != null && !data.getVal("boxdjmc").equals("")) {
+                                p.setLevel(data.getVal("boxdjmc"));
+                            }
+
+                            if (data != null && data.getVal("zh_db") != null && !data.getVal("zh_db").equals("")) {
+                                p.setDb(data.getVal("zh_db"));
+                                activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("zh_db"), true);
+                            }
+
+                            zx.getDetailList().add(p);
+
+                            updateSl();
+
+                            dataAdapter.notifyDataSetChanged();
+                        } else {
+                            MyApplication.toast(String.format(activity.getResources().getString(R.string.case_info_diff), jzdj, jzcc, db), false);
                         }
-
-                        if (data != null && data.getVal("boxdjmc") != null && !data.getVal("boxdjmc").equals("")) {
-                            p.setLevel(data.getVal("boxdjmc"));
-                        }
-
-                        if (data != null && data.getVal("zh_db") != null && !data.getVal("zh_db").equals("")) {
-                            p.setDb(data.getVal("zh_db"));
-                            activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("zh_db"), true);
-                        }
-
-                        zx.getDetailList().add(p);
-
-                        updateSl();
-
-                        dataAdapter.notifyDataSetChanged();
                     } else {
                         MyApplication.toast(R.string.db_diff, false);
                     }
@@ -331,6 +355,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         zx.getDetailList().clear();
         hs.setText("0");
         ps.setText("0");
+        caseInfos.setText("");
         dataAdapter.notifyDataSetChanged();
     }
 

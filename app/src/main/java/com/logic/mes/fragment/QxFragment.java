@@ -190,7 +190,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
 
         calSjps();
         //calLlcps();
-        calTJqxs();
+        //calTJqxs();
     }
 
     @Override
@@ -277,13 +277,13 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
      */
     @OnTextChanged(value = {R.id.qx_v_ps, R.id.qx_v_bb, R.id.qx_v_yp, R.id.qx_v_jjqxs, R.id.qx_v_sbqxs, R.id.qx_v_qt}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calZj() {
-        int psI = DataUtil.getIntValue(ps.getText().toString());
+        //int psI = DataUtil.getIntValue(ps.getText().toString());
         int bbI = DataUtil.getIntValue(bb.getText().toString());
         int ypV = DataUtil.getIntValue(yp.getText().toString());
         int jjqxsV = DataUtil.getIntValue(jjqxs.getText().toString());
         int sbqxsV = DataUtil.getIntValue(sbqxs.getText().toString());
         int qtV = DataUtil.getIntValue(qt.getText().toString());
-        int zjV = new BigDecimal(psI).add(new BigDecimal(bbI)).add(new BigDecimal(ypV)).add(new BigDecimal(jjqxsV)).add(new BigDecimal(sbqxsV)).add(new BigDecimal(qtV)).intValue();
+        int zjV = new BigDecimal(bbI).add(new BigDecimal(ypV)).add(new BigDecimal(jjqxsV)).add(new BigDecimal(sbqxsV)).add(new BigDecimal(qtV)).intValue();
         zj.setText((zjV + ""));
     }
 
@@ -300,7 +300,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         int sjpsI = new BigDecimal(hsI).multiply(new BigDecimal(mhpsI)).add(new BigDecimal(psI)).add(new BigDecimal(bbI)).add(new BigDecimal(ypI)).intValue();
         sjcps.setText((sjpsI + ""));
 
-        calTJqxs();
+        //calTJqxs();
     }
 
     /***
@@ -323,6 +323,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     /***
      * 计算脱胶清洗碎
      */
+    /*
     public void calTJqxs() {
         int llcpsI = DataUtil.getIntValue(llcps.getText().toString());
         int sjcpsI = DataUtil.getIntValue(sjcps.getText().toString());
@@ -331,8 +332,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
 
         int tjqxsI = new BigDecimal(llcpsI).add(new BigDecimal(offset)).subtract(new BigDecimal(sjcpsI)).subtract(new BigDecimal(qpsI)).intValue();
         jjqxs.setText((tjqxsI + ""));
-    }
-
+    }*/
     @Override
     public void preventSubmit() {
         bSubmit.setVisibility(View.INVISIBLE);

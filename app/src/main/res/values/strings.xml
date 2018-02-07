@@ -134,7 +134,7 @@
     <string name="qx_l_ps">片数</string>
     <string name="qx_l_bb">崩边</string>
     <string name="qx_l_yp">样片</string>
-    <string name="qx_l_jjqxs">脱胶清洗碎</string>
+    <string name="qx_l_jjqxs">清洗碎</string>
     <string name="qx_l_qxsbs">清洗设备碎</string>
     <string name="qx_l_zqqss">整齐缺损碎</string>
     <string name="qx_l_qt">其他</string>
@@ -178,6 +178,8 @@
     <string name="zx_hs">盒数:</string>
     <string name="zx_ps">片数:</string>
     <string name="piece_not_full">未满1600片是否装箱?</string>
+    <string name="case_infos">等级:%1$s,尺寸:%2$s,单包:%3$s</string>
+    <string name="case_info_diff">扫描此条码的等级:%1$s,尺寸:%2$s,单包:%3$s，与当前列表中的不一致</string>
 
     <!--装托-->
     <string name="zt_b_scan_xz">扫描箱子</string>
@@ -195,6 +197,9 @@
     <string name="zt_hs">箱数:</string>
     <string name="zt_ps">片数:</string>
     <string name="zt_dj_diff">箱子等级必须一致</string>
+    <string name="t_infos">等级:%1$s,尺寸:%2$s,单包:%3$s</string>
+    <string name="t_info_diff">扫描此条码的等级:%1$s,尺寸:%2$s,单包:%3$s，与当前列表中的不一致</string>
+
 
     <!--入库-->
     <string name="rk_b_scan_tm">扫描条码</string>
@@ -207,6 +212,8 @@
     <string name="rk_b_clear">清空</string>
     <string name="tm_scan_first">请扫描条码</string>
     <string name="jzrq_need">请填写记账日期</string>
+    <string name="base_info_diff">扫描此条码的等级:%1$s,尺寸:%2$s,单包:%3$s，与当前列表中的不一致,是否添加？</string>
+
 
     <!--出库-->
     <string name="ck_l_bill">出库单号</string>

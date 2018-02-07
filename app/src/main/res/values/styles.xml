@@ -1,5 +1,19 @@
 <resources>
 
+    <style name="font_text">
+        <item name="android:layout_height">@dimen/row_height</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:background">@color/list_background</item>
+    </style>
+
     <style name="font_title">
         <item name="android:layout_height">@dimen/row_height</item>
         <item name="android:layout_width">wrap_content</item>
