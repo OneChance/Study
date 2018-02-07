@@ -307,7 +307,12 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                         String jzcc = data.getVal("jzcc") == null || data.getVal("jzcc").equals("") ? "0" : data.getVal("jzcc");
                         String db = data.getVal("zh_db");
 
-                        if (jzdjFromCase.equals(jzdj) && Double.parseDouble(jzccFromCase) == Double.parseDouble(jzcc) && dbFromCase.equals(db)) {
+                        if (zx.getDetailList().size() == 0 || (jzdjFromCase.equals(jzdj) && Double.parseDouble(jzccFromCase) == Double.parseDouble(jzcc) && dbFromCase.equals(db))) {
+
+                            jzdjFromCase = jzdj;
+                            jzccFromCase = jzcc;
+                            dbFromCase = db;
+
                             hhHead.setText(currentCode);
                             ZxProduct p = new ZxProduct();
                             p.setXh(xhHead.getText().toString());

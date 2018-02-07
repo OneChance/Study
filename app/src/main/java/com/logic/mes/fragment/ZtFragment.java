@@ -258,7 +258,12 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
                         String jzcc = data.getVal("jzcc") == null || data.getVal("jzcc").equals("") ? "0" : data.getVal("jzcc");
                         String db = data.getVal("zh_db");
 
-                        if (jzdjFromTorr.equals(jzdj) && Double.parseDouble(jzccFromTorr) == Double.parseDouble(jzcc) && dbFromTorr.equals(db)) {
+                        if (zt.getDetailList().size() == 0 || (jzdjFromTorr.equals(jzdj) && Double.parseDouble(jzccFromTorr) == Double.parseDouble(jzcc) && dbFromTorr.equals(db))) {
+
+                            jzdjFromTorr = jzdj;
+                            jzccFromTorr = jzcc;
+                            dbFromTorr = db;
+
                             xhHead.setText(currentCode);
                             ZtProduct p = new ZtProduct();
 
