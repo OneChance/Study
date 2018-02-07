@@ -313,6 +313,8 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                             jzccFromCase = jzcc;
                             dbFromCase = db;
 
+                            caseInfos.setText(String.format(activity.getResources().getString(R.string.case_infos), jzdjFromCase, jzccFromCase, dbFromCase));
+
                             hhHead.setText(currentCode);
                             ZxProduct p = new ZxProduct();
                             p.setXh(xhHead.getText().toString());

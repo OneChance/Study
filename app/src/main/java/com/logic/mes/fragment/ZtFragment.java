@@ -264,6 +264,8 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
                             jzccFromTorr = jzcc;
                             dbFromTorr = db;
 
+                            tInfos.setText(String.format(activity.getResources().getString(R.string.t_infos), jzdjFromTorr, jzccFromTorr, dbFromTorr));
+
                             xhHead.setText(currentCode);
                             ZtProduct p = new ZtProduct();
 
