@@ -128,17 +128,18 @@
     <!--清洗-->
     <string name="qx_l_llcps">理论出片数</string>
     <string name="qx_l_qps">切片碎</string>
-    <string name="qx_l_sjps">实际片数</string>
+    <string name="qx_l_sjps">插片总片数</string>
     <string name="qx_l_hs">盒数</string>
     <string name="qx_l_mhps">每盒片数</string>
     <string name="qx_l_ps">片数</string>
     <string name="qx_l_bb">崩边</string>
     <string name="qx_l_yp">样片</string>
+    <string name="qx_l_qxzps">清洗总片数</string>
     <string name="qx_l_jjqxs">清洗碎</string>
     <string name="qx_l_qxsbs">清洗设备碎</string>
     <string name="qx_l_zqqss">整齐缺损碎</string>
     <string name="qx_l_qt">其他</string>
-    <string name="qx_l_zj">总计</string>
+    <string name="qx_l_zj">清洗碎片合计</string>
     <string name="qx_l_cc">尺寸</string>
     <string name="qx_l_db">单包</string>
     <string name="qx_l_jzdj">等级</string>

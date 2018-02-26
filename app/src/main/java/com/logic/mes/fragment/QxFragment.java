@@ -58,16 +58,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     TextView llcps;
     @BindView(R.id.qx_v_sjcps)
     EditText sjcps;
-    @BindView(R.id.qx_v_hs)
-    EditText hs;
-    @BindView(R.id.qx_v_mhps)
-    EditText mhps;
-    @BindView(R.id.qx_v_ps)
-    EditText ps;
-    @BindView(R.id.qx_v_bb)
-    EditText bb;
-    @BindView(R.id.qx_v_yp)
-    EditText yp;
     @BindView(R.id.qx_v_jjqxs)
     EditText jjqxs;
     @BindView(R.id.qx_v_sbqxs)
@@ -79,13 +69,14 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     @BindView(R.id.qx_v_zqqss)
     EditText zqqss;
     @BindView(R.id.qx_v_qps)
-    TextView qpsV;
+    EditText qpsV;
+    @BindView(R.id.qx_v_qxzps)
+    TextView qxzps;
 
 
     String xwcd = "0";
     String yxbc = "0";
     String cj = "1";
-    String qps = "0";
 
     SysConfig sysConfig;
 
@@ -135,14 +126,10 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         });
 
         EditTextUtil.setNoKeyboard(sjcps);
-        EditTextUtil.setNoKeyboard(hs);
-        EditTextUtil.setNoKeyboard(mhps);
-        EditTextUtil.setNoKeyboard(ps);
-        EditTextUtil.setNoKeyboard(bb);
-        EditTextUtil.setNoKeyboard(yp);
         EditTextUtil.setNoKeyboard(jjqxs);
         EditTextUtil.setNoKeyboard(sbqxs);
         EditTextUtil.setNoKeyboard(zqqss);
+        EditTextUtil.setNoKeyboard(qpsV);
         EditTextUtil.setNoKeyboard(qt);
 
 
@@ -167,30 +154,14 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         jzbh.setText(data.getVal("ej_BrickID"));
         station.setText(data.getVal("pb_gw"));
         llcps.setText(data.getVal("cp_llcps"));
-        EditTextUtil.setTextEnd(sjcps, data.getRelVal("cp", "qx", "sjcps"));
-        EditTextUtil.setTextEnd(hs, data.getRelVal("cp", "qx", "hs"));
-
-        //String pieces = sysConfig.getPieces();
-        //EditTextUtil.setTextEnd(mhps, pieces);
-        EditTextUtil.setTextEnd(mhps, data.getRelVal("cp", "qx", "mhps"));
-
-        EditTextUtil.setTextEnd(ps, data.getRelVal("cp", "qx", "ps"));
-        EditTextUtil.setTextEnd(bb, data.getRelVal("cp", "qx", "bb"));
-        EditTextUtil.setTextEnd(yp, data.getRelVal("cp", "qx", "yp"));
+        EditTextUtil.setTextEnd(sjcps, data.getRelVal("cp", "qx", "sjcps"));//获得插片总片数
         EditTextUtil.setTextEnd(jjqxs, data.getRelVal("cp", "qx", "tjqxs"));
         EditTextUtil.setTextEnd(sbqxs, data.getVal("qx_qxsbs"));
         EditTextUtil.setTextEnd(qt, data.getVal("qx_qt"));
-
         xwcd = data.getVal("pb_xwcd");
         yxbc = data.getVal("ej_yxbc");
         cj = data.getVal("qp_cj");
-        qps = data.getVal("qgs_qps");
-
-        qpsV.setText(qps);
-
-        calSjps();
-        //calLlcps();
-        //calTJqxs();
+        EditTextUtil.setTextEnd(qpsV, data.getVal("qgs_qps"));
     }
 
     @Override
@@ -203,10 +174,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         jzbh.setText(qx.getBrickId());
         station.setText(qx.getStation());
         sjcps.setText(qx.getSjcps());
-        hs.setText(qx.getHs());
-        ps.setText(qx.getPs());
-        bb.setText(qx.getBb());
-        yp.setText(qx.getYp());
         jjqxs.setText(qx.getJjqxs());
         sbqxs.setText(qx.getSbqxs());
         zqqss.setText(qx.getZqqss());
@@ -229,15 +196,13 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         qx.setBrickId(jzbh.getText().toString());
         qx.setStation(station.getText().toString());
         qx.setSjcps(sjcps.getText().toString());
-        qx.setHs(hs.getText().toString());
-        qx.setPs(ps.getText().toString());
-        qx.setBb(bb.getText().toString());
-        qx.setYp(yp.getText().toString());
         qx.setJjqxs(jjqxs.getText().toString());
         qx.setSbqxs(sbqxs.getText().toString());
         qx.setQt(qt.getText().toString());
         qx.setZj(zj.getText().toString());
         qx.setZqqss(zqqss.getText().toString());
+        qx.setQxzps(qxzps.getText().toString());
+        qx.setQps(qpsV.getText().toString());
         return qx;
     }
 
@@ -255,11 +220,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         station.setText("");
         llcps.setText("");
         sjcps.setText("");
-        hs.setText("");
-        mhps.setText("");
-        ps.setText("");
-        bb.setText("");
-        yp.setText("");
         jjqxs.setText("");
         sbqxs.setText("");
         zj.setText("");
@@ -273,66 +233,39 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     }
 
     /***
-     * 计算总计数
+     * 计算清洗碎片合计数
      */
-    @OnTextChanged(value = {R.id.qx_v_ps, R.id.qx_v_bb, R.id.qx_v_yp, R.id.qx_v_jjqxs, R.id.qx_v_sbqxs, R.id.qx_v_qt}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = {R.id.qx_v_zqqss, R.id.qx_v_jjqxs, R.id.qx_v_sbqxs, R.id.qx_v_qt}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calZj() {
-        //int psI = DataUtil.getIntValue(ps.getText().toString());
-        int bbI = DataUtil.getIntValue(bb.getText().toString());
-        int ypV = DataUtil.getIntValue(yp.getText().toString());
+        //清洗碎
         int jjqxsV = DataUtil.getIntValue(jjqxs.getText().toString());
+        //清洗设备碎
         int sbqxsV = DataUtil.getIntValue(sbqxs.getText().toString());
+        //整齐缺损碎
+        int zqqssV = DataUtil.getIntValue(zqqss.getText().toString());
+        //其他
         int qtV = DataUtil.getIntValue(qt.getText().toString());
-        int zjV = new BigDecimal(bbI).add(new BigDecimal(ypV)).add(new BigDecimal(jjqxsV)).add(new BigDecimal(sbqxsV)).add(new BigDecimal(qtV)).intValue();
-        zj.setText((zjV + ""));
+        //清洗碎片合计
+        int qxsphjV = new BigDecimal(jjqxsV).add(new BigDecimal(sbqxsV)).add(new BigDecimal(zqqssV)).add(new BigDecimal(qtV)).intValue();
+        zj.setText((qxsphjV + ""));
+        //清洗碎片合计数变化,就要重新计算清洗总片数
+        calSjps();
     }
 
     /***
-     * 计算实际出片数
+     * 计算清洗总片数
      */
-    @OnTextChanged(value = {R.id.qx_v_hs, R.id.qx_v_mhps, R.id.qx_v_ps, R.id.qx_v_bb, R.id.qx_v_yp}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = {R.id.qx_v_sjcps}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calSjps() {
-        int hsI = DataUtil.getIntValue(hs.getText().toString());
-        int mhpsI = DataUtil.getIntValue(mhps.getText().toString());
-        int psI = DataUtil.getIntValue(ps.getText().toString());
-        int bbI = DataUtil.getIntValue(bb.getText().toString());
-        int ypI = DataUtil.getIntValue(yp.getText().toString());
-        int sjpsI = new BigDecimal(hsI).multiply(new BigDecimal(mhpsI)).add(new BigDecimal(psI)).add(new BigDecimal(bbI)).add(new BigDecimal(ypI)).intValue();
-        sjcps.setText((sjpsI + ""));
-
-        //calTJqxs();
+        //清洗碎片合计
+        int qxsphjV = DataUtil.getIntValue(zj.getText().toString());
+        //插片总片数
+        int cpzpsV = DataUtil.getIntValue(sjcps.getText().toString());
+        //清洗总片数
+        int qxzpsV = new BigDecimal(cpzpsV).subtract(new BigDecimal(qxsphjV)).intValue();
+        qxzps.setText((qxzpsV + ""));
     }
 
-    /***
-     * 计算理论出片数
-     */
-    /*
-    @OnTextChanged(value = {R.id.qx_v_yp}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void calLlcps() {
-
-        double yxbcI = DataUtil.getDoubleValue(yxbc);
-        double xwcdI = DataUtil.getDoubleValue(xwcd);
-        double cjI = DataUtil.getDoubleValueNotZero(cj);
-        int ypI = DataUtil.getIntValue(yp.getText().toString());
-        int llcpsI = new BigDecimal(yxbcI).subtract(new BigDecimal(xwcdI)).divide(new BigDecimal(cjI), 0, BigDecimal.ROUND_DOWN).subtract(new BigDecimal(ypI)).intValue();
-        llcps.setText((llcpsI + ""));
-
-        calTJqxs();
-    }*/
-
-    /***
-     * 计算脱胶清洗碎
-     */
-    /*
-    public void calTJqxs() {
-        int llcpsI = DataUtil.getIntValue(llcps.getText().toString());
-        int sjcpsI = DataUtil.getIntValue(sjcps.getText().toString());
-        int offset = DataUtil.getIntValue(sysConfig.getOffset());
-        int qpsI = DataUtil.getIntValue(qps);
-
-        int tjqxsI = new BigDecimal(llcpsI).add(new BigDecimal(offset)).subtract(new BigDecimal(sjcpsI)).subtract(new BigDecimal(qpsI)).intValue();
-        jjqxs.setText((tjqxsI + ""));
-    }*/
     @Override
     public void preventSubmit() {
         bSubmit.setVisibility(View.INVISIBLE);

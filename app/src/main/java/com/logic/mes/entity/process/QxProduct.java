@@ -9,17 +9,10 @@ public class QxProduct extends ProcessBase {
 
     @ItemKey()
     private String brickId;
-
+    @ItemCol(col = "qps")
+    private String qps;
     @ItemCol(col = "sjcps")
     private String sjcps;
-    @ItemCol(col = "hs")
-    private String hs;
-    @ItemCol(col = "ps")
-    private String ps;
-    @ItemCol(col = "bb")
-    private String bb;
-    @ItemCol(col = "yp")
-    private String yp;
     @ItemCol(col = "tjqxs")
     private String jjqxs;
     @ItemCol(col = "qxsbs")
@@ -28,6 +21,9 @@ public class QxProduct extends ProcessBase {
     private String zqqss;
     @ItemCol(col = "qt")
     private String qt;
+    @ItemCol(col = "qxzps")
+    private String qxzps;
+
     private String zj;
 
     public String getStation() {
@@ -44,38 +40,6 @@ public class QxProduct extends ProcessBase {
 
     public void setSjcps(String sjcps) {
         this.sjcps = sjcps;
-    }
-
-    public String getHs() {
-        return hs;
-    }
-
-    public void setHs(String hs) {
-        this.hs = hs;
-    }
-
-    public String getPs() {
-        return ps;
-    }
-
-    public void setPs(String ps) {
-        this.ps = ps;
-    }
-
-    public String getBb() {
-        return bb;
-    }
-
-    public void setBb(String bb) {
-        this.bb = bb;
-    }
-
-    public String getYp() {
-        return yp;
-    }
-
-    public void setYp(String yp) {
-        this.yp = yp;
     }
 
     public String getJjqxs() {
@@ -124,5 +88,21 @@ public class QxProduct extends ProcessBase {
 
     public void setZqqss(String zqqss) {
         this.zqqss = zqqss;
+    }
+
+    public String getQxzps() {
+        return qxzps;
+    }
+
+    public void setQxzps(String qxzps) {
+        this.qxzps = qxzps;
+    }
+
+    public String getQps() {
+        return qps;
+    }
+
+    public void setQps(String qps) {
+        this.qps = qps;
     }
 }
