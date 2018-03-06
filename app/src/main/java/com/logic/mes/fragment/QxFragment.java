@@ -169,18 +169,6 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         MyApplication.toast(R.string.server_error, false);
     }
 
-    public void setPbjValue(QxProduct qx) {
-        jzbhHead.setText(qx.getBrickId());
-        jzbh.setText(qx.getBrickId());
-        station.setText(qx.getStation());
-        sjcps.setText(qx.getSjcps());
-        jjqxs.setText(qx.getJjqxs());
-        sbqxs.setText(qx.getSbqxs());
-        zqqss.setText(qx.getZqqss());
-        zj.setText(qx.getZj());
-        qt.setText(qx.getQt());
-    }
-
     @Override
     public void submitOk() {
         doAfterSumbit(jzbhHead.getText().toString(), true);
