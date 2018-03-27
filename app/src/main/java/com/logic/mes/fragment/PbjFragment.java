@@ -141,10 +141,10 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     @Override
     public void serverData() {
         EditTextUtil.setTextEnd(bbValue, data.getRelVal("ej", "pbj", "bb"));
-        EditTextUtil.setTextEnd(zcbcValue, data.getVal("ej_zccd"));
-        EditTextUtil.setTextEnd(zdbcValue, data.getVal("ej_zdcd"));
+        EditTextUtil.setTextEnd(zcbcValue, data.getVal("pbj_zcbc"));
+        EditTextUtil.setTextEnd(zdbcValue, data.getVal("pbj_zdbc"));
         EditTextUtil.setTextEnd(yxbcValue, data.getRelVal("ej", "pbj", "yxbc"));
-        EditTextUtil.setTextEnd(sizeValue, data.getVal("ej_jzcc"));
+        EditTextUtil.setTextEnd(sizeValue, data.getVal("pbj_cc"));
         setRatioGroup(data.getVal("pbj_dj"));
     }
 

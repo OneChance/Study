@@ -1,6 +1,7 @@
 package com.logic.mes.entity.process;
 
 
+import com.logic.mes.entity.DataProcessor;
 import com.logic.mes.entity.server.ItemCol;
 import com.logic.mes.entity.server.ItemKey;
 
@@ -34,7 +35,7 @@ public class YbProduct extends ProcessBase {
     }
 
     public void setYzd(String yzd) {
-        this.yzd = yzd;
+        this.yzd = DataProcessor.NumberNotNull(yzd);
     }
 
     public String getHbp() {
@@ -42,7 +43,7 @@ public class YbProduct extends ProcessBase {
     }
 
     public void setHbp(String hbp) {
-        this.hbp = hbp;
+        this.hbp = DataProcessor.NumberNotNull(hbp);
     }
 
     public String getZb() {
@@ -50,7 +51,7 @@ public class YbProduct extends ProcessBase {
     }
 
     public void setZb(String zb) {
-        this.zb = zb;
+        this.zb = DataProcessor.NumberNotNull(zb);
     }
 
     public String getDp() {
@@ -58,7 +59,7 @@ public class YbProduct extends ProcessBase {
     }
 
     public void setDp(String dp) {
-        this.dp = dp;
+        this.dp = DataProcessor.NumberNotNull(dp);
     }
 
     public String getKxs() {
@@ -66,7 +67,7 @@ public class YbProduct extends ProcessBase {
     }
 
     public void setKxs(String kxs) {
-        this.kxs = kxs;
+        this.kxs = DataProcessor.NumberNotNull(kxs);
     }
 
     public String getLds() {
@@ -74,7 +75,7 @@ public class YbProduct extends ProcessBase {
     }
 
     public void setLds(String lds) {
-        this.lds = lds;
+        this.lds = DataProcessor.NumberNotNull(lds);
     }
 
     public String getZqbb() {
@@ -82,7 +83,7 @@ public class YbProduct extends ProcessBase {
     }
 
     public void setZqbb(String zqbb) {
-        this.zqbb = zqbb;
+        this.zqbb = DataProcessor.NumberNotNull(zqbb);
     }
 
     public String getBrickId() {
@@ -106,7 +107,7 @@ public class YbProduct extends ProcessBase {
     }
 
     public void setDxfq(String dxfq) {
-        this.dxfq = dxfq;
+        this.dxfq = DataProcessor.NumberNotNull(dxfq);
     }
 
     public String getSfbf() {

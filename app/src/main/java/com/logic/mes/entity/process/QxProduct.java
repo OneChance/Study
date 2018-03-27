@@ -1,5 +1,6 @@
 package com.logic.mes.entity.process;
 
+import com.logic.mes.entity.DataProcessor;
 import com.logic.mes.entity.server.ItemCol;
 import com.logic.mes.entity.server.ItemKey;
 
@@ -39,7 +40,7 @@ public class QxProduct extends ProcessBase {
     }
 
     public void setSjcps(String sjcps) {
-        this.sjcps = sjcps;
+        this.sjcps = DataProcessor.NumberNotNull(sjcps);
     }
 
     public String getJjqxs() {
@@ -47,7 +48,7 @@ public class QxProduct extends ProcessBase {
     }
 
     public void setJjqxs(String jjqxs) {
-        this.jjqxs = jjqxs;
+        this.jjqxs = DataProcessor.NumberNotNull(jjqxs);
     }
 
     public String getSbqxs() {
@@ -55,7 +56,7 @@ public class QxProduct extends ProcessBase {
     }
 
     public void setSbqxs(String sbqxs) {
-        this.sbqxs = sbqxs;
+        this.sbqxs = DataProcessor.NumberNotNull(sbqxs);
     }
 
     public String getQt() {
@@ -63,7 +64,7 @@ public class QxProduct extends ProcessBase {
     }
 
     public void setQt(String qt) {
-        this.qt = qt;
+        this.qt = DataProcessor.NumberNotNull(qt);
     }
 
     public String getZj() {
@@ -71,7 +72,7 @@ public class QxProduct extends ProcessBase {
     }
 
     public void setZj(String zj) {
-        this.zj = zj;
+        this.zj = DataProcessor.NumberNotNull(zj);
     }
 
     public String getBrickId() {
@@ -87,7 +88,7 @@ public class QxProduct extends ProcessBase {
     }
 
     public void setZqqss(String zqqss) {
-        this.zqqss = zqqss;
+        this.zqqss = DataProcessor.NumberNotNull(zqqss);
     }
 
     public String getQxzps() {
@@ -95,7 +96,7 @@ public class QxProduct extends ProcessBase {
     }
 
     public void setQxzps(String qxzps) {
-        this.qxzps = qxzps;
+        this.qxzps = DataProcessor.NumberNotNull(qxzps);
     }
 
     public String getQps() {
@@ -103,6 +104,6 @@ public class QxProduct extends ProcessBase {
     }
 
     public void setQps(String qps) {
-        this.qps = qps;
+        this.qps = DataProcessor.NumberNotNull(qps);
     }
 }

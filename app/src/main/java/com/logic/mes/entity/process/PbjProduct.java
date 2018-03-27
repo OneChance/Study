@@ -1,5 +1,6 @@
 package com.logic.mes.entity.process;
 
+import com.logic.mes.entity.DataProcessor;
 import com.logic.mes.entity.server.ItemKey;
 import com.logic.mes.entity.server.ItemCol;
 
@@ -43,7 +44,7 @@ public class PbjProduct extends ProcessBase {
     }
 
     public void setBbValue(String bbValue) {
-        this.bbValue = bbValue;
+        this.bbValue = DataProcessor.NumberNotNull(bbValue);
     }
 
     public String getZcbcValue() {
@@ -51,7 +52,7 @@ public class PbjProduct extends ProcessBase {
     }
 
     public void setZcbcValue(String zcbcValue) {
-        this.zcbcValue = zcbcValue;
+        this.zcbcValue = DataProcessor.NumberNotNull(zcbcValue);
     }
 
     public String getZdbcValue() {
@@ -59,7 +60,7 @@ public class PbjProduct extends ProcessBase {
     }
 
     public void setZdbcValue(String zdbcValue) {
-        this.zdbcValue = zdbcValue;
+        this.zdbcValue = DataProcessor.NumberNotNull(zdbcValue);
     }
 
     public String getYxbcValue() {
@@ -67,7 +68,7 @@ public class PbjProduct extends ProcessBase {
     }
 
     public void setYxbcValue(String yxbcValue) {
-        this.yxbcValue = yxbcValue;
+        this.yxbcValue = DataProcessor.NumberNotNull(yxbcValue);
     }
 
     public String getSizeValue() {
@@ -75,7 +76,7 @@ public class PbjProduct extends ProcessBase {
     }
 
     public void setSizeValue(String sizeValue) {
-        this.sizeValue = sizeValue;
+        this.sizeValue = DataProcessor.NumberNotNull(sizeValue);
     }
 
     public String getDjValue() {

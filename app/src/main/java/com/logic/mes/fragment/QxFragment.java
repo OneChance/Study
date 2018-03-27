@@ -155,13 +155,14 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         station.setText(data.getVal("pb_gw"));
         llcps.setText(data.getVal("cp_llcps"));
         EditTextUtil.setTextEnd(sjcps, data.getRelVal("cp", "qx", "sjcps"));//获得插片总片数
-        EditTextUtil.setTextEnd(jjqxs, data.getRelVal("cp", "qx", "tjqxs"));
+        EditTextUtil.setTextEnd(jjqxs, data.getVal("qx_tjqxs"));
         EditTextUtil.setTextEnd(sbqxs, data.getVal("qx_qxsbs"));
         EditTextUtil.setTextEnd(qt, data.getVal("qx_qt"));
         xwcd = data.getVal("pb_xwcd");
         yxbc = data.getVal("ej_yxbc");
         cj = data.getVal("qp_cj");
-        EditTextUtil.setTextEnd(qpsV, data.getVal("qgs_qps"));
+        EditTextUtil.setTextEnd(qpsV, data.getRelVal("qgs", "qx", "qps"));
+        EditTextUtil.setTextEnd(zqqss, data.getVal("qx_zqqss"));
     }
 
     @Override
