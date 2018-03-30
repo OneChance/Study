@@ -8,12 +8,8 @@ public class PbjProduct extends ProcessBase {
 
     @ItemKey()
     private String brickId;
-    @ItemCol(col = "bb")
-    private String bbValue;
-    @ItemCol(col = "zcbc")
-    private String zcbcValue;
-    @ItemCol(col = "zdbc")
-    private String zdbcValue;
+    @ItemCol(col = "yy")
+    private String yy;
     @ItemCol(col = "yxbc")
     private String yxbcValue;
     @ItemCol(col = "cc")
@@ -22,6 +18,15 @@ public class PbjProduct extends ProcessBase {
     private String djValue;
     @ItemCol(col = "sfhg")
     private String sfhg;
+    private String kjcd;
+
+    public String getKjcd() {
+        return kjcd;
+    }
+
+    public void setKjcd(String kjcd) {
+        this.kjcd = kjcd;
+    }
 
     public String getSfhg() {
         return sfhg;
@@ -37,30 +42,6 @@ public class PbjProduct extends ProcessBase {
 
     public void setBrickId(String brickId) {
         this.brickId = brickId;
-    }
-
-    public String getBbValue() {
-        return bbValue;
-    }
-
-    public void setBbValue(String bbValue) {
-        this.bbValue = DataProcessor.NumberNotNull(bbValue);
-    }
-
-    public String getZcbcValue() {
-        return zcbcValue;
-    }
-
-    public void setZcbcValue(String zcbcValue) {
-        this.zcbcValue = DataProcessor.NumberNotNull(zcbcValue);
-    }
-
-    public String getZdbcValue() {
-        return zdbcValue;
-    }
-
-    public void setZdbcValue(String zdbcValue) {
-        this.zdbcValue = DataProcessor.NumberNotNull(zdbcValue);
     }
 
     public String getYxbcValue() {
@@ -85,5 +66,13 @@ public class PbjProduct extends ProcessBase {
 
     public void setDjValue(String djValue) {
         this.djValue = djValue;
+    }
+
+    public String getYy() {
+        return yy;
+    }
+
+    public void setYy(String yy) {
+        this.yy = yy;
     }
 }

@@ -7,7 +7,7 @@ public class DataUtil {
     }
 
     public static double getDoubleValue(String v) {
-        return v == null || v.equals("") ? 0 : Double.parseDouble(v);
+        return v == null || v.equals("") || v.equals("-") ? 0 : Double.parseDouble(v);
     }
 
     public static double getDoubleValueNotZero(String v) {

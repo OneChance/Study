@@ -96,9 +96,9 @@
 
     <!--配棒检-->
     <string name="pbj_l_code">条码</string>
-    <string name="pbj_l_bb">崩边</string>
-    <string name="pbj_l_zcbc">最长棒长</string>
-    <string name="pbj_l_zdbc">最短棒长</string>
+    <string name="pbj_l_kjcd">扣减长度</string>
+    <string name="pbj_l_gghyxcd">更改后棒长</string>
+    <string name="pbj_l_ggyy">更改原因</string>
     <string name="pbj_l_yxbc">有效棒长</string>
     <string name="pbj_l_size">尺寸</string>
     <string name="pbj_l_dj">倒角</string>
@@ -106,6 +106,7 @@
     <string name="pbj_b_unquali">不合格</string>
     <string name="pbj_dj_yes">有</string>
     <string name="pbj_dj_no">无</string>
+    <string name="pbj_yy_need">请选择更改原因</string>
 
     <!--验棒-->
     <string name="yb_l_spyy">碎片原因</string>

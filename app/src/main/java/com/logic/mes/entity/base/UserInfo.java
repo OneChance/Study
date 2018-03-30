@@ -52,6 +52,19 @@ public class UserInfo implements Serializable {
     private
     List<GroupCancelInfo> groupCancelInfo;
 
+    @Mapping(Relation.OneToMany)
+    @MapCollection(ArrayList.class)
+    private
+    List<PbjYuanYin> pbjYuanYin;
+
+    public List<PbjYuanYin> getPbjYuanYin() {
+        return pbjYuanYin;
+    }
+
+    public void setPbjYuanYin(List<PbjYuanYin> pbjYuanYin) {
+        this.pbjYuanYin = pbjYuanYin;
+    }
+
     public List<GroupCancelInfo> getGroupCancelInfo() {
         return groupCancelInfo;
     }
