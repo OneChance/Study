@@ -18,6 +18,7 @@ public class PbjProduct extends ProcessBase {
     private String djValue;
     @ItemCol(col = "sfhg")
     private String sfhg;
+    @ItemCol(col = "kjcd")
     private String kjcd;
 
     public String getKjcd() {

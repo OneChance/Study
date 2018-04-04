@@ -27,6 +27,8 @@ public class ProcessSubmit implements Serializable {
     private String machineCode;
     private String orgPath;
     private String changQu;
+    private Integer version;
+    private String clientType;
 
     @Mapping(Relation.OneToMany)
     @MapCollection(ArrayList.class)
@@ -132,5 +134,21 @@ public class ProcessSubmit implements Serializable {
 
     public void setBagCode(String bagCode) {
         this.bagCode = bagCode;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public String getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
     }
 }

@@ -15,6 +15,7 @@ public class PbDetail {
     private String station;
 
     private String db;
+    private double cc;
 
     public String getBrickId() {
         return brickId;
@@ -54,5 +55,13 @@ public class PbDetail {
 
     public void setDb(String db) {
         this.db = db;
+    }
+
+    public double getCc() {
+        return cc;
+    }
+
+    public void setCc(double cc) {
+        this.cc = cc;
     }
 }

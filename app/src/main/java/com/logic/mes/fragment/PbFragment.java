@@ -3,7 +3,6 @@ package com.logic.mes.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonCallbacks, IScanReceiver, ServerObserver.ServerDataReceiver, ProcessUtil.SubmitResultReceiver {
 
@@ -242,19 +241,22 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         }
     }
 
-    public void addRow(String brickId, String level, String length) {
+    public void addRow(String brickId, String level, String length, double cc) {
         if (checkExist(brickId)) {
             MyApplication.toast(R.string.duplicate_data, false);
         } else if (dbDiff(data.getVal("db"))) {
             MyApplication.toast(R.string.db_diff, false);
         } else if (differentLevel(level)) {
             MyApplication.toast(R.string.different_level, false);
+        } else if (pb.getDetailList() != null && pb.getDetailList().size() > 0 && cc != pb.getDetailList().get(0).getCc()) {
+            MyApplication.toast(String.format(MyApplication.getResString(R.string.cc_error), brickId, cc, pb.getDetailList().get(0).getCc()), false);
         } else {
             PbDetail p = new PbDetail();
             p.setBrickId(brickId);
             p.setLength(length);
             p.setLevel(level);
             p.setStation("");
+            p.setCc(cc);
 
             if (data != null && data.getVal("db") != null && !data.getVal("db").equals("")) {
                 p.setDb(data.getVal("db"));
@@ -279,6 +281,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     @Override
     public void serverData() {
         String yxbc = data.getVal("pbj_yxbc");
+        String cc = data.getVal("pbj_cc");
         String bb = data.getRelValWithRes("ej", "pbj", "bb")[0];
         if (yxbc.equals("")) {
             yxbc = "0";
@@ -288,7 +291,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         }
 
         String length = new BigDecimal(yxbc).add(new BigDecimal(bb)).toString();
-        addRow(data.getVal("ej_BrickID"), data.getVal("ej_jzdj"), length);
+        addRow(data.getVal("ej_BrickID"), data.getVal("ej_jzdj"), length, Double.parseDouble(cc));
     }
 
     @Override
@@ -315,7 +318,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     @Override
     public void serverError(Throwable e) {
-        addRow(brick.getText().toString(), "", "");
+        addRow(brick.getText().toString(), "", "", 0.0);
     }
 
     @Override

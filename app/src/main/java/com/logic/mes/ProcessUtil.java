@@ -52,6 +52,8 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
             processSubmit.setBagCode(processData.getBagCode());
             processSubmit.setOrgPath(user.getOrgPath());
             processSubmit.setChangQu("");
+            processSubmit.setVersion(MyApplication.VERSION);
+            processSubmit.setClientType(MyApplication.CLIENT_TYPE);
 
             if (processData.getCode().equals("qx")) {
                 processSubmit.setMachineCode(LocalConfig.MACHINE_CODE);

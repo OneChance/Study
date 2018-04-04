@@ -17,7 +17,7 @@ import rx.Observable;
 public interface IServices {
     @FormUrlEncoded
     @POST("intface/userlogon/")
-    public Observable<UserInfoResult> Login(@Field("code") String userCode);
+    public Observable<UserInfoResult> Login(@Field("code") String userCode,@Field("clientType") String clientType,@Field("version") Integer version);
 
     @FormUrlEncoded
     @POST("intface/getbrick/")

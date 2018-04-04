@@ -208,12 +208,16 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         ProcessItem item = new ProcessItem();
 
         if (scanCode == SCAN_CODE_XZ) {
-            xhHead.setText(res);
-            item.setItemKey("CaseInfo");
-            item.setItemValue(res);
-            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
-                    .subscribe(serverObserver);
-            currentReceiver = SCAN_CODE_XZ;
+            if(!res.startsWith("C")){
+                MyApplication.toast(R.string.case_name_error, false);
+            }else{
+                xhHead.setText(res);
+                item.setItemKey("CaseInfo");
+                item.setItemValue(res);
+                NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
+                        .subscribe(serverObserver);
+                currentReceiver = SCAN_CODE_XZ;
+            }
         } else if (scanCode == SCAN_CODE_HZ) {
             currentCode = res;
             item.setItemKey("BoxCode");

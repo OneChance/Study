@@ -172,12 +172,16 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
         ProcessItem item = new ProcessItem();
 
         if (scanCode == SCAN_CODE_TH) {
-            thHead.setText(res);
-            item.setItemKey("TorrInfo");
-            item.setItemValue(res);
-            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
-                    .subscribe(serverObserver);
-            currentReceiverCode = SCAN_CODE_TH;
+            if (!res.startsWith("P")) {
+                MyApplication.toast(R.string.t_name_error, false);
+            } else {
+                thHead.setText(res);
+                item.setItemKey("TorrInfo");
+                item.setItemValue(res);
+                NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
+                        .subscribe(serverObserver);
+                currentReceiverCode = SCAN_CODE_TH;
+            }
         } else if (scanCode == SCAN_CODE_XZ) {
             xhHead.setText(res);
             currentCode = res;
@@ -252,51 +256,47 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
         if (zt.getDetailList().size() < 30) {
             if (!checkExist(currentCode)) {
                 if (!levelDiff(data.getVal("casedj"))) {
-                    if (!dbDiff(data.getVal("zh_db"))) {
 
-                        String jzdj = data.getVal("jzdj");
-                        String jzcc = data.getVal("jzcc") == null || data.getVal("jzcc").equals("") ? "0" : data.getVal("jzcc");
-                        String db = data.getVal("zh_db");
+                    String jzdj = data.getVal("jzdj");
+                    String jzcc = data.getVal("jzcc") == null || data.getVal("jzcc").equals("") ? "0" : data.getVal("jzcc");
+                    String db = data.getVal("zh_db");
 
-                        if (zt.getDetailList().size() == 0 || (jzdjFromTorr.equals(jzdj) && Double.parseDouble(jzccFromTorr) == Double.parseDouble(jzcc) && dbFromTorr.equals(db))) {
+                    if (zt.getDetailList().size() == 0 || (jzdjFromTorr.equals(jzdj) && Double.parseDouble(jzccFromTorr) == Double.parseDouble(jzcc))) {
 
-                            jzdjFromTorr = jzdj;
-                            jzccFromTorr = jzcc;
-                            dbFromTorr = db;
+                        jzdjFromTorr = jzdj;
+                        jzccFromTorr = jzcc;
+                        dbFromTorr = db;
 
-                            tInfos.setText(String.format(activity.getResources().getString(R.string.t_infos), jzdjFromTorr, jzccFromTorr, dbFromTorr));
+                        tInfos.setText(String.format(activity.getResources().getString(R.string.t_infos), jzdjFromTorr, jzccFromTorr, dbFromTorr));
 
-                            xhHead.setText(currentCode);
-                            ZtProduct p = new ZtProduct();
+                        xhHead.setText(currentCode);
+                        ZtProduct p = new ZtProduct();
 
-                            p.setXh(currentCode);
-                            p.setTh(thHead.getText().toString());
+                        p.setXh(currentCode);
+                        p.setTh(thHead.getText().toString());
 
-                            if (data != null && data.getVal("casedjmc") != null && !data.getVal("casedjmc").equals("")) {
-                                p.setDj(data.getVal("casedjmc"));
-                            }
-
-                            if (data != null && data.getVal("casedj") != null && !data.getVal("casedj").equals("")) {
-                                p.setDjCode(data.getVal("casedj"));
-                            }
-
-                            if (data != null && data.getVal("caseps") != null && !data.getVal("caseps").equals("")) {
-                                p.setSl(data.getVal("caseps"));
-                            }
-
-                            if (data != null && data.getVal("zh_db") != null && !data.getVal("zh_db").equals("")) {
-                                p.setDb(data.getVal("zh_db"));
-                                activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("zh_db"), true);
-                            }
-
-                            zt.getDetailList().add(p);
-                            updateSl();
-                            dataAdapter.notifyDataSetChanged();
-                        } else {
-                            MyApplication.toast(String.format(activity.getResources().getString(R.string.t_info_diff), jzdj, jzcc, db), false);
+                        if (data != null && data.getVal("casedjmc") != null && !data.getVal("casedjmc").equals("")) {
+                            p.setDj(data.getVal("casedjmc"));
                         }
+
+                        if (data != null && data.getVal("casedj") != null && !data.getVal("casedj").equals("")) {
+                            p.setDjCode(data.getVal("casedj"));
+                        }
+
+                        if (data != null && data.getVal("caseps") != null && !data.getVal("caseps").equals("")) {
+                            p.setSl(data.getVal("caseps"));
+                        }
+
+                        if (data != null && data.getVal("zh_db") != null && !data.getVal("zh_db").equals("")) {
+                            p.setDb(data.getVal("zh_db"));
+                            activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("zh_db"), true);
+                        }
+
+                        zt.getDetailList().add(p);
+                        updateSl();
+                        dataAdapter.notifyDataSetChanged();
                     } else {
-                        MyApplication.toast(R.string.db_diff, false);
+                        MyApplication.toast(String.format(activity.getResources().getString(R.string.t_info_diff), jzdj, jzcc), false);
                     }
                 } else {
                     MyApplication.toast(R.string.zt_dj_diff, false);

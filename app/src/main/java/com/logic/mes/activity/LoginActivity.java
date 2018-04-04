@@ -151,7 +151,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
     public void scanReceive(String scanResult, int scanCode) {
         loading.setVisibility(View.VISIBLE);
         LoginObserver.currentInputCode = scanResult;
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(true).Login(scanResult))
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(true).Login(scanResult, MyApplication.CLIENT_TYPE, MyApplication.VERSION))
                 .subscribe(loginObserver);
         loadingText.setText(R.string.logining);
     }

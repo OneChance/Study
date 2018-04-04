@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -17,7 +18,8 @@ public class MyApplication extends Application {
     private static Context context;
     public static ScanUtil scanUtil;
     public static Integer VERSION = 0;
-    private static List<Activity> mList = new LinkedList();
+    public static String CLIENT_TYPE = "PDA";
+    private static List<Activity> mList = new LinkedList<>();
     public static boolean netAble = true;
     public static boolean offlineAble = false;
 
@@ -46,18 +48,70 @@ public class MyApplication extends Application {
         super.onTerminate();
     }
 
+    /**
+     * 字符串为消息内容的提示
+     *
+     * @param msg     消息内容
+     * @param success 是否成功
+     */
     public static void toast(String msg, boolean success) {
         customToast(msg, success);
     }
 
+    /**
+     * 带持续时间的字符串为消息内容的提示
+     *
+     * @param msg     消息内容
+     * @param success 是否成功
+     * @param dur     持续时间
+     */
+    public static void toast(String msg, boolean success, int dur) {
+        customToast(msg, success, dur);
+    }
+
+    /**
+     * 资源ID为消息内容的提示
+     *
+     * @param resId   资源ID
+     * @param success 是否成功
+     */
     public static void toast(int resId, boolean success) {
         String msg = getResString(resId);
         customToast(msg, success);
     }
 
+    /**
+     * 带持续时间的资源ID为消息内容的提示
+     *
+     * @param resId   资源ID
+     * @param success 是否成功
+     * @param dur     持续时间
+     */
+    public static void toast(int resId, boolean success, int dur) {
+        String msg = getResString(resId);
+        customToast(msg, success, dur);
+    }
+
+    /**
+     * 自定义提示view
+     *
+     * @param msg     消息内容
+     * @param success 是否成功
+     */
     public static void customToast(String msg, boolean success) {
+        customToast(msg, success, Toast.LENGTH_LONG);
+    }
+
+    /**
+     * 带自定义时间的提示view
+     *
+     * @param msg     消息内容
+     * @param success 是否成功
+     * @param dur     持续时间
+     */
+    public static void customToast(String msg, boolean success, int dur) {
         View toastView = LayoutInflater.from(context).inflate(R.layout.toast, null);
-        Toast toast = new Toast(context);
+        final Toast toast = new Toast(context);
         TextView textView = (TextView) toastView.findViewById(R.id.toast_notice);
         if (success) {
             textView.setBackgroundColor(context.getResources().getColor(R.color.success));
@@ -66,9 +120,13 @@ public class MyApplication extends Application {
         }
         textView.setText(msg);
         toast.setView(toastView);
-        toast.setDuration(Toast.LENGTH_LONG);
-
         toast.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                toast.cancel();
+            }
+        }, 6000);
     }
 
     public static String getResString(int resId) {
