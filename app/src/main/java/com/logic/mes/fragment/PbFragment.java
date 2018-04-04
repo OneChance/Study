@@ -241,11 +241,18 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         }
     }
 
-    public void addRow(String brickId, String level, String length, double cc) {
+    public void addRow(String brickId, String level, String length, double cc, String jglx, String gylx, String cplx) {
+
         if (checkExist(brickId)) {
             MyApplication.toast(R.string.duplicate_data, false);
-        } else if (dbDiff(data.getVal("db"))) {
+        } else if (dbDiff(data.getVal("ej_db"))) {
             MyApplication.toast(R.string.db_diff, false);
+        } else if (jglxDiff(jglx)) {
+            MyApplication.toast(R.string.jglx_diff, false);
+        } else if (gylxDiff(gylx)) {
+            MyApplication.toast(R.string.gylx_diff, false);
+        } else if (cplxDiff(cplx)) {
+            MyApplication.toast(R.string.cplx_diff, false);
         } else if (differentLevel(level)) {
             MyApplication.toast(R.string.different_level, false);
         } else if (pb.getDetailList() != null && pb.getDetailList().size() > 0 && cc != pb.getDetailList().get(0).getCc()) {
@@ -257,11 +264,12 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             p.setLevel(level);
             p.setStation("");
             p.setCc(cc);
+            p.setDb(data.getVal("ej_db"));
+            p.setJglx(jglx);
+            p.setGylx(gylx);
+            p.setCplx(cplx);
 
-            if (data != null && data.getVal("db") != null && !data.getVal("db").equals("")) {
-                p.setDb(data.getVal("db"));
-                activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("db"), true);
-            }
+            activity.setStatus(MyApplication.getResString(R.string.db_type) + data.getVal("ej_db"), true);
 
             pb.getDetailList().add(p);
 
@@ -282,6 +290,9 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     public void serverData() {
         String yxbc = data.getVal("pbj_yxbc");
         String cc = data.getVal("pbj_cc");
+        String jglx = data.getVal("ej_jglx");
+        String gylx = data.getVal("ej_gylx");
+        String cplx = data.getVal("ej_cplx");
         String bb = data.getRelValWithRes("ej", "pbj", "bb")[0];
         if (yxbc.equals("")) {
             yxbc = "0";
@@ -291,7 +302,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         }
 
         String length = new BigDecimal(yxbc).add(new BigDecimal(bb)).toString();
-        addRow(data.getVal("ej_BrickID"), data.getVal("ej_jzdj"), length, Double.parseDouble(cc));
+        addRow(data.getVal("ej_BrickID"), data.getVal("ej_jzdj"), length, Double.parseDouble(cc), jglx, gylx, cplx);
     }
 
     @Override
@@ -318,7 +329,7 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     @Override
     public void serverError(Throwable e) {
-        addRow(brick.getText().toString(), "", "", 0.0);
+        //addRow(brick.getText().toString(), "", "", 0.0, "", "", "");
     }
 
     @Override
@@ -441,12 +452,64 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
         return 0;
     }
 
+    /**
+     * 验证单包一致性
+     *
+     * @param db 单包
+     * @return 是否一致
+     */
     public boolean dbDiff(String db) {
-        if (db != null && !db.equals("")) {
-            for (PbDetail product : pb.getDetailList()) {
-                if (product.getDb() != null && !product.getDb().equals("") && !product.getDb().equals(db)) {
-                    return true;
-                }
+        for (PbDetail product : pb.getDetailList()) {
+            if (!product.getDb().equals(db)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 验证加工类型一致性
+     *
+     * @param jglx 加工类型
+     * @return 是否一致
+     */
+    public boolean jglxDiff(String jglx) {
+        for (PbDetail product : pb.getDetailList()) {
+            if (!product.getJglx().equals(jglx)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 验证工艺类型一致性
+     *
+     * @param gylx 工艺类型
+     * @return 是否一致
+     */
+    public boolean gylxDiff(String gylx) {
+        for (PbDetail product : pb.getDetailList()) {
+            if (!product.getGylx().equals(gylx)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 验证产品类型一致性
+     *
+     * @param cplx 产品类型
+     * @return 是否一致
+     */
+    public boolean cplxDiff(String cplx) {
+        for (PbDetail product : pb.getDetailList()) {
+            if (!product.getCplx().equals(cplx)) {
+                return true;
             }
         }
 

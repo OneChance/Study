@@ -16,6 +16,9 @@ public class PbDetail {
 
     private String db;
     private double cc;
+    private String jglx;
+    private String gylx;
+    private String cplx;
 
     public String getBrickId() {
         return brickId;
@@ -63,5 +66,29 @@ public class PbDetail {
 
     public void setCc(double cc) {
         this.cc = cc;
+    }
+
+    public String getJglx() {
+        return jglx;
+    }
+
+    public void setJglx(String jglx) {
+        this.jglx = jglx;
+    }
+
+    public String getGylx() {
+        return gylx;
+    }
+
+    public void setGylx(String gylx) {
+        this.gylx = gylx;
+    }
+
+    public String getCplx() {
+        return cplx;
+    }
+
+    public void setCplx(String cplx) {
+        this.cplx = cplx;
     }
 }

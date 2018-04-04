@@ -176,6 +176,9 @@
     <string name="hz_duplicate">盒子不能重复</string>
     <string name="hz_dj_diff">盒子等级必须一致</string>
     <string name="db_diff">单包类别必须一致</string>
+    <string name="jglx_diff">加工类型必须一致</string>
+    <string name="gylx_diff">工艺类型必须一致</string>
+    <string name="cplx_diff">产品类型必须一致</string>
     <string name="db_type">单包类别:</string>
     <string name="b_cd">撤单</string>
     <string name="zx_hs">盒数:</string>
