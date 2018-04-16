@@ -92,7 +92,7 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
 
     @Override
     public void serverData() {
-        MyApplication.toast(R.string.submit_ok, true);
+        MyApplication.toast(data.getInfo(), true);
         submitResultReceiver.submitOk();
     }
 

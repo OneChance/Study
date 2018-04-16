@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -99,7 +99,7 @@ public class MyApplication extends Application {
      * @param success 是否成功
      */
     public static void customToast(String msg, boolean success) {
-        customToast(msg, success, Toast.LENGTH_LONG);
+        customToast(msg, success, 0);
     }
 
     /**
@@ -120,13 +120,27 @@ public class MyApplication extends Application {
         }
         textView.setText(msg);
         toast.setView(toastView);
-        toast.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                toast.cancel();
+        toast.setDuration(Toast.LENGTH_SHORT);
+
+        if (dur == 0) {
+            if (success) {
+                dur = 3500;
+            } else {
+                dur = 10000;
             }
-        }, 6000);
+        }
+
+        new CountDownTimer(dur, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                toast.show();
+            }
+
+            public void onFinish() {
+                toast.show();
+            }
+
+        }.start();
     }
 
     public static String getResString(int resId) {

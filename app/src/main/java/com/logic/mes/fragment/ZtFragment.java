@@ -172,16 +172,12 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
         ProcessItem item = new ProcessItem();
 
         if (scanCode == SCAN_CODE_TH) {
-            if (!res.startsWith("P")) {
-                MyApplication.toast(R.string.t_name_error, false);
-            } else {
-                thHead.setText(res);
-                item.setItemKey("TorrInfo");
-                item.setItemValue(res);
-                NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
-                        .subscribe(serverObserver);
-                currentReceiverCode = SCAN_CODE_TH;
-            }
+            thHead.setText(res);
+            item.setItemKey("TorrInfo");
+            item.setItemValue(res);
+            NetUtil.SetObserverCommonAction(NetUtil.getServices(false).checkData(item))
+                    .subscribe(serverObserver);
+            currentReceiverCode = SCAN_CODE_TH;
         } else if (scanCode == SCAN_CODE_XZ) {
             xhHead.setText(res);
             currentCode = res;
