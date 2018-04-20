@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:text="@string/szb_brickid"
+            android:textColor="@color/text"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/szb_v_brickid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:text="@string/wait_scan"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/szb_scroll_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical">
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/szb_qgbh"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/szb_qgbh"
+                    app:layout_widthPercent="50%" />
+
+                <TextView
+                    android:id="@+id/szb_v_qgbh"
+                    style="@style/font_value"
+                    android:layout_width="0dp"
+                    android:layout_toRightOf="@+id/szb_qgbh"
+                    android:layout_weight="1"
+                    android:text=""
+                    app:layout_widthPercent="50%" />
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/szb_gw"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/szb_gw"
+                    app:layout_widthPercent="50%" />
+
+                <TextView
+                    android:id="@+id/szb_v_gw"
+                    style="@style/font_value"
+                    android:layout_width="0dp"
+                    android:layout_toRightOf="@+id/szb_gw"
+                    android:layout_weight="1"
+                    android:text=""
+                    app:layout_widthPercent="50%" />
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/szb_kjg"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/szb_kjg"
+                    app:layout_widthPercent="50%" />
+
+                <TextView
+                    android:id="@+id/szb_v_kjg"
+                    style="@style/font_value"
+                    android:layout_width="0dp"
+                    android:layout_toRightOf="@+id/szb_kjg"
+                    android:layout_weight="1"
+                    android:text=""
+                    app:layout_widthPercent="50%" />
+
+            </android.support.percent.PercentRelativeLayout>
+
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/szb_cszbcd"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/szb_cszbcd"
+                    app:layout_widthPercent="50%" />
+
+                <LinearLayout
+                    android:id="@+id/szb_v_cszbcd_wrapper"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/szb_cszbcd"
+                    app:layout_widthPercent="50%">
+
+                    <EditText
+                        android:id="@+id/szb_v_cszbcd"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/szb_dywzbb"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/szb_dywzbb"
+                    app:layout_widthPercent="50%" />
+
+                <LinearLayout
+                    android:id="@+id/szb_v_dywzbb_wrapper"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/szb_dywzbb"
+                    app:layout_widthPercent="50%">
+
+                    <EditText
+                        android:id="@+id/szb_v_dywzbb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/szb_ccwz"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/szb_ccwz"
+                    app:layout_widthPercent="50%" />
+
+                <LinearLayout
+                    android:id="@+id/szb_v_ccwz"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/szb_ccwz"
+                    app:layout_widthPercent="50%">
+
+                    <RadioGroup
+                        android:id="@+id/szb_ccwz_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/szb_head"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/szb_head"
+                            android:textColor="@color/text" />
+
+                        <RadioButton
+                            android:id="@+id/szb_middle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/szb_middle"
+                            android:textColor="@color/text" />
+
+                        <RadioButton
+                            android:id="@+id/szb_tail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/szb_tail"
+                            android:textColor="@color/text" />
+                    </RadioGroup>
+
+                </LinearLayout>
+            </android.support.percent.PercentRelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/szb_b_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/szb_b_submit" />
+
+        <Button
+            android:id="@+id/szb_b_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/szb_b_clear" />
+    </LinearLayout>
+</LinearLayout>

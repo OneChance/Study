@@ -1,7 +1,6 @@
 package com.logic.mes.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
+import com.logic.mes.activity.MainActivity;
 import com.logic.mes.entity.process.QgsfhProduct;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
@@ -22,8 +22,8 @@ import com.logic.mes.observer.ServerObserver;
 
 import java.math.BigDecimal;
 
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
 
 import static com.logic.mes.R.layout.qgsfh;
@@ -60,7 +60,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     TextView qps;
     String cj = "";
 
-    FragmentActivity activity;
+    MainActivity activity;
     IScanReceiver receiver;
     ServerObserver serverObserver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
@@ -81,7 +81,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
 
         ButterKnife.bind(this, view);
 
-        activity = getActivity();
+        activity = (MainActivity) getActivity();
         receiver = this;
         submitResultReceiver = this;
         serverObserver = new ServerObserver(this, "qgs", activity);
@@ -214,7 +214,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     /***
      * 计算切片碎
      */
-    @OnTextChanged(value = {R.id.qgsfh_v_yzd, R.id.qgsfh_v_hbp, R.id.qgsfh_v_zb, R.id.qgsfh_v_dp, R.id.qgsfh_v_kxs, R.id.qgsfh_v_lds, R.id.qgsfh_v_zqbb,R.id.qgsfh_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = {R.id.qgsfh_v_yzd, R.id.qgsfh_v_hbp, R.id.qgsfh_v_zb, R.id.qgsfh_v_dp, R.id.qgsfh_v_kxs, R.id.qgsfh_v_lds, R.id.qgsfh_v_zqbb, R.id.qgsfh_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calQps() {
         int yzdI = DataUtil.getIntValue(yzd.getText().toString());
         int hbpI = DataUtil.getIntValue(hbp.getText().toString());
@@ -223,7 +223,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         int kxsI = DataUtil.getIntValue(kxs.getText().toString());
         int ldsI = DataUtil.getIntValue(lds.getText().toString());
         int zqbbI = DataUtil.getIntValue(zqbb.getText().toString());
-        int dxfqI =  DataUtil.getIntValue(dxfq.getText().toString());
+        int dxfqI = DataUtil.getIntValue(dxfq.getText().toString());
 
         int qpsI = new BigDecimal(yzdI).add(new BigDecimal(hbpI)).add(new BigDecimal(zbI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(ldsI)).add(new BigDecimal(zqbbI)).add(new BigDecimal(dxfqI)).intValue();
 

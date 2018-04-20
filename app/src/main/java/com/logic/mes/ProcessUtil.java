@@ -1,5 +1,6 @@
 package com.logic.mes;
 
+import android.app.AlertDialog;
 import android.content.Context;
 
 import com.logic.mes.db.DBHelper;
@@ -24,11 +25,15 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
     private SimpleDateFormat sdf;
     private ServerResult data;
     private ProcessSubmit processToSubmit;
+    private AlertDialog.Builder tipDialog;
 
     public ProcessUtil(Context context) {
         this.context = context;
         this.serverDataReceiver = this;
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        tipDialog = new AlertDialog.Builder(context)
+                .setTitle(MyApplication.getResString(R.string.dialog_title))
+                .setPositiveButton(MyApplication.getResString(R.string.dialog_confirm), null);
     }
 
     /***
@@ -92,7 +97,10 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
 
     @Override
     public void serverData() {
-        MyApplication.toast(data.getInfo(), true);
+        if (data.getInfo() != null && !data.getInfo().equals("")) {
+            tipDialog.setMessage(data.getInfo()).show();
+        }
+        MyApplication.toast(MyApplication.getResString(R.string.submit_ok), true);
         submitResultReceiver.submitOk();
     }
 

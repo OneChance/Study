@@ -1,7 +1,6 @@
 package com.logic.mes.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
+import com.logic.mes.activity.MainActivity;
 import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.process.YbProduct;
 import com.logic.mes.entity.server.ServerResult;
@@ -62,7 +62,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     @BindView(R.id.yb_v_qps)
     TextView qps;
 
-    FragmentActivity activity;
+    MainActivity activity;
     IScanReceiver receiver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
     ServerObserver serverObserver;
@@ -89,7 +89,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
         ButterKnife.bind(this, view);
 
-        activity = getActivity();
+        activity = (MainActivity) getActivity();
         receiver = this;
         submitResultReceiver = this;
         serverObserver = new ServerObserver(this, "yb", activity);

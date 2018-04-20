@@ -2,7 +2,6 @@ package com.logic.mes.fragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +17,7 @@ import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
+import com.logic.mes.activity.MainActivity;
 import com.logic.mes.adapter.JbListAdapter;
 import com.logic.mes.entity.base.GroupCancelInfo;
 import com.logic.mes.entity.process.JbDetail;
@@ -47,7 +47,7 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
     JbProduct jb;
     JbListAdapter dataAdapter;
-    FragmentActivity activity;
+    MainActivity activity;
     IScanReceiver receiver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
     ServerObserver serverObserver;
@@ -65,7 +65,7 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
 
         ButterKnife.bind(this, view);
 
-        activity = getActivity();
+        activity = (MainActivity) getActivity();
         receiver = this;
         serverObserver = new ServerObserver(this, "jb", activity);
         submitResultReceiver = this;

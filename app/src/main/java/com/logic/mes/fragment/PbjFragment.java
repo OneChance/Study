@@ -20,6 +20,7 @@ import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
+import com.logic.mes.activity.MainActivity;
 import com.logic.mes.entity.base.PbjYuanYin;
 import com.logic.mes.entity.process.PbjProduct;
 import com.logic.mes.entity.server.ServerResult;
@@ -64,6 +65,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
     IScanReceiver receiver;
     ServerObserver serverObserver;
     Context context;
+    MainActivity activity;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
     View view;
 
@@ -84,6 +86,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
 
         ButterKnife.bind(this, view);
 
+        activity = (MainActivity) getActivity();
         receiver = this;
         submitResultReceiver = this;
 
@@ -140,10 +143,10 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
             PbjProduct bean = createBean(quali);
 
             if (bean != null && bean.getBrickId() != null && !bean.getBrickId().equals("") && !bean.getBrickId().equals(MyApplication.getResString(R.string.wait_scan))) {
-                if (bean.getKjcd()!=null && !bean.getKjcd().equals("") && yy.equals(MyApplication.getResString(R.string.pbj_yy_need))) {
+                if (bean.getKjcd() != null && !bean.getKjcd().equals("") && yy.equals(MyApplication.getResString(R.string.pbj_yy_need))) {
                     MyApplication.toast(R.string.pbj_yy_need, false);
                 } else {
-                    new ProcessUtil(context).submit(submitResultReceiver, bean, userInfo.getUser());
+                    new ProcessUtil(activity).submit(submitResultReceiver, bean, userInfo.getUser());
                 }
             } else {
                 MyApplication.toast(R.string.form_required, false);
@@ -182,6 +185,7 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         EditTextUtil.setTextEnd(sizeValue, data.getVal("pbj_cc"));
         yxbcValue.setText(data.getRelVal("ej", "pbj", "yxbc"));
         gghyxcd.setText(data.getRelVal("ej", "pbj", "yxbc"));
+        kjcd.setText(data.getVal("pbj_kjcd"));
         setRatioGroup(data.getVal("pbj_dj"));
     }
 
@@ -225,9 +229,9 @@ public class PbjFragment extends BaseTagFragment implements IScanReceiver, Serve
         pbj.setYxbcValue(gghyxcd.getText().toString());
         pbj.setKjcd(kjcd.getText().toString());
 
-        if(pbj.getKjcd().equals("")){
+        if (pbj.getKjcd().equals("")) {
             pbj.setYy("");
-        }else{
+        } else {
             pbj.setYy(yy);
         }
 

@@ -21,6 +21,7 @@ public class FragmentFactory {
     private DbFragment dbFragment;
     private WxFragment wxFragment;
     private ByFragment byFragment;
+    private SzbFragment szbFragment;
 
     private static FragmentFactory fragmentFactory;
 
@@ -70,6 +71,8 @@ public class FragmentFactory {
                 return (wxFragment == null ? wxFragment = new WxFragment() : wxFragment);
             case "by":
                 return (byFragment == null ? byFragment = new ByFragment() : byFragment);
+            case "cszb":
+                return (szbFragment == null ? szbFragment = new SzbFragment() : szbFragment);
             default:
                 return new BaseTagFragment();
         }

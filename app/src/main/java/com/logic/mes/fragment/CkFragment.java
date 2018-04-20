@@ -2,7 +2,6 @@ package com.logic.mes.fragment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +17,7 @@ import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
+import com.logic.mes.activity.MainActivity;
 import com.logic.mes.adapter.CkListAdapter;
 import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.process.CkDetail;
@@ -70,7 +70,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
 
     CkProduct product;
     CkListAdapter dataAdapter;
-    FragmentActivity activity;
+    MainActivity activity;
     IScanReceiver receiver;
     Calendar c;
 
@@ -90,7 +90,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
 
         View view = inflater.inflate(R.layout.ck, container, false);
         ButterKnife.bind(this, view);
-        activity = getActivity();
+        activity = (MainActivity) getActivity();
         receiver = this;
         submitResultReceiver = this;
         serverObserver = new ServerObserver(this, "ck", activity);

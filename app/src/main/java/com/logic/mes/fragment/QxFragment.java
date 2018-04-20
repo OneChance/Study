@@ -1,7 +1,6 @@
 package com.logic.mes.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +12,20 @@ import com.logic.mes.DataUtil;
 import com.logic.mes.EditTextUtil;
 import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
+import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.activity.MainActivity;
 import com.logic.mes.entity.base.SysConfig;
 import com.logic.mes.entity.base.UserInfo;
 import com.logic.mes.entity.process.QxProduct;
-import com.logic.mes.ProcessUtil;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
 import java.math.BigDecimal;
 
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
 
 import static com.logic.mes.R.id.qx_v_zj;
@@ -80,7 +79,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
 
     SysConfig sysConfig;
 
-    FragmentActivity activity;
+    MainActivity activity;
     IScanReceiver receiver;
     ServerObserver serverObserver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
@@ -100,7 +99,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
 
         ButterKnife.bind(this, view);
 
-        activity = getActivity();
+        activity = (MainActivity) getActivity();
         receiver = this;
         serverObserver = new ServerObserver(this, "qx", activity);
         submitResultReceiver = this;

@@ -3,6 +3,10 @@
     <string name="accessibility_service_name">我的智能安装</string>
     <string name="accessibility_service_description">智能安装服务，无需用户的任何操作就可以自动安装程序。</string>
 
+    <!-- 提示 -->
+    <string name="dialog_title">提示</string>
+    <string name="dialog_confirm">确定</string>
+
     <!-- 登陆 -->
     <string name="app_version">VERSION:%1$s</string>
     <string name="login_local_error">本地登录失败</string>
@@ -49,6 +53,8 @@
     <string name="unit_length_mm">毫米</string>
     <string name="unit_piece">片</string>
 
+
+    <string name="szb_tab_name">超树脂板</string>
     <string name="pbj_tab_name">配棒检</string>
     <string name="pb_tab_name">配棒</string>
     <string name="jb_tab_name">解棒</string>
@@ -186,7 +192,7 @@
     <string name="piece_not_full">未满1600片是否装箱?</string>
     <string name="case_infos">等级:%1$s,尺寸:%2$s,单包:%3$s</string>
     <string name="case_info_diff">扫描此条码的等级:%1$s,尺寸:%2$s,单包:%3$s，与当前列表中的不一致</string>
-    <string name="case_name_error">箱号必须以字母C或字母P开头</string>
+    <string name="case_name_error">箱号必须以字母C开头</string>
 
     <!--装托-->
     <string name="zt_b_scan_xz">扫描箱子</string>
@@ -286,4 +292,19 @@
     <string name="oper_type_complete">处理</string>
     <string name="oper_type_confirm">确认</string>
     <string name="confirm_datetime_label">确认时间</string>
+
+
+    <!--树脂板-->
+    <string name="szb_brickid">晶体编号</string>
+    <string name="szb_qgbh">切割编号</string>
+    <string name="szb_gw">工位</string>
+    <string name="szb_kjg">开机工</string>
+    <string name="szb_cszbcd">超树脂板长度</string>
+    <string name="szb_dywzbb">对应位置崩边</string>
+    <string name="szb_ccwz">超出位置</string>
+    <string name="szb_head">头</string>
+    <string name="szb_middle">中</string>
+    <string name="szb_tail">尾</string>
+    <string name="szb_b_submit">提交</string>
+    <string name="szb_b_clear">清空</string>
 </resources>

@@ -13,13 +13,14 @@ import com.logic.mes.IScanReceiver;
 import com.logic.mes.MyApplication;
 import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
+import com.logic.mes.activity.MainActivity;
 import com.logic.mes.entity.process.DbProduct;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
 import com.logic.mes.observer.ServerObserver;
 
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.logic.mes.R.layout.db;
 
@@ -44,6 +45,7 @@ public class DbFragment extends BaseTagFragment implements IScanReceiver, Server
     IScanReceiver receiver;
     ServerObserver serverObserver;
     Context context;
+    MainActivity activity;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
     View view;
 
@@ -64,6 +66,7 @@ public class DbFragment extends BaseTagFragment implements IScanReceiver, Server
 
         ButterKnife.bind(this, view);
 
+        activity = (MainActivity) getActivity();
         receiver = this;
         submitResultReceiver = this;
 
@@ -114,7 +117,7 @@ public class DbFragment extends BaseTagFragment implements IScanReceiver, Server
                 dbProduct.setCate(cate.getText().toString());
                 dbProduct.setCode("db");
 
-                new ProcessUtil(context).submit(submitResultReceiver, dbProduct, userInfo.getUser());
+                new ProcessUtil(activity).submit(submitResultReceiver, dbProduct, userInfo.getUser());
             }
         } catch (Exception e) {
             e.printStackTrace();
