@@ -16,8 +16,8 @@ import com.logic.mes.entity.process.CkDetail;
 import java.util.List;
 
 import atownsend.swipeopenhelper.BaseSwipeOpenViewHolder;
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class CkListAdapter extends RecyclerView.Adapter<CkListAdapter.ViewHolder> {
 
@@ -73,6 +73,7 @@ public class CkListAdapter extends RecyclerView.Adapter<CkListAdapter.ViewHolder
         public TextView tm;
         @BindView(R.id.ck_v_sl)
         public TextView sl;
+
         @BindView(R.id.ck_delete_button)
         public TextView deleteButton;
 

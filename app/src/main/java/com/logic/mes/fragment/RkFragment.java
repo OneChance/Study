@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +29,13 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import atownsend.swipeopenhelper.SwipeOpenItemTouchHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver {
+public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonCallbacks, IScanReceiver, ProcessUtil.SubmitResultReceiver, ServerObserver.ServerDataReceiver, RkListAdapter.RkDetailCallback {
 
     public RkFragment() {
         this.tagNameId = R.string.rk_tab_name;
@@ -129,7 +131,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
             product = new RkProduct();
         }
 
-        dataAdapter = new RkListAdapter(getActivity(), product.getDetailList(), this);
+        dataAdapter = new RkListAdapter(getActivity(), product.getDetailList(), this, this);
         SwipeOpenItemTouchHelper helper = new SwipeOpenItemTouchHelper(new SwipeOpenItemTouchHelper.SimpleCallback(SwipeOpenItemTouchHelper.START | SwipeOpenItemTouchHelper.END));
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listView.setAdapter(dataAdapter);
@@ -173,8 +175,25 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         } else if (jzrq.getText().equals("")) {
             MyApplication.toast(R.string.jzrq_need, false);
         } else {
-            product.setCode("rk");
-            new ProcessUtil(activity).submit(submitResultReceiver, product, userInfo.getUser());
+
+            boolean ok = true;
+
+            //检查列表中有没有重复项
+            List<RkDetail> list = product.getDetailList();
+            StringBuilder tms = new StringBuilder();
+            for (RkDetail d : list) {
+                if (tms.toString().contains(d.getTm())) {
+                    MyApplication.toast(R.string.detect_duplicate_data, false);
+                    ok = false;
+                    break;
+                }
+                tms.append(d.getTm());
+            }
+
+            if (ok) {
+                product.setCode("rk");
+                new ProcessUtil(activity).submit(submitResultReceiver, product, userInfo.getUser());
+            }
         }
     }
 
@@ -191,7 +210,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
     @Override
     public void scanReceive(String res, int scanCode) {
         tmHead.setText(res);
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBagData(res))
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBagData(res, "rk"))
                 .subscribe(serverObserver);
     }
 
@@ -243,6 +262,7 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
         p.setLb(data.getVal("objType"));
         p.setTm(data.getVal("objCode"));
         p.setSl(data.getVal("pieces"));
+        p.setJf(MyApplication.getResStringArray(R.array.rk_jf)[0]);
         product.getDetailList().add(p);
         calSum();
         dataAdapter.notifyDataSetChanged();
@@ -300,5 +320,11 @@ public class RkFragment extends BaseTagFragment implements RkListAdapter.ButtonC
     @Override
     public void ableSubmit() {
 
+    }
+
+    @Override
+    public void selectChange(int position, String value) {
+        Log.d("mes", "choose value" + value);
+        product.getDetailList().get(position).setJf(value);
     }
 }

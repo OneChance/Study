@@ -17,7 +17,7 @@ import rx.Observable;
 public interface IServices {
     @FormUrlEncoded
     @POST("intface/userlogon/")
-    public Observable<UserInfoResult> Login(@Field("code") String userCode,@Field("clientType") String clientType,@Field("version") Integer version);
+    public Observable<UserInfoResult> Login(@Field("code") String userCode, @Field("clientType") String clientType, @Field("version") Integer version);
 
     @FormUrlEncoded
     @POST("intface/getbrick/")
@@ -38,7 +38,7 @@ public interface IServices {
 
     @FormUrlEncoded
     @POST("intface/getbagdata/")
-    public Observable<ServerResult> getBagData(@Field("objCode") String objCode);
+    public Observable<ServerResult> getBagData(@Field("objCode") String objCode, @Field("produceCode") String produceCode);
 
     @POST("intface/datacheck/")
     public Observable<ServerResult> checkData(@Body ProcessItem data);

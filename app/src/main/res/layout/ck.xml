@@ -178,7 +178,6 @@
             android:text="@string/ck_l_sl"
             app:layout_widthPercent="20%" />
 
-
     </android.support.percent.PercentRelativeLayout>
 
     <android.support.v7.widget.RecyclerView

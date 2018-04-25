@@ -9,8 +9,6 @@ import com.logic.mes.R;
 import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.server.ServerResult;
 
-import java.util.Map;
-
 import rx.Observer;
 
 
@@ -39,7 +37,6 @@ public class ServerObserver implements Observer<ServerResult> {
 
             textView = (TextView) view.findViewById(R.id.dialog_msg_content);
             textView.setSingleLine(false);
-            content = context.getResources().getString(R.string.process_submited);
             noticeDialog.setTitle(R.string.notice);
             noticeDialog.setContentView(view);
 
@@ -83,7 +80,7 @@ public class ServerObserver implements Observer<ServerResult> {
                 return true;
             }
         } else {
-            if (!resCode.equals("0")) {
+            if (!resCode.equals("0") && !resCode.equals("10")) {
                 return true;
             }
         }
@@ -108,23 +105,9 @@ public class ServerObserver implements Observer<ServerResult> {
                 receiver.ableSubmit();
                 receiver.setData(res);
 
-                if (res.getDatas() != null) {
-                    if (res.getDatas().getBagDatas() != null && res.getDatas().getBagDatas().size() > 0 && !codeNotVali.contains("," + code + ",")) {
-
-                        Map<String, String> dataMap = res.getDatas().getBagDatas().get(0);
-                        String lrsj = dataMap.get(code + "_lrsj");
-
-                        //验证是否已经提交过
-                        if (lrsj != null && !lrsj.equals("") && context != null) {
-                            textView.setText(String.format(content, lrsj));
-                            noticeDialog.show();
-                        } else {
-                            receiver.serverData();
-                        }
-
-                    } else {
-                        receiver.serverData();
-                    }
+                if (res.getCode().equals("10") && !codeNotVali.contains("," + code + ",")) {
+                    textView.setText(res.getInfo());
+                    noticeDialog.show();
                 } else {
                     receiver.serverData();
                 }

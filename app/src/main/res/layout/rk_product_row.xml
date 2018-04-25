@@ -23,30 +23,41 @@
         android:layout_height="40dp"
         android:background="@color/dividers"
         android:clickable="true"
+        android:focusable="true"
         android:gravity="center">
+
+        <Spinner
+            android:id="@+id/rk_v_jf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:entries="@array/rk_jf"
+            app:layout_widthPercent="18%" />
 
         <TextView
             android:id="@+id/rk_v_lb"
             style="@style/font_value"
             android:layout_width="0dp"
+            android:layout_toRightOf="@+id/rk_v_jf"
             android:text=""
-            app:layout_widthPercent="20%"></TextView>
+            app:layout_widthPercent="14%" />
 
         <TextView
             android:id="@+id/rk_v_tm"
             style="@style/font_value"
             android:layout_width="0dp"
-            android:text=""
             android:layout_toRightOf="@+id/rk_v_lb"
-            app:layout_widthPercent="60%"></TextView>
+            android:text=""
+            app:layout_widthPercent="54%" />
 
         <TextView
             android:id="@+id/rk_v_sl"
             style="@style/font_value"
             android:layout_width="0dp"
-            android:text=""
             android:layout_toRightOf="@+id/rk_v_tm"
-            app:layout_widthPercent="20%"></TextView>
+            android:text=""
+            app:layout_widthPercent="14%" />
 
     </android.support.percent.PercentRelativeLayout>
 </FrameLayout>

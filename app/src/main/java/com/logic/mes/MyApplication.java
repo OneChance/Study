@@ -21,6 +21,7 @@ public class MyApplication extends Application {
     public static String CLIENT_TYPE = "PDA";
     private static List<Activity> mList = new LinkedList<>();
     public static boolean netAble = true;
+    //是否开启离线保存 自动提交功能
     public static boolean offlineAble = false;
 
     @Override
@@ -145,6 +146,10 @@ public class MyApplication extends Application {
 
     public static String getResString(int resId) {
         return context.getResources().getString(resId);
+    }
+
+    public static String[] getResStringArray(int resId) {
+        return context.getResources().getStringArray(resId);
     }
 
     public static void addActivity(Activity activity) {

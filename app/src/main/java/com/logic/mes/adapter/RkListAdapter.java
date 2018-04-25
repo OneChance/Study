@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.logic.mes.R;
@@ -16,30 +19,36 @@ import com.logic.mes.entity.process.RkDetail;
 import java.util.List;
 
 import atownsend.swipeopenhelper.BaseSwipeOpenViewHolder;
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class RkListAdapter extends RecyclerView.Adapter<RkListAdapter.ViewHolder> {
 
     private Context context;
     private List<RkDetail> list;
     private final ButtonCallbacks callbacks;
+    private final RkDetailCallback rkDetailCallback;
+
+    public interface RkDetailCallback {
+        void selectChange(int position, String value);
+    }
 
     public interface ButtonCallbacks {
         void removePosition(int position);
     }
 
-    public RkListAdapter(Context context, List<RkDetail> list, ButtonCallbacks callbacks) {
+    public RkListAdapter(Context context, List<RkDetail> list, ButtonCallbacks callbacks, RkDetailCallback rkDetailCallback) {
         this.list = list;
         this.context = context;
         this.callbacks = callbacks;
+        this.rkDetailCallback = rkDetailCallback;
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rk_product_row, viewGroup, false);
-        return new ViewHolder(v, callbacks);
+        return new ViewHolder(v, callbacks, rkDetailCallback);
     }
 
 
@@ -49,6 +58,14 @@ public class RkListAdapter extends RecyclerView.Adapter<RkListAdapter.ViewHolder
         holder.lb.setText(p.getLb());
         holder.tm.setText(p.getTm());
         holder.sl.setText(p.getSl());
+        SpinnerAdapter apsAdapter = holder.jf.getAdapter();
+        int k = apsAdapter.getCount();
+        for (int i = 0; i < k; i++) {
+            if (p.getJf().equals(apsAdapter.getItem(i).toString())) {
+                holder.jf.setSelection(i, true);
+                break;
+            }
+        }
     }
 
     @Override
@@ -75,8 +92,10 @@ public class RkListAdapter extends RecyclerView.Adapter<RkListAdapter.ViewHolder
         public TextView sl;
         @BindView(R.id.rk_delete_button)
         public TextView deleteButton;
+        @BindView(R.id.rk_v_jf)
+        Spinner jf;
 
-        public ViewHolder(View v, final ButtonCallbacks callbacks) {
+        public ViewHolder(View v, final ButtonCallbacks callbacks, final RkDetailCallback rkDetailCallback) {
             super(v);
             ButterKnife.bind(this, v);
 
@@ -84,6 +103,18 @@ public class RkListAdapter extends RecyclerView.Adapter<RkListAdapter.ViewHolder
                 @Override
                 public void onClick(View v) {
                     callbacks.removePosition(getAdapterPosition());
+                }
+            });
+
+            jf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    rkDetailCallback.selectChange(getAdapterPosition(), jf.getItemAtPosition(i).toString());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
                 }
             });
         }

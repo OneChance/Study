@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rk_jf">
+        <item>否</item>
+        <item>是</item>
+    </string-array>
+</resources>

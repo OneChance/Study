@@ -10,6 +10,8 @@ public class RkDetail {
     private String tm;
     @ItemCol(col = "sl")
     private String sl;
+    @ItemCol(col = "jf")
+    private String jf;
 
     public String getLb() {
         return lb;
@@ -33,5 +35,13 @@ public class RkDetail {
 
     public void setSl(String sl) {
         this.sl = sl;
+    }
+
+    public String getJf() {
+        return jf;
+    }
+
+    public void setJf(String jf) {
+        this.jf = jf;
     }
 }

@@ -225,6 +225,7 @@
     <string name="rk_b_clear">清空</string>
     <string name="tm_scan_first">请扫描条码</string>
     <string name="jzrq_need">请填写记账日期</string>
+    <string name="detect_duplicate_data">列表中含有重复条目</string>
     <string name="base_info_diff">扫描此条码的等级:%1$s,尺寸:%2$s,单包:%3$s，与当前列表中的不一致,是否添加？</string>
 
 
@@ -238,6 +239,7 @@
     <string name="ck_l_hj">合计</string>
     <string name="ck_b_submit">提交</string>
     <string name="ck_b_clear">清空</string>
+    <string name="ck_l_jf">借否</string>
 
     <!--解棒 -->
     <string name="jb_l_reason">解棒原因</string>

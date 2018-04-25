@@ -191,7 +191,7 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
     @Override
     public void scanReceive(String res, int scanCode) {
         tmHead.setText(res);
-        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBagData(res))
+        NetUtil.SetObserverCommonAction(NetUtil.getServices(false).getBagData(res, "ck"))
                 .subscribe(serverObserver);
     }
 
@@ -303,4 +303,5 @@ public class CkFragment extends BaseTagFragment implements CkListAdapter.ButtonC
     public void ableSubmit() {
 
     }
+
 }
