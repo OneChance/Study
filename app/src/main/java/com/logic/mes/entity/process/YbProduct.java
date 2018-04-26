@@ -9,18 +9,12 @@ public class YbProduct extends ProcessBase {
 
     @ItemKey()
     private String brickId;
-    @ItemCol(col = "yzd")
-    private String yzd;
-    @ItemCol(col = "hbp")
-    private String hbp;
     @ItemCol(col = "zb")
     private String zb;
     @ItemCol(col = "dp")
     private String dp;
     @ItemCol(col = "kxs")
     private String kxs;
-    @ItemCol(col = "lds")
-    private String lds;
     @ItemCol(col = "zqbb")
     private String zqbb;
     @ItemCol(col = "qps")
@@ -29,22 +23,6 @@ public class YbProduct extends ProcessBase {
     private String dxfq;
     @ItemCol(col = "sfbf")
     private String sfbf;
-
-    public String getYzd() {
-        return yzd;
-    }
-
-    public void setYzd(String yzd) {
-        this.yzd = DataProcessor.NumberNotNull(yzd);
-    }
-
-    public String getHbp() {
-        return hbp;
-    }
-
-    public void setHbp(String hbp) {
-        this.hbp = DataProcessor.NumberNotNull(hbp);
-    }
 
     public String getZb() {
         return zb;
@@ -68,14 +46,6 @@ public class YbProduct extends ProcessBase {
 
     public void setKxs(String kxs) {
         this.kxs = DataProcessor.NumberNotNull(kxs);
-    }
-
-    public String getLds() {
-        return lds;
-    }
-
-    public void setLds(String lds) {
-        this.lds = DataProcessor.NumberNotNull(lds);
     }
 
     public String getZqbb() {
