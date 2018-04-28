@@ -123,7 +123,7 @@
     <string name="yb_l_zb">撞棒(mm)</string>
     <string name="yb_l_dp">掉片(mm)</string>
     <string name="yb_l_kxs">卡线碎(mm)</string>
-    <string name="yb_l_lds">亮点碎(mm)</string>
+    <string name="yb_l_qt">其他(mm)</string>
     <string name="yb_l_zqbb">整齐崩边(mm)</string>
     <string name="yb_l_dxfq">断线放弃(mm)</string>
     <string name="yb_b_submit">提交</string>
@@ -160,7 +160,7 @@
     <string name="qgsfh_l_zb">撞棒(片)</string>
     <string name="qgsfh_l_dp">掉片(片)</string>
     <string name="qgsfh_l_kxs">卡线碎(片)</string>
-    <string name="qgsfh_l_lds">亮点碎(片)</string>
+    <string name="qgsfh_l_qt">其他(片)</string>
     <string name="qgsfh_l_zqbb">整齐崩边(片)</string>
     <string name="qgsfh_l_dxfq">断线放弃(片)</string>
     <string name="qgsfh_b_submit">提交</string>

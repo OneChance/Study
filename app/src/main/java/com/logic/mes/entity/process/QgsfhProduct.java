@@ -20,6 +20,8 @@ public class QgsfhProduct extends ProcessBase {
     private String qps;
     @ItemCol(col = "dxfq")
     private String dxfq;
+    @ItemCol(col = "lds")
+    private String qt;
 
     public String getDxfq() {
         return dxfq;
@@ -75,5 +77,13 @@ public class QgsfhProduct extends ProcessBase {
 
     public void setQps(String qps) {
         this.qps = qps;
+    }
+
+    public String getQt() {
+        return qt;
+    }
+
+    public void setQt(String qt) {
+        this.qt = qt;
     }
 }

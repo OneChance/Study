@@ -47,6 +47,8 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     EditText zb;
     @BindView(R.id.yb_v_dp)
     EditText dp;
+    @BindView(R.id.yb_v_qt)
+    EditText qt;
     @BindView(R.id.yb_v_kxs)
     EditText kxs;
     @BindView(R.id.yb_v_zqbb)
@@ -151,6 +153,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setNoKeyboard(kxs);
         EditTextUtil.setNoKeyboard(zqbb);
         EditTextUtil.setNoKeyboard(dxfq);
+        EditTextUtil.setNoKeyboard(qt);
 
         return view;
     }
@@ -175,6 +178,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setTextEnd(kxs, data.getVal("yb_kxs"));
         EditTextUtil.setTextEnd(zqbb, data.getVal("yb_zqbb"));
         EditTextUtil.setTextEnd(dxfq, data.getVal("yb_dxfq"));
+        EditTextUtil.setTextEnd(qt, data.getVal("yb_lds"));
     }
 
     @Override
@@ -189,6 +193,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setTextEnd(kxs, yb.getKxs());
         EditTextUtil.setTextEnd(zqbb, yb.getZqbb());
         EditTextUtil.setTextEnd(dxfq, yb.getDxfq());
+        EditTextUtil.setTextEnd(qt, yb.getQt());
     }
 
     @Override
@@ -210,6 +215,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         yb.setZqbb(zqbb.getText().toString());
         yb.setDxfq(dxfq.getText().toString());
         yb.setQps(qps.getText().toString());
+        yb.setQt(qt.getText().toString());
         yb.setCode("yb");
         return yb;
     }
@@ -228,6 +234,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         zqbb.setText("");
         qps.setText("");
         dxfq.setText("");
+        qt.setText("");
     }
 
     @Override
@@ -238,18 +245,19 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     /***
      * 计算切片碎
      */
-    @OnTextChanged(value = {R.id.yb_v_zb, R.id.yb_v_dp, R.id.yb_v_kxs, R.id.yb_v_zqbb, R.id.yb_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = {R.id.yb_v_qt, R.id.yb_v_zb, R.id.yb_v_dp, R.id.yb_v_kxs, R.id.yb_v_zqbb, R.id.yb_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calQps() {
         double zbI = DataUtil.getDoubleValue(zb.getText().toString());
         double dpI = DataUtil.getDoubleValue(dp.getText().toString());
         double kxsI = DataUtil.getDoubleValue(kxs.getText().toString());
         double zqbbI = DataUtil.getDoubleValue(zqbb.getText().toString());
         double dxfqI = DataUtil.getDoubleValue(dxfq.getText().toString());
+        double qtI = DataUtil.getDoubleValue(qt.getText().toString());
 
         int qpsI = 0;
 
         if (!cjError(cj)) {
-            qpsI = new BigDecimal(zbI).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(zqbbI)).add(new BigDecimal(dxfqI)).divide(new BigDecimal(cj), 0, BigDecimal.ROUND_DOWN).intValue();
+            qpsI = new BigDecimal(zbI).add(new BigDecimal(qtI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(zqbbI)).add(new BigDecimal(dxfqI)).divide(new BigDecimal(cj), 0, BigDecimal.ROUND_HALF_UP).intValue();
             qps.setText((qpsI + ""));
         } else {
             qps.setText("");
