@@ -134,14 +134,18 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
                 } else if (zx.getDetailList().size() == 0) {
                     MyApplication.toast(R.string.hz_scan_need, false);
                 } else {
-                    zx.setCode("zx");
-                    zx.setBagCode(zx.getDetailList().get(0).getXh());
-                    String psNumber = ps.getText().toString();
-                    int psI = DataUtil.getIntValue(psNumber);
-                    if (psI < 1600) {
-                        noticeDialog.show();
+                    if (zx.getDetailList().size() != 4 && zx.getDetailList().size() != 6) {
+                        MyApplication.toast(R.string.zx_size_standard, false);
                     } else {
-                        new ProcessUtil(activity).submit(submitResultReceiver, zx, userInfo.getUser());
+                        zx.setCode("zx");
+                        zx.setBagCode(zx.getDetailList().get(0).getXh());
+                        String psNumber = ps.getText().toString();
+                        int psI = DataUtil.getIntValue(psNumber);
+                        if (psI < 1600) {
+                            noticeDialog.show();
+                        } else {
+                            new ProcessUtil(activity).submit(submitResultReceiver, zx, userInfo.getUser());
+                        }
                     }
                 }
             }
@@ -302,7 +306,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
     }
 
     public void fillData() {
-        if (zx.getDetailList().size() < 4) {
+        if (zx.getDetailList().size() < 6) {
             if (!checkExist(currentCode)) {
                 if (!levelDiff(data.getVal("boxdjmc"))) {
                     if (!dbDiff(data.getVal("zh_db"))) {

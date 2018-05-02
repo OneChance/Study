@@ -178,7 +178,8 @@
     <string name="zx_b_clear">清空</string>
     <string name="xz_scan_first">请先扫描箱子</string>
     <string name="hz_scan_need">请扫描盒子</string>
-    <string name="zx_size_full">一箱不能超过4盒</string>
+    <string name="zx_size_full">一箱不能超过6盒</string>
+    <string name="zx_size_standard">一箱只能是4盒或者6盒</string>
     <string name="hz_duplicate">盒子不能重复</string>
     <string name="hz_dj_diff">盒子等级必须一致</string>
     <string name="db_diff">单包类别必须一致</string>
