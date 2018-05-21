@@ -151,6 +151,7 @@
     <string name="qx_l_cc">尺寸</string>
     <string name="qx_l_db">单包</string>
     <string name="qx_l_jzdj">等级</string>
+    <string name="qx_l_cszbyxcd">超树脂板有效长度</string>
 
     <!--切割碎复核-->
     <string name="qgsfh_l_spyy">碎片原因</string>
@@ -186,6 +187,7 @@
     <string name="jglx_diff">加工类型必须一致</string>
     <string name="gylx_diff">工艺类型必须一致</string>
     <string name="cplx_diff">产品类型必须一致</string>
+    <string name="cc_diff">尺寸必须一致</string>
     <string name="db_type">单包类别:</string>
     <string name="b_cd">撤单</string>
     <string name="zx_hs">盒数:</string>

@@ -253,6 +253,8 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
             MyApplication.toast(R.string.gylx_diff, false);
         } else if (cplxDiff(cplx)) {
             MyApplication.toast(R.string.cplx_diff, false);
+        } else if (ccDiff(cc)) {
+            MyApplication.toast(R.string.cc_diff, false);
         } else if (differentLevel(level)) {
             MyApplication.toast(R.string.different_level, false);
         } else if (pb.getDetailList() != null && pb.getDetailList().size() > 0 && cc != pb.getDetailList().get(0).getCc()) {
@@ -509,6 +511,22 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
     public boolean cplxDiff(String cplx) {
         for (PbDetail product : pb.getDetailList()) {
             if (!product.getCplx().equals(cplx)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 验证尺寸一致性
+     *
+     * @param cc 尺寸
+     * @return 是否一致
+     */
+    public boolean ccDiff(double cc) {
+        for (PbDetail product : pb.getDetailList()) {
+            if (product.getCc() != cc) {
                 return true;
             }
         }

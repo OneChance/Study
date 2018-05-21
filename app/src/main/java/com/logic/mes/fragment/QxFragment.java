@@ -55,6 +55,8 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     TextView jzbh;
     @BindView(R.id.qx_v_llcps)
     TextView llcps;
+    @BindView(R.id.qx_v_cszbyxcd)
+    TextView cszbyxcd;
     @BindView(R.id.qx_v_sjcps)
     EditText sjcps;
     @BindView(R.id.qx_v_jjqxs)
@@ -153,6 +155,7 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
         jzbh.setText(data.getVal("ej_BrickID"));
         station.setText(data.getVal("pb_gw"));
         llcps.setText(data.getVal("cp_llcps"));
+        cszbyxcd.setText(data.getVal("cszbyxcd"));
         EditTextUtil.setTextEnd(sjcps, data.getRelVal("cp", "qx", "sjcps"));//获得插片总片数
         EditTextUtil.setTextEnd(jjqxs, data.getVal("qx_tjqxs"));
         EditTextUtil.setTextEnd(sbqxs, data.getVal("qx_qxsbs"));
@@ -203,10 +206,12 @@ public class QxFragment extends BaseTagFragment implements IScanReceiver, Server
     public void clear() {
         jzbhHead.setText(R.string.wait_scan);
         jzbh.setText("");
+        jzdj.setText("");
         cc.setText("");
         db.setText("");
         station.setText("");
         llcps.setText("");
+        cszbyxcd.setText("");
         sjcps.setText("");
         jjqxs.setText("");
         sbqxs.setText("");
