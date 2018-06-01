@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class MyApplication extends Application {
     public static boolean netAble = true;
     //是否开启离线保存 自动提交功能
     public static boolean offlineAble = false;
+    public static String product;
 
     @Override
     public void onCreate() {
@@ -33,6 +35,7 @@ public class MyApplication extends Application {
             VERSION = 9999;
         }
         CrashHandler.getInstance().init(this);
+        product = Build.PRODUCT;
         super.onCreate();
     }
 
