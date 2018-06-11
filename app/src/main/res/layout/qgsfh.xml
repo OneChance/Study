@@ -47,6 +47,44 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/qgsfh_l_dxfq"
+                    style="@style/font_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/qgsfh_l_dxfq"
+                    app:layout_widthPercent="50%" />
+
+                <LinearLayout
+                    android:id="@+id/qgsfh_v_dxfq_wrapper"
+                    style="@style/edit_text_wrapper"
+                    android:layout_toRightOf="@+id/qgsfh_l_dxfq"
+                    app:layout_widthPercent="50%">
+
+                    <EditText
+                        android:id="@+id/qgsfh_v_dxfq"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textColor="@color/text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/dividers"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
                     android:id="@+id/qgsfh_l_zb"
                     style="@style/font_title"
                     android:layout_width="0dp"
@@ -158,80 +196,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/qgsfh_l_zqbb"
-                    style="@style/font_title"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/qgsfh_l_zqbb"
-                    app:layout_widthPercent="50%" />
-
-                <LinearLayout
-                    android:id="@+id/qgsfh_v_zqbb_wrapper"
-                    style="@style/edit_text_wrapper"
-                    android:layout_toRightOf="@+id/qgsfh_l_zqbb"
-                    app:layout_widthPercent="50%">
-
-                    <EditText
-                        android:id="@+id/qgsfh_v_zqbb"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:text=""
-                        android:textColor="@color/text"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-            </android.support.percent.PercentRelativeLayout>
-
-            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/dividers"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/qgsfh_l_dxfq"
-                    style="@style/font_title"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/qgsfh_l_dxfq"
-                    app:layout_widthPercent="50%" />
-
-                <LinearLayout
-                    android:id="@+id/qgsfh_v_dxfq_wrapper"
-                    style="@style/edit_text_wrapper"
-                    android:layout_toRightOf="@+id/qgsfh_l_dxfq"
-                    app:layout_widthPercent="50%">
-
-                    <EditText
-                        android:id="@+id/qgsfh_v_dxfq"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:text=""
-                        android:textColor="@color/text"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-            </android.support.percent.PercentRelativeLayout>
-
-            <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/dividers"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
                     android:id="@+id/qgsfh_l_qt"
                     style="@style/font_title"
                     android:layout_width="0dp"
@@ -273,7 +237,7 @@
                     style="@style/font_title"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="@string/yb_l_qps"
+                    android:text="@string/qgsfh_l_qps"
                     app:layout_widthPercent="50%" />
 
                 <TextView

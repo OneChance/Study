@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -41,8 +43,6 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     Button bSubmit;
     @BindView(R.id.yb_b_clear)
     Button bClear;
-    @BindView(R.id.yb_b_scrap)
-    Button bScrap;
     @BindView(R.id.yb_v_zb)
     EditText zb;
     @BindView(R.id.yb_v_dp)
@@ -51,12 +51,12 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     EditText qt;
     @BindView(R.id.yb_v_kxs)
     EditText kxs;
-    @BindView(R.id.yb_v_zqbb)
-    EditText zqbb;
     @BindView(R.id.yb_v_dxfq)
     EditText dxfq;
     @BindView(R.id.yb_v_qps)
     TextView qps;
+    @BindView(R.id.yb_v_zgbf)
+    CheckBox zgbf;
 
     MainActivity activity;
     IScanReceiver receiver;
@@ -66,6 +66,7 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     MaterialDialog noticeDialog;
     View noteView;
     TextView noteMsgView;
+    boolean sfbf = false;
 
     String cj = "";
 
@@ -96,9 +97,34 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
                 if (jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
                     MyApplication.toast(R.string.brickid_scan_first, false);
                 } else {
-                    YbProduct yb = createYb();
-                    yb.setSfbf("否");
-                    new ProcessUtil(activity).submit(submitResultReceiver, yb, userInfo.getUser());
+                    if (zgbf.isChecked()) {
+                        //如果整根报废勾选
+                        noticeDialog.show();
+                    } else {
+                        YbProduct yb = createYb();
+                        yb.setSfbf("否");
+                        new ProcessUtil(activity).submit(submitResultReceiver, yb, userInfo.getUser());
+                    }
+                }
+            }
+        });
+
+        zgbf.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if (checked) {
+                    setDisable(zb);
+                    setDisable(dp);
+                    setDisable(kxs);
+                    setDisable(dxfq);
+                    setDisable(qt);
+                    bfClear();
+                } else {
+                    setAble(zb);
+                    setAble(dp);
+                    setAble(kxs);
+                    setAble(dxfq);
+                    setAble(qt);
                 }
             }
         });
@@ -130,17 +156,6 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
             }
         });
 
-        bScrap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (jzbh.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
-                    MyApplication.toast(R.string.brickid_scan_first, false);
-                } else {
-                    noticeDialog.show();
-                }
-            }
-        });
-
         bClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,11 +166,21 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setNoKeyboard(zb);
         EditTextUtil.setNoKeyboard(dp);
         EditTextUtil.setNoKeyboard(kxs);
-        EditTextUtil.setNoKeyboard(zqbb);
         EditTextUtil.setNoKeyboard(dxfq);
         EditTextUtil.setNoKeyboard(qt);
 
         return view;
+    }
+
+    private void setDisable(EditText et) {
+        et.setFocusable(false);
+        et.setFocusableInTouchMode(false);
+    }
+
+    private void setAble(EditText et) {
+        et.setFocusableInTouchMode(true);
+        et.setFocusable(true);
+        et.requestFocus();
     }
 
     @Override
@@ -176,7 +201,6 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setTextEnd(zb, data.getVal("yb_zb"));
         EditTextUtil.setTextEnd(dp, data.getVal("yb_dp"));
         EditTextUtil.setTextEnd(kxs, data.getVal("yb_kxs"));
-        EditTextUtil.setTextEnd(zqbb, data.getVal("yb_zqbb"));
         EditTextUtil.setTextEnd(dxfq, data.getVal("yb_dxfq"));
         EditTextUtil.setTextEnd(qt, data.getVal("yb_lds"));
     }
@@ -191,7 +215,6 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         EditTextUtil.setTextEnd(zb, yb.getZb());
         EditTextUtil.setTextEnd(dp, yb.getDp());
         EditTextUtil.setTextEnd(kxs, yb.getKxs());
-        EditTextUtil.setTextEnd(zqbb, yb.getZqbb());
         EditTextUtil.setTextEnd(dxfq, yb.getDxfq());
         EditTextUtil.setTextEnd(qt, yb.getQt());
     }
@@ -212,8 +235,13 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         yb.setZb(zb.getText().toString());
         yb.setDp(dp.getText().toString());
         yb.setKxs(kxs.getText().toString());
-        yb.setZqbb(zqbb.getText().toString());
         yb.setDxfq(dxfq.getText().toString());
+
+        //根据断线放弃计算断线片数
+        double dxfqV = DataUtil.getDoubleValue(dxfq.getText().toString());
+        int dxps = new BigDecimal(dxfqV).divide(new BigDecimal(cj), 0, BigDecimal.ROUND_HALF_UP).intValue();
+        yb.setDxps(dxps + "");
+
         yb.setQps(qps.getText().toString());
         yb.setQt(qt.getText().toString());
         yb.setCode("yb");
@@ -231,11 +259,21 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
         zb.setText("");
         dp.setText("");
         kxs.setText("");
-        zqbb.setText("");
+        qps.setText("");
+        dxfq.setText("");
+        qt.setText("");
+        zgbf.setChecked(false);
+    }
+
+    public void bfClear() {
+        zb.setText("");
+        dp.setText("");
+        kxs.setText("");
         qps.setText("");
         dxfq.setText("");
         qt.setText("");
     }
+
 
     @Override
     public void serverError(Throwable e) {
@@ -245,19 +283,17 @@ public class YbFragment extends BaseTagFragment implements IScanReceiver, Proces
     /***
      * 计算切片碎
      */
-    @OnTextChanged(value = {R.id.yb_v_qt, R.id.yb_v_zb, R.id.yb_v_dp, R.id.yb_v_kxs, R.id.yb_v_zqbb, R.id.yb_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = {R.id.yb_v_qt, R.id.yb_v_zb, R.id.yb_v_dp, R.id.yb_v_kxs}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calQps() {
         double zbI = DataUtil.getDoubleValue(zb.getText().toString());
         double dpI = DataUtil.getDoubleValue(dp.getText().toString());
         double kxsI = DataUtil.getDoubleValue(kxs.getText().toString());
-        double zqbbI = DataUtil.getDoubleValue(zqbb.getText().toString());
-        double dxfqI = DataUtil.getDoubleValue(dxfq.getText().toString());
         double qtI = DataUtil.getDoubleValue(qt.getText().toString());
 
         int qpsI = 0;
 
         if (!cjError(cj)) {
-            qpsI = new BigDecimal(zbI).add(new BigDecimal(qtI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(zqbbI)).add(new BigDecimal(dxfqI)).divide(new BigDecimal(cj), 0, BigDecimal.ROUND_HALF_UP).intValue();
+            qpsI = new BigDecimal(zbI).add(new BigDecimal(qtI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).divide(new BigDecimal(cj), 0, BigDecimal.ROUND_HALF_UP).intValue();
             qps.setText((qpsI + ""));
         } else {
             qps.setText("");

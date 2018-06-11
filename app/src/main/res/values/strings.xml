@@ -120,18 +120,20 @@
     <string name="yb_l_sl">数量</string>
     <string name="yb_l_yzd">硬质点(mm)</string>
     <string name="yb_l_hbp">厚薄片(mm)</string>
-    <string name="yb_l_zb">撞棒(mm)</string>
-    <string name="yb_l_dp">掉片(mm)</string>
-    <string name="yb_l_kxs">卡线碎(mm)</string>
-    <string name="yb_l_qt">其他(mm)</string>
+    <string name="yb_l_zb">2.1 撞棒(mm)</string>
+    <string name="yb_l_dp">2.2 掉片(mm)</string>
+    <string name="yb_l_kxs">2.3 卡线碎(mm)</string>
+    <string name="yb_l_qt">2.4 其他(mm)</string>
     <string name="yb_l_zqbb">整齐崩边(mm)</string>
-    <string name="yb_l_dxfq">断线放弃(mm)</string>
+    <string name="yb_l_dxfq">1.2 断线放弃(mm)</string>
     <string name="yb_b_submit">提交</string>
     <string name="yb_b_clear">清空</string>
     <string name="yb_b_scrap">报废</string>
-    <string name="yb_l_qps">切片碎(片)</string>
+    <string name="yb_l_qps">2.5 切片碎(片)</string>
     <string name="no_cj">槽距数据错误</string>
     <string name="scrap_confirm">确定报废该晶砖?</string>
+    <string name="yb_l_zgbf">1.1 整根报废</string>
+
 
     <!--清洗-->
     <string name="qx_l_llcps">理论出片数</string>
@@ -158,15 +160,15 @@
     <string name="qgsfh_l_sl">数量</string>
     <string name="qgsfh_l_yzd">硬质点(片)</string>
     <string name="qgsfh_l_hbp">厚薄片(片)</string>
-    <string name="qgsfh_l_zb">撞棒(片)</string>
-    <string name="qgsfh_l_dp">掉片(片)</string>
-    <string name="qgsfh_l_kxs">卡线碎(片)</string>
-    <string name="qgsfh_l_qt">其他(片)</string>
+    <string name="qgsfh_l_zb">2.1 撞棒(片)</string>
+    <string name="qgsfh_l_dp">2.2 掉片(片)</string>
+    <string name="qgsfh_l_kxs">2.3 卡线碎(片)</string>
+    <string name="qgsfh_l_qt">2.4 其他(片)</string>
     <string name="qgsfh_l_zqbb">整齐崩边(片)</string>
-    <string name="qgsfh_l_dxfq">断线放弃(片)</string>
+    <string name="qgsfh_l_dxfq">1.1 断线放弃(片)</string>
     <string name="qgsfh_b_submit">提交</string>
     <string name="qgsfh_b_clear">清空</string>
-    <string name="qgsfh_l_qps">切片碎(片)</string>
+    <string name="qgsfh_l_qps">2.5 切片碎(片)</string>
 
     <!--装箱-->
     <string name="zx_b_scan_xz">扫描箱子</string>

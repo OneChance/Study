@@ -48,8 +48,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     EditText kxs;
     @BindView(R.id.qgsfh_v_qt)
     EditText qt;
-    @BindView(R.id.qgsfh_v_zqbb)
-    EditText zqbb;
     @BindView(R.id.qgsfh_v_dxfq)
     EditText dxfq;
     @BindView(R.id.qgsfh_v_qps)
@@ -105,7 +103,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         EditTextUtil.setNoKeyboard(zb);
         EditTextUtil.setNoKeyboard(dp);
         EditTextUtil.setNoKeyboard(kxs);
-        EditTextUtil.setNoKeyboard(zqbb);
         EditTextUtil.setNoKeyboard(dxfq);
         EditTextUtil.setNoKeyboard(qt);
 
@@ -130,7 +127,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
             EditTextUtil.setTextEnd(zb, calWithCj(data.getRelValWithRes("yb", "qgs", "zb")));
             EditTextUtil.setTextEnd(dp, calWithCj(data.getRelValWithRes("yb", "qgs", "dp")));
             EditTextUtil.setTextEnd(kxs, calWithCj(data.getRelValWithRes("yb", "qgs", "kxs")));
-            EditTextUtil.setTextEnd(zqbb, calWithCj(data.getRelValWithRes("yb", "qgs", "zqbb")));
             EditTextUtil.setTextEnd(dxfq, calWithCj(data.getRelValWithRes("yb", "qgs", "dxfq")));
             EditTextUtil.setTextEnd(qt, calWithCj(data.getRelValWithRes("yb", "qgs", "lds")));
         }
@@ -146,7 +142,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         EditTextUtil.setTextEnd(zb, qgsfh.getZb());
         EditTextUtil.setTextEnd(dp, qgsfh.getDp());
         EditTextUtil.setTextEnd(kxs, qgsfh.getKxs());
-        EditTextUtil.setTextEnd(zqbb, qgsfh.getZqbb());
         EditTextUtil.setTextEnd(dxfq, qgsfh.getDxfq());
         EditTextUtil.setTextEnd(qt, qgsfh.getQt());
     }
@@ -167,7 +162,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         qgsfh.setZb(zb.getText().toString());
         qgsfh.setDp(dp.getText().toString());
         qgsfh.setKxs(kxs.getText().toString());
-        qgsfh.setZqbb(zqbb.getText().toString());
         qgsfh.setQps(qps.getText().toString());
         qgsfh.setDxfq(dxfq.getText().toString());
         qgsfh.setQt(qt.getText().toString());
@@ -185,7 +179,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         zb.setText("");
         dp.setText("");
         kxs.setText("");
-        zqbb.setText("");
         qps.setText("");
         dxfq.setText("");
         qt.setText("");
@@ -199,15 +192,14 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     /***
      * 计算切片碎
      */
-    @OnTextChanged(value = {R.id.qgsfh_v_qt, R.id.qgsfh_v_zb, R.id.qgsfh_v_dp, R.id.qgsfh_v_kxs, R.id.qgsfh_v_zqbb, R.id.qgsfh_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = {R.id.qgsfh_v_qt, R.id.qgsfh_v_zb, R.id.qgsfh_v_dp, R.id.qgsfh_v_kxs, R.id.qgsfh_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calQps() {
         int zbI = DataUtil.getIntValue(zb.getText().toString());
         int dpI = DataUtil.getIntValue(dp.getText().toString());
         int kxsI = DataUtil.getIntValue(kxs.getText().toString());
-        int zqbbI = DataUtil.getIntValue(zqbb.getText().toString());
         int dxfqI = DataUtil.getIntValue(dxfq.getText().toString());
         int qtI = DataUtil.getIntValue(qt.getText().toString());
-        int qpsI = new BigDecimal(zbI).add(new BigDecimal(qtI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(zqbbI)).add(new BigDecimal(dxfqI)).intValue();
+        int qpsI = new BigDecimal(zbI).add(new BigDecimal(qtI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(dxfqI)).intValue();
 
         qps.setText((qpsI + ""));
     }
@@ -225,7 +217,7 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
                 if (res[0].equals("")) {
                     res[0] = "0";
                 }
-                return new BigDecimal(res[0]).divide(new BigDecimal(cj), BigDecimal.ROUND_HALF_UP).toString();
+                return new BigDecimal(res[0]).divide(new BigDecimal(cj), 0, BigDecimal.ROUND_HALF_UP).toString();
             }
         }
         return "";

@@ -14,8 +14,6 @@ public class QgsfhProduct extends ProcessBase {
     private String dp;
     @ItemCol(col = "kxs")
     private String kxs;
-    @ItemCol(col = "zqbb")
-    private String zqbb;
     @ItemCol(col = "qps")
     private String qps;
     @ItemCol(col = "dxfq")
@@ -53,14 +51,6 @@ public class QgsfhProduct extends ProcessBase {
 
     public void setKxs(String kxs) {
         this.kxs = DataProcessor.NumberNotNull(kxs);
-    }
-
-    public String getZqbb() {
-        return zqbb;
-    }
-
-    public void setZqbb(String zqbb) {
-        this.zqbb = DataProcessor.NumberNotNull(zqbb);
     }
 
     public String getBrickId() {
