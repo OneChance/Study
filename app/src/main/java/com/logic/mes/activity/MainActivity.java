@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements IMain {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.getWindow().setFlags(MyApplication.FLAG_HOMEKEY_DISPATCHED, MyApplication.FLAG_HOMEKEY_DISPATCHED);
         setContentView(R.layout.mainpage);
         ButterKnife.bind(this);
         context = this;
@@ -213,5 +214,10 @@ public class MainActivity extends AppCompatActivity implements IMain {
             submitStatus.setTextColor(getResources().getColor(R.color.error));
         }
         submitStatus.setText(text);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return keyCode == KeyEvent.KEYCODE_HOME || super.onKeyDown(keyCode, event);
     }
 }

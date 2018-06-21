@@ -25,6 +25,7 @@ public class MyApplication extends Application {
     //是否开启离线保存 自动提交功能
     public static boolean offlineAble = false;
     public static String product;
+    public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000;
 
     @Override
     public void onCreate() {

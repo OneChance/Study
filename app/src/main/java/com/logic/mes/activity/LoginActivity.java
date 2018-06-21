@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +58,7 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().setFlags(MyApplication.FLAG_HOMEKEY_DISPATCHED, MyApplication.FLAG_HOMEKEY_DISPATCHED);
         setContentView(R.layout.login);
         context = this;
         receiver = this;
@@ -177,5 +179,10 @@ public class LoginActivity extends Activity implements IScanReceiver, LoginObser
     public void onBackPressed() {
         //不允许退出程序
         //MyApplication.exit();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return keyCode == KeyEvent.KEYCODE_HOME || super.onKeyDown(keyCode, event);
     }
 }
