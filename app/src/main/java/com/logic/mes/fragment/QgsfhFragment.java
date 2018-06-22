@@ -48,8 +48,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     EditText kxs;
     @BindView(R.id.qgsfh_v_qt)
     EditText qt;
-    @BindView(R.id.qgsfh_v_dxfq)
-    EditText dxfq;
     @BindView(R.id.qgsfh_v_qps)
     TextView qps;
     String cj = "";
@@ -103,7 +101,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         EditTextUtil.setNoKeyboard(zb);
         EditTextUtil.setNoKeyboard(dp);
         EditTextUtil.setNoKeyboard(kxs);
-        EditTextUtil.setNoKeyboard(dxfq);
         EditTextUtil.setNoKeyboard(qt);
 
         return view;
@@ -127,7 +124,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
             EditTextUtil.setTextEnd(zb, calWithCj(data.getRelValWithRes("yb", "qgs", "zb")));
             EditTextUtil.setTextEnd(dp, calWithCj(data.getRelValWithRes("yb", "qgs", "dp")));
             EditTextUtil.setTextEnd(kxs, calWithCj(data.getRelValWithRes("yb", "qgs", "kxs")));
-            EditTextUtil.setTextEnd(dxfq, calWithCj(data.getRelValWithRes("yb", "qgs", "dxfq")));
             EditTextUtil.setTextEnd(qt, calWithCj(data.getRelValWithRes("yb", "qgs", "lds")));
         }
     }
@@ -142,7 +138,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         EditTextUtil.setTextEnd(zb, qgsfh.getZb());
         EditTextUtil.setTextEnd(dp, qgsfh.getDp());
         EditTextUtil.setTextEnd(kxs, qgsfh.getKxs());
-        EditTextUtil.setTextEnd(dxfq, qgsfh.getDxfq());
         EditTextUtil.setTextEnd(qt, qgsfh.getQt());
     }
 
@@ -163,7 +158,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         qgsfh.setDp(dp.getText().toString());
         qgsfh.setKxs(kxs.getText().toString());
         qgsfh.setQps(qps.getText().toString());
-        qgsfh.setDxfq(dxfq.getText().toString());
         qgsfh.setQt(qt.getText().toString());
         return qgsfh;
     }
@@ -180,7 +174,6 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
         dp.setText("");
         kxs.setText("");
         qps.setText("");
-        dxfq.setText("");
         qt.setText("");
     }
 
@@ -192,14 +185,13 @@ public class QgsfhFragment extends BaseTagFragment implements IScanReceiver, Ser
     /***
      * 计算切片碎
      */
-    @OnTextChanged(value = {R.id.qgsfh_v_qt, R.id.qgsfh_v_zb, R.id.qgsfh_v_dp, R.id.qgsfh_v_kxs, R.id.qgsfh_v_dxfq}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = {R.id.qgsfh_v_qt, R.id.qgsfh_v_zb, R.id.qgsfh_v_dp, R.id.qgsfh_v_kxs}, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void calQps() {
         int zbI = DataUtil.getIntValue(zb.getText().toString());
         int dpI = DataUtil.getIntValue(dp.getText().toString());
         int kxsI = DataUtil.getIntValue(kxs.getText().toString());
-        int dxfqI = DataUtil.getIntValue(dxfq.getText().toString());
         int qtI = DataUtil.getIntValue(qt.getText().toString());
-        int qpsI = new BigDecimal(zbI).add(new BigDecimal(qtI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).add(new BigDecimal(dxfqI)).intValue();
+        int qpsI = new BigDecimal(zbI).add(new BigDecimal(qtI)).add(new BigDecimal(dpI)).add(new BigDecimal(kxsI)).intValue();
 
         qps.setText((qpsI + ""));
     }

@@ -16,18 +16,8 @@ public class QgsfhProduct extends ProcessBase {
     private String kxs;
     @ItemCol(col = "qps")
     private String qps;
-    @ItemCol(col = "dxfq")
-    private String dxfq;
     @ItemCol(col = "lds")
     private String qt;
-
-    public String getDxfq() {
-        return dxfq;
-    }
-
-    public void setDxfq(String dxfq) {
-        this.dxfq = DataProcessor.NumberNotNull(dxfq);
-    }
 
     public String getZb() {
         return zb;
