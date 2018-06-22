@@ -16,8 +16,18 @@ public class ScanUtil {
     ScanUtil(Context context) {
         this.context = context;
 
-
-        if (MyApplication.product.equals("msm8610")) {
+        if (MyApplication.product.equals("CT50")) {
+            mFilter = new IntentFilter("com.android.service_scanner_appdata");
+            mReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    if ("com.android.service_scanner_appdata".equals(intent.getAction())) {
+                        String scanResult = intent.getStringExtra("data");
+                        receiver.scanReceive(scanResult, scanCode);
+                    }
+                }
+            };
+        } else {
             mFilter = new IntentFilter("ACTION_BAR_SCAN");
             mReceiver = new BroadcastReceiver() {
                 @Override
@@ -28,17 +38,6 @@ public class ScanUtil {
                         receiver.scanReceive(scanResult, scanCode);
                     } else {
                         receiver.scanError();
-                    }
-                }
-            };
-        } else if (MyApplication.product.equals("CT50")) {
-            mFilter = new IntentFilter("com.android.service_scanner_appdata");
-            mReceiver = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    if ("com.android.service_scanner_appdata".equals(intent.getAction())) {
-                        String scanResult = intent.getStringExtra("data");
-                        receiver.scanReceive(scanResult, scanCode);
                     }
                 }
             };
