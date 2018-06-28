@@ -15,8 +15,8 @@ android {
         applicationId "com.logic.mes"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 45
-        versionName "45"
+        versionCode 48
+        versionName "48"
     }
     buildTypes {
         release {

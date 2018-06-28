@@ -16,6 +16,7 @@ import com.logic.mes.MyApplication;
 import com.logic.mes.ProcessUtil;
 import com.logic.mes.R;
 import com.logic.mes.activity.MainActivity;
+import com.logic.mes.dialog.MaterialDialog;
 import com.logic.mes.entity.process.SzbProduct;
 import com.logic.mes.entity.server.ServerResult;
 import com.logic.mes.net.NetUtil;
@@ -56,6 +57,9 @@ public class SzbFragment extends BaseTagFragment implements IScanReceiver, Serve
     ServerObserver serverObserver;
     ProcessUtil.SubmitResultReceiver submitResultReceiver;
     View view;
+    MaterialDialog noticeDialog;
+    View noteView;
+    TextView noteMsgView;
 
     boolean visible = false;
 
@@ -79,15 +83,41 @@ public class SzbFragment extends BaseTagFragment implements IScanReceiver, Serve
         serverObserver = new ServerObserver(this, "cszb", activity);
         submitResultReceiver = this;
 
+        noticeDialog = new MaterialDialog(activity);
+
+        noteView = View.inflate(activity, R.layout.dialog_msg, null);
+        noteMsgView = (TextView) noteView.findViewById(R.id.dialog_msg_content);
+        noteMsgView.setSingleLine(false);
+        noteMsgView.setText(activity.getResources().getString(R.string.szb_gw_note));
+        noticeDialog.setTitle(R.string.notice);
+        noticeDialog.setContentView(noteView);
+
+        noticeDialog.setPositiveButton(R.string.yes, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ProcessUtil(activity).submit(submitResultReceiver, createSzb(), userInfo.getUser());
+                noticeDialog.dismiss(view);
+            }
+        });
+
+        noticeDialog.setNegativeButton(R.string.no, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noticeDialog.dismiss(view);
+            }
+        });
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (brickId.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
                     MyApplication.toast(R.string.brickid_scan_first, false);
                 } else {
-                    SzbProduct szb = createSzb();
-                    szb.setCode("cszb");
-                    new ProcessUtil(activity).submit(submitResultReceiver, szb, userInfo.getUser());
+                    if (gw.getText().toString().equals("1中")) {
+                        noticeDialog.show();
+                    } else {
+                        new ProcessUtil(activity).submit(submitResultReceiver, createSzb(), userInfo.getUser());
+                    }
                 }
             }
         });
@@ -135,6 +165,7 @@ public class SzbFragment extends BaseTagFragment implements IScanReceiver, Serve
         }
 
         szb.setCcwz(ccwz);
+        szb.setCode("cszb");
 
         return szb;
     }
