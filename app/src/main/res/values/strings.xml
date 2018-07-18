@@ -315,4 +315,5 @@
     <string name="szb_b_submit">提交</string>
     <string name="szb_b_clear">清空</string>
     <string name="szb_gw_note">工位为1中,是否确认提交?</string>
+    <string name="szb_qgbh_check">非271机型,不可操作!</string>
 </resources>

@@ -113,10 +113,14 @@ public class SzbFragment extends BaseTagFragment implements IScanReceiver, Serve
                 if (brickId.getText().toString().equals(MyApplication.getResString(R.string.wait_scan))) {
                     MyApplication.toast(R.string.brickid_scan_first, false);
                 } else {
-                    if (gw.getText().toString().equals("1中")) {
-                        noticeDialog.show();
+                    if (!qgbh.getText().toString().contains("C271") && !qgbh.getText().toString().contains("H271")) {
+                        MyApplication.toast(R.string.szb_qgbh_check, false);
                     } else {
-                        new ProcessUtil(activity).submit(submitResultReceiver, createSzb(), userInfo.getUser());
+                        if (gw.getText().toString().equals("1中")) {
+                            noticeDialog.show();
+                        } else {
+                            new ProcessUtil(activity).submit(submitResultReceiver, createSzb(), userInfo.getUser());
+                        }
                     }
                 }
             }
