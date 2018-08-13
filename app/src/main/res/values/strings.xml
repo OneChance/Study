@@ -197,7 +197,7 @@
     <string name="piece_not_full">未满1600片是否装箱?</string>
     <string name="case_infos">等级:%1$s,尺寸:%2$s,单包:%3$s</string>
     <string name="case_info_diff">扫描此条码的等级:%1$s,尺寸:%2$s,单包:%3$s，与当前列表中的不一致</string>
-    <string name="case_name_error">箱号必须以字母C开头</string>
+    <string name="case_name_error">箱号必须以字母C开头或者包含-C</string>
 
     <!--装托-->
     <string name="zt_b_scan_xz">扫描箱子</string>
@@ -217,7 +217,7 @@
     <string name="zt_dj_diff">箱子等级必须一致</string>
     <string name="t_infos">等级:%1$s,尺寸:%2$s,单包:%3$s</string>
     <string name="t_info_diff">扫描此条码的等级:%1$s,尺寸:%2$s与当前列表中的不一致</string>
-    <string name="t_name_error">托号必须以字母P开头</string>
+    <string name="t_name_error">托号必须以字母P开头或者包含-P</string>
 
     <!--入库-->
     <string name="rk_b_scan_tm">扫描条码</string>

@@ -172,7 +172,7 @@ public class ZtFragment extends BaseTagFragment implements ZtListAdapter.ButtonC
         ProcessItem item = new ProcessItem();
 
         if (scanCode == SCAN_CODE_TH) {
-            if (!res.startsWith("P")) {
+            if (!res.startsWith("P") && !res.contains("-P")) {
                 MyApplication.toast(R.string.t_name_error, false);
             } else {
                 thHead.setText(res);

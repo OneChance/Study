@@ -212,7 +212,7 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
         ProcessItem item = new ProcessItem();
 
         if (scanCode == SCAN_CODE_XZ) {
-            if (!res.startsWith("C")) {
+            if (!res.startsWith("C") && !res.contains("-C")) {
                 MyApplication.toast(R.string.case_name_error, false);
             } else {
                 xhHead.setText(res);
