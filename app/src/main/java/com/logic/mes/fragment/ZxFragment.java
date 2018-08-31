@@ -385,12 +385,12 @@ public class ZxFragment extends BaseTagFragment implements ZxListAdapter.ButtonC
 
     @Override
     public void preventSubmit() {
-
+        submit.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void ableSubmit() {
-
+        submit.setVisibility(View.VISIBLE);
     }
 
     public boolean levelDiff(String level) {
