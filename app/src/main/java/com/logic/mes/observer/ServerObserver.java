@@ -43,7 +43,11 @@ public class ServerObserver implements Observer<ServerResult> {
             noticeDialog.setPositiveButton(R.string.yes, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    receiver.serverData();
+                    try {
+                        receiver.serverData();
+                    } catch (Exception e) {
+                        MyApplication.toast(e.getMessage(), false);
+                    }
                     noticeDialog.dismiss(view);
                 }
             });
@@ -113,7 +117,7 @@ public class ServerObserver implements Observer<ServerResult> {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            MyApplication.toast(e.getMessage(), false);
         }
     }
 
