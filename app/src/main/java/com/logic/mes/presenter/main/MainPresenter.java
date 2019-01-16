@@ -9,13 +9,9 @@ import com.logic.mes.fragment.BaseTagFragment;
 import com.logic.mes.fragment.FragmentFactory;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MainPresenter {
     private IMain iMain;
-    private Thread autoSubmit;
-    private ExecutorService cachedThreadPool;
     private Thread timeingSubmit;
     private Context context;
 
@@ -24,11 +20,10 @@ public class MainPresenter {
         this.context = context;
 
         if (MyApplication.offlineAble) {
-            cachedThreadPool = Executors.newCachedThreadPool();
             timeingSubmit = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    while (true) {
+                    while (MyApplication.netAble) {
                         DataAutoSubmit.getInstance().autoSubmit(context);
                         try {
                             Thread.sleep(30 * 60 * 1000);
@@ -49,19 +44,14 @@ public class MainPresenter {
 
     public void autoSubmitData() {
         if (MyApplication.offlineAble) {
-            cachedThreadPool.execute(new Runnable() {
-                public void run() {
-                    DataAutoSubmit.getInstance().autoSubmit(context);
-                }
-            });
+            DataAutoSubmit.getInstance().autoSubmit(context);
         }
     }
 
     public void stopSubmitData() {
         if (MyApplication.offlineAble) {
+            DataAutoSubmit.getInstance().shutdownPool();
             timeingSubmit.interrupt();
-            cachedThreadPool.shutdownNow();
         }
     }
-
 }
