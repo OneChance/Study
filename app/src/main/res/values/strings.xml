@@ -60,6 +60,7 @@
     <string name="jb_tab_name">解棒</string>
     <string name="yb_tab_name">验棒</string>
     <string name="qx_tab_name">清洗</string>
+    <string name="fgqx_tab_name">返工清洗</string>
     <string name="qgsfh_tab_name">切割碎复核</string>
     <string name="zx_tab_name">装箱</string>
     <string name="zt_tab_name">装托</string>
@@ -316,4 +317,15 @@
     <string name="szb_b_clear">清空</string>
     <string name="szb_gw_note">工位为1中,是否确认提交?</string>
     <string name="szb_qgbh_check">非271机型,不可操作!</string>
+
+
+    <!--返工清洗-->
+    <string name="fgqx_l_ph">批号</string>
+    <string name="fgqx_l_cpzps">插片总片数</string>
+    <string name="fgqx_l_qxzps">清洗总片数</string>
+    <string name="fgqx_l_qxs">清洗碎</string>
+    <string name="fgqx_l_qxsbs">清洗设备碎</string>
+    <string name="fgqx_l_qxzsp">清洗总碎片</string>
+    <string name="batch_scan_first">请先扫描批号</string>
+    <string name="data_error">数据不能小于0</string>
 </resources>

@@ -82,12 +82,19 @@ public class ProcessUtil implements ServerObserver.ServerDataReceiver {
         processToSubmit = processSubmit;
 
         if (MyApplication.netAble) {
-            if (processSubmit.getProduceCode().equals("jb")) {
-                NetUtil.SetObserverCommonAction(NetUtil.getServices(false).cancelBrickGroup(processSubmit))
-                        .subscribe(serverObserver);
-            } else {
-                NetUtil.SetObserverCommonAction(NetUtil.getServices(false).brickSubmit(processSubmit))
-                        .subscribe(serverObserver);
+            switch (processSubmit.getProduceCode()) {
+                case "jb":
+                    NetUtil.SetObserverCommonAction(NetUtil.getServices(false).cancelBrickGroup(processSubmit))
+                            .subscribe(serverObserver);
+                    break;
+                case "fgqx":
+                    NetUtil.SetObserverCommonAction(NetUtil.getServices(false).fanGongSubmit(processSubmit))
+                            .subscribe(serverObserver);
+                    break;
+                default:
+                    NetUtil.SetObserverCommonAction(NetUtil.getServices(false).brickSubmit(processSubmit))
+                            .subscribe(serverObserver);
+                    break;
             }
         } else {
             DBHelper.getInstance(context).save(processSubmit);

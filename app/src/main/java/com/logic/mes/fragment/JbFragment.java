@@ -166,6 +166,9 @@ public class JbFragment extends BaseTagFragment implements IScanReceiver, Proces
                 jbDetail.setLength(bag.get("pbj_yxbc"));
                 jbDetail.setSfbf(MyApplication.getResString(R.string.no));
                 jb.getJbDetailList().add(jbDetail);
+                if(jb.getGroupId()==null){
+                    jb.setGroupId(bag.get("ej_groupId"));
+                }
             }
         }
 

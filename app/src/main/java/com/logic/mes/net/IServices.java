@@ -24,6 +24,13 @@ public interface IServices {
     public Observable<ServerResult> getBrickInfo(@Field("brickId") String brickId, @Field("produceCode") String produceCode);
 
     @FormUrlEncoded
+    @POST("intface/getfangonginfo/")
+    public Observable<ServerResult> getFanGongInfo(@Field("batchNo") String batchNo, @Field("produceCode") String produceCode);
+
+    @POST("intface/fangongsubmit/")
+    public Observable<ServerResult> fanGongSubmit(@Body ProcessSubmit data);
+
+    @FormUrlEncoded
     @POST("intface/getbrickgroup/")
     public Observable<ServerResult> getBrickGroup(@Field("brickId") String brickId, @Field("produceCode") String produceCode);
 
