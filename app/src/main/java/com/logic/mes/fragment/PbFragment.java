@@ -290,21 +290,18 @@ public class PbFragment extends BaseTagFragment implements PbListAdapter.ButtonC
 
     @Override
     public void serverData() {
-        String yxbc = data.getVal("pbj_yxbc");
+
         String cc = data.getVal("pbj_cc");
         String jglx = data.getVal("ej_jglx");
         String gylx = data.getVal("ej_gylx");
         String cplx = data.getVal("ej_cplx");
-        String bb = data.getRelValWithRes("ej", "pbj", "bb")[0];
-        if (yxbc.equals("")) {
-            yxbc = "0";
-        }
-        if (bb.equals("")) {
-            bb = "0";
+        String zdbc = data.getVal("pbj_zdbc"); //length
+
+        if (cc == null || cc.equals("")) {
+            cc = "0";
         }
 
-        String length = new BigDecimal(yxbc).add(new BigDecimal(bb)).toString();
-        addRow(data.getVal("ej_BrickID"), data.getVal("ej_jzdj"), length, Double.parseDouble(cc), jglx, gylx, cplx);
+        addRow(data.getVal("ej_BrickID"), data.getVal("ej_jzdj"), zdbc, Double.parseDouble(cc), jglx, gylx, cplx);
     }
 
     @Override

@@ -14,6 +14,8 @@
     <string name="logining">登录中</string>
     <string name="need_emp_no">请输入员工号</string>
     <string name="scan_emp_no">扫描员工号</string>
+    <string name="gongxu">工序</string>
+    <string name="pandian">盘点</string>
     <string name="emp_no">员工号</string>
     <string name="emp_info_error">员工信息错误</string>
     <string name="app_name">MES</string>
@@ -54,6 +56,7 @@
     <string name="unit_piece">片</string>
 
 
+    <string name="pandian_tab_name">盘点</string>
     <string name="szb_tab_name">超树脂板</string>
     <string name="pbj_tab_name">配棒检</string>
     <string name="pb_tab_name">配棒</string>
@@ -328,4 +331,13 @@
     <string name="fgqx_l_qxzsp">清洗总碎片</string>
     <string name="batch_scan_first">请先扫描批号</string>
     <string name="data_error">数据不能小于0</string>
+
+    <!--盘点-->
+    <string name="pandian_workshop">盘点车间</string>
+    <string name="pandian_sequence_num">序号</string>
+    <string name="pandian_brickid">晶体编号</string>
+    <string name="pandian_weight">自盘重量</string>
+    <string name="pandian_submit">提交</string>
+    <string name="pandian_clear">清空</string>
+    <string name="pandian_weight_error">重量数据异常</string>
 </resources>

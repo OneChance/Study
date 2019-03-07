@@ -26,35 +26,39 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/pb_v_station"
+            android:id="@+id/pandian_v_sequence_num"
             style="@style/font_value"
             android:layout_width="0dp"
             android:text=""
             app:layout_widthPercent="18%" />
 
         <TextView
-            android:id="@+id/pb_brick_id"
+            android:id="@+id/pandian_v_brickid"
             style="@style/font_value"
             android:layout_width="0dp"
             android:text=""
-            android:layout_toRightOf="@+id/pb_v_station"
+            android:layout_toRightOf="@+id/pandian_v_sequence_num"
             android:lines="2"
             app:layout_widthPercent="46%" />
 
-        <TextView
-            android:id="@+id/pb_length"
-            style="@style/font_value"
-            android:layout_width="0dp"
-            android:layout_toRightOf="@+id/pb_brick_id"
-            android:text=""
-            app:layout_widthPercent="18%" />
+        <LinearLayout
+            android:id="@+id/pandian_v_weight_wrapper"
+            style="@style/edit_text_wrapper"
+            android:layout_toRightOf="@+id/pandian_v_brickid"
+            app:layout_widthPercent="18%">
 
-        <TextView
-            android:id="@+id/pb_level"
-            style="@style/font_value"
-            android:layout_width="0dp"
-            android:layout_toRightOf="@+id/pb_length"
-            android:text=""
-            app:layout_widthPercent="18%" />
+            <EditText
+                android:id="@+id/pandian_v_weight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/text"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </android.support.percent.PercentRelativeLayout>
 </FrameLayout>

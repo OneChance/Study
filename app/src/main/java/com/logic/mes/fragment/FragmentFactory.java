@@ -23,6 +23,7 @@ public class FragmentFactory {
     private ByFragment byFragment;
     private SzbFragment szbFragment;
     private FgqxFragment fgqxFragment;
+    private PandianFragment pandianFragment;
 
     private static FragmentFactory fragmentFactory;
 
@@ -76,6 +77,8 @@ public class FragmentFactory {
                 return (szbFragment == null ? szbFragment = new SzbFragment() : szbFragment);
             case "fgqx":
                 return (fgqxFragment == null ? fgqxFragment = new FgqxFragment() : fgqxFragment);
+            case "pandian":
+                return (pandianFragment == null ? pandianFragment = new PandianFragment() : pandianFragment);
             default:
                 return new BaseTagFragment();
         }
