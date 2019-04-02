@@ -14,9 +14,10 @@ android {
     defaultConfig {
         applicationId "com.logic.mes"
         minSdkVersion 16
+        //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 22
-        versionCode 56
-        versionName "56"
+        versionCode 57
+        versionName "57"
     }
     buildTypes {
         release {
@@ -29,6 +30,7 @@ android {
 dependencies {
     implementation files('libs/lite-orm-1.9.1.jar')
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    //noinspection GradleCompatible
     implementation 'com.android.support:percent:22.2.0'
     implementation 'com.squareup.okhttp3:okhttp:3.3.1'
     implementation 'com.android.support:appcompat-v7:22.1.0'
